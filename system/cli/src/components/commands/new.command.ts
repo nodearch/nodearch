@@ -91,7 +91,7 @@ export class NewCommand implements ICLI {
 
       writeStream.on('error', err => reject(err));
       
-      writeStream.on('finish', () => resolve());
+      writeStream.on('finish', () => resolve(true));
     });
 
     return downloadPath;

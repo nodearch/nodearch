@@ -71,7 +71,7 @@ export class NpmService {
     }
   } 
 
-  private runNpmCommand(args: string[], location: string) {
+  private runNpmCommand(args: string[], location: string): Promise<void> {
     return new Promise((resolve, reject) => {
 
       const childProcess = spawn(this.npmCli, args, { stdio: 'ignore', cwd: location });
