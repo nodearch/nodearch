@@ -1,0 +1,32 @@
+{
+  "name": "nodearch-app",
+  "version": "0.1.0",
+  "description": "",
+  "main": "./dist/main.js",
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "start": "node dist/start.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.9",
+    "@types/node": "^14.0.13",
+    "@types/supertest": "^2.0.10",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.1.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.9.5",
+    "rimraf": "~3.0.2"
+  },
+  "dependencies": {
+    "@nodearch/core": "^1.0.0-beta.21",
+    "@nodearch/express": "^1.0.0-beta.12",
+    "express": "^4.17.1",
+    "reflect-metadata": "^0.1.13"
+  }
+}

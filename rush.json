@@ -465,6 +465,12 @@
       "projectFolder": "security/vault",
       "reviewCategory": "production",
       "versionPolicyName": "nodearchPackages"
+    },
+    {
+      "packageName": "@nodearch/template-app",
+      "projectFolder": "template/app",
+      "reviewCategory": "tools",
+      "shouldPublish": false
     }
   ]
 }
