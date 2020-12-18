@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/express",
+      "comment": "test deploy",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/express",
+  "email": "bluemax7o1@gmail.com"
+}
