@@ -24,8 +24,8 @@
     "rimraf": "~3.0.2"
   },
   "dependencies": {
-    "@nodearch/core": "^1.0.0",
-    "@nodearch/express": "^1.0.0",
+    "@nodearch/core": "^1.1.0",
+    "@nodearch/express": "^1.1.0",
     "express": "^4.17.1",
     "reflect-metadata": "^0.1.13"
   }
