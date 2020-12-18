@@ -2,6 +2,20 @@
   "name": "@nodearch/express",
   "entries": [
     {
+      "version": "1.1.2",
+      "tag": "@nodearch/express_v1.1.2",
+      "date": "Fri, 18 Dec 2020 20:34:26 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "test deploy",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "d30995688cb17a5dc11e02c6649d4581c9019838"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.1",
       "tag": "@nodearch/express_v1.1.1",
       "date": "Fri, 18 Dec 2020 18:50:42 GMT",
