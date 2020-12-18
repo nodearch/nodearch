@@ -33,6 +33,5 @@ jobs:
         node common/scripts/install-run-rush.js publish
         --target-branch master
         --set-access-level public
-        --tag beta
         --npm-auth-token ${{ secrets.NPM_AUTH_TOKEN }}
         --apply --publish --add-commit-details

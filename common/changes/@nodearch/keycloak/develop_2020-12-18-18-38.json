@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/keycloak",
+      "comment": "bump version",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@nodearch/keycloak",
+  "email": "bluemax7o1@gmail.com"
+}
