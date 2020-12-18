@@ -1,0 +1,39 @@
+{
+  "name": "@nodearch/express",
+  "entries": [
+    {
+      "version": "1.1.0",
+      "tag": "@nodearch/express_v1.1.0",
+      "date": "Fri, 18 Dec 2020 18:46:32 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "test deploy",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "59b39115dcb4345250fd69fbf2fd8befc60ceb90"
+          },
+          {
+            "comment": "test deploy",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "471cc92f84a704519c8e0b9ea96c20d2c17cefc2"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "bump version",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "2c8e7883711d0b3633b94c62944f5fb3ec4516d3"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^1.0.0` to `^1.1.0`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `1.x` to `1.1.0`"
+          }
+        ]
+      }
+    }
+  ]
+}
