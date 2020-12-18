@@ -1,0 +1,44 @@
+{
+  "name": "@nodearch/keycloak",
+  "version": "1.0.0-beta.9",
+  "description": "keycloak extension for nodearch",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "release": "npm run build && npm publish --tag beta --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluemax-io/nodearch.git"
+  },
+  "keywords": [
+    "nodearch",
+    "nodearch-keycloak"
+  ],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bluemax-io/nodearch/issues",
+    "email": "bluemax7o1@gmail.com"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.7.0",
+    "query-string": "^6.11.1",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8"
+  },
+  "devDependencies": {
+    "@nodearch/core": "^1.0.0-beta.9",
+    "reflect-metadata": "^0.1.13",
+    "@types/jsonwebtoken": "^8.3.7",
+    "@types/node": "^12.0.8",
+    "@types/request-promise-native": "^1.0.17",
+    "typescript": "^3.7.5",
+    "rimraf": "~3.0.2"
+  },
+  "peerDependencies": {
+    "@nodearch/core": "1.0.0-beta.x",
+    "reflect-metadata": "0.x"
+  }
+}

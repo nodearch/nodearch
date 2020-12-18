@@ -1,0 +1,39 @@
+{
+  "name": "@nodearch/vault",
+  "version": "1.0.0-beta.9",
+  "description": "vault extension for nodearch",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "release": "npm run build && npm publish --tag beta --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluemax-io/nodearch.git"
+  },
+  "keywords": [
+    "nodearch",
+    "nodearch-vault"
+  ],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bluemax-io/nodearch/issues",
+    "email": "bluemax7o1@gmail.com"
+  },
+  "dependencies": {
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8"
+  },
+  "devDependencies": {
+    "@nodearch/core": "^1.0.0-beta.9",
+    "reflect-metadata": "^0.1.13",
+    "@types/node": "^12.0.8",
+    "@types/request-promise-native": "^1.0.17",
+    "typescript": "^3.7.5"
+  },
+  "peerDependencies": {
+    "@nodearch/core": "1.0.0-beta.x",
+    "reflect-metadata": "0.x"
+  }
+}

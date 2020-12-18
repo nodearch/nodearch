@@ -436,17 +436,35 @@
     //   "projectFolder": "tools/my-toolchain",
     //   "reviewCategory": "tools"
     // }
-    // {
-    //   "packageName": "@mono-lab/one",
-    //   "projectFolder": "apps/one",
-    //   "reviewCategory": "production",
-    //   "shouldPublish": true
-    // },
-    // {
-    //   "packageName": "@mono-lab/two",
-    //   "projectFolder": "apps/two",
-    //   "reviewCategory": "production",
-    //   "shouldPublish": true
-    // }
+    {
+      "packageName": "@nodearch/core",
+      "projectFolder": "system/core",
+      "reviewCategory": "production",
+      "versionPolicyName": "nodearchPackages"
+    },
+    {
+      "packageName": "@nodearch/express",
+      "projectFolder": "backend/express",
+      "reviewCategory": "production",
+      "versionPolicyName": "nodearchPackages"
+    },
+    {
+      "packageName": "@nodearch/cli",
+      "projectFolder": "system/cli",
+      "reviewCategory": "production",
+      "versionPolicyName": "nodearchPackages"
+    },
+    {
+      "packageName": "@nodearch/keycloak",
+      "projectFolder": "security/keycloak",
+      "reviewCategory": "production",
+      "versionPolicyName": "nodearchPackages"
+    },
+    {
+      "packageName": "@nodearch/vault",
+      "projectFolder": "security/vault",
+      "reviewCategory": "production",
+      "versionPolicyName": "nodearchPackages"
+    }
   ]
 }
