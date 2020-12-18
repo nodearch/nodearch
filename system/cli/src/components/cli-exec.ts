@@ -4,7 +4,7 @@ import { spawn, exec } from 'child_process';
 @Service()
 export class CmdRunner {
   
-  async run(command: string, cwd: string = process.cwd(), stdio: 'ignore' | 'pipe' | 'inherit' = 'inherit') {
+  async run(command: string, cwd: string = process.cwd(), stdio: 'ignore' | 'pipe' | 'inherit' = 'inherit'): Promise<void> {
     return new Promise((resolve, reject) => {
 
       const splittedCommand: string[] = command.split(' ');

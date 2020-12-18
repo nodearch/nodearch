@@ -1,7 +1,7 @@
 import { Service } from '@nodearch/core';
 import { ControllerMetadata } from '../metadata';
 import { IMiddlewareMetadataInfo } from '../interfaces';
-import { ContextMiddlewareHandler } from '../types';
+import { ContextMiddlewareHandler, MiddlewareHandler } from '../types';
 import { HttpErrorsRegistry } from './errors-registry.service';
 import express from 'express';
 
@@ -23,13 +23,13 @@ export class MiddlewareService {
           return this.getMiddlewareHandler(<ContextMiddlewareHandler>x.middleware, dependencyFactory);
         }
         else {
-          return x.middleware;
+          return <MiddlewareHandler>x.middleware;
         }
       })
       .reverse();
   }
 
-  private getMiddlewareHandler(middlewareProvider: ContextMiddlewareHandler, dependencyFactory: (x: any) => any) {
+  private getMiddlewareHandler(middlewareProvider: ContextMiddlewareHandler, dependencyFactory: (x: any) => any): MiddlewareHandler {
     // TODO: what if we couldn't resolve the provider, or it didn't have handler function
     const provider = dependencyFactory(middlewareProvider);
     

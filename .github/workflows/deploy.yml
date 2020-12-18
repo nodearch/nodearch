@@ -1,38 +1,38 @@
-# name: Deploy
+name: Deploy
 
-# on:
-#   push:
-#     branches:
-#     - master
+on:
+  push:
+    branches:
+    - master
 
 
-# jobs:
-#   publish:
-#     name: npm-publish
-#     runs-on: Ubuntu-20.04
-#     steps:
-#     - uses: actions/checkout@v2
-#       with:
-#         fetch-depth: 0
-#     - name: install node v14
-#       uses: actions/setup-node@v1
-#       with:
-#         node-version: 14
-#     - name: Checking for missing change logs...
-#       run: node common/scripts/install-run-rush.js change -v
-#     - name: Installing...
-#       run: node common/scripts/install-run-rush.js install
-#     - name: Building...
-#       run: node common/scripts/install-run-rush.js rebuild --verbose
-#     - name: Config GIT
-#       run: >-
-#         git config --global user.email "bluemax7o1@gmail.com" &&
-#         git config --global user.name "Ahmed Ali"
-#     - name: Publishing...
-#       run: >-
-#         node common/scripts/install-run-rush.js publish
-#         --target-branch master
-#         --set-access-level public
-#         --tag latest
-#         --npm-auth-token ${{ secrets.NPM_AUTH_TOKEN }}
-#         --apply --publish --add-commit-details
+jobs:
+  publish:
+    name: npm-publish
+    runs-on: Ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install node v14
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14
+    - name: Checking for missing change logs...
+      run: node common/scripts/install-run-rush.js change -v
+    - name: Installing...
+      run: node common/scripts/install-run-rush.js install
+    - name: Building...
+      run: node common/scripts/install-run-rush.js rebuild --verbose
+    - name: Config GIT
+      run: >-
+        git config --global user.email "bluemax7o1@gmail.com" &&
+        git config --global user.name "Ahmed Ali"
+    - name: Publishing...
+      run: >-
+        node common/scripts/install-run-rush.js publish
+        --target-branch master
+        --set-access-level public
+        --tag beta
+        --npm-auth-token ${{ secrets.NPM_AUTH_TOKEN }}
+        --apply --publish --add-commit-details
