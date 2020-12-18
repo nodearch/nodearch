@@ -1,9 +1,8 @@
 {
-  "name": "@nodearch/core",
-  "version": "1.0.0-beta.21",
-  "description": "nodearch core module",
-  "main": "dist/index.js",
-  "type": "commonjs",
+  "name": "@nodearch/express",
+  "version": "1.0.0-beta.12",
+  "description": "nodearch express server",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "release": "npm run build && npm publish --tag beta --access public"
@@ -14,7 +13,7 @@
   },
   "keywords": [
     "nodearch",
-    "nodearch-core"
+    "nodearch-express"
   ],
   "author": "https://github.com/AhmedAli7O1",
   "license": "MIT",
@@ -23,16 +22,23 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@types/node": "^14.14.10",
-    "reflect-metadata": "^0.1.13",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.1.2",
+    "@nodearch/core": "^1.0.0-beta.21",
+    "@types/express": "^4.17.7",
+    "@types/node": "^14.0.13",
+    "express": "^4.17.1",
+    "typescript": "^3.9.5",
     "rimraf": "~3.0.2"
   },
   "dependencies": {
-    "inversify": "^5.0.1"
+    "@hapi/joi": "^17.1.1",
+    "@types/hapi__joi": "^17.1.4",
+    "@types/multer": "^1.4.3",
+    "joi-to-swagger": "^4.0.0",
+    "multer": "^1.4.2"
   },
   "peerDependencies": {
+    "@nodearch/core": "1.0.0-beta.x",
+    "express": "4.x",
     "reflect-metadata": "0.x"
   }
 }
