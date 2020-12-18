@@ -1,5 +1,5 @@
 {
-  "name": "nodearch-app",
+  "name": "@nodearch/template-app",
   "version": "0.1.0",
   "description": "",
   "main": "./dist/main.js",
