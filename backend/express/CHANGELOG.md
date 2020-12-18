@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Fri, 18 Dec 2020 18:50:42 GMT and should not be manually modified.
+This log was last generated on Fri, 18 Dec 2020 20:34:26 GMT and should not be manually modified.
+
+## 1.1.2
+Fri, 18 Dec 2020 20:34:26 GMT
+
+### Patches
+
+- test deploy
 
 ## 1.1.1
 Fri, 18 Dec 2020 18:50:42 GMT
