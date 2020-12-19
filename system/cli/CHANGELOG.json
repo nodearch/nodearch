@@ -2,6 +2,25 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "1.1.1",
+      "tag": "@nodearch/cli_v1.1.1",
+      "date": "Sat, 19 Dec 2020 03:10:12 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add support to download templates using CLI",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "3d9f005452677fc8017bdef6b26ee0c1ba003613"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^1.1.0` to `^1.1.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.0",
       "tag": "@nodearch/cli_v1.1.0",
       "date": "Fri, 18 Dec 2020 18:46:32 GMT",
