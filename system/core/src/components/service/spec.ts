@@ -2,7 +2,6 @@ import { Container } from 'inversify';
 import { ComponentScope, ComponentType } from '../enums';
 import { ServiceHandler } from './service.handler';
 
-
 describe('components/service', () => {
 
   describe('ServiceHandler', () => {

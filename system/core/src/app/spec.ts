@@ -1,4 +1,4 @@
-import { AppStage, CLI, ComponentType, Controller, Hook, HookContext, ICLI, IHook, IInterceptor, IInterceptorContext, Interceptor, InterceptorProvider, Repository, Service } from '../components';
+import { AppStage, CLI, Component, ComponentType, Controller, Hook, HookContext, ICLI, IHook, IInterceptor, IInterceptorContext, Interceptor, InterceptorProvider, Repository, Service } from '../components';
 import { App } from './app';
 import path from 'path';
 import { LogLevel } from '../logger';
@@ -95,7 +95,7 @@ describe('app/App', () => {
         getData1(data: any) {};
       }
 
-      @Repository()
+      @Component()
       class TestRepository2 {
         getData2(data: any) {};
       }
@@ -149,6 +149,160 @@ describe('app/App', () => {
       await expect((new TestApp()).run()).resolves.toEqual(undefined);
       expect(spyGetDataRepo1).toHaveBeenCalledTimes(2);
       expect(spyGetDataRepo2).toHaveBeenCalledTimes(2);
+    });
+
+    it('Should successfully Create and Use CLI', async () => {
+
+      @CLI()
+      class CLITest implements ICLI {
+        handler(): any { return true }
+        command: string = 'test'
+        data: any = 'test data'
+      }
+
+      @Controller()
+      class TestController {
+        constructor(private cliTest: CLITest) {}
+        loadData() {
+          this.cliTest.data;
+        };
+      }
+
+      @Hook()
+      class TestHook implements IHook {
+
+        async onInit(context: HookContext) {
+          const controllers = context.getAll<TestController>(ComponentType.Controller);
+          for (const controller of controllers) {
+            controller.loadData();
+          }
+        }
+
+        async onStart(context: HookContext) {
+          const controllers = context.getAll<TestController>(ComponentType.Controller);
+          for (const controller of controllers) {
+            controller.loadData();
+          }
+        }
+      }
+
+      class TestApp extends App {
+        constructor() {
+          super({ 
+            classLoader: { classes: [TestController, CLITest, TestHook] }
+          });
+        }
+      }
+
+      const spyTestController = spyOn(TestController.prototype, 'loadData');
+      const appInstance = new TestApp();
+
+      await expect(appInstance.run()).resolves.toEqual(undefined);
+      expect(spyTestController).toHaveBeenCalledTimes(2);
+      expect(appInstance.getCLICommands().length).toEqual(1);
+      expect(appInstance.getCLICommands()[0]?.command).toEqual('test');
+      expect(appInstance.getCLICommands()[0]?.handler({})).toEqual(true);
+    });
+
+    it('Should successfully Call Controllers and CLI commands in Hook', async () => {
+
+      @CLI()
+      class CLITest implements ICLI {
+        handler(): any { return true }
+        command: string = 'test'
+        data: any = 'test data'
+      }
+
+      @Controller()
+      class TestController {
+        constructor(private cliTest: CLITest) {}
+        loadData() {
+          this.cliTest.data;
+        };
+      }
+
+      @Hook()
+      class TestHook implements IHook {
+
+        async onInit(context: HookContext) {
+          const controller = context.get<TestController>(TestController);
+          controller.loadData();
+        }
+
+        async onStart(context: HookContext) {
+          const cliCommands = context.findCLICommands()
+
+          if(cliCommands) {
+            for (const cliCommand of cliCommands) {
+              cliCommand.handler({});
+            }
+          }
+
+        }
+      }
+
+      class TestApp extends App {
+        constructor() {
+          super({ 
+            classLoader: { classes: [TestController, CLITest, TestHook] }
+          });
+        }
+      }
+
+      const spyTestController = spyOn(TestController.prototype, 'loadData');
+      const spyCLITest = spyOn(CLITest.prototype, 'handler');
+
+      const appInstance = new TestApp();
+
+      await expect(appInstance.run()).resolves.toEqual(undefined);
+      expect(spyTestController).toHaveBeenCalledTimes(1);
+      expect(spyCLITest).toHaveBeenCalledTimes(1);
+      expect(appInstance.getCLICommands().length).toEqual(1);
+    });
+
+    it('Should successfully Call Hooks in some Hook', async () => {
+
+      @Hook()
+      class TestHook1 implements IHook {
+
+        async onStart(context: HookContext): Promise<any> { return true; }
+      }
+
+      @Hook()
+      class TestHook2 implements IHook {
+
+        async onInit(context: HookContext) {
+          const hooks = context.findHooks();
+
+          if(hooks) {
+            for (let hook of hooks) {
+
+              if(hook.onStart) {
+                await hook.onStart(context);
+              }
+            }
+          }
+        }
+
+        async onStart(context: HookContext): Promise<any> { return true; }
+      }
+
+      class TestApp extends App {
+        constructor() {
+          super({ 
+            classLoader: { classes: [TestHook1, TestHook2] }
+          });
+        }
+      }
+
+      const spyOnStartTestHook1 = spyOn(TestHook1.prototype, 'onStart');
+      const spyOnStartTestHook2 = spyOn(TestHook2.prototype, 'onStart');
+
+      const appInstance = new TestApp();
+
+      await expect(appInstance.run(AppStage.Init)).resolves.toEqual(undefined);
+      expect(spyOnStartTestHook1).toHaveBeenCalledTimes(1);
+      expect(spyOnStartTestHook2).toHaveBeenCalledTimes(1);
     });
 
     it('Should successfully Run App with Stage Load', async () => {
