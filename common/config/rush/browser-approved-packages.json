@@ -31,6 +31,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@types/jest",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@types/jsonwebtoken",
       "allowedCategories": [ "production" ]
     },
@@ -84,7 +88,7 @@
     },
     {
       "name": "jest",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "joi",
@@ -148,7 +152,7 @@
     },
     {
       "name": "ts-jest",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "ts-node",

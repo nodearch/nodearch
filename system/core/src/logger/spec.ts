@@ -1,88 +1,156 @@
-// import { describe, it } from 'mocha';
-// import chai from 'chai';
-// import { stub, SinonStub } from 'sinon';
-// import { LoggerFactory } from './logger-factory';
-// import { Logger } from './logger';
-// import sinonChai from 'sinon-chai';
+import { ConsoleLogger } from './console-logger';
+import { Color, LogLevel } from './enums';
+import { Logger } from './logger';
 
-// const expect = chai.expect;
-// chai.use(sinonChai);
 
-// describe('application/logger/logger-factory', () => {
+describe('application/logger', () => {
+  let logStub: jasmine.Spy;
 
-//   describe('LoggerFactory', () => {
+  beforeEach(() => {
+    logStub = spyOn(console, 'log');
+  });
 
-//     let logStub: SinonStub<any, any>;
+  describe('ConsoleLogger', () => {
 
-//     beforeEach(() => {
-//       logStub = stub(console, 'log');
-//     });
+    it('Should Log with Default Config', () => {
 
-//     afterEach(() => {
-//       logStub.restore();
-//     });
+      const logger = new ConsoleLogger();
 
-//     it('Should Log default timestamp', () => {
+      logger.log(Color.bgBlue, 'Test', ['data', 123]);
 
-//       const loggerFactory = new LoggerFactory();
-//       const logger: Logger = loggerFactory.getLogger('test');
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[44mTest\x1b[0m] data 123\x1b[0m'));
+    });
 
-//       logger.error('test error');
-//       expect(logStub).to.be.callCount(1);
-//       expect(logStub.lastCall.args[0]).to.to.contain('\u001b[31m [ERROR] \u001b[0m [test] test error\u001b[0m');
+    it('Should Log Stringified Object', () => {
 
-//       logger.warn('test warn');
-//       expect(logStub).to.be.callCount(2);
-//       expect(logStub.lastCall.args[0]).to.to.contain('\u001b[33m [WARN] \u001b[0m [test] test warn\u001b[0m');
+      const logger = new ConsoleLogger();
 
-//       logger.debug('test debug');
-//       expect(logStub).to.be.callCount(3);
-//       expect(logStub.lastCall.args[0]).to.to.contain('\u001b[34m [DEBUG] \u001b[0m [test] test debug\u001b[0m');
+      logger.log(Color.bgBlue, 'Test', ['data', { Data: { isTrue: true } }]);
 
-//       logger.info('test info', { data: 1 });
-//       expect(logStub).to.be.callCount(4);
-//       expect(logStub.lastCall.args[0]).to.to.contain('\u001b[32m [INFO] \u001b[0m [test] test info {\n  "data": 1\n}\u001b[0m');
-//     });
+      expect(logStub).toBeCalledWith(expect.stringContaining(`[\x1b[44mTest\x1b[0m] data ${JSON.stringify({ Data: { isTrue: true } }, null, 2)}`));
+    });
 
-//     it('Should Log custom timestamp', () => {
+    it('Should Log Error Stack', () => {
 
-//       const loggerFactory = new LoggerFactory({ getTimestamp: () => 'time test' });
-//       const logger: Logger = loggerFactory.getLogger('test');
+      const logger = new ConsoleLogger();
 
-//       logger.error('test error');
-//       expect(logStub).to.be.callCount(1);
-//       expect(logStub.lastCall.args[0]).to.to.contain('time test \u001b[31m [ERROR] \u001b[0m [test] test error\u001b[0m');
+      logger.log(Color.bgBlue, 'Test', ['data', new Error('Test Error')]);
 
-//       logger.warn('test warn');
-//       expect(logStub).to.be.callCount(2);
-//       expect(logStub.lastCall.args[0]).to.to.contain('time test \u001b[33m [WARN] \u001b[0m [test] test warn\u001b[0m');
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[44mTest\x1b[0m] data Error: Test Error'));
+      expect(logStub).toBeCalledWith(expect.stringContaining('Object.asyncJestTest'));
+    });
 
-//       logger.debug('test debug');
-//       expect(logStub).to.be.callCount(3);
-//       expect(logStub.lastCall.args[0]).to.to.contain('time test \u001b[34m [DEBUG] \u001b[0m [test] test debug\u001b[0m');
+    
+    it('Should Log with Custom TimeStamp', () => {
 
-//       logger.info('test info', { data: 1 });
-//       expect(logStub).to.be.callCount(4);
-//       expect(logStub.lastCall.args[0]).to.to.contain('time test \u001b[32m [INFO] \u001b[0m [test] test info {\n  "data": 1\n}\u001b[0m');
-//     });
+      const logger = new ConsoleLogger({ getTimestamp: () => 'FakeTimeStamp' });
 
-//     it('Should Disable log', () => {
+      logger.log(Color.bgBlue, 'Test', ['data', 123]);
 
-//       const loggerFactory = new LoggerFactory({ disable: true });
-//       const logger: Logger = loggerFactory.getLogger('test');
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\u001B[36mFakeTimeStamp\x1b[0m] [\x1b[44mTest\x1b[0m] data 123\x1b[0m'));
+    });
 
-//       logger.error('test error');
-//       expect(logStub).to.be.callCount(0);
+    it('Should Log without Colors', () => {
 
-//       logger.warn('test warn');
-//       expect(logStub).to.be.callCount(0);
+      const logger = new ConsoleLogger({ disableColors: true });
 
-//       logger.debug('test debug');
-//       expect(logStub).to.be.callCount(0);
+      logger.log(Color.bgBlue, 'Test', ['data', 123]);
 
-//       logger.info('test info', { data: 1 });
-//       expect(logStub).to.be.callCount(0);
-//     });
-//   });
+      expect(logStub).toBeCalledWith(expect.stringContaining('Test data 123'));
+    });
 
-// });
+    it('Should Disable Logger', () => {
+
+      const logger = new ConsoleLogger({ disable: true });
+
+      logger.log(Color.bgBlue, 'Test', ['data', 123]);
+
+      expect(logStub).toBeCalledTimes(0)
+    });
+
+  });
+
+  describe('Logger', () => {
+    it('Should Log error', () => {
+
+      const logger = new Logger(new ConsoleLogger());
+
+      logger.error('data', 123);
+
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[31mERROR\x1b[0m] data 123\x1b[0m'));
+    });
+
+    it('Should Log warn', () => {
+
+      const logger = new Logger(new ConsoleLogger());
+
+      logger.warn('data', 123);
+
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[33mWARN\x1b[0m] data 123\x1b[0m'));
+    });
+
+    it('Should Log info', () => {
+
+      const logger = new Logger(new ConsoleLogger());
+
+      logger.info('data', 123);
+
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[32mINFO\x1b[0m] data 123\x1b[0m'));
+    });
+
+    it('Should Log debug', () => {
+
+      const logger = new Logger(new ConsoleLogger());
+      logger.setLogLevel(LogLevel.Debug)
+
+      logger.debug('data', 123);
+
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[34mDEBUG\x1b[0m] data 123\x1b[0m'));
+    });
+
+    it('Should disable Debug for log lvl Info', () => {
+
+      const logger = new Logger(new ConsoleLogger(), LogLevel.Info);
+
+      logger.debug('data', 123);
+      logger.info('data', 123);
+      logger.warn('data', 123);
+      logger.error('data', 123);
+  
+      expect(logStub).toBeCalledTimes(3);
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[32mINFO\x1b[0m] data 123\x1b[0m'));
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[33mWARN\x1b[0m] data 123\x1b[0m'));
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[31mERROR\x1b[0m] data 123\x1b[0m'));
+
+    });
+
+    it('Should disable Debug & Info for log lvl Warn', () => {
+
+      const logger = new Logger(new ConsoleLogger(), LogLevel.Warn);
+
+      logger.debug('data', 123);
+      logger.info('data', 123);
+      logger.warn('data', 123);
+      logger.error('data', 123);
+
+      expect(logStub).toBeCalledTimes(2);
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[33mWARN\x1b[0m] data 123\x1b[0m'));
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[31mERROR\x1b[0m] data 123\x1b[0m'));
+    });
+
+    it('Should disable Debug, Info, Warn for log lvl Error', () => {
+
+      const logger = new Logger(new ConsoleLogger(), LogLevel.Error);
+
+      logger.debug('data', 123);
+      logger.info('data', 123);
+      logger.warn('data', 123);
+      logger.error('data', 123);
+
+      expect(logStub).toBeCalledTimes(1);
+      expect(logStub).toBeCalledWith(expect.stringContaining('[\x1b[31mERROR\x1b[0m] data 123\x1b[0m'));
+    });
+
+  })
+
+});

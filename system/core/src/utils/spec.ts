@@ -1,7 +1,6 @@
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
 import { merge, set, get, handleObjectPath, capitalize } from './utils';
 import { ClassInfo } from './class-info';
+import { ClassDecoratorFactory } from './decorator';
 
 describe('utils/utils', () => {
 
@@ -13,8 +12,8 @@ describe('utils/utils', () => {
 
       const res = merge(target, src);
 
-      expect(target).to.deep.equals({}, 'merge should be immutable');
-      expect(res).to.deep.equals(src);
+      expect(target).toEqual({});
+      expect(res).toEqual(src);
     });
 
     it('merge existing simple keys in target at the roots', () => {
@@ -27,7 +26,7 @@ describe('utils/utils', () => {
         key3: 'value3'
       };
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('merge nested objects into target', () => {
@@ -53,7 +52,7 @@ describe('utils/utils', () => {
         }
       };
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('replace simple key with nested object in target', () => {
@@ -77,7 +76,7 @@ describe('utils/utils', () => {
         key2: 'value2'
       };
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('should add nested object in target', () => {
@@ -98,7 +97,7 @@ describe('utils/utils', () => {
         }
       };
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('should clone source and target', () => {
@@ -125,9 +124,9 @@ describe('utils/utils', () => {
 
       const merged: any = merge(target, src);
 
-      expect(merged).to.deep.equals(expected);
-      expect(merged.a).to.not.equals(target.a);
-      expect(merged.b).to.not.equals(src.b);
+      expect(merged).toEqual(expected);
+      expect(merged.a).not.toBe(target.a);
+      expect(merged.b).not.toBe(src.b);
     });
 
     it('should replace object with simple key in target', () => {
@@ -143,7 +142,7 @@ describe('utils/utils', () => {
 
       const expected = { key1: 'value1', key2: 'value2' };
 
-      expect(target).to.deep.equals({
+      expect(target).toEqual({
         key1: {
           subKey1: 'subValue1',
           subKey2: 'subValue2'
@@ -151,7 +150,7 @@ describe('utils/utils', () => {
         key2: 'value2'
       });
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('should replace objects with arrays', () => {
@@ -159,7 +158,7 @@ describe('utils/utils', () => {
       const src = { key1: ['subKey'] };
       const expected = { key1: ['subKey'] };
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('should replace arrays with objects', () => {
@@ -167,7 +166,7 @@ describe('utils/utils', () => {
       const src = { key1: { subKey: 'one' } };
       const expected = { key1: { subKey: 'one' } };
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('should replace dates with arrays', () => {
@@ -175,7 +174,7 @@ describe('utils/utils', () => {
       const src = { key1: ['subKey'] };
       const expected = { key1: ['subKey'] };
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('should replace null with arrays', () => {
@@ -191,7 +190,7 @@ describe('utils/utils', () => {
         key1: ['subKey']
       };
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('should work on simple array', () => {
@@ -199,8 +198,8 @@ describe('utils/utils', () => {
       const target = ['one', 'two'];
       const expected = ['one', 'two', 'one', 'three'];
 
-      expect(merge(target, src)).to.deep.equals(expected);
-      expect(Array.isArray(merge(target, src))).to.be.true;
+      expect(merge(target, src)).toEqual(expected);
+      expect(Array.isArray(merge(target, src))).toEqual(true);
     });
 
     it('should work on another simple array', () => {
@@ -208,9 +207,9 @@ describe('utils/utils', () => {
       const src = ['t1', 's1', 'c2', 'r1', 'p2', 'p3'];
       const expected = ['a1', 'a2', 'c1', 'f1', 'p1', 't1', 's1', 'c2', 'r1', 'p2', 'p3'];
 
-      expect(target).to.deep.equals(['a1', 'a2', 'c1', 'f1', 'p1']);
-      expect(merge(target, src)).to.deep.equals(expected);
-      expect(Array.isArray(merge(target, src))).to.be.true;
+      expect(target).toEqual(['a1', 'a2', 'c1', 'f1', 'p1']);
+      expect(merge(target, src)).toEqual(expected);
+      expect(Array.isArray(merge(target, src))).toEqual(true);
     });
 
     it('should work on array properties', () => {
@@ -230,9 +229,9 @@ describe('utils/utils', () => {
 
       const res: any = merge(target, src);
 
-      expect(res).to.deep.equals(expected);
-      expect(Array.isArray(res.key1)).to.be.true;
-      expect(Array.isArray(res.key2)).to.be.true;
+      expect(res).toEqual(expected);
+      expect(Array.isArray(res.key1)).toEqual(true);
+      expect(Array.isArray(res.key2)).toEqual(true);
     });
 
     it('should work on array properties', () => {
@@ -245,15 +244,15 @@ describe('utils/utils', () => {
         key1: ['one', 'two']
       };
 
-      expect(target).to.deep.equals({
+      expect(target).toEqual({
         key1: ['one', 'two']
       });
 
       const merged: any = merge(target, src);
 
-      expect(merged.key1).to.not.equals(src.key1);
-      expect(merged.key1).to.not.equals(target.key1);
-      expect(merged.key2).to.not.equals(src.key2);
+      expect(merged.key1).not.toBe(src.key1);
+      expect(merged.key1).not.toBe(target.key1);
+      expect(merged.key2).not.toBe(src.key2);
     });
 
     it('should work on array of objects', () => {
@@ -275,14 +274,14 @@ describe('utils/utils', () => {
       ];
 
       const merged: any = merge(target, src);
-      expect(merged).to.deep.equals(expected);
-      expect(Array.isArray(merge(target, src))).to.be.true;
-      expect(Array.isArray((<any>merge(target, src))[0].key1)).to.be.true;
-      expect(merged[0].key1).to.not.equals(src[0].key1);
-      expect(merged[0].key1).to.not.equals(target[0].key1);
-      expect(merged[0].key2).to.not.equals(src[0].key2);
-      expect(merged[1].key3).to.not.equals(src[1].key3);
-      expect(merged[1].key3).to.not.equals(target[1].key3);
+      expect(merged).toEqual(expected);
+      expect(Array.isArray(merge(target, src))).toEqual(true);
+      expect(Array.isArray((<any>merge(target, src))[0].key1)).toEqual(true);
+      expect(merged[0].key1).not.toBe(src[0].key1);
+      expect(merged[0].key1).not.toBe(target[0].key1);
+      expect(merged[0].key2).not.toBe(src[0].key2);
+      expect(merged[1].key3).not.toBe(src[1].key3);
+      expect(merged[1].key3).not.toBe(target[1].key3);
     });
 
     it('should treat regular expressions like primitive values', () => {
@@ -290,7 +289,7 @@ describe('utils/utils', () => {
       const src = { key1: /efg/ };
       const expected = { key1: /efg/ };
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('should treat regular expressions like primitive values and should not clone', () => {
@@ -298,7 +297,7 @@ describe('utils/utils', () => {
       const src = { key1: /efg/ };
 
       const output: any = merge(target, src);
-      expect(output.key1).to.equals(src.key1);
+      expect(output.key1).toEqual(src.key1);
     });
 
     it('should treat dates like primitives', () => {
@@ -319,8 +318,8 @@ describe('utils/utils', () => {
 
       const actual: any = merge(target, source);
 
-      expect(actual).to.deep.equals(expected);
-      expect(actual.key.valueOf()).to.equals(tuesday.valueOf());
+      expect(actual).toEqual(expected);
+      expect(actual.key.valueOf()).toEqual(tuesday.valueOf());
     });
 
     it('should treat dates like primitives and should not clone', () => {
@@ -337,7 +336,7 @@ describe('utils/utils', () => {
 
       const actual: any = merge(target, source);
 
-      expect(actual.key).to.equals(tuesday);
+      expect(actual.key).toEqual(tuesday);
     });
 
     it('should work on array with null in it', () => {
@@ -347,7 +346,7 @@ describe('utils/utils', () => {
 
       const expected = [null];
 
-      expect(merge(target, src)).to.deep.equals(expected);
+      expect(merge(target, src)).toEqual(expected);
     });
 
     it('should clone array\'s element if it is object', () => {
@@ -357,8 +356,8 @@ describe('utils/utils', () => {
 
       const output: any = merge(target, source);
 
-      expect(output[0]).to.not.equal(a);
-      expect(output[0].key).to.equals('yup');
+      expect(output[0]).not.toBe(a);
+      expect(output[0].key).toEqual('yup');
     });
 
     it('should clone an array property when there is no target array', () => {
@@ -367,8 +366,8 @@ describe('utils/utils', () => {
       const source = { ary: [someObject] };
       const output: any = merge(target, source);
 
-      expect(output).to.deep.equals({ ary: [{}] });
-      expect(output.ary[0]).to.not.equals(someObject);
+      expect(output).toEqual({ ary: [{}] });
+      expect(output.ary[0]).not.toBe(someObject);
     });
 
     it('should overwrite values when property is initialized but undefined', () => {
@@ -379,8 +378,8 @@ describe('utils/utils', () => {
       const src = { value: undefined };
 
       function hasUndefinedProperty(o: any) {
-        expect(o.hasOwnProperty('value')).to.be.true;
-        expect(o.value).to.be.undefined;
+        expect(o.hasOwnProperty('value')).toEqual(true);
+        expect(o.value).toEqual(undefined);
       }
 
       hasUndefinedProperty(merge(target1, src));
@@ -398,24 +397,24 @@ describe('utils/utils', () => {
       const expected = [monday, 'dude', tuesday, 'lol'];
       const actual = merge(target, source);
 
-      expect(actual).to.deep.equals(expected);
+      expect(actual).toEqual(expected);
     });
 
   });
 
   describe('handleObjectPath', () => {
     it('should reject in case the provided path is not array of strings or a dotted string path', () => {
-      expect(() => handleObjectPath({})).throw('path should be either dotted string or array of strings');
+      expect(() => handleObjectPath({})).toThrow('path should be either dotted string or array of strings');
     });
 
     it('should handle array of strings as a path', () => {
       const result = handleObjectPath(['one', 'two', 'three', 'four', 'five']);
-      expect(result).to.deep.equal(['one', 'two', 'three', 'four', 'five']);
+      expect(result).toEqual(['one', 'two', 'three', 'four', 'five']);
     });
 
     it('should handle dotted string path', () => {
       const result = handleObjectPath('one.two.three.four.five');
-      expect(result).to.deep.equal(['one', 'two', 'three', 'four', 'five']);
+      expect(result).toEqual(['one', 'two', 'three', 'four', 'five']);
     });
   });
 
@@ -433,7 +432,7 @@ describe('utils/utils', () => {
 
       const result = set(dataObj, 'one.two.three.four.five', { nestedTesting: 'ntest' });
 
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         test: 'test1',
         one: {
           h: 'h1',
@@ -464,7 +463,7 @@ describe('utils/utils', () => {
 
       const result = set(dataObj, ['one', 'two', 'three', 'four', 'five'], { nestedTesting: 'ntest' });
 
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         test: 'test1',
         one: {
           h: 'h1',
@@ -496,7 +495,7 @@ describe('utils/utils', () => {
 
       const result = set(dataObj, 'one.two', { nestedTesting: 'ntest' });
 
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         test: 'test1',
         one: {
           h: 'h1',
@@ -514,7 +513,7 @@ describe('utils/utils', () => {
         test: 'test1'
       };
 
-      expect(() => set(dataObj, {}, {})).throw('path should be either dotted string or array of strings');
+      expect(() => set(dataObj, {}, {})).toThrow('path should be either dotted string or array of strings');
     });
 
     it('should handle an array as a value', () => {
@@ -528,7 +527,7 @@ describe('utils/utils', () => {
 
       const result = set(obj, 'one.two.three', ['item1', 'item2']);
 
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         hh: 'dd',
         one: {
           two: {
@@ -551,7 +550,7 @@ describe('utils/utils', () => {
 
       const result = set(obj, 'one.two.three', ['item3', 'item4']);
 
-      expect(result).to.deep.equal({
+      expect(result).toEqual({
         hh: 'dd',
         one: {
           two: {
@@ -570,7 +569,7 @@ describe('utils/utils', () => {
       };
 
       set(obj, 'one.two', 'test1');
-      expect(obj).to.deep.equal({
+      expect(obj).toEqual({
         hh: 'hh1',
         one: {
           two: 'test1'
@@ -586,7 +585,7 @@ describe('utils/utils', () => {
       };
 
       set(obj, 'one.two', 'test1');
-      expect(obj).to.deep.equal({
+      expect(obj).toEqual({
         hh: 'hh1',
         one: {
           two: 'test1'
@@ -612,22 +611,22 @@ describe('utils/utils', () => {
 
     it('should get value from object by path', () => {
       const result = get(data, 'one.two.three.four.five');
-      expect(result).to.equal('5');
+      expect(result).toEqual('5');
     });
 
     it('should get nested object from object by path', () => {
       const result = get(data, 'one.two.three.four');
-      expect(result).to.deep.equal({ five: '5' });
+      expect(result).toEqual({ five: '5' });
     });
 
     it('should get by array of strings instead of string dotted', () => {
       const result = get(data, ['one', 'two', 'three', 'four']);
-      expect(result).to.deep.equal({ five: '5' });
+      expect(result).toEqual({ five: '5' });
     });
 
     it('should return null in case of not exist path', () => {
       const result = get(data, 'one.two.no');
-      expect(result).to.be.null;
+      expect(result).toEqual(null);
     });
 
   });
@@ -635,7 +634,7 @@ describe('utils/utils', () => {
   describe('capitalize', () => {
     it('should get string started with capital letter', () => {
       const result = capitalize('test');
-      expect(result).to.be.equal('Test');
+      expect(result).toEqual('Test');
     });
 
     it('should get string started with capital letter & keep dashes, underscore or spaces', () => {
@@ -643,14 +642,14 @@ describe('utils/utils', () => {
       const result2 = capitalize('test_1');
       const result3 = capitalize('test 1 ok');
 
-      expect(result1).to.be.equal('Test-1');
-      expect(result2).to.be.equal('Test_1');
-      expect(result3).to.be.equal('Test 1 ok');
+      expect(result1).toEqual('Test-1');
+      expect(result2).toEqual('Test_1');
+      expect(result3).toEqual('Test 1 ok');
     });
 
     it('should keep capitalized word as it is', () => {
       const result = capitalize('Test-1');
-      expect(result).to.be.equal('Test-1');
+      expect(result).toEqual('Test-1');
     });
 
     it('should keep words started with non alphabetical value as it is', () => {
@@ -658,9 +657,9 @@ describe('utils/utils', () => {
       const result2 = capitalize(' test');
       const result3 = capitalize('5test');
 
-      expect(result1).to.be.equal('_test');
-      expect(result2).to.be.equal(' test');
-      expect(result3).to.be.equal('5test');
+      expect(result1).toEqual('_test');
+      expect(result2).toEqual(' test');
+      expect(result3).toEqual('5test');
     });
   });
 });
@@ -696,7 +695,7 @@ describe('utils/proto', () => {
 
     it('get methods from Class have have prototype function getters and setters', () => {
       const res = ClassInfo.getMethods(Person);
-      expect(res).to.deep.equals(['getType']);
+      expect(res).toEqual(['getType']);
     });
 
     it('get methods from inherited class without touch parent class methods', () => {
@@ -715,12 +714,91 @@ describe('utils/proto', () => {
       }
 
       const res = ClassInfo.getMethods(Student);
-      expect(res).to.deep.equals(['getAge']);
+      expect(res).toEqual(['getAge']);
 
     });
 
     it('should return empty array if empty object was provided', () => {
-      expect(ClassInfo.getMethods(<any> {})).to.deep.equal([]);
+      expect(ClassInfo.getMethods(<any> {})).toEqual([]);
+    });
+
+  });
+
+});
+
+describe('utils/decorator', () => {
+
+  describe('ClassDecoratorFactory.requiredParams', () => {
+
+
+    it('Should Create Decorator with Required Params', () => {  
+      interface InputData {
+        name: string;
+        age: number
+      }
+  
+      const fakeDecoratorHandlers = { handler: (target: Function, options: InputData) => {} };
+      const handlerSpy = spyOn(fakeDecoratorHandlers, 'handler');
+  
+      const RequiredParamsDecorator = ClassDecoratorFactory.requiredParams(fakeDecoratorHandlers.handler);
+      @RequiredParamsDecorator({ name: 'test', age: 123 })
+      class TestClass {}
+  
+      expect(handlerSpy).toBeCalledTimes(1);
+      expect(handlerSpy).toBeCalledWith(TestClass, {'age': 123, 'name': 'test'});
+    });
+
+  });
+
+  describe('ClassDecoratorFactory.noParams', () => {
+
+
+    it('Should Create Decorator with No Params', () => {  
+  
+      const fakeDecoratorHandlers = { handler: () => {} };
+      const handlerSpy = spyOn(fakeDecoratorHandlers, 'handler');
+  
+      const RequiredParamsDecorator = ClassDecoratorFactory.noParams(fakeDecoratorHandlers.handler);
+      @RequiredParamsDecorator
+      class TestClass {}
+  
+      expect(handlerSpy).toBeCalledTimes(1);
+      expect(handlerSpy).toBeCalledWith(TestClass);
+    });
+
+  });
+
+  describe('ClassDecoratorFactory.optionalParams', () => {
+    interface InputData {
+      name: string;
+      age: number
+    }
+
+
+    it('Should Create Decorator with No Params', () => {  
+  
+      const fakeDecoratorHandlers = { handler: (target: Function, options?: InputData) => {} };
+      const handlerSpy = spyOn(fakeDecoratorHandlers, 'handler');
+  
+      const RequiredParamsDecorator = ClassDecoratorFactory.optionalParams(fakeDecoratorHandlers.handler);
+      @RequiredParamsDecorator
+      class TestClass {}
+  
+      expect(handlerSpy).toBeCalledTimes(1);
+      expect(handlerSpy).toBeCalledWith(TestClass);
+    });
+
+    it('Should Create Decorator with Params', () => {  
+  
+      const fakeDecoratorHandlers = { handler: (target: Function, options?: InputData) => {} };
+      const handlerSpy = spyOn(fakeDecoratorHandlers, 'handler');
+  
+      const RequiredParamsDecorator = ClassDecoratorFactory.optionalParams(fakeDecoratorHandlers.handler);
+      @RequiredParamsDecorator({ age: 1, name: 'test' })
+      class TestClass {}
+  
+      expect(handlerSpy).toBeCalledTimes(1);
+      expect(handlerSpy).toBeCalledWith(TestClass, {'age': 1, 'name': 'test'});
     });
 
   });
