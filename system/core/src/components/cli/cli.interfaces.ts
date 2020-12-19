@@ -57,7 +57,7 @@ export interface CLIQuestion<T = any> extends Record<string, any> {
    * and a short (to display after selection) properties. 
    * The choices array can also contain a Separator.
    */
-  choices?: CLIQuestionsChoices;
+  choices?: CLIQuestionsChoices[] | {(answers?: CLIAnswers): Promise<CLIQuestionsChoices[]>};
 
   /**
    * (Function) Receive the user input and answers hash. 
