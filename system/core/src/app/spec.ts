@@ -2,6 +2,7 @@ import { AppStage, CLI, Component, ComponentType, Controller, Hook, HookContext,
 import { App } from './app';
 import path from 'path';
 import { LogLevel } from '../logger';
+import { TestingApp } from './__test__/test_app/main.test';
 
 @Service()
 export class GTestService {}
@@ -544,6 +545,9 @@ describe('app/App', () => {
       await expect(interceptorAfterSpy2).toHaveBeenCalledTimes(0);
     });
 
+    it('Should successfully run multi directories app', async () => {
+      await expect((new TestingApp()).run()).resolves.toEqual(undefined);
+    });
 
   });
 });
