@@ -51,6 +51,29 @@ describe('app/App', () => {
       await expect((new TestApp()).run()).resolves.toEqual(undefined);
     });
 
+    it('Should failed create App with Extensions as App include classes not registered in Ext', async () => {
+      @Service()
+      class TestService {}
+
+      @Service()
+      class TestService2 {}
+
+      class ExtApp extends App {
+        constructor() { super({ classLoader: { classes: [TestService] } }); }
+      }
+
+      class TestApp extends App {
+        constructor() { super({ 
+          classLoader: { classpath: path.join(__dirname, './') },
+          extensions: [{ app: new ExtApp(), include: [TestService, TestService2] }]
+        }); }
+      }
+
+      const app = new TestApp();
+
+      await expect(app.run()).rejects.toThrowError();
+    });
+
     it('Should fail to create empty App with no Classes', async () => {
       expect(class TestApp extends App { constructor() { super(); } }).toThrowError();
     });
@@ -306,6 +329,29 @@ describe('app/App', () => {
       expect(spyOnStartTestHook2).toHaveBeenCalledTimes(1);
     });
 
+    it('Should fail to Find Undefined Component Type in some Hook', async () => {
+      @Hook()
+      class TestHook implements IHook {
+
+        async onInit(context: HookContext) {
+          context.getAll('anyThing')
+        }
+      }
+
+      class TestApp extends App {
+        constructor() {
+          super({ 
+            classLoader: { classes: [ TestHook] }
+          });
+        }
+      }
+
+
+      const appInstance = new TestApp();
+
+      await expect(appInstance.run(AppStage.Init)).rejects.toThrowError();
+    });
+
     it('Should successfully Run App with Stage Load', async () => {
       @Hook()
       class TestHook implements IHook {
@@ -547,7 +593,8 @@ describe('app/App', () => {
 
     it('Should Register Empty Interceptor on Controller', async () => {
       @InterceptorProvider()
-      class TestInterceptor1 implements IInterceptor {
+      class TestInterceptor1 {
+        data = 'test';
       }
 
       @InterceptorProvider()
@@ -562,7 +609,7 @@ describe('app/App', () => {
       }
 
       @Controller()
-      @Interceptor(TestInterceptor1, { data: 1 })
+      @Interceptor(<any> TestInterceptor1, { data: 1 })
       class TestController {
         @Interceptor(TestInterceptor2)
         getData() {}
