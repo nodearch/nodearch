@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "Add support to download templates using CLI",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli",
+  "email": "bluemax7o1@gmail.com"
+}
