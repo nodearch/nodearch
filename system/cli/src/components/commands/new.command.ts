@@ -1,17 +1,13 @@
 
 import { Logger, CLI, ICLI, CLIBuilder, CLIQuestion, CLIQuestionType } from '@nodearch/core';
-import fs from 'fs';
 import path from 'path';
-import os from 'os';
-import axios from 'axios';
-import decompress from 'decompress';
 import { NpmService } from '../npm';
 import ora from 'ora';
+import { GitHubDownloader } from '../github-downloader';
 
 
 @CLI()
 export class NewCommand implements ICLI {
-  private readonly appDownloadUrl: string;
   private readonly currentDirectory: string;
 
   command: string;
@@ -20,7 +16,11 @@ export class NewCommand implements ICLI {
   builder: CLIBuilder;
   questions: CLIQuestion[];
 
-  constructor(private readonly logger: Logger, private readonly npmService: NpmService) {
+  constructor(
+    private readonly logger: Logger, 
+    private readonly npmService: NpmService, 
+    private readonly gitHubDownloader: GitHubDownloader
+  ) {
     this.command = 'new';
     this.describe = 'Generate new NodeArch APP';
     this.aliases = ['n'];
@@ -28,6 +28,10 @@ export class NewCommand implements ICLI {
       name: {
         alias: ['n'],
         describe: 'project name'
+      },
+      template: {
+        alias: ['t'],
+        describe: 'template to download'
       }
     };
     this.questions = [
@@ -35,10 +39,16 @@ export class NewCommand implements ICLI {
         type: CLIQuestionType.Input,
         name: 'name',
         message: `project name ? `
+      },
+      {
+        type: CLIQuestionType.List,
+        name: 'template',
+        choices: async () => {
+          return await this.gitHubDownloader.listTemplates();
+        }
       }
     ];
 
-    this.appDownloadUrl = 'https://github.com/nodearch/app/archive/master.zip';
     this.currentDirectory = process.cwd();
   }
 
@@ -51,16 +61,9 @@ export class NewCommand implements ICLI {
 
       spinner.start('Downloading APP template...');
   
-      const downloadPath = await this.downloadApp();
+      await this.gitHubDownloader.downloadTemplate(distPath, data.template);
   
       spinner.succeed('APP template downloaded!');
-  
-      spinner.start('Extracting APP Files...');
-  
-      await this.extractAppSource(downloadPath, distPath);
-      await fs.promises.unlink(downloadPath);
-  
-      spinner.succeed('APP Files extracted!');
   
       spinner.start('Installing dependencies...');
   
@@ -72,32 +75,5 @@ export class NewCommand implements ICLI {
       spinner.fail('Failed to create new APP!');
       this.logger.error(e);
     }
-  }
-
-  private async downloadApp() {
-    const response = await axios({
-      method: 'get',
-      url: this.appDownloadUrl,
-      responseType: 'stream'
-    });
-
-
-    const downloadPath = path.join(os.tmpdir(), 'nodearch-cli-nodearch-app.zip');
-
-    await new Promise((resolve, reject) => {
-      const writeStream = fs.createWriteStream(downloadPath);
-
-      response.data.pipe(writeStream);
-
-      writeStream.on('error', err => reject(err));
-      
-      writeStream.on('finish', () => resolve(true));
-    });
-
-    return downloadPath;
-  }
-
-  private async extractAppSource(srcPath: string, distPath: string) {
-    await decompress(srcPath, distPath, { strip: 1 });
   }
 }
