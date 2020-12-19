@@ -545,6 +545,54 @@ describe('app/App', () => {
       await expect(interceptorAfterSpy2).toHaveBeenCalledTimes(0);
     });
 
+    it('Should Register Empty Interceptor on Controller', async () => {
+      @InterceptorProvider()
+      class TestInterceptor1 implements IInterceptor {
+      }
+
+      @InterceptorProvider()
+      class TestInterceptor2 implements IInterceptor {
+        async before(context: IInterceptorContext) {
+          return true;
+        }
+
+        async after(context: IInterceptorContext) {
+          return true;
+        }
+      }
+
+      @Controller()
+      @Interceptor(TestInterceptor1, { data: 1 })
+      class TestController {
+        @Interceptor(TestInterceptor2)
+        getData() {}
+      }
+
+      @Hook()
+      class TestHook implements IHook {
+
+        async onInit(context: HookContext) {
+          const controllers = context.getAll<TestController>(ComponentType.Controller);
+          for (const controller of controllers) {
+            controller.getData();
+          }
+        }
+      }
+
+      class TestApp extends App {
+        constructor() { super({ classLoader: { classes: [TestInterceptor1, TestInterceptor2, TestController, TestHook] } }); }
+      }
+
+      const interceptorBeforeSpy2 = spyOn(TestInterceptor2.prototype, 'before').and.returnValue(true);
+      const interceptorAfterSpy2 = spyOn(TestInterceptor2.prototype, 'after');
+
+      const app = new TestApp();
+      await app.run(AppStage.Start);
+
+      await expect(interceptorBeforeSpy2).toHaveBeenCalledTimes(1);
+      await expect(interceptorAfterSpy2).toHaveBeenCalledTimes(1);
+    });
+
     it('Should successfully run multi directories app', async () => {
       await expect((new TestingApp()).run()).resolves.toEqual(undefined);
     });
