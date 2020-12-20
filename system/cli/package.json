@@ -46,6 +46,9 @@
     "@types/nodemon": "^1.19.0",
     "@types/yargs": "^15.0.9",
     "nodemon": "^2.0.4",
-    "rimraf": "~3.0.2"
+    "rimraf": "~3.0.2",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4",
+    "@types/jest": "~26.0.19"
   }
 }
