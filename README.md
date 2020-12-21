@@ -1,7 +1,7 @@
 <img src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/cover2.png" alt="NodeArch Logo" />
 <div width="100%" align="center">
 
-<!-->
+<!--
 <a href="http://nodearch.io/">
   <img src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/cover.png" height="350px" alt="NodeArch Logo" />
 </a>
