@@ -1,11 +1,9 @@
-<img src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/cover2.png" alt="NodeArch Logo" />
+
 <div width="100%" align="center">
 
-<!--
 <a href="http://nodearch.io/">
-  <img src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/cover.png" height="350px" alt="NodeArch Logo" />
+  <img src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/isolated-layout.svg" height="200" width="300" alt="NodeArch Logo" />
 </a>
--->
 
 <p>
   <a href="https://nodearch.io" target="_blank">
