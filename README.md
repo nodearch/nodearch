@@ -1,7 +1,7 @@
 <img align="right" src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/isolated-layout.svg" height="200" width="300" alt="NodeArch Logo" />
 
-<span align="left" style="font-weight: bold;">NodeArch</span><br /><br />
-<span align="left">Node.js Backend Framework</span>
+<span align="left" style="font-weight: 600;font-size: 2rem;">NodeArch</span><br /><br />
+>Node.js Backend Framework
 
 <p>
   <a href="https://nodearch.io" target="_blank">
