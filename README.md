@@ -34,9 +34,9 @@
 
 <br />
 
-<h1>👋 Welcome to nodearch</h1>
+<h1>👋 Welcome to NodeArch</h1>
 
-> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dapibus suscipit sodales. Maecenas quis elit commodo, convallis nisl id, elementum risus. Nunc a sem malesuada, semper mauris vel, blandit elit. Proin sed felis at lacus suscipit maximus. Cras pellentesque dui sed metus pharetra, id feugiat arcu efficitur. Ut ac felis sem. Pellentesque posuere lectus sapien, vel fringilla libero molestie ac. Donec in porta nisi, ut tempor lorem. Sed id est vel ante fringilla convallis.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dapibus suscipit sodales. Maecenas quis elit commodo, convallis nisl id, elementum risus. Nunc a sem malesuada, semper mauris vel, blandit elit. Proin sed felis at lacus suscipit maximus. Cras pellentesque dui sed metus pharetra, id feugiat arcu efficitur. Ut ac felis sem. Pellentesque posuere lectus sapien, vel fringilla libero molestie ac. Donec in porta nisi, ut tempor lorem. Sed id est vel ante fringilla convallis.
 
 ### 🏠 [Homepage](nodearch.io)
 
