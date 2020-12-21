@@ -1,7 +1,8 @@
+<h1 align="left" >NodeArch</h1>
+
 <img align="right" src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/isolated-layout.svg" height="200" width="300" alt="NodeArch Logo" />
 
-<span align="left" style="font-weight: 600;font-size: 2rem;">NodeArch</span><br /><br />
->Node.js Backend Framework
+<!-- > Node.js Backend Framework -->
 
 <p>
   <a href="https://nodearch.io" target="_blank">
@@ -27,12 +28,9 @@
   </a>
 </p>
 
-<!-- </div> -->
+<!-- <br /><br /><br /><br /> -->
 
-<br />
-<br />
-
-<h1>👋 Welcome to NodeArch ( https://nodearch.io )</h1>
+## 👋 Welcome to NodeArch
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dapibus suscipit sodales. Maecenas quis elit commodo, convallis nisl id, elementum risus. Nunc a sem malesuada, semper mauris vel, blandit elit. Proin sed felis at lacus suscipit maximus. Cras pellentesque dui sed metus pharetra, id feugiat arcu efficitur. Ut ac felis sem. Pellentesque posuere lectus sapien, vel fringilla libero molestie ac. Donec in porta nisi, ut tempor lorem. Sed id est vel ante fringilla convallis.
 
