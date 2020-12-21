@@ -6,7 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
-    "release": "npm run build && npm publish --tag beta --access public"
+    "release": "npm run build && npm publish --tag beta --access public",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
