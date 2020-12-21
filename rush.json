@@ -468,7 +468,7 @@
     },
     {
       "packageName": "@nodearch/template-app",
-      "projectFolder": "template/app",
+      "projectFolder": "templates/app",
       "reviewCategory": "tools",
       "shouldPublish": false
     }

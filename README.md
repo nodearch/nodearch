@@ -1,34 +1,93 @@
-# NodeArch
+<img src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/cover2.png" alt="NodeArch Logo" />
+<div width="100%" align="center">
 
-Backend Node.js framework
+<!--
+<a href="http://nodearch.io/">
+  <img src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/cover.png" height="350px" alt="NodeArch Logo" />
+</a>
+-->
 
-![language](https://img.shields.io/badge/typescript-100%25-blue)
-![license](https://img.shields.io/badge/license-MIT-brightgreen)
-![Build](https://github.com/nodearch/core/workflows/Build/badge.svg)
-![npm (scoped with tag)](https://img.shields.io/npm/v/@nodearch/core/beta)
-![npm downloads](https://img.shields.io/npm/dt/@nodearch/core)
-[![Coverage Status](https://coveralls.io/repos/github/nodearch/core/badge.svg?branch=master)](https://coveralls.io/github/nodearch/core?branch=master)
-![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core)
-![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/@nodearch/core)
+<p>
+  <a href="https://nodearch.io" target="_blank">
+    <img alt="Programming Language" src="https://img.shields.io/badge/typescript-100%25-blue.svg">
+  </a>
+  <a href="https://www.npmjs.com/package/@nodearch/core" target="_blank">
+    <img alt="Version" src="https://img.shields.io/npm/v/@nodearch/core.svg?label=Version">
+  </a>
+  <a href="https://github.com/BlueMax-IO/nodearch/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  </a>
+  <a href="https://https://www.npmjs.com/package/@nodearch/core" target="_blank">
+    <img alt="Downloads" src="https://img.shields.io/npm/dt/@nodearch/core.svg" />
+  </a>
+  <a href="https://coveralls.io/github/nodearch/core?branch=master" target="_blank">
+    <img alt="Code Coverage" src="https://coveralls.io/repos/github/nodearch/core/badge.svg?branch=master" />
+  </a>
+    <a href="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core" target="_blank">
+    <img alt="Vulnerabilities" src="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core.svg" />
+  </a>
+  <a href="https://twitter.com/ahmedali7o1" target="_blank">
+    <img alt="Twitter: AhmedAli7O1" src="https://img.shields.io/twitter/follow/AhmedAli7O1.svg?style=social" />
+  </a>
+</p>
 
+</div>
 
-## Development
+<br />
 
-```bash
+<h1>👋 Welcome to NodeArch ( https://nodearch.io )</h1>
 
-# install Microsoft rush globally 
-npm i -g rush
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dapibus suscipit sodales. Maecenas quis elit commodo, convallis nisl id, elementum risus. Nunc a sem malesuada, semper mauris vel, blandit elit. Proin sed felis at lacus suscipit maximus. Cras pellentesque dui sed metus pharetra, id feugiat arcu efficitur. Ut ac felis sem. Pellentesque posuere lectus sapien, vel fringilla libero molestie ac. Donec in porta nisi, ut tempor lorem. Sed id est vel ante fringilla convallis.
 
-# clone the project locally if you didn't already
-git clone https://github.com/BlueMax-IO/nodearch
+### 🏠 [Homepage](nodearch.io)
 
-# switch to the cloned directory
-cd nodearch
+### ✨ [Demo](nodearch.io/docs)
 
-# install dependencies
-rush install
+## Install
 
-# build the project
-rush build
-
+```sh
+npm i -g @nodearch/cli
 ```
+
+## 🚀 Usage
+
+```sh
+rush build
+```
+
+## Run tests
+
+```sh
+rush test
+```
+
+## Author
+
+👤 **Ahmed Ali**
+
+* Website: ahmedali.me
+* Twitter: [@ahmedali7o1](https://twitter.com/ahmedali7o1)
+* Github: [@AhmedAli7O1](https://github.com/AhmedAli7O1)
+* LinkedIn: [@ahmedali7o1](https://linkedin.com/in/ahmedali7o1)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/BlueMax-IO/nodearch/blob/master/LICENSE). You can also take a look at the [contributing guide](http://nodearch.io/contributing).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+<a href="https://www.patreon.com/ahmedali7o1">
+  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
+</a>
+
+## 📝 License
+
+Copyright © 2020 [Ahmed Ali](https://github.com/AhmedAli7O1).<br />
+This project is [MIT](https://github.com/BlueMax-IO/nodearch/blob/master/LICENSE) licensed.
+
+***
+
+Open Source Software made with ❤️ for the Node.js Community.<br />
+© BlueMax IO. All rights reserved. Ahmed Ali

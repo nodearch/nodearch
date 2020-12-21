@@ -16,13 +16,13 @@ export class GitHubDownloader {
   private readonly githubRepoUrl: string = 'https://api.github.com/repos/bluemax-io/nodearch/contents/';
 
   async listTemplates () {
-    const dirsInfo = await this.getDirPathInfo('template');
+    const dirsInfo = await this.getDirPathInfo('templates');
     return dirsInfo.map((x: any) => x.name);
   }
 
   async downloadTemplate(downloadPath: string, templateName: string) {
 
-    const filesInfo = await this.getPathInfo('template/' + templateName);
+    const filesInfo = await this.getPathInfo('templates/' + templateName);
 
     await Promise.all(
       filesInfo.map(async fileInfo => {
