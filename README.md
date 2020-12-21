@@ -5,6 +5,8 @@
   <img src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/isolated-layout.svg" height="200" width="300" alt="NodeArch Logo" />
 </a>
 
+# NodeArch
+
 <p>
   <a href="https://nodearch.io" target="_blank">
     <img alt="Programming Language" src="https://img.shields.io/badge/typescript-100%25-blue.svg">
