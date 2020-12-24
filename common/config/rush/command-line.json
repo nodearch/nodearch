@@ -15,7 +15,8 @@
       "commandKind": "bulk",
       "name": "test",
       "summary": "test by jest",
-      "enableParallelism": true
+      "enableParallelism": true,
+      "allowWarningsInSuccessfulBuild": true
     }
     // {
     //   /**
