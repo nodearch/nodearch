@@ -42,4 +42,4 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         base-path: ./system/core
-        path-to-lcov: ./coverage/lcov.info
+        path-to-lcov: ./system/core/coverage/lcov.info
