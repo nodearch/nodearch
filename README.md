@@ -64,40 +64,81 @@ nodearch test -w
 # build your app ( only required in production mode )
 nodearch build
 ```
+```bash
+❯ nodearch -h
+Usage: nodearch <command> [options]
 
-## Run tests
+Commands:
+  nodearch build  Build NodeArch app                                [aliases: b]
+  nodearch new    Generate new NodeArch APP                         [aliases: n]
+  nodearch start  Start NodeArch APP                                [aliases: s]
+  nodearch test   run automated testing                             [aliases: t]
 
-```sh
-rush test
+Options:
+  -y, --notify   turn desktop notifier on or off       [boolean] [default: true]
+  -h, --help     Show help                                             [boolean]
+  -v, --version  Show version number                                   [boolean]
+
+Examples:
+  nodearch new    generates new app
+  nodearch build  build existing app from the current directory
+  nodearch start  starts existing app from the current directory
 ```
 
-## Author
-
-👤 **Ahmed Ali**
-
-* Website: ahmedali.me
-* Twitter: [@ahmedali7o1](https://twitter.com/ahmedali7o1)
-* Github: [@AhmedAli7O1](https://github.com/AhmedAli7O1)
-* LinkedIn: [@ahmedali7o1](https://linkedin.com/in/ahmedali7o1)
+for all the options, please check the [documentation](https://nodearch.io/docs)
 
 ## 🤝 Contributing
+Contributions, issues and feature requests are welcome! If you like the idea and want to improve, add, or suggest something, please use the GitHub Issue tracker to communicate your thoughts with us.
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/BlueMax-IO/nodearch/blob/master/LICENSE). You can also take a look at the [contributing guide](http://nodearch.io/contributing).
+## 👷 Development
+### Prerequisites
+* [Node.js](https://nodejs.org/en/download/)
+* [Microsoft Rush](https://rushjs.io/pages/intro/get_started/)
+* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+### Setup
+Clone the project on your local machine, using the following command.
+```bash
+git clone https://github.com/BlueMax-IO/nodearch.git
+```
+
+Switch to the repo directory, and then install dependencies
+```bash
+rush install
+```
+
+Now build the project
+```bash
+rush build
+```
+
+### Usage
+
+```bash
+# Build the project
+rush build
+
+# Run test cases
+rush test
+
+# Add NPM package as a dependency
+rush add
+```
+
+For more details on how to use Rush to add packages, commands, build and run stuff. check it on the official [Rush website](https://rushjs.io/pages/intro/welcome/)
 
 ## Show your support
 
-Give a ⭐️ if this project helped you!
+Give a ⭐️ if this project helped you! 
 
-<a href="https://www.patreon.com/ahmedali7o1">
-  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
-</a>
+[![Star on GitHub](https://img.shields.io/github/stars/bluemax-io/nodearch?style=social)](https://github.com/bluemax-io/nodearch/stargazers)
 
 ## 📝 License
 
-Copyright © 2020 [Ahmed Ali](https://github.com/AhmedAli7O1).<br />
+Copyright © 2020 [BlueMax IO](https://github.com/BlueMax-IO).<br />
 This project is [MIT](https://github.com/BlueMax-IO/nodearch/blob/master/LICENSE) licensed.
 
 ***
 
 Open Source Software made with ❤️ for the Node.js Community.<br />
-© BlueMax IO. All rights reserved. Ahmed Ali
+© BlueMax IO. All rights reserved. [Ahmed Ali](https://github.com/AhmedAli7O1)
