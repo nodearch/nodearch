@@ -7,7 +7,8 @@ export abstract class TypeParser {
     if (!configType && defaultValue !== undefined) {
       if (typeof defaultValue === 'number') configType = ConfigType.NUMBER;
       else if (defaultValue instanceof Date) configType = ConfigType.DATE;
-      else if (['object', 'boolean'].includes(typeof defaultValue)) configType = ConfigType.JSON;
+      else if (typeof defaultValue === 'boolean') configType = ConfigType.BOOLEAN;
+      else if (typeof defaultValue === 'object') configType = ConfigType.JSON;
     }
 
     switch (configType) {
@@ -19,6 +20,9 @@ export abstract class TypeParser {
         break;
       case ConfigType.DATE:
         parsed = new Date(value);
+        break;
+      case ConfigType.BOOLEAN:
+        parsed = value === 'true' ? true : false;
         break;
       case ConfigType.STRING:
       default:

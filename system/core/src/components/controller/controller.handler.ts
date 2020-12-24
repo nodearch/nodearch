@@ -44,7 +44,7 @@ export class ControllerHandler extends BaseComponentHandler implements IComponen
                 args
               });
             }
-            else return true; //TODO: remove if-else as "else" will never happen check InterceptorResolver.getControllerInterceptors code
+            else return true;
           },
           after: async function (methodName: string, args: any[], paramTypes: string[]) {
             const afterMethod = interceptors[methodName]?.after;
@@ -57,7 +57,7 @@ export class ControllerHandler extends BaseComponentHandler implements IComponen
                 args
               });
             }
-            else return true; // TODO: remove if-else as "else" will never happen check InterceptorResolver.getControllerInterceptors code
+            else return true;
           }
         })
       });

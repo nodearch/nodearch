@@ -39,8 +39,13 @@ describe('application/config', () => {
       expect(typeof result).toEqual('object');
     });
 
-    it('parse boolean using Type JSON', () => {
-      const result = TypeParser.parse('false', undefined, ConfigType.JSON);
+    it('parse array using defaultValue', () => {
+      const result = TypeParser.parse('[{ "one": 1, "two": "2" }]', [{ one: 1 }]);
+      expect(typeof result).toEqual('object');
+    });
+
+    it('parse boolean using Type BOOLEAN', () => {
+      const result = TypeParser.parse('false', undefined, ConfigType.BOOLEAN);
       expect(typeof result).toEqual('boolean');
     });
 
