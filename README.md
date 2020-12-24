@@ -2,8 +2,6 @@
 
 <img align="right" src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/isolated-layout.svg" height="200" width="300" alt="NodeArch Logo" />
 
-<!-- > Node.js Backend Framework -->
-
 <p>
   <a href="https://nodearch.io" target="_blank">
     <img alt="Programming Language" src="https://img.shields.io/badge/typescript-100%25-blue.svg">
@@ -28,11 +26,9 @@
   </a>
 </p>
 
-<!-- <br /><br /><br /><br /> -->
-
 ## 👋 Welcome to NodeArch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dapibus suscipit sodales. Maecenas quis elit commodo, convallis nisl id, elementum risus. Nunc a sem malesuada, semper mauris vel, blandit elit. Proin sed felis at lacus suscipit maximus. Cras pellentesque dui sed metus pharetra, id feugiat arcu efficitur. Ut ac felis sem. Pellentesque posuere lectus sapien, vel fringilla libero molestie ac. Donec in porta nisi, ut tempor lorem. Sed id est vel ante fringilla convallis.
+NodeArch is a Node.js backend framework targeting to solve the design and architectural problems when creating Node.js APPs for the backend. Using Typescript and dependency injection, we bring the concepts we used to in languages like Java, C# etc. While still getting the best out of Javascript flexibility and Node.js non-blocking I/O model. There is also a big focus on wiring everything together, so our intention is not to reinvent/rewrite the tools/frameworks we already know and use. Instead, our target is to wire everything together and leverage the opensource community behind Node.js and Javascript. You can think of NodeArch as the glue that links all your tools and libraries together and helps create a readable, maintainable and scalable application architecture. 
 
 ### 🏠 [Homepage](nodearch.io)
 
