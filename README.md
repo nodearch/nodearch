@@ -16,7 +16,7 @@
     <img alt="Downloads" src="https://img.shields.io/npm/dt/@nodearch/core.svg" />
   </a>
   <a href="https://coveralls.io/github/nodearch/core?branch=master" target="_blank">
-    <img alt="Code Coverage" src="https://coveralls.io/repos/github/nodearch/core/badge.svg?branch=master" />
+    <img alt="Code Coverage" src="https://coveralls.io/repos/github/BlueMax-IO/nodearch/badge.svg?branch=master" />
   </a>
     <a href="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core" target="_blank">
     <img alt="Vulnerabilities" src="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core.svg" />
