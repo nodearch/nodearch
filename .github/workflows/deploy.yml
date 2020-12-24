@@ -24,6 +24,8 @@ jobs:
       run: node common/scripts/install-run-rush.js install
     - name: Building...
       run: node common/scripts/install-run-rush.js rebuild --verbose
+    - name: Testing...
+      run: node common/scripts/install-run-rush.js test
     - name: Config GIT
       run: >-
         git config --global user.email "bluemax7o1@gmail.com" &&
@@ -35,3 +37,10 @@ jobs:
         --set-access-level public
         --npm-auth-token ${{ secrets.NPM_AUTH_TOKEN }}
         --apply --publish --add-commit-details
+    - name: Generate Coverage
+      run: node common/scripts/install-run-rush.js coverage
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./system/core/coverage/lcov.info
