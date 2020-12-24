@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "fix nodemon not found",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli",
+  "email": "bluemax7o1@gmail.com"
+}
