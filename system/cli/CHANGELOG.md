@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Sun, 20 Dec 2020 10:25:53 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Dec 2020 13:16:53 GMT and should not be manually modified.
+
+## 1.1.3
+Thu, 24 Dec 2020 13:16:53 GMT
+
+### Patches
+
+- fix nodemon not found
 
 ## 1.1.2
 Sun, 20 Dec 2020 10:25:53 GMT
