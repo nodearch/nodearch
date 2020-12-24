@@ -30,9 +30,12 @@
 
 NodeArch is a Node.js backend framework targeting to solve the design and architectural problems when creating Node.js APPs for the backend. Using Typescript and dependency injection, we bring the concepts we used to in languages like Java, C# etc. While still getting the best out of Javascript flexibility and Node.js non-blocking I/O model. There is also a big focus on wiring everything together, so our intention is not to reinvent/rewrite the tools/frameworks we already know and use. Instead, our target is to wire everything together and leverage the opensource community behind Node.js and Javascript. You can think of NodeArch as the glue that links all your tools and libraries together and helps create a readable, maintainable and scalable application architecture. 
 
-### 🏠 [Homepage](nodearch.io)
 
-### ✨ [Demo](nodearch.io/docs)
+## Links
+
+### 🏠 [Homepage](https://nodearch.io)
+
+### ✨ [Documentation](https://nodearch.io/docs)
 
 ## Install
 
