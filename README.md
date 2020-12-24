@@ -21,8 +21,13 @@
     <a href="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core" target="_blank">
     <img alt="Vulnerabilities" src="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core.svg" />
   </a>
-  <a href="https://twitter.com/ahmedali7o1" target="_blank">
-    <img alt="Twitter: AhmedAli7O1" src="https://img.shields.io/twitter/follow/AhmedAli7O1.svg?style=social" />
+  </a>
+    <a href="https://img.shields.io/github/workflow/status/bluemax-io/nodearch/Deploy/master" target="_blank">
+    <img alt="Build Status" src="https://img.shields.io/github/workflow/status/bluemax-io/nodearch/Deploy/master?label=Build" />
+  </a>
+  </a>
+    <a href="https://github.com/bluemax-io/nodearch/stargazers" target="_blank">
+    <img alt="Star on GitHub" src="https://img.shields.io/github/stars/bluemax-io/nodearch?style=social" />
   </a>
 </p>
 
