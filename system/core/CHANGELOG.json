@@ -2,6 +2,20 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "1.1.2",
+      "tag": "@nodearch/core_v1.1.2",
+      "date": "Thu, 24 Dec 2020 22:13:44 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "parse boolean and date types i nthe configurations",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "b4918f50f33b0cb00cdf8b7e9da1646a8e0cf6e4"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.1",
       "tag": "@nodearch/core_v1.1.1",
       "date": "Sat, 19 Dec 2020 03:10:12 GMT",

@@ -25,7 +25,7 @@
     "email": "bluemax7o1@gmail.com"
   },
   "dependencies": {
-    "@nodearch/core": "^1.1.1",
+    "@nodearch/core": "^1.1.2",
     "axios": "^0.21.0",
     "decompress": "^4.2.1",
     "inquirer": "^7.3.3",

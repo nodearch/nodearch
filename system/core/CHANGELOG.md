@@ -1,6 +1,13 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Sat, 19 Dec 2020 03:10:12 GMT and should not be manually modified.
+This log was last generated on Thu, 24 Dec 2020 22:13:44 GMT and should not be manually modified.
+
+## 1.1.2
+Thu, 24 Dec 2020 22:13:44 GMT
+
+### Patches
+
+- parse boolean and date types i nthe configurations
 
 ## 1.1.1
 Sat, 19 Dec 2020 03:10:12 GMT
