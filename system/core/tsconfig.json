@@ -67,6 +67,7 @@
     "node_modules", 
     "dist", 
     "**/**/*spec.ts", 
-    "**/**/*e2e-spec.ts"
+    "**/**/*e2e-spec.ts", 
+    "**/**/__test__"
   ]
 }
