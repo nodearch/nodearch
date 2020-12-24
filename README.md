@@ -31,22 +31,38 @@
 NodeArch is a Node.js backend framework targeting to solve the design and architectural problems when creating Node.js APPs for the backend. Using Typescript and dependency injection, we bring the concepts we used to in languages like Java, C# etc. While still getting the best out of Javascript flexibility and Node.js non-blocking I/O model. There is also a big focus on wiring everything together, so our intention is not to reinvent/rewrite the tools/frameworks we already know and use. Instead, our target is to wire everything together and leverage the opensource community behind Node.js and Javascript. You can think of NodeArch as the glue that links all your tools and libraries together and helps create a readable, maintainable and scalable application architecture. 
 
 
-## Links
+## 🔗 Links
 
-### 🏠 [Homepage](https://nodearch.io)
+* [Homepage](https://nodearch.io)
+* [Documentation](https://nodearch.io/docs)
 
-### ✨ [Documentation](https://nodearch.io/docs)
+## 📦 Install
 
-## Install
+You need to install the NodeArch command-line interface to be able to generate new apps. Start by Running the following command in your terminal to install the CLI globally.
 
 ```sh
 npm i -g @nodearch/cli
 ```
 
+Once installed, you can run `nodearch -h` in your terminal to see the usage.
+
 ## 🚀 Usage
 
 ```sh
-rush build
+# start your app
+nodearch start
+
+# start your app in Watch mode
+nodearch  start -w
+
+# run test cases
+nodearch test
+
+# run test cases in watch mode
+nodearch test -w
+
+# build your app ( only required in production mode )
+nodearch build
 ```
 
 ## Run tests

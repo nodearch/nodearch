@@ -1,6 +1,6 @@
-import { Logger, ClassConstructor, App, ICLI, CLIBuilder, CLI } from '@nodearch/core';
+import { Logger, ClassConstructor, App, ICLI, CLIBuilder, CLI, INpmDependency, NpmDependencyType } from '@nodearch/core';
 import { AppInfoService } from '../app-info/app-info.service';
-import nodemon from 'nodemon';
+import path from 'path';
 import { NotifierService } from '../notifier.service';
 
 
@@ -11,6 +11,7 @@ export class StartCommand implements ICLI {
   describe: string;
   aliases: string[];
   builder: CLIBuilder;
+  npmDependencies: INpmDependency[];
 
   constructor(
     private readonly logger: Logger, 
@@ -33,6 +34,13 @@ export class StartCommand implements ICLI {
         describe: 'start app with nodemon'
       }
     };
+    
+    this.npmDependencies = [
+      {
+        name: 'nodemon',
+        type: NpmDependencyType.DevDependency
+      }
+    ];
   }
 
   async handler(data: any) {
@@ -58,6 +66,9 @@ export class StartCommand implements ICLI {
   private async startWatch(data: any) {
     if (this.appInfoService.appInfo) {
 
+
+      const nodemon = (await import(path.join(this.appInfoService.cwd, 'node_modules', 'nodemon')));
+
       const nodemonInstance = nodemon({
         watch: [this.appInfoService.appInfo.rootDir],
         ext: 'ts',
@@ -72,10 +83,10 @@ export class StartCommand implements ICLI {
 
 
       nodemonInstance
-        .on('crash', (...args) => {
+        .on('crash', (...args: any) => {
           this.notifierService.notify('Your APP Crashed!');
         })
-        .once('start', (...args) => {
+        .once('start', (...args: any) => {
           this.notifierService.notify('Your APP started in watch mode!');
         });
 
