@@ -1,13 +1,10 @@
 import { Container } from 'inversify';
-import { ComponentType, ComponentScope } from '../enums';
+import { ComponentType } from '../enums';
 import { ClassConstructor } from '../../utils';
 import { IComponentHandler, IComponentInfo } from '../interfaces';
 import { BaseComponentHandler } from "../base-handler";
 import { ProxyFactory } from '../proxy-factory';
-import { ControllerMetadata } from './controller.metadata';
-import { IInterceptorMetadataInfo } from '../interceptor';
 import { InterceptorResolver } from '../interceptor/interceptor-resolver';
-import { ClassInfo } from '../../utils';
 
 export class ControllerHandler extends BaseComponentHandler implements IComponentHandler {
   constructor(container: Container) {

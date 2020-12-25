@@ -73,10 +73,6 @@ export class ComponentManagement {
     });
   }
 
-  registerCore(coreClass: any, coreValue: any) { //TODO: remove this method, we already have registerCoreComponent
-    this.container.bind(coreClass).toConstantValue(coreValue);
-  }
-
   load(classes: ClassConstructor[]) {
     let registered = 0;
 

@@ -42,6 +42,7 @@ export abstract class BaseComponentHandler {
       this.container.bind(options.type).toService(options.component);
     }
 
+    // TODO: you need to pass option ID
     if (options.id && options.id !== options.type) {
       this.container.bind(options.id).toService(options.component);
     }
