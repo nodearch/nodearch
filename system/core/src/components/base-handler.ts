@@ -26,8 +26,8 @@ export abstract class BaseComponentHandler {
       this.container.bind(options.type).toService(options.component);
     }
 
-    if (options.id && options.id !== options.type) {
-      this.container.bind(options.id).toService(options.component);
+    if (options.componentInfo.id && options.componentInfo.id !== options.componentInfo.type) {
+      this.container.bind(options.componentInfo.id).toService(options.component);
     }
 
     return binding;

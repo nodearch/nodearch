@@ -1,4 +1,4 @@
-import { AppStage, CLI, Component, ComponentType, Controller, Hook, HookContext, ICLI, IHook, IInterceptor, IInterceptorContext, Interceptor, InterceptorProvider, Repository, Service } from '../components';
+import { AppStage, CLI, Component, ComponentScope, ComponentType, Controller, Hook, HookContext, ICLI, IHook, IInterceptor, IInterceptorContext, Interceptor, InterceptorProvider, Repository, Service } from '../components';
 import { App } from './app';
 import path from 'path';
 import { LogLevel } from '../logger';
@@ -54,7 +54,7 @@ describe('app/App', () => {
           super({ 
             classLoader: { 
               classpath: path.join(__dirname, './'),
-              files: { exclude: ['*.js'] }
+              files: { exclude: ['*.ts'] }
             } 
           }); 
         }
@@ -817,6 +817,108 @@ describe('app/App', () => {
       await expect(interceptorAfterSpy1).toHaveBeenCalledTimes(0);
       await expect(interceptorAfterSpy2).toHaveBeenCalledTimes(0);
       await expect(getDataSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it('Should Register and Skip Interceptors on property', async () => {
+      @InterceptorProvider()
+      class TestInterceptor1 {
+        async before(context: IInterceptorContext) {
+          return true;
+        }
+      }
+
+      @Controller()
+      class TestController {
+        @Interceptor(<any> TestInterceptor1) getData?: string;
+      }
+
+      @Hook()
+      class TestHook implements IHook {
+
+        async onInit(context: HookContext) {
+          const controllers = context.getAll<TestController>(ComponentType.Controller);
+          for (const controller of controllers) {
+            controller.getData;
+          }
+        }
+      }
+
+
+      class TestApp extends App {
+        constructor() { super({ classLoader: { classes: [TestInterceptor1, TestController, TestHook] } }); }
+      }
+
+      const interceptorBeforeSpy1 = spyOn(TestInterceptor1.prototype, 'before');
+
+      const app = new TestApp();
+      await app.run(AppStage.Start);
+
+      await expect(interceptorBeforeSpy1).toHaveBeenCalledTimes(0);
+    });
+
+    it('Should Register Component with Transient Scope', async () => {
+
+      @Controller({ scope: ComponentScope.Transient })
+      class TestController {
+      }
+
+      class TestApp extends App {
+        constructor() { super({ classLoader: { classes: [TestController] } }); }
+      }
+
+      const app = new TestApp();
+
+      await expect(app.run(AppStage.Start)).resolves.toEqual(undefined);
+    });
+
+    it('Should Register Component with Id', async () => {
+
+      @Component({ scope: ComponentScope.Request, id: 'group1' })
+      class TestComponent1 {
+        data = 'comp1'
+      }
+
+      @Controller({ scope: ComponentScope.Request, id: 'group1' })
+      class TestController2 {
+        data = 'controller1'
+      }
+
+      @Service({ id: 'group2' })
+      class TestService1 {
+        data = 'service1'
+      }
+
+      @Service()
+      class TestService2 {
+        load(classes: any[]) {}
+      }
+
+      @Hook()
+      class TestHook1 implements IHook {
+        async onStart(context: HookContext) {
+          const groupOne: any[] = context.getAll('group1');
+          const groupTwo: any[] = context.getAll('group2');
+          const service = context.get<TestService2>(TestService2);
+
+          service.load([groupOne.map(g => g.data), groupTwo.map(g => g.data)]);
+        }
+      }
+
+      class TestApp extends App {
+        constructor() { 
+          super({
+            classLoader: { classes: [TestComponent1, TestController2, TestHook1, TestService1, TestService2] } 
+          }); 
+        }
+      };
+
+      const loadClassesSpy = spyOn(TestService2.prototype, 'load');
+
+      const app = new TestApp();
+
+      await expect(app.run(AppStage.Start)).resolves.toEqual(undefined);
+      expect(loadClassesSpy).toHaveBeenCalledTimes(1);
+      expect(loadClassesSpy).toHaveBeenCalledWith([['comp1', 'controller1'], ['service1']]);
     });
 
     it('Should successfully run multi directories app', async () => {
