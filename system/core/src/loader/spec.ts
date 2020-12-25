@@ -2,6 +2,43 @@ import { FileSystem } from './file-system';
 import path from 'path';
 
 describe('loader/file-system', () => {
+  describe('FileSystem.readDir', () => {
+    it('Should Failed To Read Dir non exits Dir', async () => {
+      await expect(FileSystem.readDir(path.join(__dirname, '../../src/not_exits'))).rejects.toThrowError();;
+    });
+
+    it('Should Successfully Read Dir have files and sub dirs', async () => {
+      await expect(FileSystem.readDir(path.join(__dirname, '../')))
+        .resolves
+        .toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({ type: 'dir', name: 'loader', ext: '' }),
+            expect.objectContaining({ type: 'file', ext: '.ts', name: 'index' })
+          ])
+        );
+    });
+  });
+
+  describe('FileSystem.readFiles', () => {
+    it('Should Failed To Read Files From non exits Dir', async () => {
+      await expect(FileSystem.readFiles(path.join(__dirname, '../../src/not_exits'))).rejects.toThrowError();;
+    });
+
+    it('Should Return array of empty files with deeps equal 0', async () => {
+      await expect(FileSystem.readFiles(path.join(__dirname, '../'), 0)).resolves.toEqual([]);;
+    });
+
+    it('Should Successfully Read Dir have files and sub dirs', async () => {
+      await expect(FileSystem.readFiles(__dirname))
+        .resolves
+        .toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({ type: 'file', ext: '.ts', name: 'spec' })
+          ])
+        );
+    });
+  });
+
   describe('FileSystem.findUpSync', () => {
     it('Should Failed To Find non exits File', () => {
       expect(FileSystem.findUpSync('not_exits.txt', path.join(__dirname, '../../src'))).toEqual(undefined);
