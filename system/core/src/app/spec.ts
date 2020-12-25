@@ -1,8 +1,9 @@
-import { AppStage, CLI, Component, ComponentScope, ComponentType, Controller, Hook, HookContext, ICLI, IHook, IInterceptor, IInterceptorContext, Interceptor, InterceptorProvider, Repository, Service } from '../components';
+import { AppStage, CLI, Component, ComponentManagement, ComponentScope, ComponentType, Controller, Hook, HookContext, ICLI, IHook, IInterceptor, IInterceptorContext, Interceptor, InterceptorProvider, Repository, Service } from '../components';
 import { App } from './app';
 import path from 'path';
 import { LogLevel } from '../logger';
 import { TestingApp } from './__test__/test_app/main.test';
+import { ComponentMetadata } from '../components/component.metadata';
 
 @Service()
 export class GTestService {}
@@ -79,6 +80,61 @@ describe('app/App', () => {
       }
 
       await expect((new TestApp()).run()).resolves.toEqual(undefined);
+    });
+
+    it('Should successfully create App with Extensions with invalid classes in imports', async () => {
+
+      const invalidData = <any> {};
+
+      class ExtApp extends App {
+        constructor() { super({ classLoader: { classes: [invalidData] } }); }
+      }
+
+      class TestApp extends App {
+        constructor() { super({ 
+          classLoader: { classpath: path.join(__dirname, './') },
+          extensions: [{ app: new ExtApp(), include: [invalidData] }]
+        }); }
+      }
+
+      await expect((new TestApp()).run()).rejects.toThrowError();
+    });
+
+    it('Should successfully create App with Extensions with not component classes in imports', async () => {
+
+      class NotRegisteredService {}
+
+      class ExtApp extends App {
+        constructor() { super({ classLoader: { classes: [NotRegisteredService] } }); }
+      }
+
+      class TestApp extends App {
+        constructor() { super({ 
+          classLoader: { classpath: path.join(__dirname, './') },
+          extensions: [{ app: new ExtApp(), include: [NotRegisteredService] }]
+        }); }
+      }
+
+      await expect((new TestApp()).run()).rejects.toThrowError();
+    });
+
+    it('Should successfully create App with Extensions with not recognized as one of the supported Components', async () => {
+
+      const metadataInfoSpy = spyOn(ComponentMetadata, 'getInfo').and.returnValue({ name: 'test', type: 'not_valid' });
+      class NotRegisteredService {}
+
+      class ExtApp extends App {
+        constructor() { super({ classLoader: { classes: [NotRegisteredService] } }); }
+      }
+
+      class TestApp extends App {
+        constructor() { super({ 
+          classLoader: { classpath: path.join(__dirname, './') },
+          extensions: [{ app: new ExtApp(), include: [NotRegisteredService] }]
+        }); }
+      }
+
+      await expect((new TestApp()).run()).rejects.toThrowError();
     });
 
     it('Should failed create App with Extensions as App include classes not registered in Ext', async () => {
@@ -367,6 +423,76 @@ describe('app/App', () => {
       expect(spyOnStartTestHook2).toHaveBeenCalledTimes(1);
     });
 
+    it('Should successfully Fail to Call unexpected CLIs in some Hook', async () => {
+        spyOn(ComponentType, 'CLI').and.returnValue('invalid_type')
+
+      @Hook()
+      class TestHook1 implements IHook {
+        async onStart(context: HookContext): Promise<any> { return true; }
+      }
+
+      @Hook()
+      class TestHook2 implements IHook {
+        async onInit(context: HookContext) {
+          context.findCLICommands();
+        }
+      }
+
+      class TestApp extends App {
+        constructor() {
+          super({ 
+            classLoader: { classes: [TestHook1, TestHook2] }
+          });
+        }
+      }
+
+      const appInstance = new TestApp();
+
+      await expect(appInstance.run(AppStage.Init)).rejects.toThrowError();
+    });
+
+    it('Should successfully Fail to Load App with unexpected types of hooks', async () => {
+      spyOn(ComponentManagement.prototype, 'getAll').and.throwError('invalid_type')
+
+      @Hook()
+      class TestHook1 implements IHook {
+        async onStart(context: HookContext): Promise<any> { return true; }
+      }
+
+      class TestApp extends App {
+        constructor() {
+          super({ 
+            classLoader: { classes: [TestHook1] }
+          });
+        }
+      }
+
+      const appInstance = new TestApp();
+
+      await expect(appInstance.run()).rejects.toThrowError();
+    });
+
+    it('Should successfully Fail to Load App with unexpected types of hooks', async () => {
+      spyOn(ComponentManagement.prototype, 'getAll').and.throwError('invalid_type')
+
+      @Hook()
+      class TestHook1 implements IHook {
+        async onStart(context: HookContext): Promise<any> { return true; }
+      }
+
+      class TestApp extends App {
+        constructor() {
+          super({ 
+            classLoader: { classes: [TestHook1] }
+          });
+        }
+      }
+
+      const appInstance = new TestApp();
+
+      await expect(appInstance.run()).rejects.toThrowError();
+    });
+
     it('Should fail to Find Undefined Component Type in some Hook', async () => {
       @Hook()
       class TestHook implements IHook {
@@ -569,6 +695,22 @@ describe('app/App', () => {
       await expect(app.getCLICommands()).toEqual([]);
     });
 
+    it('Should Get Failed Array of unexpected types ClI Commands', async () => {
+
+      @Repository()
+      class TestRepository {}
+
+      class TestApp extends App {
+        constructor() { super({ classLoader: { classes: [TestRepository] } }); }
+      }
+
+      const app = new TestApp();
+      await app.run(AppStage.Start);
+
+      spyOn(ComponentManagement.prototype, 'getAll').and.throwError('')
+
+      expect(() => app.getCLICommands()).toThrowError();
+    });
 
     it('Should Register and Execute Interceptor on Controller before and after', async () => {
       @InterceptorProvider()
