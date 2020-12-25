@@ -33,6 +33,36 @@ describe('app/App', () => {
       await expect((new TestApp()).run()).resolves.toEqual(undefined);
     });
 
+    it('Should successfully create App by load classes by path and include ts files', async () => {
+      class TestApp extends App {
+        constructor() { 
+          super({ 
+            classLoader: { 
+              classpath: path.join(__dirname, './'),
+              files: { include: ['*.ts'] }
+            } 
+          }); 
+        }
+      }
+
+      await expect((new TestApp()).run()).resolves.toEqual(undefined);
+    });
+
+    it('Should successfully create App by load classes by path and exclude ts files', async () => {
+      class TestApp extends App {
+        constructor() { 
+          super({ 
+            classLoader: { 
+              classpath: path.join(__dirname, './'),
+              files: { exclude: ['*.js'] }
+            } 
+          }); 
+        }
+      }
+
+      await expect((new TestApp()).run()).resolves.toEqual(undefined);
+    });
+
     it('Should successfully create App with Extensions', async () => {
       @Service()
       class TestService {}
@@ -75,7 +105,15 @@ describe('app/App', () => {
     });
 
     it('Should fail to create empty App with no Classes', async () => {
-      expect(class TestApp extends App { constructor() { super(); } }).toThrowError();
+      class TestApp extends App { constructor() { super({}); } };
+
+      expect(() => new TestApp()).toThrowError();
+    });
+
+    it('Should fail to create empty App with empty Classes', async () => {
+      class TestApp extends App { constructor() { super({ classLoader: { classes: [] } }); } };
+
+      expect(() => new TestApp()).toThrowError();
     });
 
     it('Should successfully Inject Service in Hook', async () => {

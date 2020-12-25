@@ -18,7 +18,8 @@ export class ClassLoader {
       deep: 5
     };
 
-    if (!this.classpath && (!options.classes || !options.classes.length)) {
+
+    if (!this.classpath && !this.classes?.length) {
       throw new Error('Requires either classpath or classes configurations to be present');
     }
   }
