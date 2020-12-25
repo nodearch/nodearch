@@ -50,7 +50,7 @@ export abstract class InterceptorResolver {
     }).reverse();
 
     if (methodInterceptorsInfo.length) {
-      const cptBefor: IInterceptorInstanceInfo[] = [];
+      const cptBefore: IInterceptorInstanceInfo[] = [];
       const cptAfter: IInterceptorInstanceInfo[] = [];
       let before: any, after: any;
 
@@ -59,17 +59,17 @@ export abstract class InterceptorResolver {
         const interceptorInstance = container.get<IInterceptor>(interceptorInfo.classDef);
 
         if (interceptorInstance.before)
-          cptBefor.push({ method: interceptorInstance.before, options: interceptorInfo.options });
+          cptBefore.push({ method: interceptorInstance.before, options: interceptorInfo.options });
 
         if (interceptorInstance.after)
           cptAfter.push({ method: interceptorInstance.after, options: interceptorInfo.options });
       }
 
-      if (cptBefor.length) {
+      if (cptBefore.length) {
         before = async (context: IInterceptorContext) => {
           let state = true;
 
-          for (const interceptorMethodInfo of cptBefor) {
+          for (const interceptorMethodInfo of cptBefore) {
             // TODO: handle if the guard can't be resolved from container outside and before calling this
             state = await interceptorMethodInfo.method(context, interceptorMethodInfo.options);
             if (!state) break;
