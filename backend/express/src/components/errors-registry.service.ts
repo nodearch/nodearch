@@ -3,6 +3,7 @@ import { IHttpErrorsOptions } from '../interfaces';
 import express from 'express';
 import { HttpError, InternalServerError } from '../errors';
 import { ServerConfig } from './server.config';
+import { HttpErrorHandler } from '../types';
 
 
 @Service()
@@ -24,9 +25,18 @@ export class HttpErrorsRegistry {
   }
 
   handleError(error: any, res: express.Response) {
-    const httpError: HttpError = error instanceof HttpError ? error : new InternalServerError(error.message);
+    let httpError: HttpError = error;;
+    let handler;
 
-    const handler = this.httpErrorsOptions?.customErrors?.find(err => httpError instanceof err.error)?.handler || this.httpErrorsOptions?.handler || this.defaultHandler;
+    if (this.httpErrorsOptions?.customErrors) {
+      handler = this.httpErrorsOptions?.customErrors?.find(err => error instanceof err.error)?.handler;
+    }
+
+    if (!handler) {
+      httpError = error instanceof HttpError ? error : new InternalServerError(error.message)
+      handler = this.httpErrorsOptions?.handler || this.defaultHandler;
+    }
+
     handler(httpError, res, this.logger);
   }
 }
