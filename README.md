@@ -4,10 +4,10 @@
 
 <p>
   <a href="https://nodearch.io" target="_blank">
-    <img alt="Programming Language" src="https://img.shields.io/badge/typescript-100%25-blue.svg">
+    <img alt="Programming Language" src="https://img.shields.io/badge/typescript-100%25-blue.svg" />
   </a>
   <a href="https://www.npmjs.com/package/@nodearch/core" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/@nodearch/core.svg?label=Version">
+    <img alt="Version" src="https://img.shields.io/npm/v/@nodearch/core.svg?label=Version" />
   </a>
   <a href="https://github.com/BlueMax-IO/nodearch/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
@@ -18,15 +18,13 @@
   <a href="https://coveralls.io/github/nodearch/core?branch=master" target="_blank">
     <img alt="Code Coverage" src="https://coveralls.io/repos/github/BlueMax-IO/nodearch/badge.svg?branch=master" />
   </a>
-    <a href="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core" target="_blank">
+  <a href="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core" target="_blank">
     <img alt="Vulnerabilities" src="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core.svg" />
   </a>
-  </a>
-    <a href="https://img.shields.io/github/workflow/status/bluemax-io/nodearch/Deploy/master" target="_blank">
+  <a href="https://img.shields.io/github/workflow/status/bluemax-io/nodearch/Deploy/master" target="_blank">
     <img alt="Build Status" src="https://img.shields.io/github/workflow/status/bluemax-io/nodearch/Deploy/master?label=Build" />
   </a>
-  </a>
-    <a href="https://github.com/bluemax-io/nodearch/stargazers" target="_blank">
+  <a href="https://github.com/bluemax-io/nodearch/stargazers" target="_blank">
     <img alt="Star on GitHub" src="https://img.shields.io/github/stars/bluemax-io/nodearch?style=social" />
   </a>
 </p>
