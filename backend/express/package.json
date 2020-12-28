@@ -4,7 +4,8 @@
   "description": "nodearch express server",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "rimraf ./dist/ && tsc"
+    "build": "rimraf ./dist/ && tsc",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
