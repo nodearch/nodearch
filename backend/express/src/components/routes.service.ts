@@ -106,7 +106,7 @@ export class RoutesService {
 
     this.logger.info(`Express: Register HTTP Route - ${methodInfo.httpMethod.toUpperCase()} ${methodInfo.httpPath} - Middlewares: ${middlewares.length}, Validation: ${validationHandler ? 'YES' : 'NO'}`);
 
-    // assign created handler to the express insatnce
+    // assign created handler to the express instance
     expressApp[methodInfo.httpMethod](methodInfo.httpPath, ...handlers);
   }
 }
