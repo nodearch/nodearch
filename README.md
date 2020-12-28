@@ -1,6 +1,6 @@
 <h1 align="left" >NodeArch</h1>
 
-<img align="right" src="https://raw.githubusercontent.com/BlueMax-IO/nodearch/develop/assets/isolated-layout.svg" height="200" width="300" alt="NodeArch Logo" />
+<img align="right" src="/assets/isolated-layout.svg" height="200" width="300" alt="NodeArch Logo" />
 
 <p>
   <a href="https://nodearch.io" target="_blank">
