@@ -79,6 +79,15 @@ export interface IRouteInfo {
   openApiInfo?: IOpenAPIInfo;
 }
 
+export interface IFileUploadOptions extends multer.Options {
+
+  /** 
+   * group the files' objects as a value in a property called with optional group name in the express request body 
+   * i.e request.body[group] = { file1: ..., file2: ...., ... }
+   * */
+  group?: string
+}
+
 export interface IUploadInfo {
   /** by default it allow any file */
   files?: string[] | IFileUploadInfo[]
@@ -87,7 +96,7 @@ export interface IUploadInfo {
   allowFiles?: boolean;
 
   /** Options for initializing a Upload instance. */
-  options?: multer.Options
+  options?: IFileUploadOptions
 }
 
 export interface IFileUploadInfo {

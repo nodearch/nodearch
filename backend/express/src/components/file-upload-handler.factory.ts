@@ -45,29 +45,30 @@ export class FileUploadHandlerFactory {
           this.httpErrorsRegistry.handleError(new BadRequest(this.errorMassage(err)), res);
         }
         else {
-          this.moveFilesToBody(req);
+          this.moveFilesToBody(req, multerOptions.group);
           next();
         }
       });
     };
   }
 
-  moveFilesToBody(req: express.Request) {
+  moveFilesToBody(req: express.Request, group?: string) {
+    const reqBody = group ? req.body[group] : req.body;
 
     if (req.file && req.file.fieldname) {
-      req.body[req.file.fieldname] = req.file;
+      reqBody[req.file.fieldname] = req.file;
     }
     else if (req.files) {
 
       if (Array.isArray(req.files)) {
 
         for (const file of req.files) {
-          req.body[file.fieldname] = file;
+          reqBody[file.fieldname] = file;
         }
       }
       else {
         for (const fileName in req.files) {
-          req.body[fileName] = req.files[fileName];
+          reqBody[fileName] = req.files[fileName];
         }
       }
     }
