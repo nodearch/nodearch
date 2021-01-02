@@ -21,13 +21,13 @@ export class ExpressHook implements IHook {
       this.logger.warn('Express: No controllers loaded!');
     }
 
-    if (this.controllers) {
+    if (this.controllers?.length) {
       await this.expressService.init(this.controllers, this.dependencyFactory(context));
     }
   }
 
-  async onStart(context: HookContext) {
-    if (this.controllers) {
+  async onStart() {
+    if (this.controllers?.length) {
       await this.expressService.start();
     }
   }
