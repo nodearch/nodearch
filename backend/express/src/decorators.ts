@@ -157,8 +157,8 @@ export const HttpOptions = (path?: string): MethodDecorator => httpInfoDecorator
 export const HttpRes = (): ParameterDecorator => paramDecoratorFactory(HTTPParam.RES);
 export const HttpReq = (): ParameterDecorator => paramDecoratorFactory(HTTPParam.REQ);
 export const HttpBody = (): ParameterDecorator => paramDecoratorFactory(HTTPParam.BODY);
-export const HttpParams = (key: string): ParameterDecorator => paramDecoratorFactory(HTTPParam.PARAMS, key);
-export const HttpHeaders = (key: string): ParameterDecorator => paramDecoratorFactory(HTTPParam.HEADERS, key);
+export const HttpParams = (key?: string): ParameterDecorator => paramDecoratorFactory(HTTPParam.PARAMS, key);
+export const HttpHeaders = (key?: string): ParameterDecorator => paramDecoratorFactory(HTTPParam.HEADERS, key);
 export const HttpQuery = (key?: string): ParameterDecorator => paramDecoratorFactory(HTTPParam.QUERY, key);
 
 

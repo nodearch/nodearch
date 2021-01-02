@@ -44,13 +44,13 @@ export class RouteHandlerFactory {
         param = req.body;
         break;
       case HTTPParam.HEADERS:
-        param = req.headers[<string>paramInfo.key];
+        param = paramInfo.key ? req.headers[paramInfo.key] : req.headers;
         break;
       case HTTPParam.PARAMS:
-        param = req.params[<string>paramInfo.key];
+        param = paramInfo.key ? req.params[paramInfo.key] : req.params;
         break;
       case HTTPParam.QUERY:
-        param = req.query[<string>paramInfo.key];
+        param = paramInfo.key ? req.query[paramInfo.key] : req.query;
         break;
     }
 
