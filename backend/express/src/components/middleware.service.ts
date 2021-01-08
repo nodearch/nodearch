@@ -15,15 +15,15 @@ export class MiddlewareService {
   }
 
   getMethodMiddlewares(middlewaresInfo: IMiddlewareMetadataInfo[], methodName: string, dependencyFactory: (x: any) => any) {
-    return middlewaresInfo.filter(x => {
-      return x.method === methodName || !x.method;
+    return middlewaresInfo.filter(middlewareInfo => {
+      return middlewareInfo.method === methodName || !middlewareInfo.method;
     })
-      .map(x => {
-        if (ControllerMetadata.isMiddlewareProvider(x.middleware)) {
-          return this.getMiddlewareHandler(<ContextMiddlewareHandler>x.middleware, dependencyFactory);
+      .map(middlewareInfo => {
+        if (ControllerMetadata.isMiddlewareProvider(middlewareInfo.middleware)) {
+          return this.getMiddlewareHandler(<ContextMiddlewareHandler>middlewareInfo.middleware, dependencyFactory);
         }
         else {
-          return <MiddlewareHandler>x.middleware;
+          return <MiddlewareHandler>middlewareInfo.middleware;
         }
       })
       .reverse();
