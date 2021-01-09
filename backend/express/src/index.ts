@@ -7,7 +7,7 @@ export * from './interfaces';
 export * from './errors';
 
 import express from 'express';
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 
 export {
   express,

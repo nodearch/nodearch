@@ -3,7 +3,6 @@ import { IHttpErrorsOptions } from '../interfaces';
 import express from 'express';
 import { HttpError, InternalServerError } from '../errors';
 import { ServerConfig } from './server.config';
-import { HttpErrorHandler } from '../types';
 
 
 @Service()

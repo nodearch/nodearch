@@ -2,7 +2,7 @@ import express from 'express';
 import { ControllerMetadata } from '../metadata';
 import { ClassConstructor, Service } from '@nodearch/core';
 import { IRequestData, IValidationSchema } from '../interfaces';
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 import { ServerConfig } from './server.config';
 import { HttpErrorsRegistry } from './errors-registry.service';
 import { BadRequest } from '../errors';

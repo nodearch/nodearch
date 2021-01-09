@@ -2,7 +2,7 @@ import { HttpMethod, HTTPParam } from './enums';
 import { HttpErrorHandler, MiddlewareHandler, ContextMiddlewareHandler } from './types';
 import { ClassConstructor } from '@nodearch/core';
 import { OpenAPIOptions, OperationObject } from './components/openapi';
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 import multer from 'multer';
 import express from 'express';
 

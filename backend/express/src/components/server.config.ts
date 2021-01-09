@@ -1,6 +1,6 @@
 import { Config, ConfigManager } from '@nodearch/core';
 import { IHttpErrorsOptions } from '../interfaces';
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 import { OpenAPIOptions } from './openapi/openapi.interfaces';
 import multer from 'multer';
 import express from 'express';
