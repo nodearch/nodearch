@@ -2,6 +2,28 @@
   "name": "@nodearch/keycloak",
   "entries": [
     {
+      "version": "1.1.1",
+      "tag": "@nodearch/keycloak_v1.1.1",
+      "date": "Mon, 11 Jan 2021 11:10:58 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add types path to package.json",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "3eaec179a92f54be60897b3e12686e6e7da81d23"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^1.1.2` to `^1.1.3`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `1.1.2` to `1.1.3`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.0",
       "tag": "@nodearch/keycloak_v1.1.0",
       "date": "Fri, 18 Dec 2020 18:46:32 GMT",
