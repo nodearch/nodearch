@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "add types path to package.json",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli",
+  "email": "bluemax7o1@gmail.com"
+}
