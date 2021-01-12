@@ -73,7 +73,7 @@ export class FileSystem {
       ...await Promise.all(
         dirContent.map(async (file) => {
           if (file.type === FileType.Directory) {
-            return [file, ...await FileSystem.readFiles(file.path, deep--)];
+            return [file, ...await FileSystem.readFiles(file.path, deep - 1)];
           }
           else {
             return [file];
