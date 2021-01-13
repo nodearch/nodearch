@@ -2,6 +2,20 @@
   "name": "@nodearch/express",
   "entries": [
     {
+      "version": "1.1.4",
+      "tag": "@nodearch/express_v1.1.4",
+      "date": "Wed, 13 Jan 2021 21:24:16 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix HttpQuery decorator spelling and make the key param optional on all http decorators",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "4521fab682fd3930d44cd872dd1db7350640928f"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.3",
       "tag": "@nodearch/express_v1.1.3",
       "date": "Mon, 11 Jan 2021 11:10:58 GMT",
