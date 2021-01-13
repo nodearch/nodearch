@@ -1,8 +1,9 @@
 {
   "name": "@nodearch/core",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "nodearch core module",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "type": "commonjs",
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
