@@ -15,7 +15,7 @@ export class ClassLoader {
     this.filesOptions = {
       include: options.files?.include || ['*.js', '*.ts'],
       exclude: options.files?.exclude || ['*.d.ts', '*.spec.ts', '*.e2e-spec.ts', '*.spec.js', '*.e2e-spec.ts'],
-      deep: 5
+      deep: options.files?.deep || 5
     };
 
 

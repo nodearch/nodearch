@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@nodearch/express",
-      "comment": "",
-      "type": "none"
+      "comment": "fix HttpQuery decorator spelling and make the key param optional on all http decorators",
+      "type": "patch"
     }
   ],
   "packageName": "@nodearch/express",

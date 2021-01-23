@@ -1,8 +1,9 @@
 {
   "name": "@nodearch/express",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "nodearch express server",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "rimraf ./dist/ && tsc"
   },
@@ -21,7 +22,7 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@nodearch/core": "^1.1.2",
+    "@nodearch/core": "^1.1.4",
     "@types/express": "^4.17.9",
     "@types/node": "^14.14.10",
     "express": "^4.17.1",
@@ -39,7 +40,7 @@
     "multer": "^1.4.2"
   },
   "peerDependencies": {
-    "@nodearch/core": "1.1.2",
+    "@nodearch/core": "1.1.4",
     "express": "4.x",
     "reflect-metadata": "0.x"
   }
