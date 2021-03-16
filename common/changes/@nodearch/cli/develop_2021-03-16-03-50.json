@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "fix nodemon call by adding default to the import",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli",
+  "email": "bluemax7o1@gmail.com"
+}
