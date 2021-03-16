@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Wed, 13 Jan 2021 21:24:16 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Mar 2021 03:51:41 GMT and should not be manually modified.
+
+## 1.1.5
+Tue, 16 Mar 2021 03:51:41 GMT
+
+### Patches
+
+- fix HttpQuery decorator spelling and make the key param optional on all http decorators
 
 ## 1.1.4
 Wed, 13 Jan 2021 21:24:16 GMT

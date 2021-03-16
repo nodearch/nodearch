@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Mon, 11 Jan 2021 11:10:58 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Mar 2021 03:51:41 GMT and should not be manually modified.
+
+## 1.1.5
+Tue, 16 Mar 2021 03:51:41 GMT
+
+### Patches
+
+- fix nodemon call by adding default to the import
 
 ## 1.1.4
 Mon, 11 Jan 2021 11:10:58 GMT
