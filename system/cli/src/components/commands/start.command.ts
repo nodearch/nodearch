@@ -67,8 +67,7 @@ export class StartCommand implements ICLI {
     if (this.appInfoService.appInfo) {
 
 
-      const nodemon = (await import(path.join(this.appInfoService.cwd, 'node_modules', 'nodemon')));
-
+      const nodemon = (await import(path.join(this.appInfoService.cwd, 'node_modules', 'nodemon'))).default;
       const nodemonInstance = nodemon({
         watch: [this.appInfoService.appInfo.rootDir],
         ext: 'ts',
