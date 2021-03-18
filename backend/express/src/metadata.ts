@@ -1,7 +1,7 @@
 import { MetadataInfo } from '@nodearch/core';
 import { 
   IHTTPInfo, IHTTPMethodParamInfo, IMiddlewareMetadataInfo, IValidationMetadataInfo,
-  IFileUploadMetadataInfo, IOpenAPIMetadataInfo 
+  IFileUploadMetadataInfo, IOpenAPIMetadataInfo, IHTTPMethodParamsMetadata 
 } from './interfaces';
 
 
@@ -10,7 +10,7 @@ export abstract class ControllerMetadata {
   static readonly CONTROLLER_HTTP_PREFIX = ControllerMetadata.PREFIX + '-http-prefix';
   static readonly CONTROLLER_HTTP_INFO = ControllerMetadata.PREFIX + '-http-info';
   static readonly CONTROLLER_PARAMS_INFO = ControllerMetadata.PREFIX + '-params-info';
-  static readonly CONTROLLER_MIDDLEWARES = ControllerMetadata.PREFIX + '-middlewares';
+  static readonly CONTROLLER_MIDDLEWARE = ControllerMetadata.PREFIX + '-middleware';
   static readonly CONTROLLER_MIDDLEWARE_PROVIDER = ControllerMetadata.PREFIX + '-middleware-provider';
   static readonly CONTROLLER_VALIDATION = ControllerMetadata.PREFIX + '-validation';
   static readonly CONTROLLER_UPLOAD_INFO = ControllerMetadata.PREFIX + '-upload-info';
@@ -24,34 +24,42 @@ export abstract class ControllerMetadata {
     MetadataInfo.setClassMetadata(ControllerMetadata.CONTROLLER_HTTP_PREFIX, controller, prefix);
   }
 
-  static getHttpInfo(controller: any, methodName: string | symbol): IHTTPInfo {
-    return MetadataInfo.getMethodMetadata(ControllerMetadata.CONTROLLER_HTTP_INFO, controller, methodName);
+  static getHttpInfo(controller: any): IHTTPInfo[] {
+    return MetadataInfo.getClassMetadata(ControllerMetadata.CONTROLLER_HTTP_INFO, controller) || [];
   }
 
-  static setHttpInfo(controller: any, methodName: string | symbol, httpInfo: IHTTPInfo): void {
-    MetadataInfo.setMethodMetadata(ControllerMetadata.CONTROLLER_HTTP_INFO, controller, methodName, httpInfo);
+  static setHttpInfo(controller: any, httpInfo: IHTTPInfo): void {
+    const httpInfoSet: IHTTPInfo[] = ControllerMetadata.getHttpInfo(controller);
+    httpInfoSet.push(httpInfo);
+
+    MetadataInfo.setClassMetadata(ControllerMetadata.CONTROLLER_HTTP_INFO, controller, httpInfoSet);
   }
 
-  static setHttpParamsInfo(controller: any, propKey: string | symbol, pInfo: IHTTPMethodParamInfo) {
-    const paramsInfo = ControllerMetadata.getHttpParamsInfo(controller, propKey);
-    paramsInfo.push(pInfo);
+  static setHttpParamsInfo(controller: any, methodName: string, pInfo: IHTTPMethodParamInfo) {
+    const paramsInfo = ControllerMetadata.getHttpParamsInfo(controller);
+    
+    if (!paramsInfo[methodName]) {
+      paramsInfo[methodName] = [];
+    } 
 
-    MetadataInfo.setMethodMetadata(ControllerMetadata.CONTROLLER_PARAMS_INFO, controller, propKey, paramsInfo);
+    paramsInfo[methodName].push(pInfo);
+
+    MetadataInfo.setClassMetadata(ControllerMetadata.CONTROLLER_PARAMS_INFO, controller, paramsInfo);
   }
 
-  static getHttpParamsInfo(controller: any, propKey: string | symbol): IHTTPMethodParamInfo[] {
-    return MetadataInfo.getMethodMetadata(ControllerMetadata.CONTROLLER_PARAMS_INFO, controller, propKey) || [];
+  static getHttpParamsInfo(controller: any): IHTTPMethodParamsMetadata {
+    return MetadataInfo.getClassMetadata(ControllerMetadata.CONTROLLER_PARAMS_INFO, controller) || {};
   }
 
-  static setMiddleware(controller: any, middleware: IMiddlewareMetadataInfo) {
-    const middlewares = ControllerMetadata.getMiddlewares(controller);
-    middlewares.push(middleware);
+  static setMiddleware(controller: any, middlewareMetadataInfo: IMiddlewareMetadataInfo) {
+    const middleware = ControllerMetadata.getMiddleware(controller);
+    middleware.push(middlewareMetadataInfo);
 
-    MetadataInfo.setClassMetadata(ControllerMetadata.CONTROLLER_MIDDLEWARES, controller, middlewares);
+    MetadataInfo.setClassMetadata(ControllerMetadata.CONTROLLER_MIDDLEWARE, controller, middleware);
   }
 
-  static getMiddlewares(controller: any): IMiddlewareMetadataInfo[] {
-    return MetadataInfo.getClassMetadata(ControllerMetadata.CONTROLLER_MIDDLEWARES, controller) || [];
+  static getMiddleware(controller: any): IMiddlewareMetadataInfo[] {
+    return MetadataInfo.getClassMetadata(ControllerMetadata.CONTROLLER_MIDDLEWARE, controller) || [];
   }
 
   static setMiddlewareProvider(component: any) {

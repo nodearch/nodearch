@@ -1,43 +1,90 @@
-import { Service } from '@nodearch/core';
+import { Service, ClassInfo, DependencyException } from '@nodearch/core';
 import { ControllerMetadata } from '../metadata';
-import { IMiddlewareMetadataInfo } from '../interfaces';
-import { ContextMiddlewareHandler, MiddlewareHandler } from '../types';
-import { HttpErrorsRegistry } from './errors-registry.service';
+import { IMiddlewareInfo, IMiddlewareMetadataInfo } from '../interfaces';
+import { ContextMiddlewareHandler, MiddlewareHandler, MiddlewareProvider } from '../types';
+import { ValidationHandlerFactory } from './validation-handler.factory';
+import { FileUploadHandlerFactory } from './file-upload-handler.factory';
 import express from 'express';
+import { MiddlewareType } from '../enums';
+import { InternalServerError } from '../http-errors';
 
 @Service()
 export class MiddlewareService {
 
-  constructor(private httpErrorsRegistry: HttpErrorsRegistry) {}
+  constructor(
+    private validationHandlerFactory: ValidationHandlerFactory,
+    private fileUploadHandlerFactory: FileUploadHandlerFactory
+  ) {}
 
-  getMiddlewares(controller: any) {
-    return ControllerMetadata.getMiddlewares(controller);
-  }
+  getMiddleware(controller: any): IMiddlewareInfo[] {
+    // get third-party and context middleware
+    const middlewareSet: IMiddlewareInfo[] = ControllerMetadata
+      .getMiddleware(controller)
+      .map((middlewareMetaInfo: IMiddlewareMetadataInfo, index: number) => {
+        const middlewareInfo = { id: index, ...middlewareMetaInfo, type: MiddlewareType.EXPRESS };
 
-  getMethodMiddlewares(middlewaresInfo: IMiddlewareMetadataInfo[], methodName: string, dependencyFactory: (x: any) => any) {
-    return middlewaresInfo.filter(x => {
-      return x.method === methodName || !x.method;
-    })
-      .map(x => {
-        if (ControllerMetadata.isMiddlewareProvider(x.middleware)) {
-          return this.getMiddlewareHandler(<ContextMiddlewareHandler>x.middleware, dependencyFactory);
+        if (ControllerMetadata.isMiddlewareProvider(middlewareInfo.middleware)) {
+          middlewareInfo.type = MiddlewareType.CONTEXT;
+          // Add this Middleware as dependency to the controller so inversify can resolve it later
+          ClassInfo.propertyInject(controller, <ContextMiddlewareHandler>middlewareInfo.middleware, 'middleware:' + middlewareInfo.id);
         }
-        else {
-          return <MiddlewareHandler>x.middleware;
-        }
+
+        return middlewareInfo;
       })
       .reverse();
+
+    // get fileUpload Middleware if exist
+    const fileUploadMiddlewareSet = this.fileUploadHandlerFactory.getUploadHandlers(controller);
+
+    fileUploadMiddlewareSet.forEach(uploadMiddleware => {
+      middlewareSet.push({ id: middlewareSet.length, ...uploadMiddleware });
+    });
+
+    const validationMiddlewareSet = this.validationHandlerFactory.getValidationHandlers(controller);
+
+    validationMiddlewareSet.forEach(validationMiddleware => {
+      middlewareSet.push({ id: middlewareSet.length, ...validationMiddleware });
+    });
+
+    return middlewareSet;
   }
 
-  private getMiddlewareHandler(middlewareProvider: ContextMiddlewareHandler, dependencyFactory: (x: any) => any): MiddlewareHandler {
-    // TODO: what if we couldn't resolve the provider, or it didn't have handler function
-    const provider = dependencyFactory(middlewareProvider);
-    
-    return (req: express.Request, res: express.Response, next: express.NextFunction) => {
-      // provider.handler.bind(provider);
-      provider.handler(req, res)
-        .then(() => next())
-        .catch((err: Error) => this.httpErrorsRegistry.handleError(err, res));
+  getMethodMiddleware(middlewareInfo: IMiddlewareInfo[], methodName: string): IMiddlewareInfo[] {
+    return middlewareInfo
+      .filter(
+        mInfo =>
+          mInfo.method === methodName ||
+          !mInfo.method
+      );
+  }
+
+  getMiddlewareHandler(middlewareInfo: IMiddlewareInfo[], controllerInstance: any) {
+    return async (req: express.Request, res: express.Response) => {
+      for(const mInfo of middlewareInfo) {
+        if (mInfo.type === MiddlewareType.CONTEXT) {
+          const contextHandler = (<MiddlewareProvider<any>>controllerInstance['middleware:' + mInfo.id]);
+          
+          if (contextHandler && contextHandler.handler) {
+            await contextHandler.handler(req, res, mInfo.options);
+          }
+          else {
+            throw new DependencyException('Cannot resolve Middleware Provider!');
+          }
+        }
+        else {
+          // TODO: check if an express middleware responded to the request and never called next
+          await this.asyncMiddleware(req, res, <MiddlewareHandler>mInfo.middleware);
+        }
+      }
     };
+  }
+
+  async asyncMiddleware(req: express.Request, res: express.Response, middleware: MiddlewareHandler): Promise<void> {
+    return new Promise((resolve, reject) => {
+      middleware(req, res, (err?: any) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
   }
 }

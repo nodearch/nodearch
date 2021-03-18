@@ -1,4 +1,4 @@
-import { HttpMethod, HTTPParam } from './enums';
+import { HttpMethod, HTTPParam, MiddlewareType } from './enums';
 import { HttpErrorHandler, MiddlewareHandler, ContextMiddlewareHandler } from './types';
 import { ClassConstructor } from '@nodearch/core';
 import { OpenAPIOptions, OperationObject } from './components/openapi';
@@ -23,13 +23,17 @@ export interface IHTTPMethodParamInfo {
   key?: string;
 }
 
+export interface IHTTPMethodParamsMetadata {
+  [name: string]: IHTTPMethodParamInfo[]; 
+}
+
 export interface IHTTPInfo {
+  name: string;
   httpMethod: HttpMethod;
   httpPath: string;
 }
 
 export interface IHttpControllerMethod extends IHTTPInfo {
-  name: string;
   params: IHTTPMethodParamInfo[];
 }
 
@@ -50,6 +54,13 @@ export interface IHttpErrorsOptions {
 export interface IMiddlewareMetadataInfo {
   middleware: MiddlewareHandler | ContextMiddlewareHandler;
   method?: string;
+  options?: any; 
+}
+
+export interface IMiddlewareInfo extends IMiddlewareMetadataInfo {
+  id: number;
+  type: MiddlewareType;
+  metadata?: any;
 }
 
 export interface IValidationSchema {

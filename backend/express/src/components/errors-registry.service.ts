@@ -1,7 +1,7 @@
 import { Service, Logger } from '@nodearch/core';
 import { IHttpErrorsOptions } from '../interfaces';
 import express from 'express';
-import { HttpError, InternalServerError } from '../errors';
+import { HttpError, InternalServerError } from '../http-errors';
 import { ServerConfig } from './server.config';
 
 

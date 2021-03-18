@@ -1,4 +1,4 @@
-import { Hook, IHook, HookContext, ComponentType, Logger } from '@nodearch/core';
+import { Hook, IHook, HookContext, ComponentType, Logger, ClassConstructor } from '@nodearch/core';
 import { ExpressService } from './express.service';
 
 @Hook()
@@ -6,7 +6,7 @@ export class ExpressHook implements IHook {
 
   private readonly expressService: ExpressService;
   private readonly logger: Logger;
-  private controllers?: any[];
+  private controllers?: ClassConstructor[];
 
   constructor(expressService: ExpressService, logger: Logger) {
     this.expressService = expressService;
@@ -15,7 +15,7 @@ export class ExpressHook implements IHook {
 
   async onInit(context: HookContext) {
     try {
-      this.controllers = context.getAll(ComponentType.Controller);
+      this.controllers = context.getComponents(ComponentType.Controller);
     }
     catch(e) {
       this.logger.warn('Express: No controllers loaded!');

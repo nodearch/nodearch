@@ -16,3 +16,10 @@ export enum HTTPParam {
   REQ = 'req',
   RES = 'res'
 }
+
+export enum MiddlewareType {
+  CONTEXT,
+  EXPRESS,
+  VALIDATION,
+  FILE_UPLOAD
+}

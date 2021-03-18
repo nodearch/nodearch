@@ -1,6 +1,6 @@
 import { ClassInfo, Service } from '@nodearch/core';
 import { ControllerMetadata } from '../metadata';
-import { IHttpControllerInfo } from '../interfaces';
+import { IHttpControllerInfo, IHTTPInfo } from '../interfaces';
 
 
 @Service()
@@ -10,22 +10,16 @@ export class HttpControllerInfo {
       methods: []
     };
 
-    const httpPrefix = ControllerMetadata.getHttpPrefix(controller.constructor);
+    const httpPrefix = ControllerMetadata.getHttpPrefix(controller);
+    const httpInfo: IHTTPInfo[] = ControllerMetadata.getHttpInfo(controller);
+    const httpParamsInfo = ControllerMetadata.getHttpParamsInfo(controller);
 
-    const methods = ClassInfo.getMethods(controller.constructor);
-
-    methods.forEach(method => {
-      const methodInfo = ControllerMetadata.getHttpInfo(controller, method);
-
-      if (methodInfo) {
-        httpControllerInfo.methods.push({
-          name: method,
-          httpMethod: methodInfo.httpMethod,
-          httpPath: httpPrefix ? httpPrefix + methodInfo.httpPath : methodInfo.httpPath,
-          params: ControllerMetadata.getHttpParamsInfo(controller, method)
-        });
-      }
-
+    httpInfo.forEach(hInfo => {
+      httpControllerInfo.methods.push({
+        ...hInfo,
+        httpPath: httpPrefix ? httpPrefix + hInfo.httpPath : hInfo.httpPath,
+        params: httpParamsInfo[hInfo.name] || []
+      })
     });
 
     return httpControllerInfo;
