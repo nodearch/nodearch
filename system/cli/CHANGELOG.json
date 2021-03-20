@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "1.1.5",
+      "tag": "@nodearch/cli_v1.1.5",
+      "date": "Tue, 16 Mar 2021 03:51:41 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix nodemon call by adding default to the import",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "00a5e6428290cc0c9ae5f3b5e4d9b214afd98d39"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.4",
       "tag": "@nodearch/cli_v1.1.4",
       "date": "Mon, 11 Jan 2021 11:10:58 GMT",
