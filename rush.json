@@ -259,7 +259,7 @@
      * you might configure your system's trigger to look for a special string such as "[skip-ci]"
      * in the commit message, and then customize Rush's message to contain that string.
      */
-    // "versionBumpCommitMessage": "Applying package updates. [skip-ci]"
+    "versionBumpCommitMessage": "Applying package updates. [npm version deployment]"
   },
 
   "repository": {
