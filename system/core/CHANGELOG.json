@@ -2,6 +2,20 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "1.2.0",
+      "tag": "@nodearch/core_v1.2.0",
+      "date": "Sat, 20 Mar 2021 17:40:00 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "provide new function to get components constructors by components type instead of components instances",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "3a4926e5721cd52376f1b7fd8ffe578d60a11dea"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.4",
       "tag": "@nodearch/core_v1.1.4",
       "date": "Tue, 12 Jan 2021 14:51:23 GMT",

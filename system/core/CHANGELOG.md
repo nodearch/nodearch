@@ -1,6 +1,13 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Tue, 12 Jan 2021 14:51:23 GMT and should not be manually modified.
+This log was last generated on Sat, 20 Mar 2021 17:40:00 GMT and should not be manually modified.
+
+## 1.2.0
+Sat, 20 Mar 2021 17:40:00 GMT
+
+### Minor changes
+
+- provide new function to get components constructors by components type instead of components instances
 
 ## 1.1.4
 Tue, 12 Jan 2021 14:51:23 GMT

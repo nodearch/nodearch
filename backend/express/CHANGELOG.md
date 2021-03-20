@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Tue, 16 Mar 2021 03:51:41 GMT and should not be manually modified.
+This log was last generated on Sat, 20 Mar 2021 17:40:00 GMT and should not be manually modified.
+
+## 1.2.0
+Sat, 20 Mar 2021 17:40:00 GMT
+
+### Minor changes
+
+- fix a bug when using request scope, the middleware was still using singleton scope. also allowed middleware provider to accept an optional option attribute to be passed from the middleware decorator.
 
 ## 1.1.5
 Tue, 16 Mar 2021 03:51:41 GMT

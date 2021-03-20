@@ -27,7 +27,7 @@
     "request-promise-native": "^1.0.8"
   },
   "devDependencies": {
-    "@nodearch/core": "^1.1.4",
+    "@nodearch/core": "^1.2.0",
     "reflect-metadata": "^0.1.13",
     "@types/node": "^14.14.10",
     "@types/request-promise-native": "^1.0.17",
@@ -37,7 +37,7 @@
     "@types/jest": "~26.0.19"
   },
   "peerDependencies": {
-    "@nodearch/core": "1.1.4",
+    "@nodearch/core": "1.2.0",
     "reflect-metadata": "0.x"
   }
 }

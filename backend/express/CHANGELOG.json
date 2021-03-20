@@ -2,6 +2,28 @@
   "name": "@nodearch/express",
   "entries": [
     {
+      "version": "1.2.0",
+      "tag": "@nodearch/express_v1.2.0",
+      "date": "Sat, 20 Mar 2021 17:40:00 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "fix a bug when using request scope, the middleware was still using singleton scope. also allowed middleware provider to accept an optional option attribute to be passed from the middleware decorator.",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "3a4926e5721cd52376f1b7fd8ffe578d60a11dea"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^1.1.4` to `^1.2.0`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `1.1.4` to `1.2.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.5",
       "tag": "@nodearch/express_v1.1.5",
       "date": "Tue, 16 Mar 2021 03:51:41 GMT",
