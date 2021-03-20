@@ -9,7 +9,7 @@ export class OpenAPIService {
   constructor(private readonly serverConfig: ServerConfig) {}
 
   getOpenApiInfo(controller: any, method: any): IOpenAPIInfo | undefined {
-    const controllerRoutesOpenAPIs = ControllerMetadata.getOpenApiInfo(controller.constructor);
+    const controllerRoutesOpenAPIs = ControllerMetadata.getOpenApiInfo(controller);
     const sharedOpenAPI = controllerRoutesOpenAPIs.find(openApi => !openApi.method);
     const methodOpenAPI = controllerRoutesOpenAPIs.find(openApi => openApi.method === method);
     const routeOpenAPI: IOpenAPIInfo = Object.assign({}, sharedOpenAPI?.openAPIInfo||{}, methodOpenAPI?.openAPIInfo||{});

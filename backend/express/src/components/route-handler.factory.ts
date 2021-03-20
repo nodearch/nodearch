@@ -16,16 +16,16 @@ export class RouteHandlerFactory {
 
   createHandler(controller: any, methodInfo: IHttpControllerMethod, middlewareInfo: IMiddlewareInfo[], dependencyFactory: (x: any) => any) {
     return async (req: express.Request, res: express.Response) => {
-      const params: any = [];
-
-      methodInfo.params.forEach(param => {
-        params[param.index] = this.getParam(req, res, param);
-      });
 
       try {
+        const params: IHTTPMethodParamInfo[] = [];
         const controllerInstance = dependencyFactory(controller);
         await this.middlewareService.getMiddlewareHandler(middlewareInfo, controllerInstance)(req, res);
-        
+
+        methodInfo.params.forEach(param => {
+          params[param.index] = this.getParam(req, res, param);
+        });
+
         const result = await controllerInstance[methodInfo.name](...params);
 
         if (result && !res.headersSent) {

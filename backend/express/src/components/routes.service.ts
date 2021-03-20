@@ -70,7 +70,7 @@ export class RoutesService {
       methodName: methodInfo.name,
       httpInfo: methodInfo,
       validation: validationMiddleware?.metadata,
-      fileUpload: <IFileUploadInfo[]> fileUploadMiddleware?.metadata?.uploadInfo.files,
+      fileUpload: <IFileUploadInfo[]> fileUploadMiddleware?.metadata.files,
       openApiInfo
     });
 
