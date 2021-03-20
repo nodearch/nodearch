@@ -1,31 +1,48 @@
-import { Service } from '@nodearch/core';
+import { DependencyException, Logger, Service } from '@nodearch/core';
 import express from 'express';
-import { IHttpControllerMethod, IHTTPMethodParamInfo } from '../interfaces';
+import { IHttpControllerMethod, IHTTPMethodParamInfo, IMiddlewareInfo } from '../interfaces';
 import { HTTPParam } from '../enums';
 import { HttpErrorsRegistry } from './errors-registry.service';
+import { MiddlewareService } from './middleware.service';
+import { InternalServerError } from '../http-errors';
 
 @Service()
 export class RouteHandlerFactory {
 
-  constructor(private readonly httpErrorsRegistry: HttpErrorsRegistry) {}
+  constructor(
+    private readonly httpErrorsRegistry: HttpErrorsRegistry, 
+    private readonly middlewareService: MiddlewareService
+  ) { }
 
-  createHandler(controller: any, methodInfo: IHttpControllerMethod, dependencyFactory: (x: any) => any) {
+  createHandler(controller: any, methodInfo: IHttpControllerMethod, middlewareInfo: IMiddlewareInfo[], dependencyFactory: (x: any) => any) {
     return async (req: express.Request, res: express.Response) => {
-      const params: any = [];
-
-      methodInfo.params.forEach(param => {
-        params[param.index] = this.getParam(req, res, param);
-      });
 
       try {
-        const result = await dependencyFactory(controller)[methodInfo.name](...params);
+        const params: IHTTPMethodParamInfo[] = [];
+        const controllerInstance = dependencyFactory(controller);
+        await this.middlewareService.getMiddlewareHandler(middlewareInfo, controllerInstance)(req, res);
+
+        methodInfo.params.forEach(param => {
+          params[param.index] = this.getParam(req, res, param);
+        });
+
+        const result = await controllerInstance[methodInfo.name](...params);
 
         if (result && !res.headersSent) {
-          res.send(result);
+          res.send(result); // TODO: we need to check that result is not number
         }
+        // TODO: handle when the handler doesn't return anything
       }
-      catch(e) {
-        this.httpErrorsRegistry.handleError(e, res);
+      catch (e) {
+        if (e instanceof DependencyException) {
+          // TODO: enhance how we log errors, currently it will not print all the information
+          // this.logger.error(e);
+          console.log(e);
+          this.httpErrorsRegistry.handleError(new InternalServerError(), res);
+        }
+        else {
+          this.httpErrorsRegistry.handleError(e, res);
+        }
       }
     }
   }
@@ -33,7 +50,7 @@ export class RouteHandlerFactory {
   private getParam(req: express.Request, res: express.Response, paramInfo: IHTTPMethodParamInfo) {
     let param;
 
-    switch(paramInfo.type) {
+    switch (paramInfo.type) {
       case HTTPParam.REQ:
         param = req;
         break;

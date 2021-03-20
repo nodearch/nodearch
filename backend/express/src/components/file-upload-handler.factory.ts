@@ -1,11 +1,12 @@
-import { Service } from '@nodearch/core';
+import { ClassConstructor, Service } from '@nodearch/core';
 import express from 'express';
-import { IFileUploadInfo, IUploadInfo } from '../interfaces';
+import { IFileUploadInfo, IMiddlewareInfo, IUploadInfo } from '../interfaces';
 import { ServerConfig } from './server.config';
 import { ControllerMetadata } from '../metadata';
 import multer from 'multer';
 import { HttpErrorsRegistry } from './errors-registry.service';
-import { BadRequest } from '../errors';
+import { BadRequest } from '../http-errors';
+import { MiddlewareType } from '../enums';
 
 
 @Service()
@@ -13,11 +14,26 @@ export class FileUploadHandlerFactory {
 
   constructor(private serverConfig: ServerConfig, private httpErrorsRegistry: HttpErrorsRegistry) {}
 
-  getFileUploadInfo(controller: any) {
-    return ControllerMetadata.getUploadInfo(controller);
+  getUploadHandlers(controller: ClassConstructor): Omit<IMiddlewareInfo, 'id'>[] {
+    const uploadMiddlewareSet: Omit<IMiddlewareInfo, 'id'>[] = [];
+    
+    const controllerUploadInfo = ControllerMetadata.getUploadInfo(controller);
+    
+    controllerUploadInfo.forEach(uploadInfo => {
+      const handler = this.createHandler(uploadInfo.uploadInfo);
+      
+      uploadMiddlewareSet.push({ 
+        type: MiddlewareType.FILE_UPLOAD, 
+        middleware: handler, 
+        method: uploadInfo.method, 
+        metadata: uploadInfo.uploadInfo 
+      });
+    });
+
+    return uploadMiddlewareSet;
   }
 
-  createHandler(fileUploadInfo: IUploadInfo) {
+  private createHandler(fileUploadInfo: IUploadInfo) {
     return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
       let upload;
       const multerOptions = { ...this.serverConfig.fileUploadOptions, ...fileUploadInfo.options };
@@ -52,7 +68,7 @@ export class FileUploadHandlerFactory {
     };
   }
 
-  moveFilesToBody(req: express.Request) {
+  private moveFilesToBody(req: express.Request) {
 
     if (req.file && req.file.fieldname) {
       req.body[req.file.fieldname] = req.file;
@@ -73,7 +89,7 @@ export class FileUploadHandlerFactory {
     }
   }
 
-  errorMassage(err: Error) {
+  private errorMassage(err: Error) {
     return err instanceof multer.MulterError ? 
       `FileUpload: ${err.message}${err.field ? ` for Field ${err.field}` : ''}` : 'FileUpload: Something went wrong while uploading file';
   }

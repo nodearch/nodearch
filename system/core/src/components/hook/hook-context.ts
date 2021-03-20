@@ -3,16 +3,27 @@ import { ClassConstructor } from '../../utils';
 import { ComponentType } from '../enums';
 import { IHook } from './hook.interface';
 import { ICLI } from '../cli';
+import { DependencyException } from '../../errors';
 
 export class HookContext {
   constructor(private components: ComponentManagement) {}
 
   get<T>(classIdentifier: ClassConstructor): T {
-    return this.components.get<T>(classIdentifier);
+    try {
+      return this.components.get<T>(classIdentifier);
+    }
+    catch(e) {
+      throw new DependencyException(e.message);
+    }
   }
 
   getAll<T>(identifier: ComponentType | string | symbol): T[] {
-    return this.components.getAll<T>(identifier);
+    try {
+      return this.components.getAll<T>(identifier);
+    }
+    catch(e) {
+      throw new DependencyException(e.message);
+    }
   }
 
   findHooks(): IHook[] | undefined {
@@ -21,5 +32,9 @@ export class HookContext {
 
   findCLICommands(): ICLI[] | undefined {
     return this.components.findCLICommands();
+  }
+
+  getComponents(componentType: ComponentType) {
+    return this.components.getComponents(componentType);
   }
 }

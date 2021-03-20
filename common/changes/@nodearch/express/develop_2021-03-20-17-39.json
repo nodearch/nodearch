@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/express",
+      "comment": "fix a bug when using request scope, the middleware was still using singleton scope. also allowed middleware provider to accept an optional option attribute to be passed from the middleware decorator.",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@nodearch/express",
+  "email": "bluemax7o1@gmail.com"
+}

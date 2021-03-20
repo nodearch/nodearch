@@ -29,7 +29,8 @@ function getRouterPrefix(path: string): string {
 
 function httpInfoDecoratorFactory(httpMethod: HttpMethod, path?: string) {
   return (target: any, propKey: string | symbol) => {
-    ControllerMetadata.setHttpInfo(target, propKey, {
+    ControllerMetadata.setHttpInfo(target.constructor, {
+      name: <string>propKey,
       httpMethod,
       httpPath: getPath(path)
     });
@@ -38,7 +39,7 @@ function httpInfoDecoratorFactory(httpMethod: HttpMethod, path?: string) {
 
 function paramDecoratorFactory (paramType: HTTPParam, key?: string) {
   return (target: Object, propKey: string | symbol, paramIndex: number) => {
-    ControllerMetadata.setHttpParamsInfo(target, propKey, {
+    ControllerMetadata.setHttpParamsInfo(target.constructor, <string>propKey, {
       index: paramIndex,
       type: paramType,
       key
@@ -172,11 +173,13 @@ export function MiddlewareProvider(): ClassDecorator{
 
 export function Middleware(middlewareHandler: MiddlewareHandler): ClassMethodDecorator;
 export function Middleware(middlewareHandler: ContextMiddlewareHandler): ClassMethodDecorator;
-export function Middleware(handler: MiddlewareHandler | ContextMiddlewareHandler): ClassMethodDecorator {
+export function Middleware<T>(middlewareHandler: ContextMiddlewareHandler<T>, options: T): ClassMethodDecorator;
+export function Middleware(handler: MiddlewareHandler | ContextMiddlewareHandler, options?: any): ClassMethodDecorator {
   return function(target: Object, propertyKey?: string) {
     ControllerMetadata.setMiddleware(propertyKey ? target.constructor : target, {
       middleware: handler,
-      method: propertyKey
+      method: propertyKey,
+      options
     });
   };
 }

@@ -17,7 +17,7 @@ export class ComponentManagement {
 
   private options: IComponentsOptions;
   private container: Container;
-  private componentsHandlers: Map<ComponentType, IComponentHandler>;
+  private componentsRegistry: Map<ComponentType, { components: ClassConstructor[], handler: IComponentHandler}>;
 
   constructor(options?: IComponentsOptions) {
     this.options = options || {};
@@ -26,21 +26,21 @@ export class ComponentManagement {
       defaultScope: this.options.defaultScope || ComponentScope.Singleton
     });
 
-    this.componentsHandlers = new Map();
+    this.componentsRegistry = new Map();
 
     this.initComponentsHandlers();
   }
 
   private initComponentsHandlers() {
     // TODO: NOTE - not sure if this is useful at this point, all the handlers does the same logic so far
-    this.componentsHandlers.set(ComponentType.Component, new ComponentHandler(this.container));
-    this.componentsHandlers.set(ComponentType.Hook, new HookHandler(this.container));
-    this.componentsHandlers.set(ComponentType.Controller, new ControllerHandler(this.container));
-    this.componentsHandlers.set(ComponentType.Config, new ConfigHandler(this.container));
-    this.componentsHandlers.set(ComponentType.Repository, new RepositoryHandler(this.container));
-    this.componentsHandlers.set(ComponentType.Service, new ServiceHandler(this.container));
-    this.componentsHandlers.set(ComponentType.InterceptorProvider, new InterceptorProviderHandler(this.container));
-    this.componentsHandlers.set(ComponentType.CLI, new CLIHandler(this.container));
+    this.componentsRegistry.set(ComponentType.Component, { components: [], handler: new ComponentHandler(this.container) });
+    this.componentsRegistry.set(ComponentType.Hook, { components: [], handler: new HookHandler(this.container) });
+    this.componentsRegistry.set(ComponentType.Controller, { components: [], handler: new ControllerHandler(this.container) });
+    this.componentsRegistry.set(ComponentType.Config, { components: [], handler: new ConfigHandler(this.container) });
+    this.componentsRegistry.set(ComponentType.Repository, { components: [], handler: new RepositoryHandler(this.container) });
+    this.componentsRegistry.set(ComponentType.Service, { components: [], handler: new ServiceHandler(this.container) });
+    this.componentsRegistry.set(ComponentType.InterceptorProvider, { components: [], handler: new InterceptorProviderHandler(this.container) });
+    this.componentsRegistry.set(ComponentType.CLI, { components: [], handler: new CLIHandler(this.container) });
   }
 
   registerCoreComponent(componentClass: ClassConstructor, componentInstance: any) {
@@ -57,9 +57,9 @@ export class ComponentManagement {
 
       if (!componentInfo) throw new Error(`Class ${classDef.name} is not a Components`);
 
-      const handler = this.componentsHandlers.get(componentInfo.type as ComponentType);
+      const comRegistry = this.componentsRegistry.get(componentInfo.type as ComponentType);
 
-      if (!handler) throw new Error(`Class ${classDef.name} is not recognized as one of the supported Components`);
+      if (!comRegistry) throw new Error(`Class ${classDef.name} is not recognized as one of the supported Components`);
 
       // just check we can resolve the component early
       try {
@@ -69,7 +69,7 @@ export class ComponentManagement {
         throw new Error(`Can't resolve Component ${classDef.name}`);
       }
 
-      handler.registerExtension(classDef, components.container);
+      comRegistry.handler.registerExtension(classDef, components.container);
     });
   }
 
@@ -84,10 +84,11 @@ export class ComponentManagement {
       const componentInfo = ComponentMetadata.getInfo<IComponentInfo>(classDef);
 
       if (componentInfo) {
-        const handler = this.componentsHandlers.get(componentInfo.type as ComponentType);
+        const comRegistry = this.componentsRegistry.get(componentInfo.type as ComponentType);
 
-        if (handler) {
-          handler.register(classDef, componentInfo);
+        if (comRegistry) {
+          comRegistry.components.push(classDef);
+          comRegistry.handler.register(classDef, componentInfo);
           registered++;
         }
       }
@@ -146,5 +147,13 @@ export class ComponentManagement {
         }
       });
     });
+  }
+
+  getComponents(componentType: ComponentType) {
+    const comRegistry = this.componentsRegistry.get(componentType);
+    
+    if (comRegistry) {
+      return comRegistry.components.length ? comRegistry.components : undefined;
+    } 
   }
 }

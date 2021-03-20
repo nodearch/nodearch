@@ -1,3 +1,6 @@
+import { inject } from 'inversify';
+import { ClassConstructor } from './types';
+
 export abstract class ClassInfo {
   static getMethods(target: Function): string[] {
     const proto = target.prototype;
@@ -15,5 +18,9 @@ export abstract class ClassInfo {
 
         return typeof proto[propertyName] === 'function' && propertyName !== 'constructor';
       });
+  }
+
+  static propertyInject(target: ClassConstructor, serviceIdentifier: ClassConstructor, propertyName: string, paramIndex?: number) {
+    inject(serviceIdentifier)(target.prototype, propertyName, paramIndex);
   }
 }
