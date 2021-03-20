@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/core",
+      "comment": "provide new function to get components constructors by components type instead of components instances",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@nodearch/core",
+  "email": "bluemax7o1@gmail.com"
+}
