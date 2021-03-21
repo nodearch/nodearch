@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@nodearch/core": "^1.2.0",
-    "@nodearch/express": "^1.2.1",
+    "@nodearch/express": "^1.2.2",
     "express": "^4.17.1",
     "reflect-metadata": "^0.1.13"
   }
