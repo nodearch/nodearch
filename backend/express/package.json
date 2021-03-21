@@ -40,7 +40,7 @@
     "multer": "^1.4.2"
   },
   "peerDependencies": {
-    "@nodearch/core": "1.2.0",
+    "@nodearch/core": "1.x",
     "express": "4.x",
     "reflect-metadata": "0.x"
   }

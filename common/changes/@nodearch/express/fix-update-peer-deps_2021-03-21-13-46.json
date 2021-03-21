@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/express",
+      "comment": "Update peer dependencies with the core",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/express",
+  "email": "bluemax7o1@gmail.com"
+}
