@@ -37,7 +37,7 @@
     "@types/jest": "~26.0.19"
   },
   "peerDependencies": {
-    "@nodearch/core": "1.2.0",
+    "@nodearch/core": "1.x",
     "reflect-metadata": "0.x"
   }
 }
