@@ -1,4 +1,4 @@
-import { ConfigManager, Controller, Logger } from "@nodearch/core";
+import { Controller } from "@nodearch/core";
 import { HttpGet } from "@nodearch/express";
 
 
@@ -6,6 +6,6 @@ import { HttpGet } from "@nodearch/express";
 export class UserController {
   @HttpGet('/users')
   getUsers() {
-    return ['one', 'two'];
+    return 'Hello, World!';
   }
 }
