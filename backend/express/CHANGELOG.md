@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Sat, 20 Mar 2021 17:40:00 GMT and should not be manually modified.
+This log was last generated on Sun, 21 Mar 2021 08:46:40 GMT and should not be manually modified.
+
+## 1.2.1
+Sun, 21 Mar 2021 08:46:40 GMT
+
+### Patches
+
+- Fixed a bug in middleware where it would complain about metadata duplication when creating multiple Apps that uses the same components
 
 ## 1.2.0
 Sat, 20 Mar 2021 17:40:00 GMT

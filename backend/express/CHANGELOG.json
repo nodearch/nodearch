@@ -2,6 +2,20 @@
   "name": "@nodearch/express",
   "entries": [
     {
+      "version": "1.2.1",
+      "tag": "@nodearch/express_v1.2.1",
+      "date": "Sun, 21 Mar 2021 08:46:40 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fixed a bug in middleware where it would complain about metadata duplication when creating multiple Apps that uses the same components",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "bedb3b32e2fbec07266bf2d5f657a1e7daf46f57"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.2.0",
       "tag": "@nodearch/express_v1.2.0",
       "date": "Sat, 20 Mar 2021 17:40:00 GMT",
