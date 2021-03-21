@@ -1,12 +1,12 @@
-import { Service, ClassInfo, DependencyException } from '@nodearch/core';
+import { Service, DependencyException } from '@nodearch/core';
 import { ControllerMetadata } from '../metadata';
-import { IMiddlewareInfo, IMiddlewareMetadataInfo } from '../interfaces';
-import { ContextMiddlewareHandler, MiddlewareHandler, MiddlewareProvider } from '../types';
+import { IMiddlewareMetadataInfo } from '../interfaces';
+import { MiddlewareHandler, MiddlewareProvider } from '../types';
 import { ValidationHandlerFactory } from './validation-handler.factory';
 import { FileUploadHandlerFactory } from './file-upload-handler.factory';
 import express from 'express';
 import { MiddlewareType } from '../enums';
-import { InternalServerError } from '../http-errors';
+
 
 @Service()
 export class MiddlewareService {
@@ -16,21 +16,10 @@ export class MiddlewareService {
     private fileUploadHandlerFactory: FileUploadHandlerFactory
   ) {}
 
-  getMiddleware(controller: any): IMiddlewareInfo[] {
+  getMiddleware(controller: any): IMiddlewareMetadataInfo[] {
     // get third-party and context middleware
-    const middlewareSet: IMiddlewareInfo[] = ControllerMetadata
+    const middlewareSet: IMiddlewareMetadataInfo[] = ControllerMetadata
       .getMiddleware(controller)
-      .map((middlewareMetaInfo: IMiddlewareMetadataInfo, index: number) => {
-        const middlewareInfo = { id: index, ...middlewareMetaInfo, type: MiddlewareType.EXPRESS };
-
-        if (ControllerMetadata.isMiddlewareProvider(middlewareInfo.middleware)) {
-          middlewareInfo.type = MiddlewareType.CONTEXT;
-          // Add this Middleware as dependency to the controller so inversify can resolve it later
-          ClassInfo.propertyInject(controller, <ContextMiddlewareHandler>middlewareInfo.middleware, 'middleware:' + middlewareInfo.id);
-        }
-
-        return middlewareInfo;
-      })
       .reverse();
 
     // get fileUpload Middleware if exist
@@ -49,7 +38,7 @@ export class MiddlewareService {
     return middlewareSet;
   }
 
-  getMethodMiddleware(middlewareInfo: IMiddlewareInfo[], methodName: string): IMiddlewareInfo[] {
+  getMethodMiddleware(middlewareInfo: IMiddlewareMetadataInfo[], methodName: string): IMiddlewareMetadataInfo[] {
     return middlewareInfo
       .filter(
         mInfo =>
@@ -58,7 +47,7 @@ export class MiddlewareService {
       );
   }
 
-  getMiddlewareHandler(middlewareInfo: IMiddlewareInfo[], controllerInstance: any) {
+  getMiddlewareHandler(middlewareInfo: IMiddlewareMetadataInfo[], controllerInstance: any) {
     return async (req: express.Request, res: express.Response) => {
       for(const mInfo of middlewareInfo) {
         if (mInfo.type === MiddlewareType.CONTEXT) {

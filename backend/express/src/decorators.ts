@@ -1,7 +1,7 @@
-import { HttpMethod, HTTPParam } from './enums';
+import { HttpMethod, HTTPParam, MiddlewareType } from './enums';
 import { ControllerMetadata } from './metadata';
 import { MiddlewareHandler, ContextMiddlewareHandler } from './types';
-import { ClassMethodDecorator, Component } from '@nodearch/core';
+import { ClassConstructor, ClassInfo, ClassMethodDecorator, Component } from '@nodearch/core';
 import { IValidationSchema, IFileUploadInfo, IOpenAPIInfo, IUploadInfo } from './interfaces';
 
 function getPath(path?: string): string {
@@ -175,11 +175,22 @@ export function Middleware(middlewareHandler: MiddlewareHandler): ClassMethodDec
 export function Middleware(middlewareHandler: ContextMiddlewareHandler): ClassMethodDecorator;
 export function Middleware<T>(middlewareHandler: ContextMiddlewareHandler<T>, options: T): ClassMethodDecorator;
 export function Middleware(handler: MiddlewareHandler | ContextMiddlewareHandler, options?: any): ClassMethodDecorator {
-  return function(target: Object, propertyKey?: string) {
-    ControllerMetadata.setMiddleware(propertyKey ? target.constructor : target, {
+  return function(target: any, propertyKey?: string) {
+    const decoratorTarget = propertyKey ? target.constructor : target;
+    let type = MiddlewareType.EXPRESS;
+    const id = ControllerMetadata.getMiddleware(decoratorTarget).length;
+
+    if (ControllerMetadata.isMiddlewareProvider(handler)) {
+      ClassInfo.propertyInject(decoratorTarget, <ContextMiddlewareHandler>handler, 'middleware:' + id);
+      type = MiddlewareType.CONTEXT;
+    }
+
+    ControllerMetadata.setMiddleware(decoratorTarget, {
       middleware: handler,
       method: propertyKey,
-      options
+      options,
+      type,
+      id
     });
   };
 }

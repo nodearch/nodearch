@@ -1,6 +1,6 @@
 import { Service, Logger } from '@nodearch/core';
 import { HttpControllerInfo } from './http-controller-info';
-import { IHttpControllerMethod, IRouteInfo, IFileUploadInfo, IMiddlewareInfo } from '../interfaces';
+import { IHttpControllerMethod, IRouteInfo, IFileUploadInfo, IMiddlewareMetadataInfo } from '../interfaces';
 import { RouteHandlerFactory } from './route-handler.factory';
 import express from 'express';
 import { MiddlewareService } from './middleware.service';
@@ -51,7 +51,7 @@ export class RoutesService {
 
   private registerMethod(
     controller: any,
-    methodMiddlewareSet: IMiddlewareInfo[],
+    methodMiddlewareSet: IMiddlewareMetadataInfo[],
     methodInfo: IHttpControllerMethod,
     expressApp: express.Application,
     dependencyFactory: (x: any) => any

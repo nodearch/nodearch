@@ -53,13 +53,10 @@ export interface IHttpErrorsOptions {
 
 export interface IMiddlewareMetadataInfo {
   middleware: MiddlewareHandler | ContextMiddlewareHandler;
-  method?: string;
-  options?: any; 
-}
-
-export interface IMiddlewareInfo extends IMiddlewareMetadataInfo {
   id: number;
   type: MiddlewareType;
+  method?: string;
+  options?: any; 
   metadata?: any;
 }
 

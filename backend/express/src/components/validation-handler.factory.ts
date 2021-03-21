@@ -1,7 +1,7 @@
 import express from 'express';
 import { ControllerMetadata } from '../metadata';
 import { ClassConstructor, Service } from '@nodearch/core';
-import { IMiddlewareInfo, IRequestData, IValidationSchema } from '../interfaces';
+import { IMiddlewareMetadataInfo, IRequestData, IValidationSchema } from '../interfaces';
 import Joi from '@hapi/joi';
 import { ServerConfig } from './server.config';
 import { HttpErrorsRegistry } from './errors-registry.service';
@@ -21,8 +21,8 @@ export class ValidationHandlerFactory {
     this.httpErrorsRegistry = httpErrorsRegistry;
   }
 
-  getValidationHandlers(controller: ClassConstructor): Omit<IMiddlewareInfo, 'id'>[] {
-    const validationMiddlewareSet: Omit<IMiddlewareInfo, 'id'>[] = [];
+  getValidationHandlers(controller: ClassConstructor): Omit<IMiddlewareMetadataInfo, 'id'>[] {
+    const validationMiddlewareSet: Omit<IMiddlewareMetadataInfo, 'id'>[] = [];
     
     const controllerValidationInfo = ControllerMetadata.getValidation(controller);
     
