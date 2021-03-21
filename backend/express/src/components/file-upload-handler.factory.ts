@@ -1,6 +1,6 @@
 import { ClassConstructor, Service } from '@nodearch/core';
 import express from 'express';
-import { IFileUploadInfo, IMiddlewareInfo, IUploadInfo } from '../interfaces';
+import { IFileUploadInfo, IMiddlewareMetadataInfo, IUploadInfo } from '../interfaces';
 import { ServerConfig } from './server.config';
 import { ControllerMetadata } from '../metadata';
 import multer from 'multer';
@@ -14,8 +14,8 @@ export class FileUploadHandlerFactory {
 
   constructor(private serverConfig: ServerConfig, private httpErrorsRegistry: HttpErrorsRegistry) {}
 
-  getUploadHandlers(controller: ClassConstructor): Omit<IMiddlewareInfo, 'id'>[] {
-    const uploadMiddlewareSet: Omit<IMiddlewareInfo, 'id'>[] = [];
+  getUploadHandlers(controller: ClassConstructor): Omit<IMiddlewareMetadataInfo, 'id'>[] {
+    const uploadMiddlewareSet: Omit<IMiddlewareMetadataInfo, 'id'>[] = [];
     
     const controllerUploadInfo = ControllerMetadata.getUploadInfo(controller);
     

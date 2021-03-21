@@ -1,6 +1,6 @@
 import { DependencyException, Logger, Service } from '@nodearch/core';
 import express from 'express';
-import { IHttpControllerMethod, IHTTPMethodParamInfo, IMiddlewareInfo } from '../interfaces';
+import { IHttpControllerMethod, IHTTPMethodParamInfo, IMiddlewareMetadataInfo } from '../interfaces';
 import { HTTPParam } from '../enums';
 import { HttpErrorsRegistry } from './errors-registry.service';
 import { MiddlewareService } from './middleware.service';
@@ -14,7 +14,7 @@ export class RouteHandlerFactory {
     private readonly middlewareService: MiddlewareService
   ) { }
 
-  createHandler(controller: any, methodInfo: IHttpControllerMethod, middlewareInfo: IMiddlewareInfo[], dependencyFactory: (x: any) => any) {
+  createHandler(controller: any, methodInfo: IHttpControllerMethod, middlewareInfo: IMiddlewareMetadataInfo[], dependencyFactory: (x: any) => any) {
     return async (req: express.Request, res: express.Response) => {
 
       try {
