@@ -1,6 +1,13 @@
 # Change Log - @nodearch/keycloak
 
-This log was last generated on Mon, 11 Jan 2021 11:10:58 GMT and should not be manually modified.
+This log was last generated on Sun, 21 Mar 2021 13:48:41 GMT and should not be manually modified.
+
+## 1.1.2
+Sun, 21 Mar 2021 13:48:41 GMT
+
+### Patches
+
+- Update peer dependencies with the core
 
 ## 1.1.1
 Mon, 11 Jan 2021 11:10:58 GMT

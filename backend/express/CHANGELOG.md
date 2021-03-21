@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Sun, 21 Mar 2021 09:18:49 GMT and should not be manually modified.
+This log was last generated on Sun, 21 Mar 2021 13:48:41 GMT and should not be manually modified.
+
+## 1.2.3
+Sun, 21 Mar 2021 13:48:41 GMT
+
+### Patches
+
+- Update peer dependencies with the core
 
 ## 1.2.2
 Sun, 21 Mar 2021 09:18:49 GMT

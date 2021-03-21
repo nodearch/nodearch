@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/vault",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "vault extension for nodearch",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
