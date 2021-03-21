@@ -2,6 +2,20 @@
   "name": "@nodearch/express",
   "entries": [
     {
+      "version": "1.2.3",
+      "tag": "@nodearch/express_v1.2.3",
+      "date": "Sun, 21 Mar 2021 13:48:41 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update peer dependencies with the core",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "18ced49cee61529d52ad0fb0aa7b30dac303c285"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.2.2",
       "tag": "@nodearch/express_v1.2.2",
       "date": "Sun, 21 Mar 2021 09:18:49 GMT",
