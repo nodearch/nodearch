@@ -27,6 +27,8 @@ describe('test suit', () => {
 
   let testingApp: TestingApp;
   const expressApp = express();
+  expressApp.use(express.json());
+  expressApp.use(express.urlencoded({ extended: true }));
 
   beforeAll(async () => {
     testingApp = new TestingApp({
@@ -70,6 +72,6 @@ describe('test suit', () => {
   it('[e2e] test GET /users route', async () => {
     await supertest(expressApp)
       .get('/users')
-      .expect(200, ['one', 'two']);
+      .expect(200, 'Hello, World!');
   });
 });
