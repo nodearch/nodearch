@@ -34,6 +34,16 @@ export class TestCommand implements ICLI<ITestCommandOptions> {
         alias: ['w'],
         describe: 'run in watch mode'
       },
+      files: {
+        alias: ['f'],
+        describe: 'file names to include in the test cases',
+        type: 'array'
+      },
+      dirs: {
+        alias: ['d'],
+        describe: 'directories with test files to be included',
+        type: 'array'
+      },
       coverage: {
         alias: ['c'],
         describe: 'generate code coverage report'
@@ -57,12 +67,14 @@ export class TestCommand implements ICLI<ITestCommandOptions> {
       const { runCLI } = (await import(path.join(this.appInfoService.cwd, 'node_modules', 'jest')));
 
       const exts = options.e2e ? (options.unit ? 'spec|e2e-spec' : 'e2e-spec') : 'spec';
+      const files = options.files ? options.files.join('|') : '*';
+      const dirs = options.dirs ? options.dirs.join('|') : '*'; 
 
       const jestOptions: any = {
         preset: 'ts-jest',
         testEnvironment: 'node',
         roots: [this.appInfoService.appInfo.rootDir],
-        testMatch: [`**/?(*.)+(${exts}).ts?(x)`],
+        testMatch: [`(**/(${dirs}))/?((${files}).)+(${exts}).ts?(x)`],
         passWithNoTests: true,
         collectCoverageFrom: ["src/**/*.ts", "!src/main.ts", "!src/start.ts"]
       };
