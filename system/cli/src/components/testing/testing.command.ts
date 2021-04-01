@@ -94,9 +94,12 @@ export class TestCommand implements ICLI<ITestCommandOptions> {
         if (options.open && options.coverage) {
           await open(path.join(this.appInfoService.cwd, 'coverage', 'lcov-report', 'index.html'));
         }
+
+        process.exit(0);
       }
       else {
         this.logger.error(`Tests failed.`);
+        process.exit(1);
       }
 
     }
