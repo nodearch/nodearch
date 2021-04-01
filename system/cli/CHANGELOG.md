@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Tue, 16 Mar 2021 03:51:41 GMT and should not be manually modified.
+This log was last generated on Thu, 01 Apr 2021 13:23:37 GMT and should not be manually modified.
+
+## 1.2.0
+Thu, 01 Apr 2021 13:23:37 GMT
+
+### Minor changes
+
+- add filter options to testing from cli
 
 ## 1.1.5
 Tue, 16 Mar 2021 03:51:41 GMT
