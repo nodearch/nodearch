@@ -4,6 +4,8 @@ export interface ITestCommandOptions {
   watch?: boolean;
   coverage?: boolean;
   open?: boolean;
+  files: string[];
+  dirs: string[];
 }
 
 export interface IMochaOptions { }
