@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "nodearch cli",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",

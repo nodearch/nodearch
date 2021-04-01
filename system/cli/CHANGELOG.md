@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Thu, 01 Apr 2021 13:23:37 GMT and should not be manually modified.
+This log was last generated on Thu, 01 Apr 2021 14:28:22 GMT and should not be manually modified.
+
+## 1.2.1
+Thu, 01 Apr 2021 14:28:22 GMT
+
+### Patches
+
+- force process to exit after jest finish
 
 ## 1.2.0
 Thu, 01 Apr 2021 13:23:37 GMT

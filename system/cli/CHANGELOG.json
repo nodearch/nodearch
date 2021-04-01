@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "1.2.1",
+      "tag": "@nodearch/cli_v1.2.1",
+      "date": "Thu, 01 Apr 2021 14:28:22 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "force process to exit after jest finish",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "f17dd14aa226556296092974a44117ff0d6f4a80"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.2.0",
       "tag": "@nodearch/cli_v1.2.0",
       "date": "Thu, 01 Apr 2021 13:23:37 GMT",
