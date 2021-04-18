@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "1.2.2",
+      "tag": "@nodearch/cli_v1.2.2",
+      "date": "Sun, 18 Apr 2021 15:09:16 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add workers options to jest testing",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "2150cc1c79519dc066f8ce1018df64817178a070"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.2.1",
       "tag": "@nodearch/cli_v1.2.1",
       "date": "Thu, 01 Apr 2021 14:28:22 GMT",

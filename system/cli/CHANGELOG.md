@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Thu, 01 Apr 2021 14:28:22 GMT and should not be manually modified.
+This log was last generated on Sun, 18 Apr 2021 15:09:16 GMT and should not be manually modified.
+
+## 1.2.2
+Sun, 18 Apr 2021 15:09:16 GMT
+
+### Patches
+
+- add workers options to jest testing
 
 ## 1.2.1
 Thu, 01 Apr 2021 14:28:22 GMT
