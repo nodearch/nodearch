@@ -4,8 +4,12 @@ export interface ITestCommandOptions {
   watch?: boolean;
   coverage?: boolean;
   open?: boolean;
-  files: string[];
-  dirs: string[];
+  files?: string[];
+  dirs?: string[];
+  maxConcurrency?: number;
+  maxWorkers?: number | string;
+  isolatedModules?: boolean;
+  verbose?: boolean; 
 }
 
 export interface IMochaOptions { }

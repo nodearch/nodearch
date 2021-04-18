@@ -48,6 +48,23 @@ export class TestCommand implements ICLI<ITestCommandOptions> {
         alias: ['c'],
         describe: 'generate code coverage report'
       },
+      maxConcurrency: {
+        describe: 'specify the amount of tests at the same time',
+        default: 1
+      },
+      maxWorkers: {
+        describe: 'specify the maximum number of workers',
+        default: 1      
+      },
+      isolatedModules: {
+        describe: 'Disable type-checking',
+        default: true
+      },
+      verbose: {
+        type: 'boolean',
+        default: false,
+        describe: 'Display individual test results with the test suite hierarchy.'
+      },
       open: {
         alias: ['o'],
         describe: 'open coverage output in the default browser'
@@ -56,7 +73,7 @@ export class TestCommand implements ICLI<ITestCommandOptions> {
 
     this.npmDependencies = [
       { name: 'jest', type: NpmDependencyType.DevDependency }, 
-      { name: 'ts-jest', type: NpmDependencyType.DevDependency}
+      { name: 'ts-jest', type: NpmDependencyType.DevDependency }
     ];
   }
 
@@ -76,7 +93,15 @@ export class TestCommand implements ICLI<ITestCommandOptions> {
         roots: [this.appInfoService.appInfo.rootDir],
         testMatch: [`(**/(${dirs}))/?((${files}).)+(${exts}).ts?(x)`],
         passWithNoTests: true,
-        collectCoverageFrom: ["src/**/*.ts", "!src/main.ts", "!src/start.ts"]
+        collectCoverageFrom: ["src/**/*.ts", "!src/main.ts", "!src/start.ts"],
+        verbose: options.verbose,
+        maxConcurrency: options.maxConcurrency,
+        maxWorkers: options.maxWorkers,
+        globals: {
+          'ts-jest': {
+            isolatedModules: options.isolatedModules
+          },
+        },
       };
 
       if (options.coverage) {
