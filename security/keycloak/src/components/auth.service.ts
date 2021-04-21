@@ -1,21 +1,23 @@
 import jwt from 'jsonwebtoken';
 import jwksClient from 'jwks-rsa';
 import { Service } from '@nodearch/core';
-import { IAuthInfo, IJWT } from '../interfaces';
+import { IAuthInfo, IJWT, IOpenIdConfiguration } from '../interfaces';
 import { KeycloakConfig } from './keycloak.config';
-
+import request from 'request-promise-native';
 
 @Service()
 export class KeycloakAuth {
   
   constructor(private keycloakConfig: KeycloakConfig) {}
 
-  async auth(token: string): Promise<IAuthInfo> {
+  async auth(token: string, realmName?: string, realmAttribute?: string): Promise<IAuthInfo> {
     const decodedToken = this.decodeToken(token);
-    const realm = this.getRealmName(decodedToken);
-    const realmURL = this.keycloakConfig.hostname + "/auth/realms/" + realm;
+    const realm = this.getRealmName(decodedToken, realmName, realmAttribute);
+    const { jwks_uri, issuer } = await this.getOpenIdConfiguration(realm);
 
-    await this.verifyToken(realmURL, decodedToken, token);
+    if (realmName && realmAttribute) this.validateIssuer(decodedToken, issuer);
+
+    await this.verifyToken(jwks_uri, decodedToken, token);
     this.verifyClaims(decodedToken);
 
     return {
@@ -35,22 +37,38 @@ export class KeycloakAuth {
     return decoded;
   }
 
-  private getRealmName(decodedToken: IJWT) {
-    const matchResult = decodedToken.payload.iss.match(this.keycloakConfig.hostRegExp);
-
-    if (!matchResult || !matchResult[1]) {
-      throw new Error('unknown token issuer!');
+  private getRealmName(decodedToken: IJWT, realmName?: string, realmAttribute?: string) {
+    if(realmName) {
+      return realmName;
     }
+    else if (realmAttribute) {
+      const realm = decodedToken.payload[realmAttribute];
 
-    return matchResult[2];
+      if (realm) return realm;
+      else throw new Error('failed to get realm from token');
+    }
+    else {
+      const matchResult = decodedToken.payload.iss.match(this.keycloakConfig.hostRegExp);
+
+      if (!matchResult || !matchResult[1]) {
+        throw new Error('unknown token issuer!');
+      }
+  
+      return matchResult[2];
+    }
   }
 
-  private async verifyToken(realmURL: string, decodedToken: IJWT, token: string): Promise<IJWT> {
+
+  private validateIssuer(decodedToken: IJWT, issuer: string) {
+    if (decodedToken.payload.iss !== issuer) {
+      throw new Error('unknown token issuer!');
+    }
+  }
+
+  private async verifyToken(jwksUri: string, decodedToken: IJWT, token: string): Promise<IJWT> {
     return new Promise((resolve, reject) => {
 
-      const client = jwksClient({
-        jwksUri: realmURL + '/protocol/openid-connect/certs'
-      });
+      const client = jwksClient({ jwksUri });
 
       client.getSigningKey(decodedToken.header.kid, (err: Error | null, key: jwksClient.SigningKey) => {
 
@@ -101,6 +119,21 @@ export class KeycloakAuth {
           throw new Error('invalid token claims');
         }
       }
+    }
+  }
+
+  private async getOpenIdConfiguration(realmName: string) {
+    try {
+      const config: IOpenIdConfiguration = await request({
+        method: 'GET',
+        uri: `${this.keycloakConfig.hostname}/auth/realms/${realmName}/.well-known/openid-configuration`,
+        json: true
+      }); 
+
+      return config;
+    } 
+    catch (error) {
+      throw new Error('invalid realm');
     }
   }
 }
