@@ -4,18 +4,23 @@ import { Service } from '@nodearch/core';
 import { IAuthInfo, IJWT } from '../interfaces';
 import { KeycloakConfig } from './keycloak.config';
 
-
 @Service()
 export class KeycloakAuth {
-  
-  constructor(private keycloakConfig: KeycloakConfig) {}
+  realmPattern: RegExp;
 
-  async auth(token: string): Promise<IAuthInfo> {
+  constructor(private keycloakConfig: KeycloakConfig) {
+    this.realmPattern = /^[a-zA-Z0-9_-]+$/;
+  }
+
+  async auth(token: string, realmName?: string): Promise<IAuthInfo> {
     const decodedToken = this.decodeToken(token);
-    const realm = this.getRealmName(decodedToken);
-    const realmURL = this.keycloakConfig.hostname + "/auth/realms/" + realm;
+    const realm = realmName || this.getRealmFromJWT(decodedToken);
 
-    await this.verifyToken(realmURL, decodedToken, token);
+    this.validateRealmName(realm);
+
+    const jwksUri = `${this.keycloakConfig.hostname}/auth/realms/${realm}/protocol/openid-connect/certs`
+
+    await this.verifyToken(jwksUri, decodedToken, token);
     this.verifyClaims(decodedToken);
 
     return {
@@ -35,22 +40,33 @@ export class KeycloakAuth {
     return decoded;
   }
 
-  private getRealmName(decodedToken: IJWT) {
-    const matchResult = decodedToken.payload.iss.match(this.keycloakConfig.hostRegExp);
+  private getRealmFromJWT(decodedToken: IJWT) {
+    const realmJwtPath = this.keycloakConfig.realmJWTPath;
 
-    if (!matchResult || !matchResult[1]) {
-      throw new Error('unknown token issuer!');
+    let realmName;
+
+    if (typeof realmJwtPath === 'function') {
+      realmName = realmJwtPath({...decodedToken});
+    }
+    else {
+      realmName = decodedToken.payload[realmJwtPath];
     }
 
-    return matchResult[2];
+    if (realmName) return realmName;
+    else throw new Error('failed to get realm from token');
   }
 
-  private async verifyToken(realmURL: string, decodedToken: IJWT, token: string): Promise<IJWT> {
+
+  private validateRealmName(realm: string) {
+    const matches = realm.match(this.realmPattern);
+
+    if (!matches) throw new Error('invalid realm name pattern');
+  }
+
+  private async verifyToken(jwksUri: string, decodedToken: IJWT, token: string): Promise<IJWT> {
     return new Promise((resolve, reject) => {
 
-      const client = jwksClient({
-        jwksUri: realmURL + '/protocol/openid-connect/certs'
-      });
+      const client = jwksClient({ jwksUri });
 
       client.getSigningKey(decodedToken.header.kid, (err: Error | null, key: jwksClient.SigningKey) => {
 

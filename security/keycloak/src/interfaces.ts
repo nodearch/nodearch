@@ -9,6 +9,7 @@ export interface IKeycloakOptions {
   claims?: {
     [key: string]: string | number | boolean | { (value: any): boolean };
   };
+  realmJWTPath?: string | { (decodedToken: IJWT): string };
 }
 
 /**
@@ -228,6 +229,11 @@ export interface IJWTPayload {
        [key: string]: any;
      }
    };
+
+    /**
+     Keycloak additional mapped keys by protocol mapper
+    */
+   [key: string]: any
 }
 
 export interface IAuthInfo {
