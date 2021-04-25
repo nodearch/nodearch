@@ -2,6 +2,20 @@
   "name": "@nodearch/keycloak",
   "entries": [
     {
+      "version": "1.2.0",
+      "tag": "@nodearch/keycloak_v1.2.0",
+      "date": "Sun, 25 Apr 2021 15:08:51 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "allow user to pass realm name or its path in jwt token as args in auth",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "0e6be5ffacdc3677225816dd57594300456e5324"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.2",
       "tag": "@nodearch/keycloak_v1.1.2",
       "date": "Sun, 21 Mar 2021 13:48:41 GMT",
