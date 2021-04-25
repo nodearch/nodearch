@@ -1,5 +1,6 @@
 import { Config, ConfigManager } from '@nodearch/core';
 import { VerifyOptions } from 'jsonwebtoken';
+import { IJWT } from '../interfaces';
 
 @Config()
 export class KeycloakConfig {
@@ -7,11 +8,11 @@ export class KeycloakConfig {
   clientId: string;
   hostname: string;
   issuer: string;
-  hostRegExp: RegExp;
   jwtVerify: VerifyOptions;
   claims?: {
     [key: string]: string | number | boolean | { (value: any): boolean };
   };
+  realm: string | { (decodedToken: IJWT): string };
 
   constructor(config: ConfigManager) {
 
@@ -38,7 +39,11 @@ export class KeycloakConfig {
       })
     );
 
-    this.hostRegExp = this.getHostRegExp(this.issuer);
+    this.realm = config.env({
+      defaults: { all: 'realm' },
+      external: 'realm'
+    });
+
 
     this.jwtVerify = config.env({
       defaults: { all: { algorithms: ['RS256'] } },
@@ -59,9 +64,5 @@ export class KeycloakConfig {
     }
 
     return (url.href.charAt(url.href.length - 1) === '/') ? url.href.slice(0, -1) : url.href;
-  }
-
-  private getHostRegExp(host: string) {
-    return new RegExp("(" + host + ")\/auth\/realms\/([a-z_-]+)");
   }
 }
