@@ -3,7 +3,6 @@ import jwksClient from 'jwks-rsa';
 import { Service } from '@nodearch/core';
 import { IAuthInfo, IJWT } from '../interfaces';
 import { KeycloakConfig } from './keycloak.config';
-import request from 'request-promise-native';
 
 @Service()
 export class KeycloakAuth {
