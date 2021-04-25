@@ -6,8 +6,11 @@ import { KeycloakConfig } from './keycloak.config';
 
 @Service()
 export class KeycloakAuth {
-  
-  constructor(private keycloakConfig: KeycloakConfig) {}
+  realmPattern: RegExp;
+
+  constructor(private keycloakConfig: KeycloakConfig) {
+    this.realmPattern = /^[a-zA-Z0-9_-]+$/;
+  }
 
   async auth(token: string, realmName?: string): Promise<IAuthInfo> {
     const decodedToken = this.decodeToken(token);
@@ -57,7 +60,7 @@ export class KeycloakAuth {
 
 
   private validateRealmName(realm: string) {
-    const matches = realm.match(/^[a-zA-Z0-9_-]+$/);
+    const matches = realm.match(this.realmPattern);
 
     if (matches?.length !== 1) throw new Error('invalid realm name pattern');
   }
