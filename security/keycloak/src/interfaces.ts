@@ -9,7 +9,7 @@ export interface IKeycloakOptions {
   claims?: {
     [key: string]: string | number | boolean | { (value: any): boolean };
   };
-  realm?: string | { (decodedToken: IJWT): string };
+  realmJWTPath?: string | { (decodedToken: IJWT): string };
 }
 
 /**

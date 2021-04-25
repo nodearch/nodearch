@@ -16,6 +16,8 @@ export class KeycloakAuth {
     const decodedToken = this.decodeToken(token);
     const realm = realmName || this.getRealmFromJWT(decodedToken);
 
+    this.validateRealmName(realm);
+
     const jwksUri = `${this.keycloakConfig.hostname}/auth/realms/${realm}/protocol/openid-connect/certs`
 
     await this.verifyToken(jwksUri, decodedToken, token);
@@ -39,7 +41,8 @@ export class KeycloakAuth {
   }
 
   private getRealmFromJWT(decodedToken: IJWT) {
-    const realmJwtPath = this.keycloakConfig.realm;
+    const realmJwtPath = this.keycloakConfig.realmJWTPath;
+
     let realmName;
 
     if (typeof realmJwtPath === 'function') {
@@ -49,20 +52,15 @@ export class KeycloakAuth {
       realmName = decodedToken.payload[realmJwtPath];
     }
 
-    if (realmName) {
-      this.validateRealmName(realmName);
-      return realmName;
-    }
-    else {
-      throw new Error('failed to get realm from token');
-    }
+    if (realmName) return realmName;
+    else throw new Error('failed to get realm from token');
   }
 
 
   private validateRealmName(realm: string) {
     const matches = realm.match(this.realmPattern);
 
-    if (matches?.length !== 1) throw new Error('invalid realm name pattern');
+    if (!matches) throw new Error('invalid realm name pattern');
   }
 
   private async verifyToken(jwksUri: string, decodedToken: IJWT, token: string): Promise<IJWT> {

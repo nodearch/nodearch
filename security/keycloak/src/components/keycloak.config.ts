@@ -12,7 +12,7 @@ export class KeycloakConfig {
   claims?: {
     [key: string]: string | number | boolean | { (value: any): boolean };
   };
-  realm: string | { (decodedToken: IJWT): string };
+  realmJWTPath: string | { (decodedToken: IJWT): string };
 
   constructor(config: ConfigManager) {
 
@@ -39,9 +39,9 @@ export class KeycloakConfig {
       })
     );
 
-    this.realm = config.env({
+    this.realmJWTPath = config.env({
       defaults: { all: 'realm' },
-      external: 'realm'
+      external: 'realmJWTPath'
     });
 
 
