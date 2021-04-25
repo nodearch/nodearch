@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/keycloak",
+      "comment": "allow user to pass realm name or its path in jwt token as args in auth",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@nodearch/keycloak",
+  "email": "bluemax7o1@gmail.com"
+}
