@@ -3,7 +3,7 @@ import * as util from "util";
 import fs from 'fs';
 import path from 'path';
 import { ComponentType } from "./enums";
-import { MethodsTypeDocs } from "./interfaces";
+import { IMethodArgumentTypeDocs, ITypeDocs, MethodsTypeDocs } from "./interfaces";
 
 
 export class ComponentTypeParser {
@@ -34,9 +34,6 @@ export class ComponentTypeParser {
         projectPath
       );
   
-      console.log('fileNames: ', fileNames);
-      
-  
       this.program = ts.createProgram(fileNames, {
         target: ts.ScriptTarget.ES5,
         module: ts.ModuleKind.CommonJS
@@ -58,20 +55,23 @@ export class ComponentTypeParser {
     componentName: string,
     methodNames: string[]
   ) => {
+    let types: MethodsTypeDocs | undefined;
     // Visit every sourceFile in the program
     for (const sourceFile of this.program!.getSourceFiles()) {
       if (!sourceFile.isDeclarationFile) {
         // Walk the tree to search for classes
-        return ts.forEachChild(sourceFile, (node) => {
+        ts.forEachChild(sourceFile, (node) => {
+          const componentTypes = this.visit(node, componentType, componentName, methodNames);
 
-          const types = this.visit(node, componentType, componentName, methodNames);
+          if (componentTypes && componentTypes.size > 0) {
+            types = componentTypes;
 
-          console.log('types ppppp', types)
-
-          if (types && types.size > 0) return types;
+            return;
+          };
         });
       }
     }
+    return types;
   }
 
   
@@ -89,9 +89,12 @@ export class ComponentTypeParser {
 
     if (ts.isClassDeclaration(node)) {
       const type = this.checker.getTypeAtLocation(node);
-      const isTargetComponent = this.isTargetComponent(type, componentType, componentName);
+      const symbol = type.getSymbol();
+      const isTargetComponent = this.isTargetComponent(symbol!, componentType, componentName);
 
       if (isTargetComponent) this.serializeClass(type, methodNames, methodsTypes);
+
+      return methodsTypes;
 
       // No need to walk any further, class expressions/inner declarations
       // cannot be exported
@@ -100,23 +103,30 @@ export class ComponentTypeParser {
       ts.forEachChild(node, (node) => this.visit(node, componentType, componentName, methodNames));
     }
 
-    return methodsTypes;
   }
 
   /** Serialize a class symbol information */
   private serializeClass = (type: ts.Type, methodNames: string[], methodsTypes: MethodsTypeDocs): MethodsTypeDocs | undefined => {
     type.getProperties().forEach(x => {
-      const methodSign = this.checker.getTypeOfSymbolAtLocation(x, x.valueDeclaration!)?.getCallSignatures()?.[0];
+      const symbol = this.checker.getTypeOfSymbolAtLocation(x, x.valueDeclaration!);
+      const methodSign = symbol?.getCallSignatures()?.[0];
 
       if (methodSign) {
         const methodName = (<ts.SignatureDeclaration> methodSign.declaration)?.name?.getText();
 
         if (methodName && methodNames.includes(methodName)) {
-          const returnTypeProp = methodSign.getReturnType().getSymbol();
+          const returnType = this.serializeSymbol(methodSign.getReturnType());
+          const argumentsTypes: Map<string, IMethodArgumentTypeDocs> = new Map();
 
-          console.log('returnTypeProp: ', returnTypeProp)
+          for (const param of methodSign.getParameters()) {
+            const paramType = this.checker.getTypeOfSymbolAtLocation(param, param.valueDeclaration!)
+            const argumentType = this.serializeSymbol(paramType, param);
+            const decorators = this.getDecoratorsOfType(param);
 
-          if (returnTypeProp) methodsTypes.set(methodName, { returnType: this.serializeSymbol(returnTypeProp) });
+            argumentsTypes.set(param.getName().toString(), { type: argumentType, decorators })
+          }
+
+          if (returnType) methodsTypes.set(methodName, { returnType, argumentsTypes });
         }
       }
 
@@ -125,33 +135,8 @@ export class ComponentTypeParser {
     return methodsTypes;
   }
 
-
-  private isTargetComponent(type: ts.Type, componentType: ComponentType, componentName: string) {
-    const symbol = type.getSymbol();
-
-    if (symbol?.name !== componentName) return false;
-
-    const declarations = symbol?.getDeclarations();
-
-    if (!declarations) return false;
-
-    return declarations.some(declaration => {
-      if (!declaration.decorators) return false;
-
-      return declaration.decorators.some(decorator => {
-        // remove the parentheses and convert it to lower case, i.e. Controller() => controller
-        const decoratorName = decorator?.expression?.getText().replace(/\(.*\)$/,'').toLowerCase();
-
-        return decoratorName === componentType;
-      })
-    })
-  }
-
     /** Serialize a symbol into a json object */
-    private serializeSymbol = (symbol: ts.Symbol, parentName?: string): any => {
-      const symbolType = this.checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!);
-      const name = parentName ? `${parentName}_${symbol.getName()}` : symbol.getName();
-  
+    private serializeSymbol = (symbolType: ts.Type, symbol?: ts.Symbol): ITypeDocs => {
       const isArray = symbolType.getSymbol()?.escapedName === 'Array';
       let hasReference = symbolType.isClassOrInterface();
       let type = this.getType(symbolType, hasReference);
@@ -161,8 +146,8 @@ export class ComponentTypeParser {
       if (isArray) {
         const resolvedType = (<any> symbolType).resolvedTypeArguments?.[0];
         const symbol = resolvedType?.getSymbol();
-        arrayHasReference = symbol?.isReferenced;
-  
+        arrayHasReference = symbol?.isReferenced || (symbol?.escapedName && symbol?.escapedName !== '__type');
+
         if (resolvedType.getSymbol()) nestedProps = this.getNestedProperties(resolvedType);
         type = arrayHasReference ? (symbol?.escapedName || this.getType(symbolType, hasReference)) : (resolvedType?.intrinsicName || 'array');
       }
@@ -175,14 +160,15 @@ export class ComponentTypeParser {
       }
   
       return {
-        name: symbol.getName(),
-        documentation: ts.displayPartsToString(symbol.getDocumentationComment(this.checker)),
-        tags: symbol.getJsDocTags(),
+        name: symbol?.getName(),
+        tags: symbol?.getJsDocTags(),
         type,
         isArray,
-        optional: this.checker.isOptionalParameter(<any> symbol.valueDeclaration!),
+        optional: symbol ? this.checker.isOptionalParameter(<any> symbol.valueDeclaration!) : false,
         hasReference: hasReference || arrayHasReference ? true : false,
-        nestedType: nestedProps.map(prop => this.serializeSymbol(prop, name))
+        nestedType: nestedProps.map(prop => {
+          return this.serializeSymbol(this.checker.getTypeOfSymbolAtLocation(prop, prop.valueDeclaration!), prop)
+        })
       };
     }
 
@@ -223,12 +209,46 @@ export class ComponentTypeParser {
         case 'boolean':
         case 'object':
         case 'array':
+        case 'void':
+
           return type;
       
         default:
           return 'any';
       }
     }
+  }
+
+  
+  private isTargetComponent(symbol: ts.Symbol, componentType: ComponentType, componentName: string) {
+    if (symbol?.name !== componentName) return false;
+
+    const decorators = this.getDecoratorsOfType(symbol)
+
+    return decorators.some(decorator => {
+      // remove the parentheses and convert it to lower case, i.e. Controller() => controller
+      const decoratorName = decorator.replace(/\(.*\)$/,'').toLowerCase();
+
+      return decoratorName === componentType;
+    });
+  }
+
+  private getDecoratorsOfType(symbol: ts.Symbol) {
+    const decorators: string[] = [];
+
+    const declarations = symbol?.getDeclarations();
+
+    if (!declarations) return [];
+
+    declarations.forEach(declaration => {
+      if (!declaration.decorators) return [];
+
+      const decoratorsNames = declaration.decorators.map(decorator => decorator?.expression?.getText())
+
+      decorators.push(...decoratorsNames);
+    });
+
+    return decorators;
   }
 
   /** True if this is visible outside this file, false otherwise */

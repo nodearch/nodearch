@@ -167,6 +167,6 @@ export class ComponentManagement {
 
     const typeParser = new ComponentTypeParser();
 
-    typeParser.getComponentMethodTypes(componentType, controllerName, methodNames, projectPath);
+    return typeParser.getComponentMethodTypes(componentType, controllerName, methodNames, projectPath);
   }
 }

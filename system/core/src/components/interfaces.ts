@@ -47,10 +47,10 @@ export interface ITypeDocs {
   documentation?: string;
   type?: string;
   returnType?: string;
-  tags: ts.JSDocTagInfo[],
+  tags?: ts.JSDocTagInfo[],
   isArray: boolean,
   optional: boolean,
-  hasReference: true,
+  hasReference: boolean,
   nestedType: ITypeDocs[]
 }
 
@@ -62,7 +62,7 @@ export interface IMethodTypeDocs {
 }
 
 export interface IMethodArgumentTypeDocs {
-  decorator?: string;
+  decorators?: string[];
   type: ITypeDocs;
 }
 
