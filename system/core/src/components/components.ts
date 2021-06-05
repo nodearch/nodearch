@@ -11,6 +11,7 @@ import { RepositoryHandler } from './repository';
 import { ServiceHandler } from './service';
 import { InterceptorProviderHandler } from './interceptor';
 import { CLIHandler, ICLI } from './cli';
+import { ComponentTypeParser } from './type-parser';
 
 
 export class ComponentManagement {
@@ -155,5 +156,17 @@ export class ComponentManagement {
     if (comRegistry) {
       return comRegistry.components.length ? comRegistry.components : undefined;
     } 
+  }
+
+  getComponentMethodTypes(
+    componentType: ComponentType,
+    controllerName: string,
+    methodNames: string[],
+    projectPath: string
+  ) {
+
+    const typeParser = new ComponentTypeParser();
+
+    typeParser.getComponentMethodTypes(componentType, controllerName, methodNames, projectPath);
   }
 }

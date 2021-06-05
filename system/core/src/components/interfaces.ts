@@ -1,4 +1,5 @@
 import { Container } from 'inversify';
+import ts from 'typescript';
 import { ClassConstructor } from '../utils';
 import { ComponentType, ComponentScope } from './enums';
 
@@ -39,3 +40,29 @@ export interface IProxyMethodOptions {
   before?(methodName: string, args: any[], paramTypes: string[]): Promise<boolean>;
   after?(methodName: string, args: any[], paramTypes: string[]): Promise<boolean>;
 }
+
+export interface ITypeDocs {
+  name?: string;
+  fileName?: string;
+  documentation?: string;
+  type?: string;
+  returnType?: string;
+  tags: ts.JSDocTagInfo[],
+  isArray: boolean,
+  optional: boolean,
+  hasReference: true,
+  nestedType: ITypeDocs[]
+}
+
+export type MethodsTypeDocs = Map<string, IMethodTypeDocs>;
+
+export interface IMethodTypeDocs {
+  returnType?: ITypeDocs;
+  argumentsTypes?: Map<string, IMethodArgumentTypeDocs>; 
+}
+
+export interface IMethodArgumentTypeDocs {
+  decorator?: string;
+  type: ITypeDocs;
+}
+

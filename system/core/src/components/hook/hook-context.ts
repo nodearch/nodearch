@@ -37,4 +37,8 @@ export class HookContext {
   getComponents(componentType: ComponentType) {
     return this.components.getComponents(componentType);
   }
+
+  getComponentMethodTypes(componentType: ComponentType, controllerName: string, methodNames: string[], projectPath: string) {
+    return this.components.getComponentMethodTypes(componentType, controllerName, methodNames, projectPath);
+  }
 }
