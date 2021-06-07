@@ -2,9 +2,10 @@ import * as ts from "typescript";
 import * as util from "util";
 import fs from 'fs';
 import path from 'path';
-import { ComponentType } from "./enums";
-import { IMethodArgumentTypeDocs, ITypeDocs, MethodsTypeDocs } from "./interfaces";
+import { AppState, ComponentType } from "./enums";
+import { ComponentsTypesDocs, IMethodArgumentTypeDocs, ITypeDocs, MethodsTypesDocs } from "./interfaces";
 
+const readFile = util.promisify(fs.readFile);
 
 export class ComponentTypeParser {
   private program?: ts.Program; 
@@ -14,48 +15,79 @@ export class ComponentTypeParser {
     this.checker = ts.createProgram([], {}).getTypeChecker();
   }
   
-  getComponentMethodTypes = (
+  getComponentMethodTypes = async(
     componentType: ComponentType,
     componentName: string,
     methodNames: string[],
-    projectPath: string
-  ): MethodsTypeDocs | undefined => {
-
-    if (!this.program) {
+    projectPath: string,
+    state: AppState
+  ): Promise<MethodsTypesDocs | undefined> => {
       const configPath = ts.findConfigFile(projectPath, ts.sys.fileExists, 'tsconfig.json');
 
       if (!configPath) throw new Error('Failed to find tsconfig.json file')
   
       const config = ts.readJsonConfigFile(configPath!, ts.sys.readFile);
     
-      const { fileNames } = ts.parseJsonSourceFileConfigFileContent(
+      const { fileNames, options: { outDir } } = ts.parseJsonSourceFileConfigFileContent(
         config,
         ts.sys,
         projectPath
       );
-  
-      this.program = ts.createProgram(fileNames, {
-        target: ts.ScriptTarget.ES5,
-        module: ts.ModuleKind.CommonJS
-      });
+
+      if (state === AppState.JS) {
+        if (outDir) {
+          const fileContent = await readFile(path.join(outDir, 'components_types.json'), { encoding: 'utf8' });
+          const jsonFileTypes = JSON.parse(fileContent);
+
+          return this.getMethodsTypes(componentType, componentName, methodNames, jsonFileTypes);
+        }
+      }
+      else {
+        if (!this.program) {
+          this.program = ts.createProgram(fileNames, {
+            target: ts.ScriptTarget.ES5,
+            module: ts.ModuleKind.CommonJS
+          });
+        
+          this.checker = this.program.getTypeChecker();
+        }
     
-      this.checker = this.program.getTypeChecker();
+        const methodsTypes = this.generateMethodsTypes(componentType, componentName, methodNames);
+    
+        return methodsTypes;
+      }
+  }
+
+  private getMethodsTypes = (
+    componentType: ComponentType,
+    componentName: string,
+    methodNames: string[],
+    jsonFileTypes: ComponentsTypesDocs
+  ) => {
+    const compTypeName = `${componentType}_${componentName}`;
+    const targetMethods: MethodsTypesDocs = {}
+
+    for (const comp in jsonFileTypes) {
+      if (comp === compTypeName) {
+        const methods = jsonFileTypes[comp];
+
+        for (const methodName in methods) {
+          if (methodNames.includes(methodName)) targetMethods[methodName] = methods[methodName];
+        }
+      }
     }
 
-
-    const docs = this.generateDocumentation(componentType, componentName, methodNames);
-
-    return docs;
+    return targetMethods;
   }
 
 
   /** Generate documentation for all classes in a set of .ts files */
-  private generateDocumentation = (
+  private generateMethodsTypes = (
     componentType: ComponentType,
     componentName: string,
     methodNames: string[]
   ) => {
-    let types: MethodsTypeDocs | undefined;
+    let types: MethodsTypesDocs = {};
     // Visit every sourceFile in the program
     for (const sourceFile of this.program!.getSourceFiles()) {
       if (!sourceFile.isDeclarationFile) {
@@ -63,7 +95,7 @@ export class ComponentTypeParser {
         ts.forEachChild(sourceFile, (node) => {
           const componentTypes = this.visit(node, componentType, componentName, methodNames);
 
-          if (componentTypes && componentTypes.size > 0) {
+          if (componentTypes) {
             types = componentTypes;
 
             return;
@@ -82,7 +114,7 @@ export class ComponentTypeParser {
     componentName: string,
     methodNames: string[]
   ) => {
-    let methodsTypes: MethodsTypeDocs = new Map();
+    let methodsTypes: MethodsTypesDocs = {};
 
     // Only consider exported nodes
     if (!this.isNodeExported(node)) return;
@@ -106,7 +138,7 @@ export class ComponentTypeParser {
   }
 
   /** Serialize a class symbol information */
-  private serializeClass = (type: ts.Type, methodNames: string[], methodsTypes: MethodsTypeDocs): MethodsTypeDocs | undefined => {
+  private serializeClass = (type: ts.Type, methodNames: string[], methodsTypes: MethodsTypesDocs): MethodsTypesDocs | undefined => {
     type.getProperties().forEach(x => {
       const symbol = this.checker.getTypeOfSymbolAtLocation(x, x.valueDeclaration!);
       const methodSign = symbol?.getCallSignatures()?.[0];
@@ -126,7 +158,7 @@ export class ComponentTypeParser {
             argumentsTypes.set(param.getName().toString(), { type: argumentType, decorators })
           }
 
-          if (returnType) methodsTypes.set(methodName, { returnType, argumentsTypes });
+          if (returnType) methodsTypes[methodName] = { returnType, argumentsTypes };
         }
       }
 
@@ -148,7 +180,8 @@ export class ComponentTypeParser {
         const symbol = resolvedType?.getSymbol();
         arrayHasReference = symbol?.isReferenced || (symbol?.escapedName && symbol?.escapedName !== '__type');
 
-        if (resolvedType.getSymbol()) nestedProps = this.getNestedProperties(resolvedType);
+        // get child/nested properties
+        if (symbol) nestedProps = this.getNestedProperties(resolvedType);
         type = arrayHasReference ? (symbol?.escapedName || this.getType(symbolType, hasReference)) : (resolvedType?.intrinsicName || 'array');
       }
       else {
@@ -166,7 +199,7 @@ export class ComponentTypeParser {
         isArray,
         optional: symbol ? this.checker.isOptionalParameter(<any> symbol.valueDeclaration!) : false,
         hasReference: hasReference || arrayHasReference ? true : false,
-        nestedType: nestedProps.map(prop => {
+        nestedProperties: nestedProps.map(prop => {
           return this.serializeSymbol(this.checker.getTypeOfSymbolAtLocation(prop, prop.valueDeclaration!), prop)
         })
       };
@@ -187,6 +220,7 @@ export class ComponentTypeParser {
         else if (aliasSymbol === 'Pick') {
           return totalProperties?.filter(prop => pickedProps.includes(prop.escapedName))
         }
+        // TODO: you need to mark all nested properties as optional=true
         else if (aliasSymbol === 'Partial') {
           return totalProperties
         }

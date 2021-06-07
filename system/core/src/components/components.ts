@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 import { ComponentMetadata } from './component.metadata';
-import { ComponentType, ComponentScope } from './enums';
+import { ComponentType, ComponentScope, AppState } from './enums';
 import { ClassConstructor } from '../utils';
 import { ComponentHandler } from './component/component.handler';
 import {IComponentHandler, IComponentInfo, IComponentsOptions} from './interfaces';
@@ -11,7 +11,7 @@ import { RepositoryHandler } from './repository';
 import { ServiceHandler } from './service';
 import { InterceptorProviderHandler } from './interceptor';
 import { CLIHandler, ICLI } from './cli';
-import { ComponentTypeParser } from './type-parser';
+import { ComponentTypeParser } from './component-type-parser';
 
 
 export class ComponentManagement {
@@ -19,6 +19,8 @@ export class ComponentManagement {
   private options: IComponentsOptions;
   private container: Container;
   private componentsRegistry: Map<ComponentType, { components: ClassConstructor[], handler: IComponentHandler}>;
+  private typeParser: ComponentTypeParser;
+  private state: AppState = AppState.TS;
 
   constructor(options?: IComponentsOptions) {
     this.options = options || {};
@@ -28,6 +30,8 @@ export class ComponentManagement {
     });
 
     this.componentsRegistry = new Map();
+    this.typeParser = new ComponentTypeParser();
+    this.state = AppState.TS;
 
     this.initComponentsHandlers();
   }
@@ -78,7 +82,7 @@ export class ComponentManagement {
     this.container.bind(coreClass).toConstantValue(coreValue);
   }
 
-  load(classes: ClassConstructor[]) {
+  load(classes: ClassConstructor[], state: AppState = AppState.TS) {
     let registered = 0;
 
     classes.forEach(classDef => {
@@ -165,8 +169,6 @@ export class ComponentManagement {
     projectPath: string
   ) {
 
-    const typeParser = new ComponentTypeParser();
-
-    return typeParser.getComponentMethodTypes(componentType, controllerName, methodNames, projectPath);
+    return this.typeParser.getComponentMethodTypes(componentType, controllerName, methodNames, projectPath, this.state);
   }
 }

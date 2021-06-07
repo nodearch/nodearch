@@ -20,3 +20,8 @@ export enum AppStage {
   Init,
   Start,
 }
+
+export enum AppState {
+  TS,
+  JS
+}

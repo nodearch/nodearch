@@ -42,19 +42,18 @@ export interface IProxyMethodOptions {
 }
 
 export interface ITypeDocs {
-  name?: string;
-  fileName?: string;
-  documentation?: string;
+  name?: string; // property name
   type?: string;
-  returnType?: string;
   tags?: ts.JSDocTagInfo[],
   isArray: boolean,
   optional: boolean,
-  hasReference: boolean,
-  nestedType: ITypeDocs[]
+  hasReference: boolean, // it will be true if the type is interface or class
+  nestedProperties: ITypeDocs[]
 }
 
-export type MethodsTypeDocs = Map<string, IMethodTypeDocs>;
+export type ComponentsTypesDocs = {[name: string]: MethodsTypesDocs}; // {component name}_{component type} => methods types
+
+export type MethodsTypesDocs = {[name: string]: IMethodTypeDocs}; // method name => method return type & arguments types
 
 export interface IMethodTypeDocs {
   returnType?: ITypeDocs;
