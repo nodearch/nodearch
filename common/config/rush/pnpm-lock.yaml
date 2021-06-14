@@ -22,7 +22,7 @@ dependencies:
   axios: 0.21.0
   decompress: 4.2.1
   inquirer: 7.3.3
-  inversify: 5.0.5
+  inversify: 5.1.1
   jest: 26.6.3_ts-node@9.1.1
   joi: 17.3.0
   joi-to-swagger: 4.0.0_@hapi+joi@17.1.1
@@ -2734,10 +2734,10 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-JG3eIAj5V9CwcGvuOmoo6LB9kbAYT8HXffUl6memuszlwDC/qvFAJw49XJ5NROSFNPxp3iQg1GqkFhaY/CR0IA==
-  /inversify/5.0.5:
+  /inversify/5.1.1:
     dev: false
     resolution:
-      integrity: sha512-60QsfPz8NAU/GZqXu8hJ+BhNf/C/c+Hp0eDc6XMIJTxBiP36AQyyQKpBkOVTLWBFDQWYVHpbbEuIsHu9dLuJDA==
+      integrity: sha512-j8grHGDzv1v+8T1sAQ+3boTCntFPfvxLCkNcxB1J8qA0lUN+fAlSyYd+RXKvaPRL4AGyPxViutBEJHNXOyUdFQ==
   /ip-regex/2.1.0:
     dev: false
     engines:
@@ -5961,14 +5961,14 @@ packages:
     dev: false
     name: '@rush-temp/cli'
     resolution:
-      integrity: sha512-VLUG06XohqKAIuYECp6cFpuRjH2cjMk6xNWhnjqzb3XLOaUhue/xbEKwwn9HNv3rL9KGyxUtID7aqlutOCojIg==
+      integrity: sha512-tCBxnSxLt1P+jvdiyDwrAxcDwJThO6KOV9w/n19bRsWphqlIFKhi1PPFHCnlnSo4ao1VwjPrNXq2LRicHUxmrg==
       tarball: 'file:projects/cli.tgz'
     version: 0.0.0
   'file:projects/core.tgz':
     dependencies:
       '@types/jest': 26.0.19
       '@types/node': 14.14.14
-      inversify: 5.0.5
+      inversify: 5.1.1
       jest: 26.6.3_ts-node@9.1.1
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
@@ -5978,7 +5978,7 @@ packages:
     dev: false
     name: '@rush-temp/core'
     resolution:
-      integrity: sha512-Vlv3cK/k5ksXx5kyw1lqLY90YSR+FEZX4vfVKkWGx46HrQjJHxnxXEiLnPUJQW8Ozrr4cc2LZ9fmCLSu5t8xEA==
+      integrity: sha512-4QW8kNxDlMkTfUGnjcTv/oSM6BVzZsZEBSSJzOHjK/HrdeplZ0ihi2rcRGIU2ZFacVxDRL+Z4q0vIGeKL6SaMg==
       tarball: 'file:projects/core.tgz'
     version: 0.0.0
   'file:projects/express.tgz_ts-node@9.1.1':
@@ -6003,7 +6003,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-q048QJQ+WkiaSMG2x8TVqU1YB3wjti/rhLSczRFIH8UUW94C5MXrhNNJipC4h8kgxbKJLnhmdY8z9AnUIo4GlA==
+      integrity: sha512-9RBQHUo7CRpEXd0DJmrlhTzeBdzaVt1VpMnVvkqnI8bqf0Kb+9+jvuPaH8AENE5QXZTjXNGUPKVvbGtNcs0vbA==
       tarball: 'file:projects/express.tgz'
     version: 0.0.0
   'file:projects/keycloak.tgz_ts-node@9.1.1':
@@ -6028,7 +6028,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-mpdgUit9kLRYp9Z7OMQO72Zj0YGbVNHwAPltVquuSmORgZyF7bXrckz1bIV51cai2OJKbl7nUAfvNqxeCWqyvg==
+      integrity: sha512-+41Nky/5hhSEWftQvPqclsGiN0EtW2ZKadKsqdQ3fn5CDN1fQPWyKuy+tg7Jawof3l7B3ZDoYD993XKSOMUQ5g==
       tarball: 'file:projects/keycloak.tgz'
     version: 0.0.0
   'file:projects/template-app.tgz':
@@ -6050,7 +6050,7 @@ packages:
     dev: false
     name: '@rush-temp/template-app'
     resolution:
-      integrity: sha512-VGbMszjuKRZbIOlQm56ehCSZ+uq/KwAq72b10qpHtADIblTr0Ss++azILMLS/GRi2ZpxSDntpI4KHEg9R7l84A==
+      integrity: sha512-T1sCj/6yHnhTff4mePR5+dj7KAW1zqQQz3VjEzw2ERfEcIn8MyBWqVHp13MRqp5cSFd1yOKzpi4YXzxJqzGv2w==
       tarball: 'file:projects/template-app.tgz'
     version: 0.0.0
   'file:projects/vault.tgz_ts-node@9.1.1':
@@ -6070,7 +6070,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-Mf2pZmfvM0He52dUgdJDEZLZrFbpI0G58J8HrKmw3bmAHo50z3WeD271iRoKvIj7MuUrD3A2u5X6IcRXd+TJNQ==
+      integrity: sha512-x93YgpDSZzuOSI9jk0+pWlq14sDgAdFQSzcu35bFu8yJ+p389n40P8tYZ/NfkrsmLnzZjfhdW5sTAFm4rktADQ==
       tarball: 'file:projects/vault.tgz'
     version: 0.0.0
 registry: ''
@@ -6098,7 +6098,7 @@ specifiers:
   axios: ^0.21.0
   decompress: ^4.2.1
   inquirer: ^7.3.3
-  inversify: ^5.0.1
+  inversify: 5.1.1
   jest: ^26.6.3
   joi: ^17.3.0
   joi-to-swagger: ^4.0.0

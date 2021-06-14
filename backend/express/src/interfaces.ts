@@ -1,4 +1,4 @@
-import { HttpMethod, HTTPParam, MiddlewareType } from './enums';
+import { HttpMethod, RouteHandlerParam, MiddlewareType } from './enums';
 import { HttpErrorHandler, MiddlewareHandler, ContextMiddlewareHandler } from './types';
 import { ClassConstructor } from '@nodearch/core';
 import { OpenAPIOptions, OperationObject } from './components/openapi';
@@ -19,7 +19,7 @@ export interface IExpressServerOptions {
 
 export interface IHTTPMethodParamInfo {
   index: number;
-  type: HTTPParam;
+  type: RouteHandlerParam;
   key?: string;
 }
 

@@ -35,7 +35,7 @@
     "@types/jest": "~26.0.19"
   },
   "dependencies": {
-    "inversify": "^5.0.1"
+    "inversify": "5.1.1"
   },
   "peerDependencies": {
     "reflect-metadata": "0.x"

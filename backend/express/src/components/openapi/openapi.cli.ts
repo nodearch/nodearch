@@ -1,12 +1,12 @@
-import { CLI, Logger, CLIQuestion, ICLI, CLIQuestionType, CLIBuilder } from '@nodearch/core';
+import { Cli, Logger, CLIQuestion, ICli, CLIQuestionType, CLIBuilder } from '@nodearch/core';
 import { OpenAPIParser } from './openapi.parser';
 import { ServerConfig } from '../server.config';
 import { OpenAPICliConfig } from './openapi.interfaces';
 import fs from 'fs';
 import path from 'path';
 
-@CLI()
-export class OpenAPICli implements ICLI {
+@Cli()
+export class OpenAPICli implements ICli {
   command: string;
   describe: string;
   builder: CLIBuilder;

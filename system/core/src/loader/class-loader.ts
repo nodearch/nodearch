@@ -8,19 +8,19 @@ export class ClassLoader {
   private filesOptions: Required<IFileLoaderOptions>;
   classes: ClassConstructor[];
 
-  constructor(options: IClassLoaderOptions = {}) {
+  constructor(options: IClassLoaderOptions) {
     this.classes = options.classes || [];
     this.classpath =  options.classpath;
+    
+    if (!this.classpath && (!options.classes || !options.classes.length)) {
+      throw new Error('Requires either classpath or classes configurations to be present');
+    }
 
     this.filesOptions = {
       include: options.files?.include || ['*.js', '*.ts'],
       exclude: options.files?.exclude || ['*.d.ts', '*.spec.ts', '*.e2e-spec.ts', '*.spec.js', '*.e2e-spec.ts'],
       deep: options.files?.deep || 5
     };
-
-    if (!this.classpath && (!options.classes || !options.classes.length)) {
-      throw new Error('Requires either classpath or classes configurations to be present');
-    }
   }
 
   async load() {

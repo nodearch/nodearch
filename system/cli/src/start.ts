@@ -6,7 +6,7 @@ import { register } from 'ts-node';
 
 
 async function main() {
-  register({ transpileOnly: false });
+  register({ transpileOnly: true });
   const app = new CLI();
   await app.run(AppStage.Start);
 }
