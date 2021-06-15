@@ -1,5 +1,5 @@
 import { App, LogLevel } from '@nodearch/core';
-import { ExpressServer, ExpressHook, OpenAPICli } from '@nodearch/express';
+import { ExpressServer } from '@nodearch/express';
 import path from 'path';
 import express from 'express';
 
@@ -8,6 +8,7 @@ import express from 'express';
  * Express decorators such as Produces, Consumes, Throws, Res, etc.
  * Http Errors
  * testing app
+ * Clean up App/ComponentManager interfaces
  */
 
 export default class MyApp extends App {
