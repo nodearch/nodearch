@@ -17,7 +17,7 @@ describe('components/cli', () => {
         toService: () => {}
       };
 
-      it('Should register CLI Component with no Scope', () => {
+      it('Should register Cli Component with no Scope', () => {
         const container = new Container();
         const serverHandler = new CLIHandler(container);
         const containerBindSpy = spyOn(container, 'bind').and.returnValue(mockedContainerBind);
@@ -26,13 +26,13 @@ describe('components/cli', () => {
           testingParams: string = 'test';
         }
         
-        serverHandler.register(TestingCLI, { type: ComponentType.CLI });
+        serverHandler.register(TestingCLI, { type: ComponentType.Cli });
   
         expect(containerBindSpy).toBeCalledTimes(2);
         expect(containerBindSpy).toBeCalledWith(TestingCLI);
       });
   
-      it('Should register CLI Component with Request Scope', () => {
+      it('Should register Cli Component with Request Scope', () => {
         const container = new Container();
         const containerBindSpy = spyOn(container, 'bind').and.returnValue(mockedContainerBind);
         const serverHandler = new CLIHandler(container);
@@ -41,7 +41,7 @@ describe('components/cli', () => {
           testingParams: string = 'test';
         }
         
-        serverHandler.register(TestingCLI, { type: ComponentType.CLI, scope: ComponentScope.Request });
+        serverHandler.register(TestingCLI, { type: ComponentType.Cli, scope: ComponentScope.Request });
   
         expect(containerBindSpy).toBeCalledTimes(2);
         expect(containerBindSpy).toBeCalledWith(TestingCLI);
@@ -53,7 +53,7 @@ describe('components/cli', () => {
 
       const mockedContainerBind = { toDynamicValue: () => {}, toService: () => {} };
 
-      it('Should register Extension CLI Component with no Scope', () => {
+      it('Should register Extension Cli Component with no Scope', () => {
         const container = new Container();
         const extContainer = new Container();
         const serverHandler = new CLIHandler(container);

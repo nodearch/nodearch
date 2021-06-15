@@ -162,8 +162,8 @@ export interface ICli<T = any> {
   questions?: CLIQuestion[];
 
   /**
-   * NPM dependencies required by the CLI command
-   * the CLI will make sure that all dependencies listed 
+   * NPM dependencies required by the Cli command
+   * the Cli will make sure that all dependencies listed 
    * are installed, and if not, it will install them automatically 
    */
   npmDependencies?: INpmDependency[];

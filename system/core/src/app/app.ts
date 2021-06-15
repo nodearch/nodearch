@@ -93,6 +93,9 @@ export class App {
     if (runOptions.mode === RunMode.EXT) {
       this.logger = runOptions.logger;
     }
+    else if (runOptions.mode === RunMode.CLI) {
+      this.logOptions === runOptions.logOptions || this.logOptions;
+    }
 
     this.loadCoreComponents();
 
@@ -121,15 +124,8 @@ export class App {
     }
   }
 
-  setLogLevel(logLevel: LogLevel) {
-    this.logger.setLogLevel(logLevel);
-  }
-
-  /**
-   * Allows to change the core logger after App initialization 
-   * @param logger logger instance that comply with the core interface ILogger
-   */
-  setLogger(logger: ILogger) {
-    this.componentManager.overrideCoreComponent(Logger, logger);
-  }
+  // TODO: check if we still need this
+  // setLogLevel(logLevel: LogLevel) {
+  //   this.logger.setLogLevel(logLevel);
+  // }
 }

@@ -27,7 +27,8 @@ export interface IAppOptions {
 export enum RunMode {
   CLI,
   APP,
-  EXT
+  EXT,
+  TEST
 }
 
 export interface IRunApp {
@@ -36,6 +37,7 @@ export interface IRunApp {
 
 export interface IRunCli {
   mode: RunMode.CLI;
+  logOptions?: ILogOptions;
 }
 
 export interface IRunExt {
@@ -43,4 +45,8 @@ export interface IRunExt {
   logger: ILogger;  
 }
 
-export type IRunOptions = IRunApp | IRunCli | IRunExt;
+export interface IRunTest {
+  mode: RunMode.TEST;
+}
+
+export type IRunOptions = IRunApp | IRunCli | IRunExt | IRunTest;

@@ -1,12 +1,12 @@
-import { CLI, CLIBuilder, ICLI, INpmDependency, Logger, NpmDependencyType } from "@nodearch/core";
+import { Cli, CLIBuilder, ICli, INpmDependency, Logger, NpmDependencyType } from "@nodearch/core";
 import { AppInfoService } from "../app-info/app-info.service";
 import { ITestCommandOptions } from './testing.interfaces';
 import path from 'path';
 import open from 'open';
 
 
-@CLI()
-export class TestCommand implements ICLI<ITestCommandOptions> {
+@Cli()
+export class TestCommand implements ICli<ITestCommandOptions> {
   command: string;
   aliases: string[];
   describe: string;

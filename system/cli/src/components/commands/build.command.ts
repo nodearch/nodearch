@@ -1,8 +1,8 @@
-import { Logger, ICLI, CLI } from '@nodearch/core';
+import { Logger, ICli, Cli } from '@nodearch/core';
 import { CmdRunner } from '../cli-exec';
 
-@CLI()
-export class BuildCommand implements ICLI {
+@Cli()
+export class BuildCommand implements ICli {
   command: string;
   describe: string;
   aliases: string[];

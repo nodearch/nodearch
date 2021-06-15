@@ -1,4 +1,4 @@
-import { AppStage, CLI, Component, ComponentType, Controller, Hook, HookContext, ICLI, IHook, IInterceptor, IInterceptorContext, Interceptor, InterceptorProvider, Repository, Service } from '../components';
+import { AppStage, Cli, Component, ComponentType, Controller, Hook, HookContext, ICLI, IHook, IInterceptor, IInterceptorContext, Interceptor, InterceptorProvider, Repository, Service } from '../components';
 import { App } from './app';
 import path from 'path';
 import { LogLevel } from '../logger';
@@ -175,9 +175,9 @@ describe('app/App', () => {
       expect(spyGetDataRepo2).toHaveBeenCalledTimes(2);
     });
 
-    it('Should successfully Create and Use CLI', async () => {
+    it('Should successfully Create and Use Cli', async () => {
 
-      @CLI()
+      @Cli()
       class CLITest implements ICLI {
         handler(): any { return true }
         command: string = 'test'
@@ -228,9 +228,9 @@ describe('app/App', () => {
       expect(appInstance.getCLICommands()[0]?.handler({})).toEqual(true);
     });
 
-    it('Should successfully Call Controllers and CLI commands in Hook', async () => {
+    it('Should successfully Call Controllers and Cli commands in Hook', async () => {
 
-      @CLI()
+      @Cli()
       class CLITest implements ICLI {
         handler(): any { return true }
         command: string = 'test'

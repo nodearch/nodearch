@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
-import { AppStage } from '@nodearch/core';
-import { CLI } from './main';
+import { Cli } from './main';
 import { register } from 'ts-node';
 
 
 async function main() {
   register({ transpileOnly: true });
-  const app = new CLI();
-  await app.run(AppStage.Start);
+  const app = new Cli();
+  await app.run();
 }
 
 main().catch(e => {

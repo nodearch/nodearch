@@ -1,5 +1,5 @@
 import yargs, { Arguments, CommandModule } from 'yargs';
-import { Service, App, ClassConstructor, CLIQuestion, AppStage, ICLI, LogLevel, INpmDependency } from '@nodearch/core';
+import { Service, App, ClassConstructor, CLIQuestion, ICli, LogLevel, INpmDependency, RunMode } from '@nodearch/core';
 import inquirer from 'inquirer';
 import { AppInfoService } from './app-info/app-info.service';
 import { NotifierService } from './notifier.service';
@@ -20,17 +20,17 @@ export class CLIService {
     
     if (ImportedApp) {
       const appInstance = new ImportedApp();
-      appInstance.setLogLevel(LogLevel.Error);
-      await appInstance.run(AppStage.Init);
+      // appInstance.setLogLevel(LogLevel.Error);
+      await appInstance.run({ mode: RunMode.CLI, logOptions: { logLevel: LogLevel.Error } });
 
-      return appInstance.getCLICommands();
+      return appInstance.componentManager.findCLICommands() || [];
     }
     else {
       throw new Error(`Cannot load Local App at ${appPath}`);
     }
   }
 
-  getYargsCommands(cliCommands: ICLI[]): CommandModule[] {
+  getYargsCommands(cliCommands: ICli[]): CommandModule[] {
     return cliCommands.map(cliCMD => {
       const { handler, questions, npmDependencies, ...commandOptions } = cliCMD;
       const handlerFn = (args: Arguments) => this.handlerFactory(handler.bind(cliCMD), args, questions, npmDependencies);
@@ -42,9 +42,9 @@ export class CLIService {
     });
   }
 
-  async init(builtinCommands?: ICLI[]) {
+  async init(builtinCommands?: ICli[]) {
 
-    let cliCommands: ICLI[] = [];
+    let cliCommands: ICli[] = [];
 
     if (builtinCommands) {
       cliCommands = cliCommands.concat(builtinCommands);
