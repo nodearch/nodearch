@@ -13,7 +13,6 @@ import { InterceptorProviderHandler } from './interceptor';
 import { CLIHandler, ICLI } from './cli';
 import { ComponentTypeParser } from './component-type-parser';
 
-
 export class ComponentManagement {
 
   private options: IComponentsOptions;
@@ -21,6 +20,7 @@ export class ComponentManagement {
   private componentsRegistry: Map<ComponentType, { components: ClassConstructor[], handler: IComponentHandler}>;
   private typeParser: ComponentTypeParser;
   private state: AppState = AppState.TS;
+  private appRootPath: string = process.cwd();
 
   constructor(options?: IComponentsOptions) {
     this.options = options || {};
@@ -82,9 +82,8 @@ export class ComponentManagement {
     this.container.bind(coreClass).toConstantValue(coreValue);
   }
 
-  load(classes: ClassConstructor[], state: AppState = AppState.TS) {
+  load(classes: ClassConstructor[]) {
     let registered = 0;
-    this.state = state;
 
     classes.forEach(classDef => {
       const componentInfo = ComponentMetadata.getInfo<IComponentInfo>(classDef);
@@ -163,13 +162,31 @@ export class ComponentManagement {
     } 
   }
 
+  setState(state: AppState) {
+    this.state = state;
+  }
+
+  setAppRootPath(path: string) {
+    this.appRootPath = path;
+  }
+
   getComponentMethodTypes(
-    projectPath: string,
     componentType: ComponentType,
     controllerName: string,
     methodNames?: string[],
   ) {
+    const config = this.typeParser.getProjectTSConfig(this.appRootPath);
 
-    return this.typeParser.getComponentMethodTypes(projectPath, this.state, componentType, controllerName, methodNames);
+    return this.typeParser.getComponentMethodTypes(
+      config,
+      this.state,
+      componentType,
+      controllerName,
+      methodNames
+    );
+  }
+
+  getProjectTSConfig() {
+    return this.typeParser.getProjectTSConfig(this.appRootPath);
   }
 }

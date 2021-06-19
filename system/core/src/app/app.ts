@@ -1,5 +1,5 @@
 import { ClassLoader } from '../loader';
-import { ComponentManagement, HookContext, ComponentType, IHook, AppStage, ConfigManager, AppState } from '../components';
+import { ComponentManagement, HookContext, ComponentType, IHook, AppStage, ConfigManager, AppState, IRunOptions } from '../components';
 import { IAppOptions } from './app.interfaces';
 import { ConsoleLogger, ILogger, Logger, LogLevel } from '../logger';
 import { ICLI } from '../components/cli/cli.interfaces';
@@ -44,7 +44,7 @@ export class App {
     return configManager;
   }
 
-  protected async load(state: AppState = AppState.TS) {
+  protected async load(options?: IRunOptions) {
     this.logger.debug('NodeArch - Node.js backend framework');
     this.logger.debug('Documentation: nodearch.io');
     this.logger.debug('Starting APP Instance...');
@@ -56,10 +56,13 @@ export class App {
       this.logger.debug('Extensions Initialized!');
     }
 
+    if (options?.state) this.components.setState(options?.state);
+    if (options?.rootPath) this.components.setAppRootPath(options?.rootPath);
+
     this.logger.debug('Starting to Load Components...');
     await this.classLoader.load();
 
-    const loadedCount = this.components.load(this.classLoader.classes, state);
+    const loadedCount = this.components.load(this.classLoader.classes);
     this.logger.debug(`${loadedCount} Components Loaded!`);
 
     try {
@@ -114,7 +117,7 @@ export class App {
     );
   }
 
-  async run(stage: AppStage = AppStage.Start, state: AppState = AppState.TS) {
+  async run(stage: AppStage = AppStage.Start, options?: IRunOptions) {
     if (this.isRunCalled) {
       throw new Error('app.run is already called, you can\'t call it twice!');
     }
@@ -124,14 +127,14 @@ export class App {
 
     switch (stage) {
       case AppStage.Load:
-        await this.load(state);
+        await this.load(options);
         break;
       case AppStage.Init:
-        await this.load(state);
+        await this.load(options);
         await this.init();
         break;
       case AppStage.Start:
-        await this.load(state);
+        await this.load(options);
         await this.init();
         await this.start();
         break;
@@ -194,11 +197,14 @@ export class App {
   }
 
   getComponentTypes(
-    projectPath: string,
     componentType: ComponentType,
     controllerName: string,
     methodNames?: string[],
   ) {
-    return this.components.getComponentMethodTypes(projectPath, componentType, controllerName, methodNames)
+    return this.components.getComponentMethodTypes(componentType, controllerName, methodNames);
+  }
+
+  getProjectTSConfig() {
+    return this.components.getProjectTSConfig();
   }
 }

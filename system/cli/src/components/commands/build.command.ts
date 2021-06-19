@@ -1,4 +1,4 @@
-import { Logger, ICLI, CLI, ClassConstructor, App, AppStage, ComponentType } from '@nodearch/core';
+import { Logger, ICLI, CLI, ClassConstructor, App, AppStage, ComponentType, AppState } from '@nodearch/core';
 import { AppInfoService } from '../app-info/app-info.service';
 import { CmdRunner } from '../cli-exec';
 import { IControllersTypes } from '../interfaces';
@@ -30,24 +30,28 @@ export class BuildCommand implements ICLI {
       await this.cmdRunner.runTsc();
 
       if (this.appInfoService.appInfo) {
+        const rootDir = path.join(this.appInfoService.appInfo.rootDir, '..');
         const appControllersTypes: IControllersTypes = {};
 
         const NodearchApp: ClassConstructor<App> = (await import(this.appInfoService.appInfo.app))?.default;
         const appInstance = new NodearchApp();
-        await appInstance.run(AppStage.Load);
+        await appInstance.run(AppStage.Load, { state: AppState.TS, rootPath: rootDir });
 
         const controllers = appInstance.getControllers()?.map(c => c.name);
 
         if(controllers?.length) {
+          const { options: { outDir = path.join(rootDir, 'dist') } } = appInstance.getProjectTSConfig();
+
+          const distDir = path.join(outDir, 'components_types.json');
+
           for (const ctrl of controllers) {
-            const methodTypes = await appInstance.getComponentTypes(this.appInfoService.appInfo.rootDir, ComponentType.Controller, ctrl);
+            const methodTypes = await appInstance.getComponentTypes(ComponentType.Controller, ctrl);
 
             if (methodTypes) appControllersTypes[ctrl] = methodTypes;
           }
-        }
 
-        const dist = path.join(this.appInfoService.appInfo.rootDir, '..', 'dist', 'components_types.json');
-        await writeFile(dist, JSON.stringify(appControllersTypes, null, 2))
+          await writeFile(distDir, JSON.stringify(appControllersTypes, null, 2));
+        }
       }
 
       this.logger.info('Build success!');

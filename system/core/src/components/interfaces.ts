@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 import ts from 'typescript';
 import { ClassConstructor } from '../utils';
-import { ComponentType, ComponentScope } from './enums';
+import { ComponentType, ComponentScope, AppState } from './enums';
 
 export interface IComponentsOptions {
   // Components default scope ( Singleton if not provided )
@@ -65,3 +65,7 @@ export interface IMethodArgumentTypeDocs {
   type: ITypeDocs;
 }
 
+export interface IRunOptions {
+  state?: AppState; // the default state is JS
+  rootPath?: string; // the project root directory path which have the tsconfig.json file
+}

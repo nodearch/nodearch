@@ -14,25 +14,29 @@ export class ComponentTypeParser {
   constructor() {
     this.checker = ts.createProgram([], {}).getTypeChecker();
   }
+
+  getProjectTSConfig(projectPath: string): ts.ParsedCommandLine {
+    const configPath = ts.findConfigFile(projectPath, ts.sys.fileExists, 'tsconfig.json');
+
+    if (!configPath) throw new Error('Failed to find tsconfig.json file')
+
+    const config = ts.readJsonConfigFile(configPath!, ts.sys.readFile);
+
+    return ts.parseJsonSourceFileConfigFileContent(
+      config,
+      ts.sys,
+      projectPath
+    );
+  }
   
   getComponentMethodTypes = async(
-    projectPath: string,
+    tsParsedConfig: ts.ParsedCommandLine,
     state: AppState,
     componentType: ComponentType,
     componentName: string,
     methodNames?: string[], // if methodNames is undefined, it will parse all public methods
   ): Promise<MethodsTypesDocs | undefined> => {
-      const configPath = ts.findConfigFile(projectPath, ts.sys.fileExists, 'tsconfig.json');
-
-      if (!configPath) throw new Error('Failed to find tsconfig.json file')
-  
-      const config = ts.readJsonConfigFile(configPath!, ts.sys.readFile);
-    
-      const { fileNames, options: { outDir } } = ts.parseJsonSourceFileConfigFileContent(
-        config,
-        ts.sys,
-        projectPath
-      );
+      const { fileNames, options: { outDir } } = tsParsedConfig;
 
       if (state === AppState.JS) {
         if (outDir) {
