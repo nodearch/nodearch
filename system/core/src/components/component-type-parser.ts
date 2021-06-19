@@ -36,15 +36,10 @@ export class ComponentTypeParser {
     componentName: string,
     methodNames?: string[], // if methodNames is undefined, it will parse all public methods
   ): Promise<MethodsTypesDocs | undefined> => {
-      const { fileNames, options: { outDir } } = tsParsedConfig;
+      const { fileNames, options: { outDir = path.join(process.cwd(), 'dist') } } = tsParsedConfig;
 
       if (state === AppState.JS) {
-        if (outDir) {
-          const fileContent = await readFile(path.join(outDir, 'components_types.json'), { encoding: 'utf8' });
-          const jsonFileTypes = JSON.parse(fileContent);
-
-          return this.getMethodsTypes(jsonFileTypes, componentType, componentName, methodNames);
-        }
+        return this.extractGeneratedMethodsTypes(outDir, componentName, methodNames);
       }
       else {
         if (!this.program) {
@@ -62,23 +57,29 @@ export class ComponentTypeParser {
       }
   }
 
-  private getMethodsTypes = (
-    jsonFileTypes: ComponentsTypesDocs,
-    componentType: ComponentType,
+  private extractGeneratedMethodsTypes = async(
+    outDir: string,
     componentName: string,
     methodNames?: string[],
   ) => {
-    const compTypeName = `${componentType}_${componentName}`;
-    const targetMethods: MethodsTypesDocs = {}
+    const targetMethods: MethodsTypesDocs = {};
 
-    for (const comp in jsonFileTypes) {
-      if (comp === compTypeName) {
-        const methods = jsonFileTypes[comp];
+    try {
+      const fileContent = await readFile(path.join(outDir, 'components_types.json'), { encoding: 'utf8' });
+      const jsonFileTypes = JSON.parse(fileContent);
 
-        for (const methodName in methods) {
-          if (!methodNames || methodNames.includes(methodName)) targetMethods[methodName] = methods[methodName];
+      for (const comp in jsonFileTypes) {
+        if (comp === componentName) {
+          const methods = jsonFileTypes[comp];
+  
+          for (const methodName in methods) {
+            if (!methodNames || methodNames.includes(methodName)) targetMethods[methodName] = methods[methodName];
+          }
         }
       }
+    } catch (error) {
+      if (error.code === 'ENOENT') throw new Error(`Failed to find components_types.json in ${outDir}`);
+      throw error;
     }
 
     return targetMethods;

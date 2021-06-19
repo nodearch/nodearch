@@ -55,9 +55,8 @@ export class App {
       await this.initExtensions();
       this.logger.debug('Extensions Initialized!');
     }
-
-    if (options?.state) this.components.setState(options?.state);
-    if (options?.rootPath) this.components.setAppRootPath(options?.rootPath);
+    if (options?.state !== undefined) this.components.setState(options.state);
+    if (options?.rootPath !== undefined) this.components.setAppRootPath(options.rootPath);
 
     this.logger.debug('Starting to Load Components...');
     await this.classLoader.load();

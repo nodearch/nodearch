@@ -35,6 +35,7 @@ export class BuildCommand implements ICLI {
 
         const NodearchApp: ClassConstructor<App> = (await import(this.appInfoService.appInfo.app))?.default;
         const appInstance = new NodearchApp();
+
         await appInstance.run(AppStage.Load, { state: AppState.TS, rootPath: rootDir });
 
         const controllers = appInstance.getControllers()?.map(c => c.name);

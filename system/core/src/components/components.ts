@@ -19,8 +19,8 @@ export class ComponentManagement {
   private container: Container;
   private componentsRegistry: Map<ComponentType, { components: ClassConstructor[], handler: IComponentHandler}>;
   private typeParser: ComponentTypeParser;
-  private state: AppState = AppState.TS;
-  private appRootPath: string = process.cwd();
+  private state: AppState;
+  private appRootPath: string;
 
   constructor(options?: IComponentsOptions) {
     this.options = options || {};
@@ -31,7 +31,8 @@ export class ComponentManagement {
 
     this.componentsRegistry = new Map();
     this.typeParser = new ComponentTypeParser();
-    this.state = AppState.TS;
+    this.state = AppState.JS;
+    this.appRootPath = process.cwd();
 
     this.initComponentsHandlers();
   }
