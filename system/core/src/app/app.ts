@@ -167,6 +167,20 @@ export class App {
     }
   }
 
+  getControllers() {
+    try {
+      return this.components.getComponents(ComponentType.Controller);
+    }
+    catch(e) {
+      if (e.message !== 'No matching bindings found for serviceIdentifier: Controller') {
+        throw e;
+      }
+      else {
+        return [];
+      }
+    }
+  }
+
   setLogLevel(logLevel: LogLevel) {
     this.logger.setLogLevel(logLevel);
   }
@@ -177,5 +191,14 @@ export class App {
    */
   setLogger(logger: ILogger) {
     this.components.overrideCoreComponent(Logger, logger);
+  }
+
+  getComponentTypes(
+    projectPath: string,
+    componentType: ComponentType,
+    controllerName: string,
+    methodNames?: string[],
+  ) {
+    return this.components.getComponentMethodTypes(projectPath, componentType, controllerName, methodNames)
   }
 }

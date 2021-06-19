@@ -84,6 +84,7 @@ export class ComponentManagement {
 
   load(classes: ClassConstructor[], state: AppState = AppState.TS) {
     let registered = 0;
+    this.state = state;
 
     classes.forEach(classDef => {
       const componentInfo = ComponentMetadata.getInfo<IComponentInfo>(classDef);
@@ -163,12 +164,12 @@ export class ComponentManagement {
   }
 
   getComponentMethodTypes(
+    projectPath: string,
     componentType: ComponentType,
     controllerName: string,
-    methodNames: string[],
-    projectPath: string
+    methodNames?: string[],
   ) {
 
-    return this.typeParser.getComponentMethodTypes(componentType, controllerName, methodNames, projectPath, this.state);
+    return this.typeParser.getComponentMethodTypes(projectPath, this.state, componentType, controllerName, methodNames);
   }
 }

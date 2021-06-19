@@ -57,7 +57,7 @@ export type MethodsTypesDocs = {[name: string]: IMethodTypeDocs}; // method name
 
 export interface IMethodTypeDocs {
   returnType?: ITypeDocs;
-  argumentsTypes?: Map<string, IMethodArgumentTypeDocs>; 
+  argumentsTypes?: {[name: string]: IMethodArgumentTypeDocs};
 }
 
 export interface IMethodArgumentTypeDocs {

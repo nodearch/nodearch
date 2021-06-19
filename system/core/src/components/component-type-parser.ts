@@ -16,11 +16,11 @@ export class ComponentTypeParser {
   }
   
   getComponentMethodTypes = async(
+    projectPath: string,
+    state: AppState,
     componentType: ComponentType,
     componentName: string,
-    methodNames: string[],
-    projectPath: string,
-    state: AppState
+    methodNames?: string[], // if methodNames is undefined, it will parse all public methods
   ): Promise<MethodsTypesDocs | undefined> => {
       const configPath = ts.findConfigFile(projectPath, ts.sys.fileExists, 'tsconfig.json');
 
@@ -39,7 +39,7 @@ export class ComponentTypeParser {
           const fileContent = await readFile(path.join(outDir, 'components_types.json'), { encoding: 'utf8' });
           const jsonFileTypes = JSON.parse(fileContent);
 
-          return this.getMethodsTypes(componentType, componentName, methodNames, jsonFileTypes);
+          return this.getMethodsTypes(jsonFileTypes, componentType, componentName, methodNames);
         }
       }
       else {
@@ -59,10 +59,10 @@ export class ComponentTypeParser {
   }
 
   private getMethodsTypes = (
+    jsonFileTypes: ComponentsTypesDocs,
     componentType: ComponentType,
     componentName: string,
-    methodNames: string[],
-    jsonFileTypes: ComponentsTypesDocs
+    methodNames?: string[],
   ) => {
     const compTypeName = `${componentType}_${componentName}`;
     const targetMethods: MethodsTypesDocs = {}
@@ -72,7 +72,7 @@ export class ComponentTypeParser {
         const methods = jsonFileTypes[comp];
 
         for (const methodName in methods) {
-          if (methodNames.includes(methodName)) targetMethods[methodName] = methods[methodName];
+          if (!methodNames || methodNames.includes(methodName)) targetMethods[methodName] = methods[methodName];
         }
       }
     }
@@ -85,7 +85,7 @@ export class ComponentTypeParser {
   private generateMethodsTypes = (
     componentType: ComponentType,
     componentName: string,
-    methodNames: string[]
+    methodNames?: string[]
   ) => {
     let types: MethodsTypesDocs = {};
     // Visit every sourceFile in the program
@@ -112,7 +112,7 @@ export class ComponentTypeParser {
     node: ts.Node,
     componentType: ComponentType,
     componentName: string,
-    methodNames: string[]
+    methodNames?: string[]
   ) => {
     let methodsTypes: MethodsTypesDocs = {};
 
@@ -124,7 +124,7 @@ export class ComponentTypeParser {
       const symbol = type.getSymbol();
       const isTargetComponent = this.isTargetComponent(symbol!, componentType, componentName);
 
-      if (isTargetComponent) this.serializeClass(type, methodNames, methodsTypes);
+      if (isTargetComponent) this.serializeClass(type, methodsTypes, methodNames);
 
       return methodsTypes;
 
@@ -138,7 +138,7 @@ export class ComponentTypeParser {
   }
 
   /** Serialize a class symbol information */
-  private serializeClass = (type: ts.Type, methodNames: string[], methodsTypes: MethodsTypesDocs): MethodsTypesDocs | undefined => {
+  private serializeClass = (type: ts.Type, methodsTypes: MethodsTypesDocs, methodNames?: string[]): MethodsTypesDocs | undefined => {
     type.getProperties().forEach(x => {
       const symbol = this.checker.getTypeOfSymbolAtLocation(x, x.valueDeclaration!);
       const methodSign = symbol?.getCallSignatures()?.[0];
@@ -146,16 +146,17 @@ export class ComponentTypeParser {
       if (methodSign) {
         const methodName = (<ts.SignatureDeclaration> methodSign.declaration)?.name?.getText();
 
-        if (methodName && methodNames.includes(methodName)) {
+        if (methodName && (!methodNames || methodNames.includes(methodName))) {
           const returnType = this.serializeSymbol(methodSign.getReturnType());
-          const argumentsTypes: Map<string, IMethodArgumentTypeDocs> = new Map();
+          const argumentsTypes: {[name: string]: IMethodArgumentTypeDocs} = {};
 
           for (const param of methodSign.getParameters()) {
             const paramType = this.checker.getTypeOfSymbolAtLocation(param, param.valueDeclaration!)
             const argumentType = this.serializeSymbol(paramType, param);
             const decorators = this.getDecoratorsOfType(param);
+            const methodName = param.getName().toString();
 
-            argumentsTypes.set(param.getName().toString(), { type: argumentType, decorators })
+            argumentsTypes[methodName] = { type: argumentType, decorators }
           }
 
           if (returnType) methodsTypes[methodName] = { returnType, argumentsTypes };

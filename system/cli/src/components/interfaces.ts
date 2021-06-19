@@ -1,4 +1,5 @@
 import { CommandModule } from "yargs";
+import { MethodsTypesDocs } from '@nodearch/core';
 
 export interface IAppSettings {
   main: string;
@@ -15,4 +16,8 @@ export interface ITemplateData {
 export interface INewProjectConfig {
   name: string;
   path: string;
+}
+
+export interface IControllersTypes {
+  [controller: string]: MethodsTypesDocs
 }
