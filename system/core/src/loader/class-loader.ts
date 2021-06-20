@@ -18,7 +18,7 @@ export class ClassLoader {
 
     this.filesOptions = {
       include: options.files?.include || ['*.js', '*.ts'],
-      exclude: options.files?.exclude || ['*.d.ts', '*.spec.ts', '*.e2e-spec.ts', '*.spec.js', '*.e2e-spec.ts'],
+      exclude: ['*.d.ts'], // options.files?.exclude || ['*.d.ts', '*.spec.ts', '*.e2e-spec.ts', '*.spec.js', '*.e2e-spec.ts'],
       deep: options.files?.deep || 5
     };
   }
@@ -28,7 +28,7 @@ export class ClassLoader {
       const filesInfo = await FileSystem.readFiles(this.classpath, this.filesOptions.deep);
 
       const filteredFilesInfo = FileSystem.filterFiles(filesInfo, this.filesOptions.include, this.filesOptions.exclude);
-      
+
       const files = await FileSystem.loadFiles(filteredFilesInfo);
 
       this.loadClassesFromFiles(files);

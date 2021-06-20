@@ -9,8 +9,11 @@ import { ControllerHandler } from './controller';
 import { ConfigHandler } from './config';
 import { RepositoryHandler } from './repository';
 import { ServiceHandler } from './service';
-import { InterceptorProviderHandler } from './interceptor';
+import { InterceptorHandler } from './interceptor';
 import { CliHandler, ICli } from './cli';
+import { TestHandler } from './test/test.handler';
+import { TestManager } from './test/test-manager'
+import { ITestRunner } from './test';
 
 
 export class ComponentManager {
@@ -41,8 +44,9 @@ export class ComponentManager {
     this.componentsRegistry.set(ComponentType.Config, { components: [], handler: new ConfigHandler(this.container) });
     this.componentsRegistry.set(ComponentType.Repository, { components: [], handler: new RepositoryHandler(this.container) });
     this.componentsRegistry.set(ComponentType.Service, { components: [], handler: new ServiceHandler(this.container) });
-    this.componentsRegistry.set(ComponentType.InterceptorProvider, { components: [], handler: new InterceptorProviderHandler(this.container) });
+    this.componentsRegistry.set(ComponentType.Interceptor, { components: [], handler: new InterceptorHandler(this.container) });
     this.componentsRegistry.set(ComponentType.Cli, { components: [], handler: new CliHandler(this.container) });
+    this.componentsRegistry.set(ComponentType.Test, { components: [], handler: new TestHandler(this.container) });
   }
 
   registerCoreComponent(componentClass: ClassConstructor, componentInstance: any) {
@@ -59,13 +63,15 @@ export class ComponentManager {
 
       exportedComps.forEach(({ classDef, info }) => {
         const comRegistry = <{ handler: IComponentHandler }>this.componentsRegistry.get(info.type);
-        comRegistry.handler.registerExtension(classDef, compManager.container);
+        if (comRegistry.handler.registerExtension) {
+          comRegistry.handler.registerExtension(classDef, compManager.container);
+        }
       });
 
     });
   }
 
-  load(classes: ClassConstructor[]) {
+  load(classes: ClassConstructor[], include: ComponentType[]) {
     let registered = 0,
       hooks = 0,
       exported = 0;
@@ -73,12 +79,13 @@ export class ComponentManager {
     classes.forEach(classDef => {
       const componentInfo = ComponentMetadata.getInfo<IComponentInfo>(classDef);
 
-      if (componentInfo) {
-        const comRegistry = this.componentsRegistry.get(componentInfo.type as ComponentType);
+      if (componentInfo && include.includes(componentInfo.type)) {
+
+        const comRegistry = this.componentsRegistry.get(componentInfo.type);
 
         if (comRegistry) {
           comRegistry.components.push(classDef);
-          
+
           if (componentInfo.export) {
             this.exportedComponents.push({
               classDef,
@@ -86,7 +93,7 @@ export class ComponentManager {
             });
             exported++;
           }
-          
+
           comRegistry.handler.register(classDef, componentInfo);
           
           registered++;
@@ -123,6 +130,10 @@ export class ComponentManager {
 
   findHooks(): IHook[] | undefined {
     return this.findGroupedCompByType(ComponentType.Hook);
+  }
+
+  findTests() {
+    return this.findGroupedCompByType(ComponentType.Test);
   }
 
   findCLICommands(): ICli[] | undefined {
@@ -163,5 +174,23 @@ export class ComponentManager {
 
   getExported() {
     return this.exportedComponents;
+  }
+
+  async runTests(testRunner: ITestRunner) {
+    const testComponents = this.getComponents(ComponentType.Test);
+    
+    if (testComponents) {
+      
+      const testInstances = testComponents.map(testComp => {
+        const container = Container.merge(this.container, new Container());
+        return container.get(testComp);
+      });
+
+      const testManager = new TestManager(testRunner, testInstances);
+      testManager.init();
+      
+      const failureCode = await testManager.run();
+      process.exit(failureCode);
+    }
   }
 }

@@ -39,6 +39,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@types/mocha",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@types/multer",
       "allowedCategories": [ "production" ]
     },
@@ -105,6 +109,10 @@
     {
       "name": "jwks-rsa",
       "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "mocha",
+      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "multer",

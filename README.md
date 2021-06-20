@@ -21,6 +21,9 @@
   <a href="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core" target="_blank">
     <img alt="Vulnerabilities" src="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core.svg" />
   </a>
+  <a href="https://www.codefactor.io/repository/github/ahmedali7o1/nodearch" target="_blank">
+    <img src="https://www.codefactor.io/repository/github/ahmedali7o1/nodearch/badge" alt="CodeFactor" />
+  </a>
   <a href="https://img.shields.io/github/workflow/status/bluemax-io/nodearch/Deploy/master" target="_blank">
     <img alt="Build Status" src="https://img.shields.io/github/workflow/status/bluemax-io/nodearch/Deploy/master?label=Build" />
   </a>

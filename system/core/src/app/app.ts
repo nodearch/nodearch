@@ -1,6 +1,7 @@
 import { ClassLoader } from '../loader';
+import { Container } from 'inversify';
 import { ComponentManager, HookContext, ComponentType, IHook, ConfigManager } from '../component';
-import { IAppInfo, IAppOptions, IRunOptions, RunMode } from './app.interfaces';
+import { IAppInfo, IAppOptions, IRunApp, IRunCli, IRunExt, IRunOptions, IRunTest, RunMode } from './app.interfaces';
 import { ILogger, ILogOptions, Logger, LogLevel } from '../log';
 import { IConfigOptions } from '../config/interfaces';
 // import pkg from '../../package.json';
@@ -36,14 +37,14 @@ export class App {
     this.componentManager.registerCoreComponent(ConfigManager, new ConfigManager(this.configOptions));
   }
 
-  private async loadExtensions () {
+  private async loadExtensions (enableCli: boolean) {
     if (this.extensions) {
       this.logger.debug(`Found ${this.extensions.length} Extensions!`);
 
       // TODO: consider making this Promise.all
       for (const extension of this.extensions) {
         try {
-          await extension.run({ mode: RunMode.EXT, logger: this.logger });
+          await extension.run({ mode: RunMode.EXT, logger: this.logger, enableCli });
         }
         catch (e) {
           throw new Error(`While trying to register Extension - ${e.message}`);
@@ -52,11 +53,11 @@ export class App {
     }
   } 
 
-  private async loadComponents() {
+  private async loadComponents(include: ComponentType[]) {
     this.logger.info(`Load App: ${this.appInfo.name} version: ${this.appInfo.version}`);
 
     await this.classLoader.load();
-    const { registered, hooks, exported } = this.componentManager.load(this.classLoader.classes);
+    const { registered, hooks, exported } = this.componentManager.load(this.classLoader.classes, include);
     this.logger.debug(`${registered} Components Loaded`);
     this.logger.debug(`${hooks} Hooks registered`);
     this.logger.debug(`${exported} Component exported`);
@@ -88,24 +89,99 @@ export class App {
     }
   }
 
-  async run(runOptions: IRunOptions = { mode: RunMode.APP }) {
+  private async runExt(runOptions: IRunExt) {
+    this.logger = runOptions.logger;
+    
+    const enabledComponents = [
+      ComponentType.Component,
+      ComponentType.Config,
+      ComponentType.Controller,
+      ComponentType.Hook,
+      ComponentType.Interceptor,
+      ComponentType.Repository,
+      ComponentType.Service
+    ];
 
-    if (runOptions.mode === RunMode.EXT) {
-      this.logger = runOptions.logger;
-    }
-    else if (runOptions.mode === RunMode.CLI) {
-      this.logOptions === runOptions.logOptions || this.logOptions;
+    if (runOptions.enableCli) {
+      enabledComponents.push(ComponentType.Cli);
     }
 
     this.loadCoreComponents();
-
-    await this.loadExtensions();
-    await this.loadComponents();
+    await this.loadExtensions(runOptions.enableCli);
+    await this.loadComponents(enabledComponents);
+    this.registerExtensions();
+  }
+  
+  private async runApp(runOptions: IRunApp) {
+    this.loadCoreComponents();
+    await this.loadExtensions(false);
+    await this.loadComponents([
+      ComponentType.Cli,
+      ComponentType.Component,
+      ComponentType.Config,
+      ComponentType.Controller,
+      ComponentType.Hook,
+      ComponentType.Interceptor,
+      ComponentType.Repository,
+      ComponentType.Service
+    ]);
     this.registerExtensions();
 
-    if (runOptions.mode === RunMode.APP) {
-      await this.init();
-      await this.start();
+    await this.init();
+    await this.start();
+  }
+  
+  private async runCli(runOptions: IRunCli) {
+    this.logOptions === runOptions.logOptions || this.logOptions;
+
+    this.loadCoreComponents();
+    await this.loadExtensions(true);
+    await this.loadComponents([
+      ComponentType.Cli,
+      ComponentType.Component,
+      ComponentType.Config,
+      ComponentType.Controller,
+      ComponentType.Hook,
+      ComponentType.Interceptor,
+      ComponentType.Repository,
+      ComponentType.Service
+    ]);
+    this.registerExtensions();
+  }
+  
+  private async runTest(runOptions: IRunTest) {
+    this.loadCoreComponents();
+    await this.loadExtensions(false);
+    await this.loadComponents([
+      ComponentType.Cli,
+      ComponentType.Component,
+      ComponentType.Config,
+      ComponentType.Controller,
+      ComponentType.Hook,
+      ComponentType.Interceptor,
+      ComponentType.Repository,
+      ComponentType.Service,
+      ComponentType.Test
+    ]);
+    this.registerExtensions();
+    
+    await this.componentManager.runTests(runOptions.testRunner);
+  }
+
+  async run(runOptions: IRunOptions = { mode: RunMode.APP }) {
+    switch(runOptions.mode) {
+      case RunMode.APP:
+        await this.runApp(runOptions);
+        break;
+      case RunMode.EXT:
+        await this.runExt(runOptions);
+        break;
+      case RunMode.CLI:
+        await this.runCli(runOptions);
+        break;
+      case RunMode.TEST:
+        await this.runTest(runOptions);
+        break;
     }
   }
 

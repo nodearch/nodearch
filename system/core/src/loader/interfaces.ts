@@ -14,8 +14,8 @@ export interface IFile extends IFileInfo {
 
 export interface IFileLoaderOptions {
   deep?: number;
-  include?: string[],
-  exclude?: string[]
+  include?: string[];
+  exclude?: string[];
 }
 
 export interface IClassLoaderOptions {

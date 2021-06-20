@@ -9,3 +9,4 @@ export * from './component-manager';
 export * from './interfaces';
 export * from './interceptor';
 export * from './cli';
+export * from './test';

@@ -2,8 +2,9 @@ import { Container } from 'inversify';
 import { ClassConstructor } from '../../utils';
 import {IComponentHandler, IComponentInfo} from '../interfaces';
 import {BaseComponentHandler} from "../base-handler";
+import { ComponentType } from '../enums';
 
-export class InterceptorHandler extends BaseComponentHandler implements IComponentHandler {
+export class TestHandler extends BaseComponentHandler implements IComponentHandler {
   constructor(container: Container) {
     super(container);
   }
@@ -11,15 +12,8 @@ export class InterceptorHandler extends BaseComponentHandler implements ICompone
   register(classDef: ClassConstructor, componentInfo: IComponentInfo) {
     this.bindComponent({
       component: classDef,
-      componentInfo
+      componentInfo,
+      type: ComponentType.Test
     });
   }
-
-  registerExtension(classDef: ClassConstructor, extContainer: Container) {
-    this.bindExtComponent({
-      component: classDef,
-      extContainer
-    });
-  }
-
 }

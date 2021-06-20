@@ -1,5 +1,5 @@
 import { IClassLoaderOptions } from '../loader';
-import { ComponentScope } from '../component';
+import { ComponentScope, ITestRunner } from '../component';
 import {App} from "./app";
 import {ClassConstructor} from "../utils";
 import { ILogger, ILogOptions } from '../log';
@@ -42,11 +42,13 @@ export interface IRunCli {
 
 export interface IRunExt {
   mode: RunMode.EXT;
-  logger: ILogger;  
+  logger: ILogger;
+  enableCli: boolean;
 }
 
 export interface IRunTest {
   mode: RunMode.TEST;
+  testRunner: ITestRunner;
 }
 
 export type IRunOptions = IRunApp | IRunCli | IRunExt | IRunTest;

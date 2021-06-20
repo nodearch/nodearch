@@ -5,8 +5,9 @@ export enum ComponentType {
   Config = 'config',
   Hook = 'hook',
   Repository = 'repository',
-  InterceptorProvider = 'interceptor-provider',
-  Cli = 'cli'
+  Interceptor = 'interceptor',
+  Cli = 'cli',
+  Test = 'test'
 }
 
 export enum ComponentScope {

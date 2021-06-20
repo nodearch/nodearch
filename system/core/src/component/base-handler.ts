@@ -1,5 +1,5 @@
 import {IBindComponentOptions, IBindExtComponentOptions} from "./interfaces";
-import {ComponentScope} from "./enums";
+import {ComponentScope, ComponentType} from "./enums";
 import {Container, interfaces} from "inversify";
 
 export abstract class BaseComponentHandler {
