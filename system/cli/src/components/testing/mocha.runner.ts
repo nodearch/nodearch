@@ -22,9 +22,7 @@ export class MochaRunner implements ITestRunner {
       const suiteInstance = Mocha.Suite.create(mochaInstance.suite, suite.name);
       suite.testCases.forEach(testCase => {
         suiteInstance.addTest(
-          new Test('[EXEC] testing tests', async function () {
-            await testCase();
-          })
+          new Test(testCase.title, testCase.fn.bind(testCase.fn))
         );
       });
     });

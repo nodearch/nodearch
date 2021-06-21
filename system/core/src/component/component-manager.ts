@@ -180,15 +180,7 @@ export class ComponentManager {
     const testComponents = this.getComponents(ComponentType.Test);
     
     if (testComponents) {
-      
-      const testInstances = testComponents.map(testComp => {
-        const container = Container.merge(this.container, new Container());
-        return container.get(testComp);
-      });
-
-      const testManager = new TestManager(testRunner, testInstances);
-      testManager.init();
-      
+      const testManager = new TestManager(testRunner, testComponents, this.container);      
       const failureCode = await testManager.run();
       process.exit(failureCode);
     }
