@@ -1,6 +1,7 @@
 import { ITestRunner, ITestRunnerSuite } from '@nodearch/core';
 import Mocha from 'mocha';
 const Test = Mocha.Test;
+const Hook = Mocha.Hook;
 
 
 export class MochaRunner implements ITestRunner {
@@ -14,30 +15,50 @@ export class MochaRunner implements ITestRunner {
     this.suites.push(suite);
   }
   
-  async run(): Promise<number> {
+  async run() {
 
     const mochaInstance = new Mocha({});
     
     this.suites.forEach(suite => {
       const suiteInstance = Mocha.Suite.create(mochaInstance.suite, suite.name);
+      
+      suite.beforeAll.forEach(beforeAll => {
+        suiteInstance.beforeAll(
+          beforeAll.title || beforeAll.fn.name,
+          beforeAll.fn.bind(beforeAll.fn)
+        );
+      });
+
+      suite.afterAll.forEach(afterAll => {
+        suiteInstance.afterAll(
+          afterAll.title || afterAll.fn.name,
+          afterAll.fn.bind(afterAll.fn)
+        );
+      });
+
+      suite.beforeEach.forEach(beforeEach => {
+        suiteInstance.beforeEach(
+          beforeEach.title || beforeEach.fn.name,
+          beforeEach.fn.bind(beforeEach.fn)
+        );
+      });
+
+      suite.afterEach.forEach(afterEach => {
+        suiteInstance.afterEach(
+          afterEach.title || afterEach.fn.name,
+          afterEach.fn.bind(afterEach.fn)
+        );
+      });
+
       suite.testCases.forEach(testCase => {
         suiteInstance.addTest(
-          new Test(testCase.title, testCase.fn.bind(testCase.fn))
+          new Test(testCase.title, testCase.fn ? testCase.fn.bind(testCase.fn) : undefined)
         );
       });
     });
   
-    return await this.runMocha(mochaInstance);
-
-    // process.on('exit', (code) => {
-    //   process.exit(suiteRun.stats.failures)
-    // });
-    
-    // suiteInstance.afterAll(function () {
-    //   process.on('exit', (code) => {
-    //     process.exit(suiteRun.stats.failures)
-    //   })
-    // })
+    const failureCode = await this.runMocha(mochaInstance);
+    process.exit(failureCode);
   }
 
   private async runMocha (mochaInstance: Mocha): Promise<number> {

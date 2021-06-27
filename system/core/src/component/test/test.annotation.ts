@@ -22,18 +22,18 @@ export function Test(options: ITestComponentOptions): ClassDecorator {
   }
 }
 
-export function Before(title: string): MethodDecorator {
+export function BeforeAll(title: string): MethodDecorator {
   return (target: any, propKey: string | symbol) => {
-    TestMetadata.setBefore(target.constructor, {
+    TestMetadata.setBeforeAll(target.constructor, {
       method: <string>propKey,
       title
     });
   };
 }
 
-export function After(title: string): MethodDecorator {
+export function AfterAll(title: string): MethodDecorator {
   return (target: any, propKey: string | symbol) => {
-    TestMetadata.setAfter(target.constructor, {
+    TestMetadata.setAfterAll(target.constructor, {
       method: <string>propKey,
       title
     });
@@ -58,11 +58,12 @@ export function AfterEach(title: string): MethodDecorator {
   };
 }
 
-export function TestCase(title: string): MethodDecorator {
+export function Case(title: string, active: boolean = true): MethodDecorator {
   return (target: any, propKey: string | symbol) => {
-    TestMetadata.setTestCase(target.constructor, {
+    TestMetadata.setCase(target.constructor, {
       method: <string>propKey,
-      title
+      title,
+      active
     });
   };
 }

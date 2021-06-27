@@ -1,14 +1,14 @@
 import { MetadataInfo } from '../../metadata';
-import { ITestHookMetadata, ITestMetadata } from './test.interfaces';
+import { ITestCaseMetadata, ITestHookMetadata, ITestMetadata } from './test.interfaces';
 
 export abstract class TestMetadata {
   static readonly PREFIX = 'core/component/test';
   static readonly TEST = TestMetadata.PREFIX + '-test';
-  static readonly BEFORE = TestMetadata.PREFIX + '-before';
-  static readonly AFTER = TestMetadata.PREFIX + '-after';
+  static readonly BEFORE_ALL = TestMetadata.PREFIX + '-beforeAll';
+  static readonly AFTER_ALL = TestMetadata.PREFIX + '-afterAll';
   static readonly BEFORE_EACH = TestMetadata.PREFIX + '-beforeEach';
   static readonly AFTER_EACH = TestMetadata.PREFIX + '-afterEach';
-  static readonly TEST_CASE = TestMetadata.PREFIX + '-testCase';
+  static readonly CASE = TestMetadata.PREFIX + '-case';
 
 
   static getTestInfo(classInstance: object): ITestMetadata | undefined {
@@ -19,24 +19,24 @@ export abstract class TestMetadata {
     MetadataInfo.setClassMetadata(TestMetadata.TEST, classInstance, testInfo);
   }  
 
-  static getBefore(classInstance: object): ITestHookMetadata[] {
-    return MetadataInfo.getClassMetadata(TestMetadata.BEFORE, classInstance) || [];
+  static getBeforeAll(classInstance: object): ITestHookMetadata[] {
+    return MetadataInfo.getClassMetadata(TestMetadata.BEFORE_ALL, classInstance) || [];
   }
 
-  static setBefore(classInstance: object, beforeInfo: ITestHookMetadata) {
-    const existingBefore = TestMetadata.getBefore(classInstance);
-    existingBefore.push(beforeInfo);
-    MetadataInfo.setClassMetadata(TestMetadata.BEFORE, classInstance, existingBefore);
+  static setBeforeAll(classInstance: object, beforeInfo: ITestHookMetadata) {
+    const existingBeforeAll = TestMetadata.getBeforeAll(classInstance);
+    existingBeforeAll.push(beforeInfo);
+    MetadataInfo.setClassMetadata(TestMetadata.BEFORE_ALL, classInstance, existingBeforeAll);
   }
 
-  static getAfter(classInstance: object): ITestHookMetadata[] {
-    return MetadataInfo.getClassMetadata(TestMetadata.AFTER, classInstance) || [];
+  static getAfterAll(classInstance: object): ITestHookMetadata[] {
+    return MetadataInfo.getClassMetadata(TestMetadata.AFTER_ALL, classInstance) || [];
   }
 
-  static setAfter(classInstance: object, afterInfo: ITestHookMetadata) {
-    const existingAfter = TestMetadata.getAfter(classInstance);
-    existingAfter.push(afterInfo);
-    MetadataInfo.setClassMetadata(TestMetadata.AFTER, classInstance, existingAfter);
+  static setAfterAll(classInstance: object, afterInfo: ITestHookMetadata) {
+    const existingAfterAll = TestMetadata.getAfterAll(classInstance);
+    existingAfterAll.push(afterInfo);
+    MetadataInfo.setClassMetadata(TestMetadata.AFTER_ALL, classInstance, existingAfterAll);
   }
 
   static getBeforeEach(classInstance: object): ITestHookMetadata[] {
@@ -59,13 +59,13 @@ export abstract class TestMetadata {
     MetadataInfo.setClassMetadata(TestMetadata.AFTER_EACH, classInstance, existingAfterEach);
   }
 
-  static getTestCases(classInstance: object): ITestHookMetadata[] {
-    return MetadataInfo.getClassMetadata(TestMetadata.TEST_CASE, classInstance) || [];
+  static getCases(classInstance: object): ITestCaseMetadata[] {
+    return MetadataInfo.getClassMetadata(TestMetadata.CASE, classInstance) || [];
   }
 
-  static setTestCase(classInstance: object, testCase: ITestHookMetadata) {
-    const existingTestCases = TestMetadata.getTestCases(classInstance);
-    existingTestCases.push(testCase);
-    MetadataInfo.setClassMetadata(TestMetadata.TEST_CASE, classInstance, existingTestCases);
+  static setCase(classInstance: object, testCase: ITestCaseMetadata) {
+    const existingCases = TestMetadata.getCases(classInstance);
+    existingCases.push(testCase);
+    MetadataInfo.setClassMetadata(TestMetadata.CASE, classInstance, existingCases);
   }
 }

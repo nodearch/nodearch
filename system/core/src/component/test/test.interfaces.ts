@@ -1,18 +1,19 @@
 // export type TestHook = (hook: () => Promise<void>) => void;
-export type TestHook = { title: string; fn: () => Promise<void> };
+export type TestHook = { title?: string; fn: () => Promise<void> };
+export type TestCase = { title: string; fn?: () => Promise<void> };
 
 export interface ITestRunnerSuite {
   name: string;
-  before: TestHook[];
-  after: TestHook[];
+  beforeAll: TestHook[];
+  afterAll: TestHook[];
   beforeEach: TestHook[];
   afterEach: TestHook[];
-  testCases: TestHook[];
+  testCases: TestCase[];
 }
 
 export interface ITestRunner {
   addSuite(suite: ITestRunnerSuite): void;
-  run(): Promise<number>;
+  run(): Promise<void>;
 }
 
 export interface ITestComponentOptions {
@@ -26,6 +27,12 @@ export interface ITestMetadata {
 export interface ITestHookMetadata {
   method: string;
   title: string;
+}
+
+export interface ITestCaseMetadata {
+  method: string;
+  title: string;
+  active: boolean;
 }
 
 // export interface ITestBeforeMetadata extends ITestHookMetadata {}

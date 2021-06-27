@@ -181,8 +181,7 @@ export class ComponentManager {
     
     if (testComponents) {
       const testManager = new TestManager(testRunner, testComponents, this.container);      
-      const failureCode = await testManager.run();
-      process.exit(failureCode);
+      await testManager.run();
     }
   }
 }
