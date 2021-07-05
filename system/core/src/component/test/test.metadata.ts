@@ -1,5 +1,5 @@
 import { MetadataInfo } from '../../metadata';
-import { ITestCaseMetadata, ITestHookMetadata, ITestMetadata } from './test.interfaces';
+import { ITestCaseMetadata, ITestHookMetadata, ITestComponentMetadata, IMockMetadata } from './test.interfaces';
 
 export abstract class TestMetadata {
   static readonly PREFIX = 'core/component/test';
@@ -9,15 +9,27 @@ export abstract class TestMetadata {
   static readonly BEFORE_EACH = TestMetadata.PREFIX + '-beforeEach';
   static readonly AFTER_EACH = TestMetadata.PREFIX + '-afterEach';
   static readonly CASE = TestMetadata.PREFIX + '-case';
+  static readonly MOCK = TestMetadata.PREFIX + '-mock';
 
 
-  static getTestInfo(classInstance: object): ITestMetadata | undefined {
+  static getTestInfo(classInstance: object): ITestComponentMetadata | undefined {
     return MetadataInfo.getClassMetadata(TestMetadata.TEST, classInstance);
   }
 
-  static setTestInfo(classInstance: object, testInfo: ITestMetadata) {
+  static setTestInfo(classInstance: object, testInfo: ITestComponentMetadata) {
     MetadataInfo.setClassMetadata(TestMetadata.TEST, classInstance, testInfo);
-  }  
+  }
+
+  static getMocks(classInstance: object): IMockMetadata[] {
+    return MetadataInfo.getClassMetadata(TestMetadata.MOCK, classInstance) || [];
+  }
+
+  static setMock(classInstance: object, mockInfo: IMockMetadata) {
+    const existingMocks = TestMetadata.getMocks(classInstance);
+    existingMocks.push(mockInfo);
+
+    MetadataInfo.setClassMetadata(TestMetadata.MOCK, classInstance, existingMocks)
+  }
 
   static getBeforeAll(classInstance: object): ITestHookMetadata[] {
     return MetadataInfo.getClassMetadata(TestMetadata.BEFORE_ALL, classInstance) || [];

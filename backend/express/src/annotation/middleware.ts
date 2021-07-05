@@ -11,6 +11,7 @@ export function MiddlewareProvider(): ClassDecorator{
   };
 }
 
+// TODO: rename to UseMiddleware
 export function Middleware(middlewareHandler: MiddlewareHandler): ClassMethodDecorator;
 export function Middleware(middlewareHandler: ContextMiddlewareHandler): ClassMethodDecorator;
 export function Middleware<T>(middlewareHandler: ContextMiddlewareHandler<T>, options: T): ClassMethodDecorator;

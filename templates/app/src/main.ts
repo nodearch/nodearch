@@ -13,7 +13,6 @@ import express from 'express';
 
 export default class MyApp extends App {
   constructor() {
-
     const app = express();
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));

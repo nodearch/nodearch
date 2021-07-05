@@ -2,8 +2,8 @@ import { ClassLoader } from '../loader';
 import { Container } from 'inversify';
 import { ComponentManager, HookContext, ComponentType, IHook, ConfigManager } from '../component';
 import { IAppInfo, IAppOptions, IRunApp, IRunCli, IRunExt, IRunOptions, IRunTest, RunMode } from './app.interfaces';
-import { ILogger, ILogOptions, Logger, LogLevel } from '../log';
-import { IConfigOptions } from '../config/interfaces';
+import { ILogger, ILogOptions, Logger } from '../log';
+import { IConfigOptions } from '../component/config/interfaces';
 // import pkg from '../../package.json';
 // const pkg = require('../../package.json');
 

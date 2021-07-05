@@ -1,6 +1,5 @@
-import { IEnvConfig } from './interfaces';
+import { IEnvConfig, IConfigOptions } from './interfaces';
 import { ConfigResolve } from './config-resolve';
-import { IConfigOptions } from '../../config/interfaces';
 
 
 /**

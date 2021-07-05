@@ -1,4 +1,4 @@
-import { ITestRunner } from './test.interfaces';
+import { IComponentOverride, IMock, IMockMetadata, ITestRunner, ITestSuiteComponentMetadata } from './test.interfaces';
 import { Container } from 'inversify';
 import { ClassConstructor } from '../../utils';
 import { TestMetadata } from './test.metadata';
@@ -12,29 +12,67 @@ export class TestManager {
   ) {}
 
   private init() {
-    const testCompInfo = this.testComponents.map(testComp => {      
-      const container = Container.merge(this.container, new Container());
-      container.bind(TestBox).toConstantValue(new TestBox(container as Container));
+    const suiteComps = this.getTestComponents();
+
+    suiteComps.forEach(suite => {
+      // Create a clone from the original container
+      const container = Container.merge(this.container, new Container()) as Container;
       
-      return {
-        compConstructor: testComp,
-        compInstance: container.get(testComp)
-      };
-    });
+      // Bind an instance of the TestBox to the cloned container
+      container.bind(TestBox).toConstantValue(new TestBox(container));
 
-    testCompInfo.forEach(({ compConstructor, compInstance }) => {
-      const testInfo = TestMetadata.getTestInfo(compConstructor);
+      const mocks = this.getMockInfo(suite.comp, container);
 
-      if (!testInfo) throw new Error('Invalid @Test component options');
+      if (mocks && mocks.length) {
+        mocks.forEach(mock => {
 
+          if (mock.override) {
+            this.applyOverrides(mock.override, container);
+          }
+
+        });
+      }
+
+      const compInstance = container.get(suite.comp);
+      // TODO: extract mock hooks and pass to the suite
       this.testRunner.addSuite({
-        name: testInfo.title,
-        beforeAll: this.getBeforeAll(compConstructor, compInstance),
-        afterAll: this.getAfterAll(compConstructor, compInstance),
-        beforeEach: this.getBeforeEach(compConstructor, compInstance),
-        afterEach: this.getAfterEach(compConstructor, compInstance),
-        testCases: this.getCases(compConstructor, compInstance)
+        name: suite.info.title,
+        beforeAll: this.getBeforeAll(suite.comp, compInstance),
+        afterAll: this.getAfterAll(suite.comp, compInstance),
+        beforeEach: this.getBeforeEach(suite.comp, compInstance),
+        afterEach: this.getAfterEach(suite.comp, compInstance),
+        testCases: this.getCases(suite.comp, compInstance)
       });
+    });
+  }
+
+  getTestComponents() {
+    const suiteComps: { info: ITestSuiteComponentMetadata, comp: ClassConstructor }[] = [];
+
+    this.testComponents
+      .forEach(compConstructor => {
+        const testInfo = TestMetadata.getTestInfo(compConstructor);
+        if (!testInfo) throw new Error('Invalid component options: ' + compConstructor.name);
+        
+        if(testInfo.type === 'suite') {
+          suiteComps.push({ info: testInfo, comp: compConstructor });
+        }
+      });
+
+    return suiteComps;
+  }
+
+  getMockInfo(suiteComp: ClassConstructor, container: Container): IMock[] {
+    const mocksMetadata = TestMetadata.getMocks(suiteComp);
+
+    return mocksMetadata.map(mock => {
+      return container.get<IMock>(mock.mockComponent);
+    });
+  }
+
+  applyOverrides(overrides: IComponentOverride[], container: Container) {
+    overrides.forEach(override => {
+      container.rebind(override.component).toConstantValue(override.use);
     });
   }
 

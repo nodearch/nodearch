@@ -1,9 +1,8 @@
 import { IClassLoaderOptions } from '../loader';
 import { ComponentScope, ITestRunner } from '../component';
 import {App} from "./app";
-import {ClassConstructor} from "../utils";
 import { ILogger, ILogOptions } from '../log';
-import { IConfigOptions } from '../config/interfaces';
+import { IConfigOptions } from '../component/config/interfaces';
 
 
 export interface IAppConstructor {
