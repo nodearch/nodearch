@@ -17,7 +17,7 @@ export function Test(options: ITestSuiteOptions): ClassDecorator {
     
     TestMetadata.setTestInfo(target, {
       type: 'suite',
-      title: options.title
+      name: typeof options === 'string' ? options : options.name
     });
 
     injectable()(target);

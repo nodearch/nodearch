@@ -1,4 +1,4 @@
-import { IComponentOverride, IMock, IMockMetadata, ITestRunner, ITestSuiteComponentMetadata } from './test.interfaces';
+import { IComponentOverride, IMock, ITestRunner, ITestSuiteComponentMetadata, TestHook } from './test.interfaces';
 import { Container } from 'inversify';
 import { ClassConstructor } from '../../utils';
 import { TestMetadata } from './test.metadata';
@@ -23,24 +23,24 @@ export class TestManager {
 
       const mocks = this.getMockInfo(suite.comp, container);
 
-      if (mocks && mocks.length) {
-        mocks.forEach(mock => {
+      mocks.forEach(mock => {
 
-          if (mock.override) {
-            this.applyOverrides(mock.override, container);
-          }
+        if (mock.override) {
+          this.applyOverrides(mock.override, container);
+        }
 
-        });
-      }
+      });
 
       const compInstance = container.get(suite.comp);
-      // TODO: extract mock hooks and pass to the suite
+
+      const mocksHooks = this.getMockHooks(mocks);
+
       this.testRunner.addSuite({
-        name: suite.info.title,
-        beforeAll: this.getBeforeAll(suite.comp, compInstance),
-        afterAll: this.getAfterAll(suite.comp, compInstance),
-        beforeEach: this.getBeforeEach(suite.comp, compInstance),
-        afterEach: this.getAfterEach(suite.comp, compInstance),
+        name: suite.info.name,
+        beforeAll: mocksHooks.beforeAll.concat(this.getBeforeAll(suite.comp, compInstance)),
+        afterAll: mocksHooks.afterAll.concat(this.getAfterAll(suite.comp, compInstance)),
+        beforeEach: mocksHooks.beforeEach.concat(this.getBeforeEach(suite.comp, compInstance)),
+        afterEach: mocksHooks.afterEach.concat(this.getAfterEach(suite.comp, compInstance)),
         testCases: this.getCases(suite.comp, compInstance)
       });
     });
@@ -86,7 +86,48 @@ export class TestManager {
       });
   }
 
-  private getBeforeAll(compConstructor: ClassConstructor, compInstance: any) {
+  private getMockHooks(mocks: IMock[]) {
+    const beforeAll: TestHook[] = [],
+      afterAll: TestHook[] = [],
+      beforeEach: TestHook[] = [],
+      afterEach: TestHook[] = [];
+  
+    mocks.forEach(mock => {
+      if (mock.beforeAll) {
+        beforeAll.push({
+          title: mock.beforeAll.name,
+          fn: mock.beforeAll.bind(mock)
+        });
+      }
+      else if (mock.afterAll) {
+        afterAll.push({
+          title: mock.afterAll.name,
+          fn: mock.afterAll.bind(mock)
+        });
+      }
+      else if (mock.beforeEach) {
+        beforeEach.push({
+          title: mock.beforeEach.name,
+          fn: mock.beforeEach.bind(mock)
+        });
+      }
+      else if (mock.afterEach) {
+        afterEach.push({
+          title: mock.afterEach.name,
+          fn: mock.afterEach.bind(mock)
+        });
+      }
+    });
+
+    return {
+      beforeAll,
+      afterAll,
+      beforeEach,
+      afterEach
+    };
+  }
+
+  private getBeforeAll(compConstructor: ClassConstructor, compInstance: any): TestHook[] {
     return TestMetadata.getBeforeAll(compConstructor)
       .map(beforeAll => {
         return {
@@ -96,7 +137,7 @@ export class TestManager {
       });
   }
 
-  private getAfterAll(compConstructor: ClassConstructor, compInstance: any) {
+  private getAfterAll(compConstructor: ClassConstructor, compInstance: any): TestHook[] {
     return TestMetadata.getAfterAll(compConstructor)
       .map(afterAll => {
         return {
@@ -106,7 +147,7 @@ export class TestManager {
       });
   }
 
-  private getBeforeEach(compConstructor: ClassConstructor, compInstance: any) {
+  private getBeforeEach(compConstructor: ClassConstructor, compInstance: any): TestHook[] {
     return TestMetadata.getBeforeEach(compConstructor)
       .map(beforeEach => {
         return {
@@ -116,7 +157,7 @@ export class TestManager {
       });
   }
 
-  private getAfterEach(compConstructor: ClassConstructor, compInstance: any) {
+  private getAfterEach(compConstructor: ClassConstructor, compInstance: any): TestHook[] {
     return TestMetadata.getAfterEach(compConstructor)
       .map(afterEach => {
         return {

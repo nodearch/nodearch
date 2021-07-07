@@ -1,11 +1,9 @@
-import { Case, Test, TestBox, UseMock } from '@nodearch/core';
+import { BeforeAll, Case, Test, TestBox, UseMock } from '@nodearch/core';
 import { UserController } from '../user.controllers';
 import { UserCtrlMock } from './user.mock';
 
 
-@Test({
-  title: 'test suite title'
-})
+@Test('test suite title')
 @UseMock(UserCtrlMock)
 export class UserTest3 {
 

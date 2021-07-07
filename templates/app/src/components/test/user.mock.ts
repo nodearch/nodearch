@@ -6,7 +6,7 @@ export class UserCtrlMock implements IMock {
   override: IComponentOverride[] = [
     {
       component: UserService,
-      use: { ee: 'eeee66666666666666666666' }
+      use: { ee: 5656565 }
     }
   ];
 }
