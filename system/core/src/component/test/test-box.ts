@@ -1,4 +1,5 @@
 import { Container } from 'inversify';
+import { App } from '../../app';
 import { IComponentOverride } from './test.interfaces';
 
 

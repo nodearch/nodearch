@@ -49,6 +49,7 @@ export interface ITestCaseMetadata {
   method: string;
   title: string;
   active: boolean;
+  params?: any; 
 }
 
 export interface IComponentOverride {

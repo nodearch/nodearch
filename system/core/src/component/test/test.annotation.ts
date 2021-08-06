@@ -5,6 +5,7 @@ import {IComponentInfo} from "../interfaces";
 import { TestMetadata } from './test.metadata';
 import { ITestSuiteOptions } from './test.interfaces';
 import { ClassConstructor, ClassInfo } from '../../utils';
+import { camelToTitle } from '../../utils/utils';
 
 
 export function Test(options: ITestSuiteOptions): ClassDecorator {
@@ -17,7 +18,8 @@ export function Test(options: ITestSuiteOptions): ClassDecorator {
     
     TestMetadata.setTestInfo(target, {
       type: 'suite',
-      name: typeof options === 'string' ? options : options.name
+      name: camelToTitle(<string>target.name),
+      // name: typeof options === 'string' ? options : options.name
     });
 
     injectable()(target);
@@ -84,12 +86,31 @@ export function AfterEach(title?: string): MethodDecorator {
   };
 }
 
-export function Case(title: string, active: boolean = true): MethodDecorator {
+export function Case(): MethodDecorator;
+export function Case(title: string): MethodDecorator;
+export function Case(active: boolean): MethodDecorator;
+export function Case(params: object): MethodDecorator;
+export function Case(title: string, params: object): MethodDecorator;
+export function Case(title: string, active: boolean): MethodDecorator;
+export function Case(params: object, active: boolean): MethodDecorator;
+export function Case(title: string, params: object, active: boolean): MethodDecorator;
+export function Case(...args: (string | object | boolean)[]): MethodDecorator {
   return (target: any, propKey: string | symbol) => {
+    let title: string = camelToTitle(<string>propKey),
+    active: boolean = true,
+    params: object | undefined = undefined;
+
+    args.forEach(arg => {
+      if (typeof arg === 'string') title = arg;
+      else if (typeof arg === 'boolean') active = arg;
+      else if (typeof arg === 'object') params = arg;
+    });
+
     TestMetadata.setCase(target.constructor, {
       method: <string>propKey,
       title,
-      active
+      active,
+      params
     });
   };
 }

@@ -9,8 +9,14 @@ export class UserTest3 {
 
   constructor(private testBox: TestBox, private userController: UserController) {}
   
-  @Case('Should get user')
-  getUser() {
-    console.log(this.userController);
+  @Case()
+  getUserDataWithId(params: any) {
+    console.log('params', params);
+    // console.log(this.userController);
   }
+
+  // @Case('Should get userx 2')
+  // getUser2() {
+  //   // console.log(this.userController);
+  // }
 }

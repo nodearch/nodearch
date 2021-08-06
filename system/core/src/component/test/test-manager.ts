@@ -81,7 +81,7 @@ export class TestManager {
       .map(testCase => {
         return {
           title: testCase.title,
-          fn: testCase.active ? compInstance[testCase.method].bind(compInstance) : undefined
+          fn: testCase.active ? compInstance[testCase.method].bind(compInstance, testCase.params) : undefined
         };
       });
   }
