@@ -3,9 +3,9 @@ import { UserController } from '../user.controllers';
 import { UserCtrlMock } from './user.mock';
 
 
-@Test('test suite title')
+@Test()
 @UseMock(UserCtrlMock)
-export class UserTest3 {
+export class UserServiceTest3 {
 
   constructor(private testBox: TestBox, private userController: UserController) {}
   
@@ -20,3 +20,5 @@ export class UserTest3 {
   //   // console.log(this.userController);
   // }
 }
+
+// TODO implement test files filtering 

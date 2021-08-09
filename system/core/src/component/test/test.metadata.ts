@@ -1,34 +1,43 @@
 import { MetadataInfo } from '../../metadata';
-import { ITestCaseMetadata, ITestHookMetadata, ITestComponentMetadata, IMockMetadata } from './test.interfaces';
+import { ITestCaseMetadata, ITestHookMetadata, IMockMetadata, ITestSuiteMetadata, ITestMockMetadata } from './test.interfaces';
 
 export abstract class TestMetadata {
   static readonly PREFIX = 'core/component/test';
   static readonly TEST = TestMetadata.PREFIX + '-test';
+  static readonly MOCK = TestMetadata.PREFIX + '-mock';
   static readonly BEFORE_ALL = TestMetadata.PREFIX + '-beforeAll';
   static readonly AFTER_ALL = TestMetadata.PREFIX + '-afterAll';
   static readonly BEFORE_EACH = TestMetadata.PREFIX + '-beforeEach';
   static readonly AFTER_EACH = TestMetadata.PREFIX + '-afterEach';
   static readonly CASE = TestMetadata.PREFIX + '-case';
-  static readonly MOCK = TestMetadata.PREFIX + '-mock';
+  static readonly MOCK_INSTANCE = TestMetadata.PREFIX + '-mockInstance';
 
 
-  static getTestInfo(classInstance: object): ITestComponentMetadata | undefined {
+  static getTestInfo(classInstance: object): ITestSuiteMetadata | undefined {
     return MetadataInfo.getClassMetadata(TestMetadata.TEST, classInstance);
   }
 
-  static setTestInfo(classInstance: object, testInfo: ITestComponentMetadata) {
+  static setTestInfo(classInstance: object, testInfo: ITestSuiteMetadata) {
     MetadataInfo.setClassMetadata(TestMetadata.TEST, classInstance, testInfo);
   }
 
+  static getMockInfo(classInstance: object): ITestMockMetadata | undefined {
+    return MetadataInfo.getClassMetadata(TestMetadata.MOCK, classInstance);
+  }
+
+  static setMockInfo(classInstance: object, mockInfo: ITestMockMetadata) {
+    MetadataInfo.setClassMetadata(TestMetadata.MOCK, classInstance, mockInfo);
+  }
+
   static getMocks(classInstance: object): IMockMetadata[] {
-    return MetadataInfo.getClassMetadata(TestMetadata.MOCK, classInstance) || [];
+    return MetadataInfo.getClassMetadata(TestMetadata.MOCK_INSTANCE, classInstance) || [];
   }
 
   static setMock(classInstance: object, mockInfo: IMockMetadata) {
     const existingMocks = TestMetadata.getMocks(classInstance);
     existingMocks.push(mockInfo);
 
-    MetadataInfo.setClassMetadata(TestMetadata.MOCK, classInstance, existingMocks)
+    MetadataInfo.setClassMetadata(TestMetadata.MOCK_INSTANCE, classInstance, existingMocks)
   }
 
   static getBeforeAll(classInstance: object): ITestHookMetadata[] {

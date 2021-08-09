@@ -1,4 +1,4 @@
-import { IComponentOverride, IMock, ITestRunner, ITestSuiteComponentMetadata, TestHook } from './test.interfaces';
+import { IComponentOverride, IMock, ITestRunner, ITestSuiteMetadata, TestHook } from './test.interfaces';
 import { Container } from 'inversify';
 import { ClassConstructor } from '../../utils';
 import { TestMetadata } from './test.metadata';
@@ -36,7 +36,7 @@ export class TestManager {
       const mocksHooks = this.getMockHooks(mocks);
 
       this.testRunner.addSuite({
-        name: suite.info.name,
+        name: suite.info.title,
         beforeAll: mocksHooks.beforeAll.concat(this.getBeforeAll(suite.comp, compInstance)),
         afterAll: mocksHooks.afterAll.concat(this.getAfterAll(suite.comp, compInstance)),
         beforeEach: mocksHooks.beforeEach.concat(this.getBeforeEach(suite.comp, compInstance)),
@@ -47,14 +47,12 @@ export class TestManager {
   }
 
   getTestComponents() {
-    const suiteComps: { info: ITestSuiteComponentMetadata, comp: ClassConstructor }[] = [];
+    const suiteComps: { info: ITestSuiteMetadata, comp: ClassConstructor }[] = [];
 
     this.testComponents
       .forEach(compConstructor => {
         const testInfo = TestMetadata.getTestInfo(compConstructor);
-        if (!testInfo) throw new Error('Invalid component options: ' + compConstructor.name);
-        
-        if(testInfo.type === 'suite') {
+        if (testInfo) {
           suiteComps.push({ info: testInfo, comp: compConstructor });
         }
       });

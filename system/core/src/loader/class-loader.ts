@@ -28,7 +28,6 @@ export class ClassLoader {
       const filesInfo = await FileSystem.readFiles(this.classpath, this.filesOptions.deep);
 
       const filteredFilesInfo = FileSystem.filterFiles(filesInfo, this.filesOptions.include, this.filesOptions.exclude);
-
       const files = await FileSystem.loadFiles(filteredFilesInfo);
 
       this.loadClassesFromFiles(files);

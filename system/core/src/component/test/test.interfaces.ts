@@ -24,32 +24,28 @@ export interface ITestMockOptions {
 // TODO: do we need options for Mock?
 }
 
-export type ITestSuiteOptions = string | {
-  name: string;
-  timeout?: number;
+export interface ITestSuiteOptions {
+  title?: string;
+  timeout?: number; // TODO check we're using timeout and pass more options
 }
 
-export type ITestComponentMetadata = ITestSuiteComponentMetadata | ITestMockComponentMetadata;
+export interface ITestSuiteMetadata extends Required<ITestSuiteOptions> {}
 
-export interface ITestSuiteComponentMetadata {
-  type: 'suite';
-  name: string;
-}
-
-export interface ITestMockComponentMetadata {
-  type: 'mock';
-}
+export interface ITestMockMetadata {}
 
 export interface ITestHookMetadata {
   method: string;
   title?: string;
 }
 
-export interface ITestCaseMetadata {
+export interface ITestCaseOptions {
+  title?: string;
+  active?: boolean;
+  params?: object;
+}
+
+export interface ITestCaseMetadata extends Required<ITestCaseOptions> {
   method: string;
-  title: string;
-  active: boolean;
-  params?: any; 
 }
 
 export interface IComponentOverride {

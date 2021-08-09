@@ -17,6 +17,8 @@ export type CLIQuestionsDefault = string | number | boolean | Array<any> |
 export type CLIQuestionsChoices = string | number | { name?: string, value?: any, short?: string; extra?: any; };
 export type CLIBuilder = {<T = any>(yargs: T): T} | Record<string, { alias?: string | string[]; describe?: string, default?: any, [key: string]: any } >;
 
+// TODO: cli -> command, aliases, questions, options, handler
+
 export interface CLIQuestion<T = any> extends Record<string, any> {
   /**
    * (String) Type of the prompt.
@@ -177,5 +179,6 @@ export enum NpmDependencyType {
 export interface INpmDependency {
   name: string;
   version?: string;
-  type?: NpmDependencyType
+  type?: NpmDependencyType,
+  when?: (data: any) => boolean;
 }

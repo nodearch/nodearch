@@ -10,6 +10,7 @@ export interface ITestCommandOptions {
   maxWorkers?: number | string;
   isolatedModules?: boolean;
   verbose?: boolean; 
+  runner: 'mocha';
 }
 
 export interface IMochaOptions { }

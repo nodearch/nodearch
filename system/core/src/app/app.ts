@@ -8,8 +8,10 @@ import { IConfigOptions } from '../component/config/interfaces';
 // const pkg = require('../../package.json');
 
 export class App {
+  // TODO check if we need those to be public still
   componentManager: ComponentManager;
   appInfo: IAppInfo;
+  
   private extensions?: App[];
   private logOptions?: ILogOptions;
   private configOptions?: IConfigOptions;

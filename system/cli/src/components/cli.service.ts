@@ -1,5 +1,5 @@
 import yargs, { Arguments, CommandModule } from 'yargs';
-import { Service, App, ClassConstructor, CLIQuestion, ICli, LogLevel, INpmDependency, RunMode } from '@nodearch/core';
+import { Service, App, ClassConstructor, CLIQuestion, ICli, LogLevel, INpmDependency, RunMode, Logger } from '@nodearch/core';
 import inquirer from 'inquirer';
 import { AppInfoService } from './app-info/app-info.service';
 import { NotifierService } from './notifier.service';
@@ -11,7 +11,8 @@ export class CLIService {
   constructor(
     private readonly appInfoService: AppInfoService, 
     private readonly notifierService: NotifierService,
-    private readonly npmService: NpmService
+    private readonly npmService: NpmService,
+    private readonly logger: Logger
   ) {}
 
   async getLocalCliCommands(appPath: string) {
@@ -87,26 +88,32 @@ export class CLIService {
   }
 
   private async handlerFactory(commandHandler: any, args?: Arguments, questions?: CLIQuestion<any>[], npmDependencies?: INpmDependency[]) {
-    const validQuestions: CLIQuestion<any>[]= [];
-    let answers;
-
-    if (questions) {
-      for (const question of questions) {
-        if (!args || (question.name && !args[question.name])) validQuestions.push(question);
+    try {
+      const validQuestions: CLIQuestion<any>[]= [];
+      let answers;
+  
+      if (questions) {
+        for (const question of questions) {
+          if (!args || (question.name && !args[question.name])) validQuestions.push(question);
+        }
       }
+  
+      if (validQuestions) answers = await inquirer.prompt(validQuestions);
+  
+      const data = { ...args, ...answers };
+  
+      this.notifierService.enabled = args?.notify ? true : false;
+      
+      if (npmDependencies && npmDependencies.length) {
+        await this.npmService.resolveDependencies(npmDependencies.filter(dep => dep.when ? dep.when(data) : true));
+      }
+  
+      await commandHandler(data);
     }
-
-    if (validQuestions) answers = await inquirer.prompt(validQuestions);
-
-    const data = { ...args, ...answers };
-
-    this.notifierService.enabled = args?.notify ? true : false;
-    
-    if (npmDependencies && npmDependencies.length) {
-      await this.npmService.resolveDependencies(npmDependencies);
+    catch(e) {
+      this.logger.error(e.message);
+      process.exit(1);
     }
-
-    await commandHandler(data);
   }
 
 }

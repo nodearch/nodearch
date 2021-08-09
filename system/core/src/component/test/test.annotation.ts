@@ -3,24 +3,36 @@ import {ComponentScope, ComponentType} from '../enums';
 import {injectable} from 'inversify';
 import {IComponentInfo} from "../interfaces";
 import { TestMetadata } from './test.metadata';
-import { ITestSuiteOptions } from './test.interfaces';
+import { ITestCaseMetadata, ITestCaseOptions, ITestSuiteMetadata, ITestSuiteOptions } from './test.interfaces';
 import { ClassConstructor, ClassInfo } from '../../utils';
 import { camelToTitle } from '../../utils/utils';
 
 
-export function Test(options: ITestSuiteOptions): ClassDecorator {
+export function Test(): ClassDecorator;
+export function Test(title: string): ClassDecorator;
+export function Test(options: ITestSuiteOptions): ClassDecorator;
+export function Test(title: string, options: Omit<ITestSuiteOptions, 'title'>): ClassDecorator;
+export function Test(...args: (string | ITestSuiteOptions | Omit<ITestSuiteOptions, 'title'>)[]): ClassDecorator {
   return function (target: any) {
+    
+    let options: ITestSuiteMetadata = {
+      title: camelToTitle(<string>target.name),
+      timeout: 2000
+    };
+
+    args.forEach(arg => {
+      if (typeof arg === 'string') options.title = arg;
+      else if (typeof arg === 'object') Object.assign(options, arg);
+    });
+
+
     ComponentMetadata.setInfo<IComponentInfo>(target, {
       export: false,
       scope: ComponentScope.Singleton,
       type: ComponentType.Test
     });
     
-    TestMetadata.setTestInfo(target, {
-      type: 'suite',
-      name: camelToTitle(<string>target.name),
-      // name: typeof options === 'string' ? options : options.name
-    });
+    TestMetadata.setTestInfo(target, options);
 
     injectable()(target);
   }
@@ -34,9 +46,7 @@ export function Mock(): ClassDecorator {
       type: ComponentType.Test
     });
 
-    TestMetadata.setTestInfo(target, {
-      type: 'mock'
-    });
+    TestMetadata.setMockInfo(target, {});
 
     injectable()(target);
   }
@@ -88,29 +98,22 @@ export function AfterEach(title?: string): MethodDecorator {
 
 export function Case(): MethodDecorator;
 export function Case(title: string): MethodDecorator;
-export function Case(active: boolean): MethodDecorator;
-export function Case(params: object): MethodDecorator;
-export function Case(title: string, params: object): MethodDecorator;
-export function Case(title: string, active: boolean): MethodDecorator;
-export function Case(params: object, active: boolean): MethodDecorator;
-export function Case(title: string, params: object, active: boolean): MethodDecorator;
-export function Case(...args: (string | object | boolean)[]): MethodDecorator {
+export function Case(options: ITestCaseOptions): MethodDecorator;
+export function Case(title: string, options: Omit<ITestCaseOptions, 'title'>): MethodDecorator;
+export function Case(...args: (string | ITestCaseOptions | Omit<ITestCaseOptions, 'title'>)[]): MethodDecorator {
   return (target: any, propKey: string | symbol) => {
-    let title: string = camelToTitle(<string>propKey),
-    active: boolean = true,
-    params: object | undefined = undefined;
+    let options: ITestCaseMetadata = {
+      method: <string>propKey,
+      title: camelToTitle(<string>propKey),
+      active: true,
+      params: {}
+    };
 
     args.forEach(arg => {
-      if (typeof arg === 'string') title = arg;
-      else if (typeof arg === 'boolean') active = arg;
-      else if (typeof arg === 'object') params = arg;
+      if (typeof arg === 'string') options.title = arg;
+      else if (typeof arg === 'object') Object.assign(options, arg);
     });
 
-    TestMetadata.setCase(target.constructor, {
-      method: <string>propKey,
-      title,
-      active,
-      params
-    });
+    TestMetadata.setCase(target.constructor, options);
   };
 }

@@ -40,7 +40,7 @@
     },
     {
       "name": "@types/mocha",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "@types/multer",
@@ -124,6 +124,10 @@
     },
     {
       "name": "nodemon",
+      "allowedCategories": [ "production", "tools" ]
+    },
+    {
+      "name": "nyc",
       "allowedCategories": [ "production", "tools" ]
     },
     {

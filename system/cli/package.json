@@ -37,9 +37,7 @@
     "reflect-metadata": "^0.1.13",
     "ts-node": "^9.1.0",
     "typescript": "^4.1.2",
-    "yargs": "^16.1.1",
-    "mocha": "^9.0.1",
-    "@types/mocha": "~8.2.2"
+    "yargs": "^16.1.1"
   },
   "devDependencies": {
     "@types/node-notifier": "^8.0.0",
@@ -49,6 +47,9 @@
     "@types/nodemon": "^1.19.0",
     "@types/yargs": "^15.0.9",
     "nodemon": "^2.0.4",
-    "rimraf": "~3.0.2"
+    "rimraf": "~3.0.2",
+    "mocha": "^9.0.1",
+    "@types/mocha": "~9.0.0",
+    "nyc": "~15.1.0"
   }
 }

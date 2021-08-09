@@ -45,4 +45,8 @@ export class AppInfoService {
     return (path.isAbsolute(strPath) ? 
       path.normalize(strPath) : path.resolve(strPath)).replace(/\\/g, '/');
   }
+
+  async importNpmPkg(pkgName: string) {
+    return await import(path.join(this.cwd, 'node_modules', pkgName));
+  }
 }
