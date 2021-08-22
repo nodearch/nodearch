@@ -2,6 +2,48 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "1.2.2",
+      "tag": "@nodearch/cli_v1.2.2",
+      "date": "Sun, 18 Apr 2021 15:09:16 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add workers options to jest testing",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "2150cc1c79519dc066f8ce1018df64817178a070"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.2.1",
+      "tag": "@nodearch/cli_v1.2.1",
+      "date": "Thu, 01 Apr 2021 14:28:22 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "force process to exit after jest finish",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "f17dd14aa226556296092974a44117ff0d6f4a80"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.2.0",
+      "tag": "@nodearch/cli_v1.2.0",
+      "date": "Thu, 01 Apr 2021 13:23:37 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "add filter options to testing from cli",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "cd5d6e0bf3a89f1393f60d3d0856aeda4239390d"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.5",
       "tag": "@nodearch/cli_v1.1.5",
       "date": "Tue, 16 Mar 2021 03:51:41 GMT",

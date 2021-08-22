@@ -1,6 +1,13 @@
 # Change Log - @nodearch/keycloak
 
-This log was last generated on Sun, 21 Mar 2021 13:48:41 GMT and should not be manually modified.
+This log was last generated on Sun, 25 Apr 2021 15:08:51 GMT and should not be manually modified.
+
+## 1.2.0
+Sun, 25 Apr 2021 15:08:51 GMT
+
+### Minor changes
+
+- allow user to pass realm name or its path in jwt token as args in auth
 
 ## 1.1.2
 Sun, 21 Mar 2021 13:48:41 GMT
