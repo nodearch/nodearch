@@ -12,8 +12,7 @@ export class HookHandler extends BaseComponentHandler implements IComponentHandl
   register(classDef: ClassConstructor, componentInfo: IComponentInfo) {
     this.bindComponent({
       component: classDef,
-      componentInfo,
-      type: ComponentType.Hook
+      ...componentInfo
     });
   }
 

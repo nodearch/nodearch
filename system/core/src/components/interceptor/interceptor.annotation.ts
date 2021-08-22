@@ -13,7 +13,7 @@ export function InterceptorProvider(options?: IComponentOptions): ClassDecorator
     ComponentMetadata.setInfo<IComponentInfo>(target, {
       scope: options?.scope,
       type: ComponentType.InterceptorProvider,
-      id: options?.id
+      namespace: options?.namespace
     });
     injectable()(target);
   }

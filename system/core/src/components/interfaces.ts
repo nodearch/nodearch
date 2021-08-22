@@ -9,13 +9,13 @@ export interface IComponentsOptions {
 
 export interface IComponentOptions {
   scope?: ComponentScope;
-  id?: string | symbol;
+  namespace?: string | symbol;
 }
 
 export interface IComponentInfo {
   scope?: ComponentScope;
   type: ComponentType;
-  id?: string | symbol;
+  namespace?: string | symbol;
 }
 
 export interface IComponentHandler {
@@ -23,14 +23,11 @@ export interface IComponentHandler {
   registerExtension(classDef: ClassConstructor, extContainer: Container): void;
 }
 
-export interface IBindComponentOptions {
-  componentInfo: IComponentInfo;
+export interface IBindComponentOptions extends IComponentInfo {
   component: ClassConstructor;
-  type?: string | symbol;
-  id?: string | symbol;
 }
 
-export interface IBindExtComponentOptions extends Omit<IBindComponentOptions, 'componentInfo'> {
+export interface IBindExtComponentOptions extends IBindComponentOptions {
   extContainer: Container;
 }
 

@@ -9,7 +9,7 @@ export function Service(options?: IComponentOptions): ClassDecorator {
     ComponentMetadata.setInfo<IComponentInfo>(target, {
       scope: options?.scope,
       type: ComponentType.Service,
-      id: options?.id
+      namespace: options?.namespace
     });
     injectable()(target);
   }

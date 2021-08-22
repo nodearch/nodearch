@@ -9,7 +9,7 @@ export function Controller(options?: IComponentOptions): ClassDecorator {
     ComponentMetadata.setInfo<IComponentInfo>(target, {
       scope: options?.scope,
       type: ComponentType.Controller,
-      id: options?.id
+      namespace: options?.namespace
     }); // TODO: should me make controllers optional in inversify
     injectable()(target);
   }
