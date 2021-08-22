@@ -8,7 +8,7 @@ export abstract class BaseComponentHandler {
   protected bindComponent(options: IBindComponentOptions): interfaces.BindingWhenOnSyntax<any> {
     let binding: interfaces.BindingWhenOnSyntax<any>;
 
-    switch (options.componentInfo.scope) {
+    switch (options.scope) {
       case ComponentScope.Singleton:
         binding = this.container.bind(options.component).toSelf().inSingletonScope();
         break;
@@ -26,8 +26,8 @@ export abstract class BaseComponentHandler {
       this.container.bind(options.type).toService(options.component);
     }
 
-    if (options.id && options.id !== options.type) {
-      this.container.bind(options.id).toService(options.component);
+    if (options.namespace && options.namespace !== options.type) {
+      this.container.bind(options.namespace).toService(options.component);
     }
 
     return binding;
@@ -42,8 +42,8 @@ export abstract class BaseComponentHandler {
       this.container.bind(options.type).toService(options.component);
     }
 
-    if (options.id && options.id !== options.type) {
-      this.container.bind(options.id).toService(options.component);
+    if (options.namespace && options.namespace !== options.type) {
+      this.container.bind(options.namespace).toService(options.component);
     }
   }
 }
