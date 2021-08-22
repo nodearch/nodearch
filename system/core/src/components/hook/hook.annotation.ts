@@ -1,6 +1,6 @@
 import { ComponentMetadata } from '../component.metadata';
 import { ComponentType } from '../enums';
-import { injectable } from 'inversify';
+import { injectable, multiInject } from 'inversify';
 import { IComponentInfo, IComponentOptions } from "../interfaces";
 
 
@@ -9,7 +9,7 @@ export function Hook(options?: IComponentOptions): ClassDecorator {
     ComponentMetadata.setInfo<IComponentInfo>(target, {
       scope: options?.scope,
       type: ComponentType.Hook,
-      id: options?.id
+      namespace: options?.namespace
     });
     injectable()(target);
   }

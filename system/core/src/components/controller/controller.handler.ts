@@ -18,8 +18,7 @@ export class ControllerHandler extends BaseComponentHandler implements IComponen
 
     const binding = this.bindComponent({
       component: classDef,
-      componentInfo,
-      type: ComponentType.Controller
+      ...componentInfo
     });
 
     const hasInterceptors = InterceptorResolver.hasInterceptors(classDef);

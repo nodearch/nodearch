@@ -2,6 +2,7 @@ import { Container } from 'inversify';
 import { ClassConstructor } from '../../utils';
 import {IComponentHandler, IComponentInfo} from '../interfaces';
 import {BaseComponentHandler} from "../base-handler";
+import { ComponentType } from '../enums';
 
 export class ServiceHandler extends BaseComponentHandler implements IComponentHandler {
   constructor(container: Container) {
@@ -11,13 +12,14 @@ export class ServiceHandler extends BaseComponentHandler implements IComponentHa
   register(classDef: ClassConstructor, componentInfo: IComponentInfo) {
     this.bindComponent({
       component: classDef,
-      componentInfo
+      ...componentInfo
     });
   }
 
   registerExtension(classDef: ClassConstructor, extContainer: Container) {
     this.bindExtComponent({
       component: classDef,
+      type: ComponentType.Service,
       extContainer
     });
   }
