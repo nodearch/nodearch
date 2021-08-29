@@ -1,6 +1,13 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Sat, 20 Mar 2021 17:40:00 GMT and should not be manually modified.
+This log was last generated on Sun, 22 Aug 2021 18:06:42 GMT and should not be manually modified.
+
+## 1.3.0
+Sun, 22 Aug 2021 18:06:42 GMT
+
+### Minor changes
+
+- support namespace injection into components
 
 ## 1.2.0
 Sat, 20 Mar 2021 17:40:00 GMT

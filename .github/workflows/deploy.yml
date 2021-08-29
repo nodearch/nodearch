@@ -24,8 +24,8 @@ jobs:
       run: node common/scripts/install-run-rush.js install
     - name: Building...
       run: node common/scripts/install-run-rush.js rebuild --verbose
-    - name: Testing...
-      run: node common/scripts/install-run-rush.js test -t core
+    # - name: Testing...
+    #   run: node common/scripts/install-run-rush.js test -t core
     - name: Config GIT
       run: >-
         git config --global user.email "bluemax7o1@gmail.com" &&
