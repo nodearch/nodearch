@@ -12,7 +12,7 @@ export class HookContext {
     try {
       return this.components.get<T>(classIdentifier);
     }
-    catch(e) {
+    catch(e: any) {
       throw new DependencyException(e.message);
     }
   }
@@ -21,7 +21,7 @@ export class HookContext {
     try {
       return this.components.getAll<T>(identifier);
     }
-    catch(e) {
+    catch(e: any) {
       throw new DependencyException(e.message);
     }
   }

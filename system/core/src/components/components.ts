@@ -109,7 +109,7 @@ export class ComponentManagement {
     try {
       return this.getAll<T>(compType);
     }
-    catch(e) {
+    catch(e: any) {
       if (e.message !== `No matching bindings found for serviceIdentifier: ${compType}`) {
         throw e;
       }

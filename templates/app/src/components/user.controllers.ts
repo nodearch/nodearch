@@ -1,4 +1,5 @@
 import { Controller } from "@nodearch/core";
+import { Subscribe } from "@nodearch/socket.io";
 import { HttpGet } from "@nodearch/express";
 
 
@@ -8,4 +9,7 @@ export class UserController {
   getUsers() {
     return 'Hello, World!';
   }
+
+  @Subscribe('one')
+  conn() {}
 }

@@ -24,7 +24,7 @@ export class ExpressService {
     this.logger = logger;
     this.routesService = routesService;
     this.expressApp = this.serverConfig.expressApp;
-    this.server = http.createServer(this.expressApp);
+    this.server = this.serverConfig.server || http.createServer(this.expressApp);
   }
 
   /**

@@ -449,6 +449,12 @@
       "versionPolicyName": "nodearchPackages"
     },
     {
+      "packageName": "@nodearch/socket.io",
+      "projectFolder": "backend/socket.io",
+      "reviewCategory": "production",
+      "versionPolicyName": "nodearchPackages"
+    },
+    {
       "packageName": "@nodearch/cli",
       "projectFolder": "system/cli",
       "reviewCategory": "production",
