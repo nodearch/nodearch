@@ -105,6 +105,10 @@ export class ComponentManagement {
     return this.container.getAll<T>(identifier);
   }
 
+  getContainer() {
+    return this.container;
+  }
+
   private findGroupedCompByType<T>(compType: ComponentType): T[] | undefined {
     try {
       return this.getAll<T>(compType);

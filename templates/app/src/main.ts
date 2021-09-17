@@ -1,4 +1,4 @@
-import { App } from '@nodearch/core';
+import { App, LogLevel } from '@nodearch/core';
 import { ExpressServer, ExpressHook, OpenAPICli } from '@nodearch/express';
 import { SocketIO, SocketIOHook } from '@nodearch/socket.io';
 import path from 'path';
@@ -28,6 +28,9 @@ export default class MyApp extends App {
     super({
       classLoader: {
         classpath: path.join(__dirname, 'components')
+      },
+      logging: {
+        logLevel: LogLevel.Debug
       },
       extensions: [
         { 
