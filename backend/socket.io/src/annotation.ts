@@ -1,11 +1,11 @@
 import { ClassConstructor, ClassInfo, ClassMethodDecorator, Component } from '@nodearch/core';
-import { EventHandlerParamType } from './enums';
+import { HandlerParamType } from './enums';
 import { MetadataManager } from './metadata';
 
 
 export function Subscribe(eventName: string): MethodDecorator {
   return function (target: Object, propKey: string | symbol) {
-    const params = MetadataManager.getEventHandlerParams(target, <string>propKey);
+    const params = MetadataManager.getHandlerParams(target, <string>propKey);
 
     MetadataManager.setSubscribe(target.constructor, {
       method: propKey as string,
@@ -19,9 +19,9 @@ export function UseNamespace(namespace: ClassConstructor): ClassMethodDecorator 
   return function (target: Function | Object, propKey?: string) {
     const controllerConstructor = (propKey ? target.constructor : target) as ClassConstructor;
 
-    const nsInfo = MetadataManager.getNamespace(namespace);
+    const nsName = MetadataManager.getNamespaceName(namespace);
 
-    if (!nsInfo) 
+    if (!nsName) 
       throw new Error(`[Socket.IO] Component ${namespace.name} is not a valid Namespace, check that you're using the @Namespace decorator!`);
 
     const namespacesLength = MetadataManager.getNamespaceControllers(namespace).length;
@@ -35,7 +35,7 @@ export function UseNamespace(namespace: ClassConstructor): ClassMethodDecorator 
 
     // Add the namespace to the controller, because this will be our entry point to find namespaces
     MetadataManager.setControllerNamespace(controllerConstructor, {
-      name: nsInfo.name,
+      name: nsName,
       classRef: namespace,
       method: propKey as string,
     });
@@ -43,16 +43,16 @@ export function UseNamespace(namespace: ClassConstructor): ClassMethodDecorator 
 }
 
 export function Namespace(name: string): ClassDecorator {
-  return function (target: Function) {
-    MetadataManager.setNamespace(target, { name });
+  return (target: Function) => {
+    MetadataManager.setNamespaceName(target, name);
     Component()(target);
   };
 }
 
 export function SocketInfo() {
   return (target: Object, propKey: string | symbol, paramIndex: number) => {
-    MetadataManager.setEventHandlerParams(target, <string>propKey, { 
-      type: EventHandlerParamType.SOCKET_INFO, 
+    MetadataManager.setHandlerParams(target, <string>propKey, { 
+      type: HandlerParamType.SOCKET_INFO, 
       index: paramIndex 
     });
   };
@@ -60,8 +60,8 @@ export function SocketInfo() {
 
 export function EventData() {
   return (target: Object, propKey: string | symbol, paramIndex: number) => {
-    MetadataManager.setEventHandlerParams(target, <string>propKey, { 
-      type: EventHandlerParamType.EVENT_DATA, 
+    MetadataManager.setHandlerParams(target, <string>propKey, { 
+      type: HandlerParamType.EVENT_DATA, 
       index: paramIndex 
     });
   };

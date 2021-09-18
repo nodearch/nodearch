@@ -1,20 +1,25 @@
-import io, {} from 'socket.io';
+import io, { Socket } from 'socket.io';
 import { ClassConstructor } from '../../../system/core/dist';
-import { EventHandlerParamType } from './enums';
+import { HandlerParamType } from './enums';
 
 export interface ISocketIOOptions {
   ioServer: io.Server;
 }
 
-export interface IEventHandlerParamsMetadata {
-  type: EventHandlerParamType;
+export interface IControllerMetadata {
+  eventsMetadata: IEventSubscribeMetadata[];
+  controller: ClassConstructor;
+}
+
+export interface IHandlerParamsMetadata {
+  type: HandlerParamType;
   index: number;
 }
 
 export interface IEventSubscribeMetadata {
   eventName: string;
   method: string;
-  params: IEventHandlerParamsMetadata[];
+  params: IHandlerParamsMetadata[];
 }
 
 export interface IEventSubscribe extends IEventSubscribeMetadata {
@@ -31,17 +36,9 @@ export interface IControllerNamespaceMetadata {
   method?: string;
 };
 
-/**
- * Information about the Namespace itself regardless of where it's being used.
- * These are the metadata stored on the Namespace class itself.
- */
-export interface INamespaceMetadata {
-  name: string;
-}
-
 export interface INamespaceInfo {
   classRef: ClassConstructor;
-  metadata: INamespaceMetadata;
+  name: string;
   events: IEventSubscribe[];
 }
 
@@ -62,4 +59,11 @@ export interface INamespaceEvents extends IEventSubscribe {
 export interface INamespaceControllerMetadata {
   classRef: ClassConstructor;
   instanceKey: string;
+}
+
+export interface INamespace {
+  middleware?(socket: Socket): Promise<void>;
+  onConnection?(socket: Socket): void;
+  onDisconnect?(socket: Socket): void;
+  [key: string]: any;
 }

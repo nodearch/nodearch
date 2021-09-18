@@ -1,26 +1,16 @@
-import { ClassConstructor, Container, Logger, Service } from '@nodearch/core';
-import { IEventSubscribe, IEventSubscribeMetadata, INamespaceEvents, IControllerNamespaceMetadata, ISocketIOController, INamespaceMetadata, INamespaceInfo, INamespaceControllerMetadata } from '../interfaces';
+import { ClassConstructor, Service } from '@nodearch/core';
+import { 
+  IEventSubscribe, IEventSubscribeMetadata, 
+  IControllerNamespaceMetadata, INamespaceInfo, 
+  INamespaceControllerMetadata, IControllerMetadata 
+} from '../interfaces';
 import { MetadataManager } from '../metadata';
 import io, { Socket } from 'socket.io';
-import { SocketIOConfig } from './socketio.config';
-import { EventHandlerParamType } from '../enums';
+import { HandlerParamType } from '../enums';
 
-interface IControllerMetadata {
-  eventsMetadata: IEventSubscribeMetadata[];
-  controller: ClassConstructor;
-}
 
 @Service()
 export class SocketIOService {
-
-  private ioServer: io.Server;
-  private logger: Logger;
-
-  constructor(config: SocketIOConfig, logger: Logger) {
-    this.ioServer = config.ioServer;
-    this.logger = logger;
-  }
-
   /**
    * Return a list of Metadata for controllers that contains 
    * socket.io events and namespaces
@@ -76,14 +66,13 @@ export class SocketIOService {
           existingNamespace.events.push({...eventMetadata, controller: ctrl.controller});
         }
         else {
-          const namespaceInfo = MetadataManager.getNamespace(namespace.classRef);
-          
-          if (!namespaceInfo) throw new Error(`[Socket.IO] Namespace ${namespace.classRef.name} it not a valid class component, make sure you're using @Namespace decorator`);
+          const nsName = MetadataManager.getNamespaceName(namespace.classRef);          
+          if (!nsName) throw new Error(`[Socket.IO] Namespace ${namespace.classRef.name} it not a valid class component, make sure you're using @Namespace decorator`);
 
           namespacesMap.set(namespace.name, { 
             classRef: namespace.classRef, 
-            metadata: namespaceInfo, 
-            events: [{...eventMetadata, controller: ctrl.controller}] 
+            name: nsName, 
+            events: [{...eventMetadata, controller: ctrl.controller}]
           });
 
         }
@@ -97,7 +86,7 @@ export class SocketIOService {
   /**
    * Given a socket, events and all the metadata, register the events to the socket 
    */
-  registerEvents(socket: Socket, events: IEventSubscribe[], nsControllers: INamespaceControllerMetadata[], nsInstance: any) {
+  registerEvents(events: IEventSubscribe[], nsControllers: INamespaceControllerMetadata[], socket: Socket, nsInstance: any) {
     events.forEach(event => {
       const { instanceKey } = nsControllers.find(nsCtrl => nsCtrl.classRef === event.controller) as INamespaceControllerMetadata; 
       
@@ -105,7 +94,7 @@ export class SocketIOService {
     
       socket.on(event.eventName, (data) => {
         controllerInstance[event.method](
-          ...this.getEventHandlerParams(data, socket, event)
+          ...this.getEventHandlerParams(event, socket, data)
         );
       });
     });
@@ -114,15 +103,15 @@ export class SocketIOService {
   /**
    * Get an ordered object with the requested params for a given event handler 
    */
-  private getEventHandlerParams(data: any, socket: io.Socket, event: IEventSubscribeMetadata) {
+  private getEventHandlerParams(event: IEventSubscribeMetadata, socket: io.Socket, data: any) {
     const params: any[] = [];
-    
+    // TODO: verify that params[param.index] is actually working as intended
     event.params.forEach(param => {
       switch(param.type) {
-        case EventHandlerParamType.EVENT_DATA:
+        case HandlerParamType.EVENT_DATA:
           params[param.index] = data;
           break;
-        case EventHandlerParamType.SOCKET_INFO:
+        case HandlerParamType.SOCKET_INFO:
           params[param.index] = socket;
           break;
       }
@@ -130,5 +119,4 @@ export class SocketIOService {
 
     return params;
   }
-
 }

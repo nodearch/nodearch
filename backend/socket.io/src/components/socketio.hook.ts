@@ -3,6 +3,7 @@ import { SocketIOConfig } from './socketio.config';
 import io from 'socket.io';
 import { MetadataManager } from '../metadata';
 import { SocketIOService } from './socketio.service';
+import { INamespace } from '../interfaces';
 
 
 @Hook()
@@ -31,32 +32,39 @@ export class SocketIOHook implements IHook {
 
       this
         .ioServer
-        .of(ns.metadata.name)
+        .of(ns.name)
         .use((socket, next) => { 
           // get the namespace instance with every new connection and pass it via data
-          const nsInstance = context.getContainer().get(ns.classRef);
+          const nsInstance: INamespace = context.getContainer().get(ns.classRef);
           
           socket.data.nodearch = {
             nsInstance
           };
 
-          // TODO: run middleware here
-
-          next(); 
+          nsInstance.middleware?.(socket)
+            .then(() => next())
+            .catch((err) => next(err));
         })
         .on('connection', (socket) => {
-          this.logger.debug(`New socket connected: ${socket.id}`);
+          const nsInstance: INamespace = socket.data.nodearch.nsInstance;
 
           this.socketIOService.registerEvents(
-            socket, 
             ns.events, 
-            nsControllers, 
-            socket.data.nodearch.nsInstance
+            nsControllers,
+            socket,
+            nsInstance
           );
 
-          // TODO: call onConnection and onDisconnect hooks manually for the namespace
+          nsInstance.onConnection?.(socket);
+          
+          this.logger.debug(`New socket connected: ${socket.id}`);
+
+          // TODO: add catch all events https://socket.io/docs/v4/listening-to-events/#catch-all-listeners
+          // TODO: add all remaining events, like on error, on connect_error, etc.
 
           socket.on('disconnect', () => {
+            nsInstance.onDisconnect?.(socket);
+
             this.logger.debug(`Socket disconnected: ${socket.id}`);
           });
         });

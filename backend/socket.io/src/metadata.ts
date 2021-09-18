@@ -1,14 +1,14 @@
 import { MetadataInfo } from '@nodearch/core';
-import { IEventHandlerParamsMetadata, IEventSubscribeMetadata, INamespaceControllerMetadata, INamespaceMetadata, IControllerNamespaceMetadata } from './interfaces';
+import { IEventSubscribeMetadata, INamespaceControllerMetadata, IControllerNamespaceMetadata, IHandlerParamsMetadata } from './interfaces';
 
 
 export abstract class MetadataManager {
   static readonly PREFIX = 'socket.io/controller';
   static readonly SUBSCRIBE = MetadataManager.PREFIX + '-subscribe';
-  static readonly EVENT_HANDLER_PARAMS = MetadataManager.PREFIX + '-eventHandlerParams';
+  static readonly HANDLER_PARAMS = MetadataManager.PREFIX + '-handlerParams';
   static readonly EVENT_DATA = MetadataManager.PREFIX + '-eventData';
   static readonly CONTROLLER_NAMESPACES = MetadataManager.PREFIX + '-controllerNamespaces';
-  static readonly NAMESPACE_INFO = MetadataManager.PREFIX + '-namespaceInfo';
+  static readonly NAMESPACE_NAME = MetadataManager.PREFIX + '-namespaceName';
   static readonly NAMESPACE_CONTROLLERS = MetadataManager.PREFIX + '-namespaceControllers';
 
   static getSubscribes(controller: Function): IEventSubscribeMetadata[] {
@@ -22,15 +22,15 @@ export abstract class MetadataManager {
     MetadataInfo.setClassMetadata(MetadataManager.SUBSCRIBE, controller, subscribes);
   }
 
-  static getEventHandlerParams(controller: Object, methodName: string): IEventHandlerParamsMetadata[] {
-    return MetadataInfo.getMethodMetadata(MetadataManager.EVENT_HANDLER_PARAMS, controller, methodName) || [];
+  static getHandlerParams(classConstructor: Object, methodName: string): IHandlerParamsMetadata[] {
+    return MetadataInfo.getMethodMetadata(MetadataManager.HANDLER_PARAMS, classConstructor, methodName) || [];
   }
 
-  static setEventHandlerParams(controller: Object, methodName: string, paramInfo: IEventHandlerParamsMetadata) {
-    const params = MetadataManager.getEventHandlerParams(controller, methodName);
+  static setHandlerParams(classConstructor: Object, methodName: string, paramInfo: IHandlerParamsMetadata) {
+    const params = MetadataManager.getHandlerParams(classConstructor, methodName);
     params.push(paramInfo);
 
-    MetadataInfo.setMethodMetadata(MetadataManager.EVENT_HANDLER_PARAMS, controller, methodName, params);
+    MetadataInfo.setMethodMetadata(MetadataManager.HANDLER_PARAMS, classConstructor, methodName, params);
   }
 
   static getControllerNamespaces(controller: Function): IControllerNamespaceMetadata[] {
@@ -44,12 +44,12 @@ export abstract class MetadataManager {
     MetadataInfo.setClassMetadata(MetadataManager.CONTROLLER_NAMESPACES, controller, namespaces);
   }
 
-  static getNamespace(namespaceClass: Function): INamespaceMetadata | undefined {
-    return MetadataInfo.getClassMetadata(MetadataManager.NAMESPACE_INFO, namespaceClass);
+  static getNamespaceName(namespaceClass: Function): string | undefined {
+    return MetadataInfo.getClassMetadata(MetadataManager.NAMESPACE_NAME, namespaceClass);
   }
 
-  static setNamespace(namespaceClass: Function, info: INamespaceMetadata) {
-    MetadataInfo.setClassMetadata(MetadataManager.NAMESPACE_INFO, namespaceClass, info);
+  static setNamespaceName(namespaceClass: Function, name: string) {
+    MetadataInfo.setClassMetadata(MetadataManager.NAMESPACE_NAME, namespaceClass, name);
   }
 
   static getNamespaceControllers(namespaceClass: Function): INamespaceControllerMetadata[] {

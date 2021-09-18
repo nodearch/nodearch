@@ -1,6 +1,6 @@
 import { App, LogLevel } from '@nodearch/core';
 import { ExpressServer, ExpressHook, OpenAPICli } from '@nodearch/express';
-import { SocketIO, SocketIOHook } from '@nodearch/socket.io';
+import { SocketIOHook, IO, SocketIO } from '@nodearch/socket.io';
 import path from 'path';
 import express from 'express';
 import http from 'http';
@@ -44,7 +44,7 @@ export default class MyApp extends App {
           app: new SocketIO({
             ioServer: ioServer
           }),
-          include: [SocketIOHook]
+          include: [SocketIOHook, IO]
         }
       ]
     });
