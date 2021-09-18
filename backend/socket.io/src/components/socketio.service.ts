@@ -92,6 +92,10 @@ export class SocketIOService {
       
       const controllerInstance = nsInstance[instanceKey];
     
+      // TODO: implement https://socket.io/docs/v4/emitting-events/#acknowledgements
+      // TODO: data object is only the first argument, we need to do ...data
+      // TODO: implement validation https://socket.io/docs/v4/listening-to-events/#validation
+      // TODO: implement error handling
       socket.on(event.eventName, (data) => {
         controllerInstance[event.method](
           ...this.getEventHandlerParams(event, socket, data)
