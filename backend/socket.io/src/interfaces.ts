@@ -18,18 +18,16 @@ export interface IEventSubscribeMetadata {
 }
 
 export interface IEventSubscribe extends IEventSubscribeMetadata {
-  namespaceName: string;
-  namespaceClass: ClassConstructor;
+  controller: ClassConstructor;
 }
 
 /**
  * A reference to the Namespace and how it's being used on a given controller/method
  * These metadata are stored on the Controller class
  */
-export interface INamespaceMetadata {
+export interface IControllerNamespaceMetadata {
   name: string;
   classRef: ClassConstructor;
-  instanceKey: string;
   method?: string;
 };
 
@@ -37,8 +35,14 @@ export interface INamespaceMetadata {
  * Information about the Namespace itself regardless of where it's being used.
  * These are the metadata stored on the Namespace class itself.
  */
-export interface INamespaceInfoMetadata {
+export interface INamespaceMetadata {
   name: string;
+}
+
+export interface INamespaceInfo {
+  classRef: ClassConstructor;
+  metadata: INamespaceMetadata;
+  events: IEventSubscribe[];
 }
 
 export interface ISocketIOController {
@@ -55,3 +59,7 @@ export interface INamespaceEvents extends IEventSubscribe {
   controller: ClassConstructor;
 }
 
+export interface INamespaceControllerMetadata {
+  classRef: ClassConstructor;
+  instanceKey: string;
+}

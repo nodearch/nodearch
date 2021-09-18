@@ -6,29 +6,28 @@ import { UserNamespace, UserNamespace2 } from './user.namespace';
 
 @UseNamespace(UserNamespace)
 @Controller()
-export class UserController {
+export class UserController2 {
   @HttpGet('/users')
   getUsers() {
     return 'Hello, World!';
   }
 
-  @Subscribe('one')
+  @Subscribe('onex')
   getOne(@EventData() data: any, @SocketInfo() socket: Socket) {
-    console.log(socket.id);
-    console.log(data);
+    // console.log(socket.id);
+    // console.log(data);
   }
 
-  @UseNamespace(UserNamespace2)
-  @Subscribe('two')
+  @Subscribe('twox')
   getTwo(@EventData() data: any, @SocketInfo() socket: Socket) {
-    console.log(socket.id);
-    console.log(data);
+    // console.log(socket.id);
+    // console.log(data);
   }
 
-  @Subscribe('three')
+  @Subscribe('threex')
   getThree(@EventData() data: any, @SocketInfo() socket: Socket) {
-    console.log(socket.id);
-    console.log(data);
+    // console.log(socket.id);
+    // console.log(data);
   }
 
 }

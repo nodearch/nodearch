@@ -17,21 +17,26 @@ export function Subscribe(eventName: string): MethodDecorator {
 
 export function UseNamespace(namespace: ClassConstructor): ClassMethodDecorator {
   return function (target: Function | Object, propKey?: string) {
-    const targetConstructor = (propKey ? target.constructor : target) as ClassConstructor;
+    const controllerConstructor = (propKey ? target.constructor : target) as ClassConstructor;
 
-    const nsInfo = MetadataManager.getNamespaceInfo(namespace);
+    const nsInfo = MetadataManager.getNamespace(namespace);
 
     if (!nsInfo) 
       throw new Error(`[Socket.IO] Component ${namespace.name} is not a valid Namespace, check that you're using the @Namespace decorator!`);
 
-    const namespacesLength = MetadataManager.getNamespaces(targetConstructor).length;
-    const namespaceId = 'socket.io-namespace:' + namespacesLength;
-    ClassInfo.propertyInject(targetConstructor, namespace, namespaceId);
+    const namespacesLength = MetadataManager.getNamespaceControllers(namespace).length;
+    
+    const ctrlId = 'socket.io-namespaceController:' + namespacesLength;
+    
+    ClassInfo.propertyInject(namespace, controllerConstructor, ctrlId);
 
-    MetadataManager.setNamespace(targetConstructor, {
-      name : nsInfo.name,
+    // Add The controller as dependency to the namespace and put the reference in the namespace's metadata
+    MetadataManager.setNamespaceController(namespace, { classRef: controllerConstructor, instanceKey: ctrlId });
+
+    // Add the namespace to the controller, because this will be our entry point to find namespaces
+    MetadataManager.setControllerNamespace(controllerConstructor, {
+      name: nsInfo.name,
       classRef: namespace,
-      instanceKey: namespaceId,
       method: propKey as string,
     });
   };
@@ -39,6 +44,7 @@ export function UseNamespace(namespace: ClassConstructor): ClassMethodDecorator 
 
 export function Namespace(name: string): ClassDecorator {
   return function (target: Function) {
+    MetadataManager.setNamespace(target, { name });
     Component()(target);
   };
 }

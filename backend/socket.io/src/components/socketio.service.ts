@@ -1,10 +1,14 @@
 import { ClassConstructor, Container, Logger, Service } from '@nodearch/core';
-import { IEventSubscribe, IEventSubscribeMetadata, INamespaceEvents, INamespaceMetadata, ISocketIOController } from '../interfaces';
+import { IEventSubscribe, IEventSubscribeMetadata, INamespaceEvents, IControllerNamespaceMetadata, ISocketIOController, INamespaceMetadata, INamespaceInfo, INamespaceControllerMetadata } from '../interfaces';
 import { MetadataManager } from '../metadata';
-import io from 'socket.io';
+import io, { Socket } from 'socket.io';
 import { SocketIOConfig } from './socketio.config';
 import { EventHandlerParamType } from '../enums';
 
+interface IControllerMetadata {
+  eventsMetadata: IEventSubscribeMetadata[];
+  controller: ClassConstructor;
+}
 
 @Service()
 export class SocketIOService {
@@ -17,140 +21,99 @@ export class SocketIOService {
     this.logger = logger;
   }
 
-  filterSocketIOControllers(controllers: ClassConstructor[]) {
-    const socketIOControllers: ISocketIOController[] = [];
+  /**
+   * Return a list of Metadata for controllers that contains 
+   * socket.io events and namespaces
+   */
+  getControllersMetadata(controllers: ClassConstructor[]) {
+    const controllersMetadata: IControllerMetadata[] = []; 
 
     controllers.forEach(ctrl => {
-      const subscribesMetadata = MetadataManager.getSubscribes(ctrl);
+      const eventsMetadata = MetadataManager.getSubscribes(ctrl);
       
-      if (subscribesMetadata.length) {
-
-        const namespaces = MetadataManager.getNamespaces(ctrl);
-
-        const subscribes = subscribesMetadata.map(subscribeMetadata => {
-          
-          let namespace: INamespaceMetadata | undefined;
-
-          // find a namespace that matches the method name
-          namespace = namespaces.find(ns => {
-            return ns.method === subscribeMetadata.method;
-          });
-
-          if (!namespace) {
-            // find a controller level namespace
-            namespace = namespaces.find(ns => {
-              return !ns.method;
-            });
-          }
-
-          if (!namespace) throw new Error(`[Socket.IO] Namespace not found for the event: ${subscribeMetadata.eventName} in: ${ctrl.name}.${subscribeMetadata.method}`);
-          
-          return {
-            ...subscribeMetadata,
-            namespaceName: namespace.name,
-            namespaceClass: namespace.classRef
-          } as IEventSubscribe;
-        });
-
-        socketIOControllers.push({
-          controller: ctrl,
-          events: subscribes
+      if (eventsMetadata) {
+        controllersMetadata.push({
+          eventsMetadata, 
+          controller: ctrl
         });
       }
-
     });
 
-    return socketIOControllers;
+    return controllersMetadata;
   }
 
-  registerEvents(socketIOControllers: ISocketIOController[], depFactory: () => Record<string, Object>[]) {
+  /**
+   * Get a list of namespaces and their events
+   */
+  getNamespacesMetadata(controllersMetadata: IControllerMetadata[]) {
+    // temporary map to get a unique list of namespaces 
+    const namespacesMap: Map<string, INamespaceInfo> = new Map();
+
+    controllersMetadata.forEach(ctrl => {
+      const namespaces = MetadataManager.getControllerNamespaces(ctrl.controller);
+
+      ctrl.eventsMetadata.forEach(eventMetadata => {
+        // Try to match the event with a namespace and then add it to the map
+        let namespace: IControllerNamespaceMetadata | undefined;
+
+        // find a namespace that matches the method name
+        namespace = namespaces.find(ns => {
+          return ns.method === eventMetadata.method;
+        });
+
+        if (!namespace) {
+          // find a controller level namespace
+          namespace = namespaces.find(ns => {
+            return !ns.method;
+          });
+        }
+
+        if (!namespace) throw new Error(`[Socket.IO] Namespace not found for the event: ${eventMetadata.eventName} in: ${ctrl.controller.name}.${eventMetadata.method}`);
     
-    // flip the Controllers info to get unique namespaces at the top
-    const namespaceEvents: Map<string, INamespaceEvents[]> = new Map();
-
-    socketIOControllers.forEach(ctrlInfo => {
-      ctrlInfo.events.forEach(event => {
-
-
-        const existingNamespace = namespaceEvents.get(event.namespaceName);
+        const existingNamespace = namespacesMap.get(namespace.name);
         
         if (existingNamespace) {
-          existingNamespace.push({ controller: ctrlInfo.controller, ...event });
+          existingNamespace.events.push({...eventMetadata, controller: ctrl.controller});
         }
         else {
-          namespaceEvents.set(event.namespaceName, [{ controller: ctrlInfo.controller, ...event }]);
-        }
+          const namespaceInfo = MetadataManager.getNamespace(namespace.classRef);
+          
+          if (!namespaceInfo) throw new Error(`[Socket.IO] Namespace ${namespace.classRef.name} it not a valid class component, make sure you're using @Namespace decorator`);
 
+          namespacesMap.set(namespace.name, { 
+            classRef: namespace.classRef, 
+            metadata: namespaceInfo, 
+            events: [{...eventMetadata, controller: ctrl.controller}] 
+          });
+
+        }
       });
     });
 
-    // Create and validate namespaces
-    this.ioServer.of((name, auth, next) => {
-      next(null, namespaceEvents.get(name) ? true : false);
-    })
-    .use((socket, next) => {
-      // console.log('from middleware');
-      // socket.data.nodearch = 'nodearch';
-      // // TODO: wrap all the context middleware into this one before forwarding to the onConnection via socket.data
+    // no need for the map anymore, we should already them unique
+    return Array.from(namespacesMap.values());
+  }
+
+  /**
+   * Given a socket, events and all the metadata, register the events to the socket 
+   */
+  registerEvents(socket: Socket, events: IEventSubscribe[], nsControllers: INamespaceControllerMetadata[], nsInstance: any) {
+    events.forEach(event => {
+      const { instanceKey } = nsControllers.find(nsCtrl => nsCtrl.classRef === event.controller) as INamespaceControllerMetadata; 
       
-
-      const events = namespaceEvents.get(socket.nsp.name) as INamespaceEvents[];
-      const controllers = depFactory();
-
-      // TODO: We need to get namespaces and their metadata e.g. middleware
-      // organize the data structure, i.e. set the namespace metadata alongside the events in the map 
-      
-
-      next();
-    })
-    .on('connection', (socket) => {
-      console.log('a user connected on', socket.nsp.name, 'with data', socket.data.nodearch);
-    })
-    .on('connection', () => {
-      console.log('connection 2');
+      const controllerInstance = nsInstance[instanceKey];
+    
+      socket.on(event.eventName, (data) => {
+        controllerInstance[event.method](
+          ...this.getEventHandlerParams(data, socket, event)
+        );
+      });
     });
-
-
-    // this.ioServer.on('connection', (socket) => {
-    //   socket.on('disconnect', () => {
-    //     this.logger.debug(`Socket ${socket.id} disconnected!`); 
-    //   });
-
-    //   this.logger.debug(`New socket connected: ${socket.id}`); 
-
-    //   const controllers = depFactory();
-
-    //   socketIOControllers.forEach(ctrlInfo => {
-          
-    //     const controller = controllers.find(ctrl => {
-    //       return ctrl.constructor === ctrlInfo.controller;
-    //     });
-
-    //     if (controller) {
-    //       console.log(ctrlInfo.namespaces[0].classRef);
-    //       console.log('namespace', controller[ctrlInfo.namespaces[0].instanceKey]);
-    //     }
-
-    //     ctrlInfo.events.forEach(event => {
-    //       socket.on(event.eventName, (data) => {
-    //         /**
-    //          * controller should always be there 
-    //          * because we can't reach this point 
-    //          * unless the controller is bound on the container
-    //          */
-    //         (controller![event.method] as Function)(
-    //           ...this.getEventHandlerParams(data, socket, event)
-    //         );
-    //       });
-    //     });
-    //   });
-    // });
   }
 
-  private registerNamespaceEvents(events: INamespaceEvents) {
-
-  }
-
+  /**
+   * Get an ordered object with the requested params for a given event handler 
+   */
   private getEventHandlerParams(data: any, socket: io.Socket, event: IEventSubscribeMetadata) {
     const params: any[] = [];
     

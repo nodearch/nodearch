@@ -1,5 +1,5 @@
 import { MetadataInfo } from '@nodearch/core';
-import { IEventHandlerParamsMetadata, IEventSubscribeMetadata, INamespaceInfoMetadata, INamespaceMetadata } from './interfaces';
+import { IEventHandlerParamsMetadata, IEventSubscribeMetadata, INamespaceControllerMetadata, INamespaceMetadata, IControllerNamespaceMetadata } from './interfaces';
 
 
 export abstract class MetadataManager {
@@ -7,8 +7,9 @@ export abstract class MetadataManager {
   static readonly SUBSCRIBE = MetadataManager.PREFIX + '-subscribe';
   static readonly EVENT_HANDLER_PARAMS = MetadataManager.PREFIX + '-eventHandlerParams';
   static readonly EVENT_DATA = MetadataManager.PREFIX + '-eventData';
-  static readonly NAMESPACES = MetadataManager.PREFIX + '-namespaces';
+  static readonly CONTROLLER_NAMESPACES = MetadataManager.PREFIX + '-controllerNamespaces';
   static readonly NAMESPACE_INFO = MetadataManager.PREFIX + '-namespaceInfo';
+  static readonly NAMESPACE_CONTROLLERS = MetadataManager.PREFIX + '-namespaceControllers';
 
   static getSubscribes(controller: Function): IEventSubscribeMetadata[] {
     return MetadataInfo.getClassMetadata(MetadataManager.SUBSCRIBE, controller) || [];
@@ -32,22 +33,34 @@ export abstract class MetadataManager {
     MetadataInfo.setMethodMetadata(MetadataManager.EVENT_HANDLER_PARAMS, controller, methodName, params);
   }
 
-  static getNamespaces(controller: Function): INamespaceMetadata[] {
-    return MetadataInfo.getClassMetadata(MetadataManager.NAMESPACES, controller) || [];
+  static getControllerNamespaces(controller: Function): IControllerNamespaceMetadata[] {
+    return MetadataInfo.getClassMetadata(MetadataManager.CONTROLLER_NAMESPACES, controller) || [];
   }
 
-  static setNamespace(controller: Function, namespaceMetadata: INamespaceMetadata) {
-    const namespaces = MetadataManager.getNamespaces(controller);
+  static setControllerNamespace(controller: Function, namespaceMetadata: IControllerNamespaceMetadata) {
+    const namespaces = MetadataManager.getControllerNamespaces(controller);
     namespaces.push(namespaceMetadata);
 
-    MetadataInfo.setClassMetadata(MetadataManager.NAMESPACES, controller, namespaces);
+    MetadataInfo.setClassMetadata(MetadataManager.CONTROLLER_NAMESPACES, controller, namespaces);
   }
 
-  static getNamespaceInfo(namespaceClass: Function): INamespaceInfoMetadata | undefined {
+  static getNamespace(namespaceClass: Function): INamespaceMetadata | undefined {
     return MetadataInfo.getClassMetadata(MetadataManager.NAMESPACE_INFO, namespaceClass);
   }
 
-  static setNamespaceInfo(namespaceClass: Function, info: INamespaceInfoMetadata) {
+  static setNamespace(namespaceClass: Function, info: INamespaceMetadata) {
     MetadataInfo.setClassMetadata(MetadataManager.NAMESPACE_INFO, namespaceClass, info);
+  }
+
+  static getNamespaceControllers(namespaceClass: Function): INamespaceControllerMetadata[] {
+    return MetadataInfo.getClassMetadata(MetadataManager.NAMESPACE_CONTROLLERS, namespaceClass) || [];
+  }
+
+  static setNamespaceController(namespaceClass: Function, controller: INamespaceControllerMetadata) {
+    const nsControllers = MetadataManager.getNamespaceControllers(namespaceClass);
+    if (!nsControllers.find(x => x.classRef === controller.classRef)) {
+      nsControllers.push(controller);
+      MetadataInfo.setClassMetadata(MetadataManager.NAMESPACE_CONTROLLERS, namespaceClass, nsControllers);
+    }
   }
 }
