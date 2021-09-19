@@ -5,7 +5,8 @@ dependencies:
   '@rush-temp/express': 'file:projects/express.tgz_ts-node@9.1.1'
   '@rush-temp/keycloak': 'file:projects/keycloak.tgz_ts-node@9.1.1'
   '@rush-temp/socket.io': 'file:projects/socket.io.tgz'
-  '@rush-temp/template-app': 'file:projects/template-app.tgz'
+  '@rush-temp/template-express': 'file:projects/template-express.tgz'
+  '@rush-temp/template-socket.io': 'file:projects/template-socket.io.tgz'
   '@rush-temp/vault': 'file:projects/vault.tgz_ts-node@9.1.1'
   '@types/decompress': 4.2.3
   '@types/express': 4.17.9
@@ -38,7 +39,6 @@ dependencies:
   request: 2.88.2
   request-promise-native: 1.0.9_request@2.88.2
   rimraf: 3.0.2
-  socket.io: 4.1.3
   supertest: 4.0.2
   ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
   ts-node: 9.1.1_typescript@4.1.3
@@ -6144,20 +6144,41 @@ packages:
       express: 4.17.1
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
+      socket.io: 4.1.3
       typescript: 4.1.3
     dev: false
     name: '@rush-temp/socket.io'
     resolution:
-      integrity: sha512-j9eNxkvDzoGJ/gJhLtRI8ejRigyyq2Wv17X5HlAUWzyd9WnWKYF/XQ7ipssBYr6nc/9KQbOa2b2jOXzBg4ZTKA==
+      integrity: sha512-LClg/2LBM8p3Blc/1U5hH8UTVwxKugRTawCGHXqWzzytakwqI8e/bmj9X1YkP2d+v4X3R7/7jAJccGWFvhPIjQ==
       tarball: 'file:projects/socket.io.tgz'
     version: 0.0.0
-  'file:projects/template-app.tgz':
+  'file:projects/template-express.tgz':
     dependencies:
       '@types/express': 4.17.9
       '@types/jest': 26.0.19
       '@types/node': 14.14.14
       '@types/supertest': 2.0.10
       express: 4.17.1
+      jest: 26.6.3_ts-node@9.1.1
+      nodemon: 2.0.6
+      reflect-metadata: 0.1.13
+      rimraf: 3.0.2
+      supertest: 4.0.2
+      ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
+      ts-node: 9.1.1_typescript@4.1.3
+      tsconfig-paths: 3.9.0
+      typescript: 4.1.3
+    dev: false
+    name: '@rush-temp/template-express'
+    resolution:
+      integrity: sha512-o5zIVuMLANhb52HHLTbu5Du3LIs+8b3a26lN8l/GYnB6ax9RUxgjnWcj1zf00CnFWwvYC5IQn7JNr743U/wphg==
+      tarball: 'file:projects/template-express.tgz'
+    version: 0.0.0
+  'file:projects/template-socket.io.tgz':
+    dependencies:
+      '@types/jest': 26.0.19
+      '@types/node': 14.14.14
+      '@types/supertest': 2.0.10
       jest: 26.6.3_ts-node@9.1.1
       nodemon: 2.0.6
       reflect-metadata: 0.1.13
@@ -6169,10 +6190,10 @@ packages:
       tsconfig-paths: 3.9.0
       typescript: 4.1.3
     dev: false
-    name: '@rush-temp/template-app'
+    name: '@rush-temp/template-socket.io'
     resolution:
-      integrity: sha512-vObAFvNK0MiWFXsqp0NI60dvp4QJHfiBUH81IcL7LYmp405G+83X8xm142VnMeCMe2WjMAAklh2o65uy1D/Gtw==
-      tarball: 'file:projects/template-app.tgz'
+      integrity: sha512-QNrBO3DHQoWGhQ/1nWfwuUJxImMq5L1yE1KOOcP9+BT1lPu8dQQ9ifG17IqhCsGbtxq6V2HvtrR36D3OjagMxQ==
+      tarball: 'file:projects/template-socket.io.tgz'
     version: 0.0.0
   'file:projects/vault.tgz_ts-node@9.1.1':
     dependencies:
@@ -6202,7 +6223,8 @@ specifiers:
   '@rush-temp/express': 'file:./projects/express.tgz'
   '@rush-temp/keycloak': 'file:./projects/keycloak.tgz'
   '@rush-temp/socket.io': 'file:./projects/socket.io.tgz'
-  '@rush-temp/template-app': 'file:./projects/template-app.tgz'
+  '@rush-temp/template-express': 'file:./projects/template-express.tgz'
+  '@rush-temp/template-socket.io': 'file:./projects/template-socket.io.tgz'
   '@rush-temp/vault': 'file:./projects/vault.tgz'
   '@types/decompress': ^4.2.3
   '@types/express': ^4.17.9
@@ -6235,7 +6257,6 @@ specifiers:
   request: ^2.88.2
   request-promise-native: ^1.0.8
   rimraf: ~3.0.2
-  socket.io: ~4.1.3
   supertest: ^4.0.2
   ts-jest: ^26.4.4
   ts-node: ^9.1.0

@@ -1,10 +1,8 @@
 import { App, LogLevel } from '@nodearch/core';
 import { ExpressServer, ExpressHook, OpenAPICli } from '@nodearch/express';
-import { SocketIOHook, IO, SocketIO } from '@nodearch/socket.io';
 import path from 'path';
 import express from 'express';
 import http from 'http';
-import io from 'socket.io';
 
 
 
@@ -16,14 +14,6 @@ export default class MyApp extends App {
     app.use(express.urlencoded({ extended: true }));
     
     const server = http.createServer(app);
-    const ioServer = new io.Server(server, {
-      cors: {
-        // origin: '*',
-        // methods: ["GET", "POST"],
-        // allowedHeaders: ["my-custom-header"],
-        credentials: true
-      }
-    });
 
     super({
       classLoader: {
@@ -39,12 +29,6 @@ export default class MyApp extends App {
             server
           }), 
           include: [ExpressHook, OpenAPICli] 
-        },
-        {
-          app: new SocketIO({
-            ioServer: ioServer
-          }),
-          include: [SocketIOHook, IO]
         }
       ]
     });

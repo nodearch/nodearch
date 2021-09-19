@@ -9,6 +9,7 @@ import { INamespace } from '../interfaces';
 @Hook()
 export class SocketIOHook implements IHook {
 
+  private socketIOConfig: SocketIOConfig;
   private socketIOService: SocketIOService;
   private ioServer: io.Server;
   private logger: Logger;
@@ -16,6 +17,7 @@ export class SocketIOHook implements IHook {
 
   constructor(socketIOService: SocketIOService, socketIOConfig: SocketIOConfig, logger: Logger) {
     this.socketIOService = socketIOService;
+    this.socketIOConfig = socketIOConfig;
     this.ioServer = socketIOConfig.ioServer;
     this.logger = logger;
   }
@@ -72,5 +74,15 @@ export class SocketIOHook implements IHook {
     });
   }
 
-  async onStart() {}
+  async onStart() {
+    if (!this.socketIOConfig.sharedServer) {
+      this.ioServer.listen(3000);
+    }
+  }
+
+  async onStop() {
+    if (!this.socketIOConfig.sharedServer) {
+      this.ioServer.close();
+    }
+  }
 }

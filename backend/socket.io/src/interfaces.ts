@@ -4,6 +4,7 @@ import { HandlerParamType } from './enums';
 
 export interface ISocketIOOptions {
   ioServer: io.Server;
+  sharedServer: boolean;
 }
 
 export interface IControllerMetadata {

@@ -1,6 +1,5 @@
 import { Controller } from "@nodearch/core";
 import { Subscribe, Socket, SocketInfo, EventData, UseNamespace, IO } from "@nodearch/socket.io";
-import { HttpGet } from "@nodearch/express";
 import { UserNamespace, UserNamespace2 } from './user.namespace';
 
 
@@ -10,11 +9,6 @@ export class UserController {
 
   constructor(private readonly io: IO) {}
 
-  @HttpGet('/users')
-  getUsers() {
-    return 'Hello, World!';
-  }
-
   @Subscribe('one')
   getOne(@EventData() data: any, @SocketInfo() socket: Socket) {
     console.log('UserController.One triggered!');
@@ -22,7 +16,9 @@ export class UserController {
     console.log(data);
     this.io.server
       .of('/userNamespace1')
-      .emit('one', 'asdsadasdasdasd');
+      .emit('one', data);
+
+    return data;
   }
 
   @UseNamespace(UserNamespace2)

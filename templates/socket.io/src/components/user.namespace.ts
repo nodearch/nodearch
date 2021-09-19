@@ -1,11 +1,12 @@
 import { Namespace, Socket } from '@nodearch/socket.io';
-import { INamespace } from '@nodearch/socket.io/dist/interfaces';
+import { INamespace } from '@nodearch/socket.io';
 
 @Namespace('/userNamespace1')
 export class UserNamespace implements INamespace {
-  
+
   async middleware(socket: Socket) {
     // console.log('from middleware', socket.id);
+    // throw new Error('Unauthorized!');
   }
 
   onConnection(socket: Socket) {
