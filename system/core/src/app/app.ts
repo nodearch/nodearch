@@ -66,7 +66,7 @@ export class App {
       this.hooks = this.components.getAll<IHook>(ComponentType.Hook);
       this.logger.debug(`${this.hooks?.length || 0} Hooks registered!`);
     }
-    catch(e) {
+    catch(e: any) {
       if (e.message === 'No matching bindings found for serviceIdentifier: hook') {
         this.logger.debug('No Hooks registered!');
       }
@@ -106,7 +106,7 @@ export class App {
           extApp.components.load(extApp.classLoader.classes);
           this.components.registerExtension(extApp.components, extension.include);
         }
-        catch (e) {
+        catch (e: any) {
           throw new Error(`While trying to register Extension - ${e.message}`);
         }
 
@@ -146,7 +146,7 @@ export class App {
         await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)(this.hookContext)));
       }
     }
-    catch (e) {
+    catch (e: any) {
       if (e.message !== 'No matching bindings found for serviceIdentifier: hook') {
         throw e;
       }
@@ -157,7 +157,7 @@ export class App {
     try {
       return this.components.getAll<ICLI>(ComponentType.CLI);
     }
-    catch(e) {
+    catch(e: any) {
       if (e.message !== 'No matching bindings found for serviceIdentifier: cli') {
         throw e;
       }

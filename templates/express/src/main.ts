@@ -1,7 +1,8 @@
-import { App } from '@nodearch/core';
+import { App, LogLevel } from '@nodearch/core';
 import { ExpressServer, ExpressHook, OpenAPICli } from '@nodearch/express';
 import path from 'path';
 import express from 'express';
+import http from 'http';
 
 
 
@@ -11,17 +12,24 @@ export default class MyApp extends App {
     const app = express();
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
+    
+    const server = http.createServer(app);
 
     super({
       classLoader: {
         classpath: path.join(__dirname, 'components')
       },
+      logging: {
+        logLevel: LogLevel.Debug
+      },
       extensions: [
         { 
           app: new ExpressServer({ 
-            expressApp: app
-          }
-        ), include: [ExpressHook, OpenAPICli] },
+            expressApp: app,
+            server
+          }), 
+          include: [ExpressHook, OpenAPICli] 
+        }
       ]
     });
   }

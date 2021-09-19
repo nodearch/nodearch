@@ -5,17 +5,19 @@ import { OpenAPIOptions, OperationObject } from './components/openapi';
 import Joi from '@hapi/joi';
 import multer from 'multer';
 import express from 'express';
+import http from 'http';
+import https from 'https';
 
-
-export interface IExpressServerOptions {
+export type IExpressServerOptions = {
   expressApp: express.Application;
-  hostname?: string;
-  port?: number;
   httpErrorsOptions?: IHttpErrorsOptions;
   joiValidationOptions?: Joi.ValidationOptions;
   openAPIOptions?: OpenAPIOptions;
   fileUploadOptions?: multer.Options;
-}
+  hostname?: string;
+  port?: number;
+  server?: http.Server | https.Server;
+};
 
 export interface IHTTPMethodParamInfo {
   index: number;

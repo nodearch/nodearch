@@ -449,6 +449,12 @@
       "versionPolicyName": "nodearchPackages"
     },
     {
+      "packageName": "@nodearch/socket.io",
+      "projectFolder": "backend/socket.io",
+      "reviewCategory": "production",
+      "versionPolicyName": "nodearchPackages"
+    },
+    {
       "packageName": "@nodearch/cli",
       "projectFolder": "system/cli",
       "reviewCategory": "production",
@@ -467,8 +473,14 @@
       "versionPolicyName": "nodearchPackages"
     },
     {
-      "packageName": "@nodearch/template-app",
-      "projectFolder": "templates/app",
+      "packageName": "@nodearch/template-express",
+      "projectFolder": "templates/express",
+      "reviewCategory": "tools",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@nodearch/template-socket.io",
+      "projectFolder": "templates/socket.io",
       "reviewCategory": "tools",
       "shouldPublish": false
     }

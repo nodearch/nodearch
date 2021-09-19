@@ -4,6 +4,8 @@ import Joi from '@hapi/joi';
 import { OpenAPIOptions } from './openapi/openapi.interfaces';
 import multer from 'multer';
 import express from 'express';
+import http from 'http';
+import https from 'https';
 
 
 @Config()
@@ -15,6 +17,7 @@ export class ServerConfig {
   openAPIOptions: OpenAPIOptions;
   fileUploadOptions?: multer.Options;
   expressApp: express.Application;
+  server?: http.Server | https.Server;
 
   constructor(config: ConfigManager) {
     this.hostname = config.env({
@@ -63,6 +66,10 @@ export class ServerConfig {
 
     this.expressApp = config.env({
       external: 'expressApp'
+    });
+
+    this.server = config.env({
+      external: 'server'
     });
   }
 }

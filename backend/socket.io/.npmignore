@@ -1,0 +1,8 @@
+# Ignore all files by default, to avoid accidentally publishing unintended files.
+*
+
+# Use negative patterns to bring back the specific things we want to publish.
+!/dist/**
+
+# Ignore certain patterns that should not get published.
+/dist/**/*spec.*
