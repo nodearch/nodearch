@@ -1,6 +1,13 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Sun, 22 Aug 2021 18:06:42 GMT and should not be manually modified.
+This log was last generated on Sun, 19 Sep 2021 13:03:11 GMT and should not be manually modified.
+
+## 1.4.0
+Sun, 19 Sep 2021 13:03:11 GMT
+
+### Minor changes
+
+- return ioc container instance from the core to be used in the extensions
 
 ## 1.3.0
 Sun, 22 Aug 2021 18:06:42 GMT
