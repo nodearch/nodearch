@@ -2,7 +2,6 @@ import { Controller } from "@nodearch/core";
 import { Subscribe, Socket, SocketInfo, EventData, UseNamespace, IO } from "@nodearch/socket.io";
 import { UserNamespace, UserNamespace2 } from './user.namespace';
 
-
 @UseNamespace(UserNamespace)
 @Controller()
 export class UserController {
@@ -10,7 +9,7 @@ export class UserController {
   constructor(private readonly io: IO) {}
 
   @Subscribe('one')
-  getOne(@EventData() data: any, @SocketInfo() socket: Socket) {
+  async getOne(@EventData() data: any, @SocketInfo() socket: Socket) {
     console.log('UserController.One triggered!');
     console.log(socket.id);
     console.log(data);

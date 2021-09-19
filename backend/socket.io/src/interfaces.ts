@@ -68,3 +68,7 @@ export interface INamespace {
   onDisconnect?(socket: Socket): void;
   [key: string]: any;
 }
+
+// export interface IEventOptions {
+//   acknowledge: boolean;
+// }

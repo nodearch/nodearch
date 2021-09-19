@@ -1,4 +1,4 @@
-import { ClassConstructor, Service } from '@nodearch/core';
+import { ClassConstructor, Logger, Service } from '@nodearch/core';
 import { 
   IEventSubscribe, IEventSubscribeMetadata, 
   IControllerNamespaceMetadata, INamespaceInfo, 
@@ -11,6 +11,9 @@ import { HandlerParamType } from '../enums';
 
 @Service()
 export class SocketIOService {
+
+  constructor(private readonly logger: Logger) {}
+
   /**
    * Return a list of Metadata for controllers that contains 
    * socket.io events and namespaces
@@ -96,10 +99,35 @@ export class SocketIOService {
       // TODO: data object is only the first argument, we need to do ...data
       // TODO: implement validation https://socket.io/docs/v4/listening-to-events/#validation
       // TODO: implement error handling
-      socket.on(event.eventName, (data) => {
-        controllerInstance[event.method](
-          ...this.getEventHandlerParams(event, socket, data)
-        );
+      socket.on(event.eventName, (data, cb) => {
+          // Async, so it works even if the handler was not returning promise
+          (async () => {
+            
+            return await controllerInstance[event.method](
+              ...this.getEventHandlerParams(event, socket, data)
+            );
+
+          })()
+          .then(res => {
+            if (res && cb) {
+              cb(res);
+            }
+            else if (cb) {
+              // safe return in case nothing was returned from the handler
+              cb({});
+            }
+          })
+          .catch(err => {
+            if (cb) {
+              cb({
+                error: err.message,
+                data: err.data
+              });
+            }
+            else {
+              this.logger.error('[Socket.IO]', err);
+            }
+          });
       });
     });
   }
