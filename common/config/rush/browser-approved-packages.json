@@ -15,6 +15,10 @@
       "allowedCategories": [ "tools" ]
     },
     {
+      "name": "@nodearch/socket.io",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "@types/decompress",
       "allowedCategories": [ "production" ]
     },
@@ -144,6 +148,10 @@
     },
     {
       "name": "rimraf",
+      "allowedCategories": [ "production", "tools" ]
+    },
+    {
+      "name": "socket.io",
       "allowedCategories": [ "production", "tools" ]
     },
     {

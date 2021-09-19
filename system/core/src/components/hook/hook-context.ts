@@ -4,6 +4,7 @@ import { ComponentType } from '../enums';
 import { IHook } from './hook.interface';
 import { ICLI } from '../cli';
 import { DependencyException } from '../../errors';
+import inversify from 'inversify';
 
 export class HookContext {
   constructor(private components: ComponentManagement) {}
@@ -12,7 +13,7 @@ export class HookContext {
     try {
       return this.components.get<T>(classIdentifier);
     }
-    catch(e) {
+    catch(e: any) {
       throw new DependencyException(e.message);
     }
   }
@@ -21,7 +22,7 @@ export class HookContext {
     try {
       return this.components.getAll<T>(identifier);
     }
-    catch(e) {
+    catch(e: any) {
       throw new DependencyException(e.message);
     }
   }
@@ -36,5 +37,9 @@ export class HookContext {
 
   getComponents(componentType: ComponentType) {
     return this.components.getComponents(componentType);
+  }
+
+  getContainer(): inversify.Container {
+    return this.components.getContainer();
   }
 }

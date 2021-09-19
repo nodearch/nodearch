@@ -105,11 +105,15 @@ export class ComponentManagement {
     return this.container.getAll<T>(identifier);
   }
 
+  getContainer() {
+    return this.container;
+  }
+
   private findGroupedCompByType<T>(compType: ComponentType): T[] | undefined {
     try {
       return this.getAll<T>(compType);
     }
-    catch(e) {
+    catch(e: any) {
       if (e.message !== `No matching bindings found for serviceIdentifier: ${compType}`) {
         throw e;
       }
