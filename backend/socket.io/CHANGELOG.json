@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io",
   "entries": [
     {
+      "version": "0.4.0",
+      "tag": "@nodearch/socket.io_v0.4.0",
+      "date": "Mon, 20 Sep 2021 14:29:18 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "support dynamic namespaces",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "f0bc1aa6be9c338f8f4cabbedb654277dd5df9f8"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.3.0",
       "tag": "@nodearch/socket.io_v0.3.0",
       "date": "Sun, 19 Sep 2021 14:13:48 GMT",
