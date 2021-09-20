@@ -1,5 +1,6 @@
 import { ClassConstructor, ClassInfo, ClassMethodDecorator, Component } from '@nodearch/core';
 import { HandlerParamType } from './enums';
+import { NamespaceName } from './interfaces';
 import { MetadataManager } from './metadata';
 
 
@@ -19,11 +20,6 @@ export function UseNamespace(namespace: ClassConstructor): ClassMethodDecorator 
   return function (target: Function | Object, propKey?: string) {
     const controllerConstructor = (propKey ? target.constructor : target) as ClassConstructor;
 
-    const nsName = MetadataManager.getNamespaceName(namespace);
-
-    if (!nsName) 
-      throw new Error(`[Socket.IO] Component ${namespace.name} is not a valid Namespace, check that you're using the @Namespace decorator!`);
-
     const namespacesLength = MetadataManager.getNamespaceControllers(namespace).length;
     
     const ctrlId = 'socket.io-namespaceController:' + namespacesLength;
@@ -35,14 +31,13 @@ export function UseNamespace(namespace: ClassConstructor): ClassMethodDecorator 
 
     // Add the namespace to the controller, because this will be our entry point to find namespaces
     MetadataManager.setControllerNamespace(controllerConstructor, {
-      name: nsName,
       classRef: namespace,
       method: propKey as string,
     });
   };
 }
 
-export function Namespace(name: string): ClassDecorator {
+export function Namespace(name: NamespaceName): ClassDecorator {
   return (target: Function) => {
     MetadataManager.setNamespaceName(target, name);
     Component()(target);

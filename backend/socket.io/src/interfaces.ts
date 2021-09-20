@@ -27,19 +27,24 @@ export interface IEventSubscribe extends IEventSubscribeMetadata {
   controller: ClassConstructor;
 }
 
+export type ParentNspNameMatchFn = (name: string, auth: {
+  [key: string]: any;
+}, fn: (err: Error | null, success: boolean) => void) => void;
+
+export type NamespaceName = string | RegExp | ParentNspNameMatchFn;
+
 /**
  * A reference to the Namespace and how it's being used on a given controller/method
  * These metadata are stored on the Controller class
  */
 export interface IControllerNamespaceMetadata {
-  name: string;
   classRef: ClassConstructor;
   method?: string;
 };
 
 export interface INamespaceInfo {
   classRef: ClassConstructor;
-  name: string;
+  name: NamespaceName;
   events: IEventSubscribe[];
 }
 
@@ -48,10 +53,6 @@ export interface ISocketIOController {
   events: IEventSubscribe[];
   // namespaces: INamespaceMetadata[];
 }
-
-export type ParentNspNameMatchFn = (name: string, auth: {
-  [key: string]: any;
-}, fn: (err: Error | null, success: boolean) => void) => void;
 
 export interface INamespaceEvents extends IEventSubscribe {
   controller: ClassConstructor;

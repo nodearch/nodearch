@@ -1,5 +1,5 @@
 import { MetadataInfo } from '@nodearch/core';
-import { IEventSubscribeMetadata, INamespaceControllerMetadata, IControllerNamespaceMetadata, IHandlerParamsMetadata } from './interfaces';
+import { IEventSubscribeMetadata, INamespaceControllerMetadata, IControllerNamespaceMetadata, IHandlerParamsMetadata, NamespaceName } from './interfaces';
 
 
 export abstract class MetadataManager {
@@ -44,11 +44,11 @@ export abstract class MetadataManager {
     MetadataInfo.setClassMetadata(MetadataManager.CONTROLLER_NAMESPACES, controller, namespaces);
   }
 
-  static getNamespaceName(namespaceClass: Function): string | undefined {
+  static getNamespaceName(namespaceClass: Function): NamespaceName | undefined {
     return MetadataInfo.getClassMetadata(MetadataManager.NAMESPACE_NAME, namespaceClass);
   }
 
-  static setNamespaceName(namespaceClass: Function, name: string) {
+  static setNamespaceName(namespaceClass: Function, name: NamespaceName) {
     MetadataInfo.setClassMetadata(MetadataManager.NAMESPACE_NAME, namespaceClass, name);
   }
 

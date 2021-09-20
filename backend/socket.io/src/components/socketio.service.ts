@@ -40,7 +40,7 @@ export class SocketIOService {
    */
   getNamespacesMetadata(controllersMetadata: IControllerMetadata[]) {
     // temporary map to get a unique list of namespaces 
-    const namespacesMap: Map<string, INamespaceInfo> = new Map();
+    const namespacesMap: Map<ClassConstructor, INamespaceInfo> = new Map();
 
     controllersMetadata.forEach(ctrl => {
       const namespaces = MetadataManager.getControllerNamespaces(ctrl.controller);
@@ -63,7 +63,7 @@ export class SocketIOService {
 
         if (!namespace) throw new Error(`[Socket.IO] Namespace not found for the event: ${eventMetadata.eventName} in: ${ctrl.controller.name}.${eventMetadata.method}`);
     
-        const existingNamespace = namespacesMap.get(namespace.name);
+        const existingNamespace = namespacesMap.get(namespace.classRef);
         
         if (existingNamespace) {
           existingNamespace.events.push({...eventMetadata, controller: ctrl.controller});
@@ -72,7 +72,7 @@ export class SocketIOService {
           const nsName = MetadataManager.getNamespaceName(namespace.classRef);          
           if (!nsName) throw new Error(`[Socket.IO] Namespace ${namespace.classRef.name} it not a valid class component, make sure you're using @Namespace decorator`);
 
-          namespacesMap.set(namespace.name, { 
+          namespacesMap.set(namespace.classRef, { 
             classRef: namespace.classRef, 
             name: nsName, 
             events: [{...eventMetadata, controller: ctrl.controller}]

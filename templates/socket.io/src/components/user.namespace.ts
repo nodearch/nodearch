@@ -18,9 +18,9 @@ export class UserNamespace implements INamespace {
   }
 }
 
-@Namespace('/')
+@Namespace(/^\/\w+$/)
 export class UserNamespace2 implements INamespace {
   async middleware(socket: Socket) {
-    console.log('from middleware on /');
+    console.log('this is from dynamic namespace', socket.nsp.name);
   }
 }
