@@ -1,6 +1,13 @@
 # Change Log - @nodearch/socket.io
 
-This log was last generated on Sun, 19 Sep 2021 14:13:48 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Sep 2021 14:29:18 GMT and should not be manually modified.
+
+## 0.4.0
+Mon, 20 Sep 2021 14:29:18 GMT
+
+### Minor changes
+
+- support dynamic namespaces
 
 ## 0.3.0
 Sun, 19 Sep 2021 14:13:48 GMT
