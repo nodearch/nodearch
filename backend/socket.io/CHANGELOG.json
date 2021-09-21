@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io",
   "entries": [
     {
+      "version": "0.4.1",
+      "tag": "@nodearch/socket.io_v0.4.1",
+      "date": "Tue, 21 Sep 2021 14:18:24 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix a wrong import for the core ",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "40274b243ebe0f9b6f4e0cab192a7cf00a37e5e4"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.0",
       "tag": "@nodearch/socket.io_v0.4.0",
       "date": "Mon, 20 Sep 2021 14:29:18 GMT",
