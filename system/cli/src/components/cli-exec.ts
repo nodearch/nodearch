@@ -31,6 +31,10 @@ export class CmdRunner {
     return this.run(`${cli} ${args}`);
   }
 
+  async runTsNode(args: string) {
+    return this.run(`node node_modules/ts-node/dist/bin.js ${args}`);
+  }
+
   async runNode(args: string) {
     return this.run(`node ${args}`);
   }

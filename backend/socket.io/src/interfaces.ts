@@ -1,5 +1,5 @@
 import io, { Socket } from 'socket.io';
-import { ClassConstructor } from '../../../system/core/dist';
+import { ClassConstructor } from '@nodearch/core';
 import { HandlerParamType } from './enums';
 
 export interface ISocketIOOptions {

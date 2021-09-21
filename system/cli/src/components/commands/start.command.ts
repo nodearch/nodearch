@@ -2,6 +2,7 @@ import { Logger, ClassConstructor, App, ICLI, CLIBuilder, CLI, INpmDependency, N
 import { AppInfoService } from '../app-info/app-info.service';
 import path from 'path';
 import { NotifierService } from '../notifier.service';
+import { CmdRunner } from '../cli-exec';
 
 
 @CLI()
@@ -16,7 +17,8 @@ export class StartCommand implements ICLI {
   constructor(
     private readonly logger: Logger, 
     private readonly appInfoService: AppInfoService,
-    private readonly notifierService: NotifierService
+    private readonly notifierService: NotifierService,
+    private readonly cmdRunner: CmdRunner
   ) {
 
     this.command = 'start';
@@ -37,6 +39,10 @@ export class StartCommand implements ICLI {
     
     this.npmDependencies = [
       {
+        name: 'ts-node',
+        type: NpmDependencyType.DevDependency
+      },
+      {
         name: 'nodemon',
         type: NpmDependencyType.DevDependency
       }
@@ -54,9 +60,7 @@ export class StartCommand implements ICLI {
 
   private async start(data: any) {
     if (this.appInfoService.appInfo) {
-      const App: ClassConstructor<App> = (await import(this.appInfoService.appInfo.app))?.default;
-      const appInstance = new App();
-      await appInstance.run();
+      this.cmdRunner.runTsNode(path.join(this.appInfoService.appInfo.rootDir, 'start.ts'));
     }
     else {
       this.logger.error('you must build app first before start');
