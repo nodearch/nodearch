@@ -1,7 +1,6 @@
 import { ITestRunner, ITestRunnerSuite } from '@nodearch/core';
 
 import Mocha from 'mocha';
-import { mochaOptions } from './mocha.options';
 const Test = Mocha.Test;
 const Hook = Mocha.Hook;
 
@@ -19,7 +18,7 @@ export class MochaRunner implements ITestRunner {
   
   async run() {
 
-    const mochaInstance = new Mocha(mochaOptions);
+    const mochaInstance = new Mocha({});
     
     this.suites.forEach(suite => {
       const suiteInstance = Mocha.Suite.create(mochaInstance.suite, suite.name);
