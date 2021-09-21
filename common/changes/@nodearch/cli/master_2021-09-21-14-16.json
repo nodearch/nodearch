@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "fix clis start command starting the app multiple times",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli",
+  "email": "bluemax7o1@gmail.com"
+}
