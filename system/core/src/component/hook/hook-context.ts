@@ -1,13 +1,13 @@
-import { ComponentManagement } from '../components';
+import { ComponentManager } from '../component-manager';
 import { ClassConstructor } from '../../utils';
 import { ComponentType } from '../enums';
 import { IHook } from './hook.interface';
-import { ICLI } from '../cli';
+import { ICli } from '../cli';
 import { DependencyException } from '../../errors';
 import inversify from 'inversify';
 
 export class HookContext {
-  constructor(private components: ComponentManagement) {}
+  constructor(private components: ComponentManager) {}
 
   get<T>(classIdentifier: ClassConstructor): T {
     try {
@@ -31,7 +31,7 @@ export class HookContext {
     return this.components.findHooks();
   }
 
-  findCLICommands(): ICLI[] | undefined {
+  findCLICommands(): ICli[] | undefined {
     return this.components.findCLICommands();
   }
 

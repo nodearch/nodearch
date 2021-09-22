@@ -12,7 +12,7 @@ export class CliHandler extends BaseComponentHandler implements IComponentHandle
   register(classDef: ClassConstructor, componentInfo: IComponentInfo) {
     this.bindComponent({
       component: classDef,
-      componentInfo,
+      ...componentInfo,
       type: ComponentType.Cli
     });
   }

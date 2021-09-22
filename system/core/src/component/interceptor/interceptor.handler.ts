@@ -4,7 +4,7 @@ import {IComponentHandler, IComponentInfo} from '../interfaces';
 import {BaseComponentHandler} from "../base-handler";
 import { ComponentType } from '../enums';
 
-export class InterceptorProviderHandler extends BaseComponentHandler implements IComponentHandler {
+export class InterceptorHandler extends BaseComponentHandler implements IComponentHandler {
   constructor(container: Container) {
     super(container);
   }
@@ -20,7 +20,7 @@ export class InterceptorProviderHandler extends BaseComponentHandler implements 
     this.bindExtComponent({
       component: classDef,
       extContainer,
-      type: ComponentType.InterceptorProvider
+      type: ComponentType.Interceptor
     });
   }
 

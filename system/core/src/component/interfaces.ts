@@ -19,7 +19,7 @@ export interface IComponentInfo extends IComponentOptions {
 
 export interface IComponentHandler {
   register(classDef: ClassConstructor, componentInfo: IComponentInfo): void;
-  registerExtension(classDef: ClassConstructor, extContainer: Container): void;
+  registerExtension?(classDef: ClassConstructor, extContainer: Container): void;
 }
 
 export interface IBindComponentOptions extends IComponentInfo {

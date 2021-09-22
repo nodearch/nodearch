@@ -48,7 +48,7 @@ export class App {
         try {
           await extension.run({ mode: RunMode.EXT, logger: this.logger, enableCli });
         }
-        catch (e) {
+        catch (e: any) {
           throw new Error(`While trying to register Extension - ${e.message}`);
         }
       }

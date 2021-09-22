@@ -18,7 +18,7 @@ export class ControllerHandler extends BaseComponentHandler implements IComponen
 
     const binding = this.bindComponent({
       component: classDef,
-      componentInfo,
+      ...componentInfo,
       type: ComponentType.Controller
     });
 

@@ -12,7 +12,7 @@ export class TestHandler extends BaseComponentHandler implements IComponentHandl
   register(classDef: ClassConstructor, componentInfo: IComponentInfo) {
     this.bindComponent({
       component: classDef,
-      componentInfo,
+      ...componentInfo,
       type: ComponentType.Test
     });
   }

@@ -121,7 +121,7 @@ export class ComponentManager {
     try {
       return this.getAll<T>(compType);
     }
-    catch(e) {
+    catch(e: any) {
       if (e.message !== `No matching bindings found for serviceIdentifier: ${compType}`) {
         throw e;
       }
@@ -183,5 +183,9 @@ export class ComponentManager {
       const testManager = new TestManager(testRunner, testComponents, this.container);      
       await testManager.run();
     }
+  }
+
+  getContainer() {
+    return this.container;
   }
 }
