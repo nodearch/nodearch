@@ -45,47 +45,55 @@ export class NpmService {
   }
 
   async resolveDependencies(deps: INpmDependency[]) {
-    // check if node_modules exist 
-    if (this.appInfoService.appInfo) {
-      let nodeModules: string[] = [];
+    try {
+      // check if node_modules exist 
+      if (this.appInfoService.appInfo) {
+        let nodeModules: string[] = [];
 
-      try {
-        nodeModules = await fs.promises.readdir(this.appInfoService.appInfo.nodeModulesDir);
-      }
-      catch(e) { console.log(e) }
-      finally {
-        if (nodeModules.length) {
-          const depsToInstall = deps.filter(dep => {
-            return !nodeModules.includes(dep.name);
-          });
+        try {
+          nodeModules = await fs.promises.readdir(this.appInfoService.appInfo.nodeModulesDir);
+        }
+        catch(e) { console.log(e) }
+        finally {
+          if (nodeModules.length) {
+            const depsToInstall = deps.filter(dep => {
+              return !nodeModules.includes(dep.name);
+            });
 
-          if (depsToInstall.length) {
-            await this.installPackages(depsToInstall, this.appInfoService.cwd);
+            if (depsToInstall.length) {
+              await this.installPackages(depsToInstall, this.appInfoService.cwd);
+            }
+          }
+          else {
+            await this.install(this.appInfoService.cwd);
+            await this.resolveDependencies(deps);
           }
         }
-        else {
-          await this.install(this.appInfoService.cwd);
-          await this.resolveDependencies(deps);
-        }
       }
+    }
+    catch(e) {
+      throw new Error(`Couldn't complete installing the required Npm dependencies, check the logs above for more details!`);
     }
   } 
 
   private runNpmCommand(args: string[], location: string): Promise<void> {
     return new Promise((resolve, reject) => {
 
-      const childProcess = spawn(this.npmCli, args, { stdio: 'ignore', cwd: location });
+      const childProcess = spawn(this.npmCli, args, { stdio: 'inherit', cwd: location });
     
       childProcess.on('error', (error) => {
         reject(error);
       });
   
       childProcess.on('close', (code) => {
+
         if (code === 0) {
           resolve();
         }
+        else {
+          reject(code);
+        }
       });
-
     });
   }
 }

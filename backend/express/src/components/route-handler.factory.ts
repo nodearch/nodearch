@@ -1,7 +1,7 @@
 import { DependencyException, Logger, Service } from '@nodearch/core';
 import express from 'express';
 import { IHttpControllerMethod, IHTTPMethodParamInfo, IMiddlewareMetadataInfo } from '../interfaces';
-import { HTTPParam } from '../enums';
+import { RouteHandlerParam } from '../enums';
 import { HttpErrorsRegistry } from './errors-registry.service';
 import { MiddlewareService } from './middleware.service';
 import { InternalServerError } from '../http-errors';
@@ -51,22 +51,22 @@ export class RouteHandlerFactory {
     let param;
 
     switch (paramInfo.type) {
-      case HTTPParam.REQ:
+      case RouteHandlerParam.REQ:
         param = req;
         break;
-      case HTTPParam.RES:
+      case RouteHandlerParam.RES:
         param = res;
         break;
-      case HTTPParam.BODY:
+      case RouteHandlerParam.BODY:
         param = req.body;
         break;
-      case HTTPParam.HEADERS:
+      case RouteHandlerParam.HEADERS:
         param = paramInfo.key ? req.headers[paramInfo.key] : req.headers;
         break;
-      case HTTPParam.PARAMS:
+      case RouteHandlerParam.PARAMS:
         param = paramInfo.key ? req.params[paramInfo.key] : req.params;
         break;
-      case HTTPParam.QUERY:
+      case RouteHandlerParam.QUERY:
         param = paramInfo.key ? req.query[paramInfo.key] : req.query;
         break;
     }

@@ -1,12 +1,12 @@
-import { Logger, ClassConstructor, App, ICLI, CLIBuilder, CLI, INpmDependency, NpmDependencyType } from '@nodearch/core';
+import { Logger, ClassConstructor, App, ICli, CLIBuilder, Cli, INpmDependency, NpmDependencyType } from '@nodearch/core';
 import { AppInfoService } from '../app-info/app-info.service';
 import path from 'path';
 import { NotifierService } from '../notifier.service';
 import { CmdRunner } from '../cli-exec';
 
 
-@CLI()
-export class StartCommand implements ICLI {
+@Cli()
+export class StartCommand implements ICli {
 
   command: string;
   describe: string;

@@ -56,7 +56,7 @@ export class RoutesService {
     expressApp: express.Application,
     dependencyFactory: (x: any) => any
   ) {
-    // TODO: do not load this unless we need it in the CLI
+    // TODO: do not load this unless we need it in the Cli
     const openApiInfo = this.openAPIService.getOpenApiInfo(controller, methodInfo.name);
 
     // create express route handler for every controller method

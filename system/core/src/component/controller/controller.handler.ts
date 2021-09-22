@@ -18,7 +18,8 @@ export class ControllerHandler extends BaseComponentHandler implements IComponen
 
     const binding = this.bindComponent({
       component: classDef,
-      ...componentInfo
+      componentInfo,
+      type: ComponentType.Controller
     });
 
     const hasInterceptors = InterceptorResolver.hasInterceptors(classDef);
@@ -63,7 +64,6 @@ export class ControllerHandler extends BaseComponentHandler implements IComponen
     }
   }
 
-  // TODO: validate if it's okay to register extensions controllers ( what about their guards? )
   registerExtension(classDef: ClassConstructor, extContainer: Container) {
     this.bindExtComponent({
       component: classDef,

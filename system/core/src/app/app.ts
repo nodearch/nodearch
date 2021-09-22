@@ -1,146 +1,195 @@
 import { ClassLoader } from '../loader';
-import { ComponentManagement, HookContext, ComponentType, IHook, AppStage, ConfigManager } from '../components';
-import { IAppOptions } from './app.interfaces';
-import { ConsoleLogger, ILogger, Logger, LogLevel } from '../logger';
-import { ICLI } from '../components/cli/cli.interfaces';
+import { Container } from 'inversify';
+import { ComponentManager, HookContext, ComponentType, IHook, ConfigManager } from '../component';
+import { IAppInfo, IAppOptions, IRunApp, IRunCli, IRunExt, IRunOptions, IRunTest, RunMode } from './app.interfaces';
+import { ILogger, ILogOptions, Logger } from '../log';
+import { IConfigOptions } from '../component/config/interfaces';
+// import pkg from '../../package.json';
+// const pkg = require('../../package.json');
 
 export class App {
-  protected components: ComponentManagement;
-  protected isRunCalled: boolean;
-  private options: IAppOptions;
+  // TODO check if we need those to be public still
+  componentManager: ComponentManager;
+  appInfo: IAppInfo;
+  
+  private extensions?: App[];
+  private logOptions?: ILogOptions;
+  private configOptions?: IConfigOptions;
   private classLoader: ClassLoader;
   private hookContext: HookContext;
-  private logger: ILogger;
-  private hooks: IHook[];
+  private logger!: ILogger;
 
-  constructor(options?: IAppOptions) {
-    this.options = options || {};
-    this.classLoader = new ClassLoader(this.options.classLoader);
-    this.components = new ComponentManagement({ defaultScope: this.options.defaultScope });
-    this.hookContext = new HookContext(this.components);
-    this.logger = this.initLogger();
-    this.initConfigManager();
-    this.hooks = [];
-    this.isRunCalled = false;
+
+  constructor(options: IAppOptions) {
+    this.classLoader = new ClassLoader(options.classLoader);
+    this.componentManager = new ComponentManager({ defaultScope: options.defaultScope });
+    this.hookContext = new HookContext(this.componentManager);
+    this.appInfo = options.appInfo;
+    this.extensions = options.extensions;
+    this.logOptions = options.log;
+    this.configOptions = options.config;
   }
 
-  private initLogger() {
-    const { logger, logLevel, ...loggingOptions } = this.options.logging || {};
-
-    const loggerInstance = new Logger(logger ?
-        new logger(loggingOptions) :
-        new ConsoleLogger(loggingOptions),
-        logLevel
-    );
-
-    this.components.registerCoreComponent(Logger, loggerInstance);
-
-    return loggerInstance;
-  }
-
-  private initConfigManager() {
-    const configManager = new ConfigManager(this.options.externalConfig);
-    this.components.registerCoreComponent(ConfigManager, configManager);
-    return configManager;
-  }
-
-  protected async load() {
-    this.logger.debug('NodeArch - Node.js backend framework');
-    this.logger.debug('Documentation: nodearch.io');
-    this.logger.debug('Starting APP Instance...');
-
-    if (this.options.extensions?.length) {
-      this.logger.debug(`Found ${this.options.extensions?.length} Extensions!`);
-      this.logger.debug('Initializing Extensions Started!');
-      await this.initExtensions();
-      this.logger.debug('Extensions Initialized!');
+  private loadCoreComponents() {
+    if (!this.logger) {
+      this.logger = new Logger(this.logOptions);
     }
 
-    this.logger.debug('Starting to Load Components...');
-    await this.classLoader.load();
-
-    const loadedCount = this.components.load(this.classLoader.classes);
-    this.logger.debug(`${loadedCount} Components Loaded!`);
-
-    try {
-      this.hooks = this.components.getAll<IHook>(ComponentType.Hook);
-      this.logger.debug(`${this.hooks?.length || 0} Hooks registered!`);
-    }
-    catch(e: any) {
-      if (e.message === 'No matching bindings found for serviceIdentifier: hook') {
-        this.logger.debug('No Hooks registered!');
-      }
-      else {
-        throw e;
-      }
-    }
+    this.componentManager.registerCoreComponent(Logger, this.logger);
+    this.componentManager.registerCoreComponent(ConfigManager, new ConfigManager(this.configOptions));
   }
 
-  protected async init() {
-    if (this.hooks) {
-      await Promise.all(this.hooks.filter(x => x.onInit).map(x => (<any>x.onInit)(this.hookContext)));
-    }
+  private async loadExtensions (enableCli: boolean) {
+    if (this.extensions) {
+      this.logger.debug(`Found ${this.extensions.length} Extensions!`);
 
-    this.logger.debug('APP Instance Initialized successfully!');
-  }
-
-  protected async start() {
-    if (this.hooks) {
-      await Promise.all(this.hooks.filter(x => x.onStart).map(x => (<any>x.onStart)(this.hookContext)));
-    }
-
-    this.logger.debug('APP Instance Started successfully!');
-  }
-
-  private async initExtensions() {
-    await Promise.all(
-      this.options.extensions?.map(async extension => {
+      // TODO: consider making this Promise.all
+      for (const extension of this.extensions) {
         try {
-          const extApp = extension.app;
-
-          // override extension logger with parent's 
-          extApp.setLogger(this.logger);
-
-          await extApp.initExtensions();
-          await extApp.classLoader.load();
-          extApp.components.load(extApp.classLoader.classes);
-          this.components.registerExtension(extApp.components, extension.include);
+          await extension.run({ mode: RunMode.EXT, logger: this.logger, enableCli });
         }
-        catch (e: any) {
+        catch (e) {
           throw new Error(`While trying to register Extension - ${e.message}`);
         }
+      }
+    }
+  } 
 
-      }) || []
-    );
+  private async loadComponents(include: ComponentType[]) {
+    this.logger.info(`Load App: ${this.appInfo.name} version: ${this.appInfo.version}`);
+
+    await this.classLoader.load();
+    const { registered, hooks, exported } = this.componentManager.load(this.classLoader.classes, include);
+    this.logger.debug(`${registered} Components Loaded`);
+    this.logger.debug(`${hooks} Hooks registered`);
+    this.logger.debug(`${exported} Component exported`);
   }
 
-  async run(stage: AppStage = AppStage.Start) {
-    if (this.isRunCalled) {
-      throw new Error('app.run is already called, you can\'t call it twice!');
+  private registerExtensions() {
+    if (this.extensions) {
+      this.componentManager.registerExternalComponents(this.extensions.map(ext => ext.componentManager));
     }
-    else {
-      this.isRunCalled = true;
+  }
+
+  private async init() {
+    const hooks: any[] = this.componentManager.findHooks() || [];
+      
+    for (const hook of hooks) {
+      if (hook.onInit) {
+        await hook.onInit(this.hookContext);
+      }
+    }
+  }
+
+  private async start() {
+    const hooks: any[] = this.componentManager.findHooks() || [];
+
+    for (const hook of hooks) {
+      if (hook.onStart) {
+        await hook.onStart(this.hookContext);
+      }
+    }
+  }
+
+  private async runExt(runOptions: IRunExt) {
+    this.logger = runOptions.logger;
+    
+    const enabledComponents = [
+      ComponentType.Component,
+      ComponentType.Config,
+      ComponentType.Controller,
+      ComponentType.Hook,
+      ComponentType.Interceptor,
+      ComponentType.Repository,
+      ComponentType.Service
+    ];
+
+    if (runOptions.enableCli) {
+      enabledComponents.push(ComponentType.Cli);
     }
 
-    switch (stage) {
-      case AppStage.Load:
-        await this.load();
+    this.loadCoreComponents();
+    await this.loadExtensions(runOptions.enableCli);
+    await this.loadComponents(enabledComponents);
+    this.registerExtensions();
+  }
+  
+  private async runApp(runOptions: IRunApp) {
+    this.loadCoreComponents();
+    await this.loadExtensions(false);
+    await this.loadComponents([
+      ComponentType.Cli,
+      ComponentType.Component,
+      ComponentType.Config,
+      ComponentType.Controller,
+      ComponentType.Hook,
+      ComponentType.Interceptor,
+      ComponentType.Repository,
+      ComponentType.Service
+    ]);
+    this.registerExtensions();
+
+    await this.init();
+    await this.start();
+  }
+  
+  private async runCli(runOptions: IRunCli) {
+    this.logOptions === runOptions.logOptions || this.logOptions;
+
+    this.loadCoreComponents();
+    await this.loadExtensions(true);
+    await this.loadComponents([
+      ComponentType.Cli,
+      ComponentType.Component,
+      ComponentType.Config,
+      ComponentType.Controller,
+      ComponentType.Hook,
+      ComponentType.Interceptor,
+      ComponentType.Repository,
+      ComponentType.Service
+    ]);
+    this.registerExtensions();
+  }
+  
+  private async runTest(runOptions: IRunTest) {
+    this.loadCoreComponents();
+    await this.loadExtensions(false);
+    await this.loadComponents([
+      ComponentType.Cli,
+      ComponentType.Component,
+      ComponentType.Config,
+      ComponentType.Controller,
+      ComponentType.Hook,
+      ComponentType.Interceptor,
+      ComponentType.Repository,
+      ComponentType.Service,
+      ComponentType.Test
+    ]);
+    this.registerExtensions();
+    
+    await this.componentManager.runTests(runOptions.testRunner);
+  }
+
+  async run(runOptions: IRunOptions = { mode: RunMode.APP }) {
+    switch(runOptions.mode) {
+      case RunMode.APP:
+        await this.runApp(runOptions);
         break;
-      case AppStage.Init:
-        await this.load();
-        await this.init();
+      case RunMode.EXT:
+        await this.runExt(runOptions);
         break;
-      case AppStage.Start:
-        await this.load();
-        await this.init();
-        await this.start();
+      case RunMode.CLI:
+        await this.runCli(runOptions);
+        break;
+      case RunMode.TEST:
+        await this.runTest(runOptions);
         break;
     }
   }
 
   async stop() {
     try {
-      const hooks = this.components.getAll<IHook>(ComponentType.Hook);
+      const hooks = this.componentManager.getAll<IHook>(ComponentType.Hook);
 
       if (hooks) {
         await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)(this.hookContext)));
@@ -153,29 +202,8 @@ export class App {
     }
   }
 
-  getCLICommands() {
-    try {
-      return this.components.getAll<ICLI>(ComponentType.CLI);
-    }
-    catch(e: any) {
-      if (e.message !== 'No matching bindings found for serviceIdentifier: cli') {
-        throw e;
-      }
-      else {
-        return [];
-      }
-    }
-  }
-
-  setLogLevel(logLevel: LogLevel) {
-    this.logger.setLogLevel(logLevel);
-  }
-
-  /**
-   * Allows to change the core logger after App initialization 
-   * @param logger logger instance that comply with the core interface ILogger
-   */
-  setLogger(logger: ILogger) {
-    this.components.overrideCoreComponent(Logger, logger);
-  }
+  // TODO: check if we still need this
+  // setLogLevel(logLevel: LogLevel) {
+  //   this.logger.setLogLevel(logLevel);
+  // }
 }

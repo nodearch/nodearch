@@ -7,9 +7,8 @@ import {IComponentInfo, IComponentOptions} from "../interfaces";
 export function Component(options?: IComponentOptions): ClassDecorator {
   return function (target: any) {
     ComponentMetadata.setInfo<IComponentInfo>(target, {
-      scope: options?.scope,
-      type: ComponentType.Component,
-      namespace: options?.namespace
+      ...options,
+      type: ComponentType.Component
     });
     injectable()(target);
   }

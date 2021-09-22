@@ -8,7 +8,7 @@ export enum HttpMethod {
   OPTIONS = 'options',
 }
 
-export enum HTTPParam {
+export enum RouteHandlerParam {
   BODY = 'body',
   QUERY = 'query',
   HEADERS = 'headers',

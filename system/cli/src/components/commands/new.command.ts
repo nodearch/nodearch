@@ -1,13 +1,13 @@
 
-import { Logger, CLI, ICLI, CLIBuilder, CLIQuestion, CLIQuestionType } from '@nodearch/core';
+import { Logger, Cli, ICli, CLIBuilder, CLIQuestion, CLIQuestionType } from '@nodearch/core';
 import path from 'path';
 import { NpmService } from '../npm';
 import ora from 'ora';
 import { GitHubDownloader } from '../github-downloader';
 
 
-@CLI()
-export class NewCommand implements ICLI {
+@Cli()
+export class NewCommand implements ICli {
   private readonly currentDirectory: string;
 
   command: string;

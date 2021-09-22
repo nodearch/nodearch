@@ -1,11 +1,16 @@
 import { App, LogLevel } from '@nodearch/core';
 import path from 'path';
+const pkg = require('../package.json');
 
-export class CLI extends App {
+export class Cli extends App {
   constructor() {
     super({
+      appInfo: {
+        name: pkg.name,
+        version: pkg.version
+      },
       classLoader: { classpath: path.join(__dirname, 'components') },
-      logging: { logLevel: LogLevel.Info }
+      log: { logLevel: LogLevel.Info }
     });
   }
 }

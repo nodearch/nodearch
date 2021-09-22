@@ -1,7 +1,9 @@
 import { Hook, IHook, HookContext, ComponentType, Logger, ClassConstructor } from '@nodearch/core';
 import { ExpressService } from './express.service';
 
-@Hook()
+@Hook({
+  export: true
+})
 export class ExpressHook implements IHook {
 
   private readonly expressService: ExpressService;

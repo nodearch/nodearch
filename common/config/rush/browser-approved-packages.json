@@ -43,6 +43,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@types/mocha",
+      "allowedCategories": [ "production", "tools" ]
+    },
+    {
       "name": "@types/multer",
       "allowedCategories": [ "production" ]
     },
@@ -111,6 +115,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "mocha",
+      "allowedCategories": [ "production", "tools" ]
+    },
+    {
       "name": "multer",
       "allowedCategories": [ "production" ]
     },
@@ -120,6 +128,10 @@
     },
     {
       "name": "nodemon",
+      "allowedCategories": [ "production", "tools" ]
+    },
+    {
+      "name": "nyc",
       "allowedCategories": [ "production", "tools" ]
     },
     {

@@ -1,24 +1,53 @@
 import { IClassLoaderOptions } from '../loader';
-import { ComponentScope, IComponentsOptions } from '../components';
+import { ComponentScope, ITestRunner } from '../component';
 import {App} from "./app";
-import {ClassConstructor} from "../utils";
-import { ILoggingOptions } from '../logger';
+import { ILogger, ILogOptions } from '../log';
+import { IConfigOptions } from '../component/config/interfaces';
 
 
 export interface IAppConstructor {
   new(...args: any): App;
 }
 
-export interface IExtensionOptions {
-  app: App;
-  include: ClassConstructor[];
-  config?: ClassConstructor;
+export interface IAppInfo {
+  name: string;
+  version: string;
 }
 
 export interface IAppOptions {
-  classLoader?: IClassLoaderOptions;
-  extensions?: IExtensionOptions[];
+  appInfo: IAppInfo;
+  classLoader: IClassLoaderOptions;
+  extensions?: App[];
   defaultScope?: ComponentScope;
-  externalConfig?: any;
-  logging?: ILoggingOptions;
+  log?: ILogOptions;
+  config?: IConfigOptions;
 }
+
+export enum RunMode {
+  CLI,
+  APP,
+  EXT,
+  TEST
+}
+
+export interface IRunApp {
+  mode: RunMode.APP;
+}
+
+export interface IRunCli {
+  mode: RunMode.CLI;
+  logOptions?: ILogOptions;
+}
+
+export interface IRunExt {
+  mode: RunMode.EXT;
+  logger: ILogger;
+  enableCli: boolean;
+}
+
+export interface IRunTest {
+  mode: RunMode.TEST;
+  testRunner: ITestRunner;
+}
+
+export type IRunOptions = IRunApp | IRunCli | IRunExt | IRunTest;

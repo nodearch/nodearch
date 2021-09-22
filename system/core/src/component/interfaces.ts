@@ -10,12 +10,11 @@ export interface IComponentsOptions {
 export interface IComponentOptions {
   scope?: ComponentScope;
   namespace?: string | symbol;
+  export?: boolean;
 }
 
-export interface IComponentInfo {
-  scope?: ComponentScope;
+export interface IComponentInfo extends IComponentOptions {
   type: ComponentType;
-  namespace?: string | symbol;
 }
 
 export interface IComponentHandler {
@@ -35,4 +34,9 @@ export interface IProxyMethodOptions {
   target: any;
   before?(methodName: string, args: any[], paramTypes: string[]): Promise<boolean>;
   after?(methodName: string, args: any[], paramTypes: string[]): Promise<boolean>;
+}
+
+export interface IExportedComponent {
+    classDef: ClassConstructor;
+    info: IComponentInfo;
 }

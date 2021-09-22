@@ -17,6 +17,8 @@ export type CLIQuestionsDefault = string | number | boolean | Array<any> |
 export type CLIQuestionsChoices = string | number | { name?: string, value?: any, short?: string; extra?: any; };
 export type CLIBuilder = {<T = any>(yargs: T): T} | Record<string, { alias?: string | string[]; describe?: string, default?: any, [key: string]: any } >;
 
+// TODO: cli -> command, aliases, questions, options, handler
+
 export interface CLIQuestion<T = any> extends Record<string, any> {
   /**
    * (String) Type of the prompt.
@@ -118,7 +120,7 @@ export interface CLIQuestion<T = any> extends Record<string, any> {
   loop?: boolean;
 };
 
-export interface ICLI<T = any> {
+export interface ICli<T = any> {
   /** 
    * string (or array of strings) that executes this command 
    * when given on the command line, 
@@ -162,8 +164,8 @@ export interface ICLI<T = any> {
   questions?: CLIQuestion[];
 
   /**
-   * NPM dependencies required by the CLI command
-   * the CLI will make sure that all dependencies listed 
+   * NPM dependencies required by the Cli command
+   * the Cli will make sure that all dependencies listed 
    * are installed, and if not, it will install them automatically 
    */
   npmDependencies?: INpmDependency[];
@@ -177,5 +179,6 @@ export enum NpmDependencyType {
 export interface INpmDependency {
   name: string;
   version?: string;
-  type?: NpmDependencyType
+  type?: NpmDependencyType,
+  when?: (data: any) => boolean;
 }

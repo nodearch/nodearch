@@ -5,18 +5,13 @@ export enum ComponentType {
   Config = 'config',
   Hook = 'hook',
   Repository = 'repository',
-  InterceptorProvider = 'interceptor-provider',
-  CLI = 'cli'
+  Interceptor = 'interceptor',
+  Cli = 'cli',
+  Test = 'test'
 }
 
 export enum ComponentScope {
   Request = 'Request',
   Singleton = 'Singleton',
   Transient = 'Transient'
-}
-
-export enum AppStage {
-  Load,
-  Init,
-  Start,
 }

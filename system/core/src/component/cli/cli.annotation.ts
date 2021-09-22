@@ -3,12 +3,11 @@ import { ComponentType } from '../enums';
 import { injectable } from 'inversify';
 import { IComponentInfo, IComponentOptions } from "../interfaces";
 
-export function CLI(options?: IComponentOptions): ClassDecorator {
+export function Cli(options?: IComponentOptions): ClassDecorator {  
   return function (target: any) {
     ComponentMetadata.setInfo<IComponentInfo>(target, {
-      scope: options?.scope,
-      type: ComponentType.CLI,
-      namespace: options?.namespace
+      ...options,
+      type: ComponentType.Cli
     });
     injectable()(target);
   }

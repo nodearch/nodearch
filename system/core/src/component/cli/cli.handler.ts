@@ -4,7 +4,7 @@ import { IComponentHandler, IComponentInfo } from '../interfaces';
 import { BaseComponentHandler } from "../base-handler";
 import { ComponentType } from '../enums';
 
-export class CLIHandler extends BaseComponentHandler implements IComponentHandler {
+export class CliHandler extends BaseComponentHandler implements IComponentHandler {
   constructor(container: Container) {
     super(container);
   }
@@ -12,7 +12,8 @@ export class CLIHandler extends BaseComponentHandler implements IComponentHandle
   register(classDef: ClassConstructor, componentInfo: IComponentInfo) {
     this.bindComponent({
       component: classDef,
-      ...componentInfo
+      componentInfo,
+      type: ComponentType.Cli
     });
   }
 
@@ -20,7 +21,7 @@ export class CLIHandler extends BaseComponentHandler implements IComponentHandle
     this.bindExtComponent({
       component: classDef,
       extContainer,
-      type: ComponentType.CLI
+      type: ComponentType.Cli
     });
   }
 }

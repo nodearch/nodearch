@@ -4,6 +4,7 @@ import {
   IFileUploadMetadataInfo, IOpenAPIMetadataInfo, IHTTPMethodParamsMetadata 
 } from './interfaces';
 
+// TODO check of can abstract this in the core
 
 export abstract class ControllerMetadata {
   static readonly PREFIX = 'express/controller';
