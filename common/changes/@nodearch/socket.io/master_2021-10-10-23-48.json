@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/socket.io",
+      "comment": "add support for adapters",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@nodearch/socket.io",
+  "email": "bluemax7o1@gmail.com"
+}

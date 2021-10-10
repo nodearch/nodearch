@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/socket.io-redis",
+      "comment": "add redis adapter",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@nodearch/socket.io-redis",
+  "email": "bluemax7o1@gmail.com"
+}
