@@ -5,6 +5,7 @@ import { HandlerParamType } from './enums';
 export interface ISocketIOOptions {
   ioServer: io.Server;
   sharedServer: boolean;
+  adapters?: (Adapter | NativeAdapter)[];
 }
 
 export interface IControllerMetadata {
@@ -73,3 +74,9 @@ export interface INamespace {
 // export interface IEventOptions {
 //   acknowledge: boolean;
 // }
+
+export type Adapter = {
+  getAdapter(getComponent:<T = any>(identifier: any)=> T): NativeAdapter;
+};
+
+export type NativeAdapter = (nsp: any) => any;

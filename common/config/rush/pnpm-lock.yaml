@@ -5,9 +5,11 @@ dependencies:
   '@rush-temp/express': 'file:projects/express.tgz_ts-node@9.1.1'
   '@rush-temp/keycloak': 'file:projects/keycloak.tgz_ts-node@9.1.1'
   '@rush-temp/socket.io': 'file:projects/socket.io.tgz'
+  '@rush-temp/socket.io-redis': 'file:projects/socket.io-redis.tgz'
   '@rush-temp/template-express': 'file:projects/template-express.tgz'
   '@rush-temp/template-socket.io': 'file:projects/template-socket.io.tgz'
   '@rush-temp/vault': 'file:projects/vault.tgz_ts-node@9.1.1'
+  '@socket.io/redis-adapter': 7.0.0
   '@types/decompress': 4.2.3
   '@types/express': 4.17.9
   '@types/hapi__joi': 17.1.6
@@ -607,6 +609,17 @@ packages:
     dev: false
     resolution:
       integrity: sha512-MZPUxrmFubI36XS1DI3qmI0YdN1gks62JtFZvxR67ljjSNCeK6U08Zx4msEWOXuofgqUt6zPHSi1H9fbjR/NRA==
+  /@socket.io/redis-adapter/7.0.0:
+    dependencies:
+      debug: 4.3.1
+      notepack.io: 2.2.0
+      socket.io-adapter: 2.3.2
+      uid2: 0.0.3
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    resolution:
+      integrity: sha512-ioqzSUH2XvrBKm70bphTeLwBSPUU0n+w/Qkz11ryKBn6IIT4GJxyVOpodVBGnmDpxhT31EImQTZRT1ZueSTiTQ==
   /@szmarczak/http-timer/1.1.2:
     dependencies:
       defer-to-connect: 1.1.3
@@ -4187,6 +4200,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-2s47yzUxdexf1OhyRi4Em83iQk0aPvwTddtFz4hnSSw9dCEsLEGf6SwIO8ss/19S9iBb5sJaOuTvTGDeZI00BQ==
+  /notepack.io/2.2.0:
+    dev: false
+    resolution:
+      integrity: sha512-9b5w3t5VSH6ZPosoYnyDONnUTF8o0UkBw7JLA6eBlYJWyGT1Q3vQa8Hmuj1/X6RYvHjjygBDgw6fJhe0JEojfw==
   /npm-run-path/2.0.2:
     dependencies:
       path-key: 2.0.1
@@ -5645,6 +5662,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-B3ZIOf1IKeH2ixgHhj6la6xdwR9QrLC5d1VKeCSY4tvkqhF2eqd9O7txNlS0PO3GrBAFIdr3L1ndNwteUbZLYg==
+  /uid2/0.0.3:
+    dev: false
+    resolution:
+      integrity: sha1-SDEm4Rd03y9xuLY53NeZw3YWK4I=
   /unbzip2-stream/1.4.3:
     dependencies:
       buffer: 5.7.1
@@ -6068,7 +6089,7 @@ packages:
     dev: false
     name: '@rush-temp/cli'
     resolution:
-      integrity: sha512-0lpsy+9OGNaAP3zG6DPz469XHntM0uPSNeCWQ9qN8rpoPLXYSB5mTLzNkiQKCjD8vkATcsnHw4MC3HP7FOvsxA==
+      integrity: sha512-g/kG9U4AH2NELjT3NXA3mqEXwFDlOZOB1X5Kc9TAGEq9YRwuDdc/vDxCaFIviVHDJBhvCnRdQMuqZzO7Zq7IBQ==
       tarball: 'file:projects/cli.tgz'
     version: 0.0.0
   'file:projects/core.tgz':
@@ -6110,7 +6131,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-CVqIbkJ2JNoTYZbmWCzKmDNhGah6i5c/i+XTC87cpYLd9lnX1O8mMMjeWAIHNe34zzx3MpHyxDlB4XEePx9OJQ==
+      integrity: sha512-vrcoB+LHB/Gwri+Ke9Nn3sgeVzoSEG6Q7tYQEdYGNiOeISz7K2jI648TUozx9b6e7qSts9ZsK/5GFv56eDBGTQ==
       tarball: 'file:projects/express.tgz'
     version: 0.0.0
   'file:projects/keycloak.tgz_ts-node@9.1.1':
@@ -6135,8 +6156,21 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-BUP0dk+UjorgeEpkVrocUZ8+ERW+lV0Wd65bqsbJlaTR17DgVCjC5X3ZUt/fh2WoxzkdY9U30uANgC9ybI/HDA==
+      integrity: sha512-qSmBXxTIqiCgzQlVC0sLgijSZ44oo7LFXAEfnBH8TbFiKAUjiY6DECKI2fEvIEAIdfG/zjFks8o4XMLA1BuSXg==
       tarball: 'file:projects/keycloak.tgz'
+    version: 0.0.0
+  'file:projects/socket.io-redis.tgz':
+    dependencies:
+      '@socket.io/redis-adapter': 7.0.0
+      '@types/node': 14.14.14
+      reflect-metadata: 0.1.13
+      rimraf: 3.0.2
+      typescript: 4.1.3
+    dev: false
+    name: '@rush-temp/socket.io-redis'
+    resolution:
+      integrity: sha512-VNNuvHjX4Y9X0r6ac9z+s7IUL9JF/8e+BsGHq3Y9OHz6U1fLDPH7kMLVlceFHjfjpJQMy4KlgTTRsEvnQ+o39Q==
+      tarball: 'file:projects/socket.io-redis.tgz'
     version: 0.0.0
   'file:projects/socket.io.tgz':
     dependencies:
@@ -6149,7 +6183,7 @@ packages:
     dev: false
     name: '@rush-temp/socket.io'
     resolution:
-      integrity: sha512-LClg/2LBM8p3Blc/1U5hH8UTVwxKugRTawCGHXqWzzytakwqI8e/bmj9X1YkP2d+v4X3R7/7jAJccGWFvhPIjQ==
+      integrity: sha512-BJLTaZKMlVuIrKsZIWa6PfLQOZPWMzg+269QnqBMztQbfxMml+zSKVgttcMwU4TsOecgVOzPAeOoejgIlvyzPg==
       tarball: 'file:projects/socket.io.tgz'
     version: 0.0.0
   'file:projects/template-express.tgz':
@@ -6171,7 +6205,7 @@ packages:
     dev: false
     name: '@rush-temp/template-express'
     resolution:
-      integrity: sha512-o5zIVuMLANhb52HHLTbu5Du3LIs+8b3a26lN8l/GYnB6ax9RUxgjnWcj1zf00CnFWwvYC5IQn7JNr743U/wphg==
+      integrity: sha512-6d1UWc8/yra7j6Agd7cp6LDSi+Pk11AcoGnzgpP2goo8IW5n8SmApjyFFl45FIlXp+fR0PtEcdBeekZzRwSd5Q==
       tarball: 'file:projects/template-express.tgz'
     version: 0.0.0
   'file:projects/template-socket.io.tgz':
@@ -6192,7 +6226,7 @@ packages:
     dev: false
     name: '@rush-temp/template-socket.io'
     resolution:
-      integrity: sha512-QNrBO3DHQoWGhQ/1nWfwuUJxImMq5L1yE1KOOcP9+BT1lPu8dQQ9ifG17IqhCsGbtxq6V2HvtrR36D3OjagMxQ==
+      integrity: sha512-ZkPcBzAYFD+gI7qLiLy/v81RH2aTlI1udBeE/bOae3iPtUGzaR4YJfcQCHbmh8HOAdSyYamM38TxreFyyRBU7w==
       tarball: 'file:projects/template-socket.io.tgz'
     version: 0.0.0
   'file:projects/vault.tgz_ts-node@9.1.1':
@@ -6212,7 +6246,7 @@ packages:
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-wJFRxE5j2AYWr/Nq0i3mrMgYFfGzSAMNmw/Lax3agngdzuK157ldAAFeUKVkF3JX4GylvCfefv8ZwiYk26To3w==
+      integrity: sha512-1BPNm5tFs86r2hf/iw8lb1BlAITmKlfhq9iv3OA8MueRaKAvMbjzVAObGNZtJzq1J8FBecdY6uckMEv2CoLIwg==
       tarball: 'file:projects/vault.tgz'
     version: 0.0.0
 registry: ''
@@ -6223,9 +6257,11 @@ specifiers:
   '@rush-temp/express': 'file:./projects/express.tgz'
   '@rush-temp/keycloak': 'file:./projects/keycloak.tgz'
   '@rush-temp/socket.io': 'file:./projects/socket.io.tgz'
+  '@rush-temp/socket.io-redis': 'file:./projects/socket.io-redis.tgz'
   '@rush-temp/template-express': 'file:./projects/template-express.tgz'
   '@rush-temp/template-socket.io': 'file:./projects/template-socket.io.tgz'
   '@rush-temp/vault': 'file:./projects/vault.tgz'
+  '@socket.io/redis-adapter': ~7.0.0
   '@types/decompress': ^4.2.3
   '@types/express': ^4.17.9
   '@types/hapi__joi': ^17.1.4

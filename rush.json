@@ -173,7 +173,7 @@
    * and set projectFolderMaxDepth to a large number.
    */
   // "projectFolderMinDepth": 2,
-  // "projectFolderMaxDepth": 2,
+  "projectFolderMaxDepth": 3,
 
   /**
    * Today the npmjs.com registry enforces fairly strict naming rules for packages, but in the early
@@ -450,7 +450,13 @@
     },
     {
       "packageName": "@nodearch/socket.io",
-      "projectFolder": "backend/socket.io",
+      "projectFolder": "backend/socket.io/socket.io",
+      "reviewCategory": "production",
+      "versionPolicyName": "nodearchPackages"
+    },
+    {
+      "packageName": "@nodearch/socket.io-redis",
+      "projectFolder": "backend/socket.io/redis-adapter",
       "reviewCategory": "production",
       "versionPolicyName": "nodearchPackages"
     },

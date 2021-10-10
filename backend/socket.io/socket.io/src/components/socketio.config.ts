@@ -1,11 +1,13 @@
 import { Config, ConfigManager } from '@nodearch/core';
 import io from 'socket.io';
+import { NativeAdapter, Adapter } from '../interfaces';
 
 
 @Config()
 export class SocketIOConfig {
   ioServer: io.Server;
   sharedServer: boolean;
+  adapters: (Adapter | NativeAdapter)[];
 
   constructor(config: ConfigManager) {
     
@@ -15,6 +17,11 @@ export class SocketIOConfig {
 
     this.sharedServer = config.env({
       external: 'sharedServer'
+    });
+
+    this.adapters = config.env({
+      defaults: { all: [] },
+      external: 'adapters'
     });
     
   }

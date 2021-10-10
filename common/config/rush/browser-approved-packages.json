@@ -16,7 +16,11 @@
     },
     {
       "name": "@nodearch/socket.io",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "production", "tools" ]
+    },
+    {
+      "name": "@socket.io/redis-adapter",
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "@types/decompress",
