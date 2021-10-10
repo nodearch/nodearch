@@ -1,6 +1,13 @@
 # Change Log - @nodearch/socket.io
 
-This log was last generated on Tue, 21 Sep 2021 14:18:24 GMT and should not be manually modified.
+This log was last generated on Sun, 10 Oct 2021 23:59:19 GMT and should not be manually modified.
+
+## 0.5.0
+Sun, 10 Oct 2021 23:59:19 GMT
+
+### Minor changes
+
+- add support for adapters
 
 ## 0.4.1
 Tue, 21 Sep 2021 14:18:24 GMT
