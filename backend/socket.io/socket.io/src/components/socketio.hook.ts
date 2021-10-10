@@ -81,7 +81,7 @@ export class SocketIOHook implements IHook {
     }
 
     this.socketIOConfig.adapters.forEach(adapter => {
-      if ((<Adapter>adapter).getAdapter) {
+      if ((<any>adapter).getAdapter) {
         const adapterInstance = (<Adapter>adapter).getAdapter(getComponent);
         this.ioServer.adapter(adapterInstance);
       }
