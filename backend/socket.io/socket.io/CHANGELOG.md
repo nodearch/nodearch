@@ -1,6 +1,13 @@
 # Change Log - @nodearch/socket.io
 
-This log was last generated on Mon, 20 Sep 2021 14:29:18 GMT and should not be manually modified.
+This log was last generated on Tue, 21 Sep 2021 14:18:24 GMT and should not be manually modified.
+
+## 0.4.1
+Tue, 21 Sep 2021 14:18:24 GMT
+
+### Patches
+
+- fix a wrong import for the core 
 
 ## 0.4.0
 Mon, 20 Sep 2021 14:29:18 GMT

@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "1.2.3",
+      "tag": "@nodearch/cli_v1.2.3",
+      "date": "Tue, 21 Sep 2021 14:18:24 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix clis start command starting the app multiple times",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "40274b243ebe0f9b6f4e0cab192a7cf00a37e5e4"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.2.2",
       "tag": "@nodearch/cli_v1.2.2",
       "date": "Sun, 18 Apr 2021 15:09:16 GMT",

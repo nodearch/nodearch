@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Sun, 18 Apr 2021 15:09:16 GMT and should not be manually modified.
+This log was last generated on Tue, 21 Sep 2021 14:18:24 GMT and should not be manually modified.
+
+## 1.2.3
+Tue, 21 Sep 2021 14:18:24 GMT
+
+### Patches
+
+- fix clis start command starting the app multiple times
 
 ## 1.2.2
 Sun, 18 Apr 2021 15:09:16 GMT
