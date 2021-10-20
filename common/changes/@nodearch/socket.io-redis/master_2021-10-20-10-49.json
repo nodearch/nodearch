@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/socket.io-redis",
+      "comment": "fix redis adapter interface missmatch issue",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/socket.io-redis",
+  "email": "bluemax7o1@gmail.com"
+}
