@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io-redis",
   "entries": [
     {
+      "version": "0.2.1",
+      "tag": "@nodearch/socket.io-redis_v0.2.1",
+      "date": "Wed, 20 Oct 2021 10:52:01 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix redis adapter interface missmatch issue",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "95ccc2c67d471fecf8cf19995868cf5b136f2ecc"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.2.0",
       "tag": "@nodearch/socket.io-redis_v0.2.0",
       "date": "Sun, 10 Oct 2021 23:59:19 GMT",
