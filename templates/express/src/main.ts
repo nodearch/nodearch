@@ -3,7 +3,7 @@ import { ExpressServer, ExpressHook, OpenAPICli } from '@nodearch/express';
 import path from 'path';
 import express from 'express';
 import http from 'http';
-
+const pkg = require('../package.json');
 
 
 export default class MyApp extends App {
@@ -16,20 +16,21 @@ export default class MyApp extends App {
     const server = http.createServer(app);
 
     super({
+      appInfo: {
+        name: pkg.name,
+        version: pkg.version
+      },
       classLoader: {
         classpath: path.join(__dirname, 'components')
       },
-      logging: {
+      log: {
         logLevel: LogLevel.Debug
       },
       extensions: [
-        { 
-          app: new ExpressServer({ 
-            expressApp: app,
-            server
-          }), 
-          include: [ExpressHook, OpenAPICli] 
-        }
+        new ExpressServer({ 
+          expressApp: app,
+          server
+        })
       ]
     });
   }

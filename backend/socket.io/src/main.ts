@@ -6,10 +6,16 @@ import { ISocketIOOptions } from './interfaces';
 export class SocketIO extends App {
   constructor(options: ISocketIOOptions) {
     super({
+      appInfo: {
+        name: 'socket.io',
+        version: '1.0.0'
+      },
       classLoader: {
         classpath: path.join(__dirname, 'components')
       },
-      externalConfig: options
+      config: {
+        externalConfig: options
+      }
     });
   }
 }

@@ -3,7 +3,7 @@ import { SocketIOHook, IO, SocketIO } from '@nodearch/socket.io';
 import path from 'path';
 import http from 'http';
 import io from 'socket.io';
-
+const pkg = require('../package.json');
 
 
 export default class MyApp extends App {
@@ -20,20 +20,21 @@ export default class MyApp extends App {
     });
 
     super({
+      appInfo: {
+        name: pkg.name,
+        version: pkg.version
+      },
       classLoader: {
         classpath: path.join(__dirname, 'components')
       },
-      logging: {
+      log: {
         logLevel: LogLevel.Debug
       },
       extensions: [
-        {
-          app: new SocketIO({
-            ioServer: ioServer,
-            sharedServer: false
-          }),
-          include: [SocketIOHook, IO]
-        }
+        new SocketIO({
+          ioServer: ioServer,
+          sharedServer: false
+        })
       ]
     });
   }
