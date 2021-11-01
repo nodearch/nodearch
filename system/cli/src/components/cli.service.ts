@@ -110,7 +110,7 @@ export class CLIService {
   
       await commandHandler(data);
     }
-    catch(e) {
+    catch(e: any) {
       this.logger.error(e.message);
       process.exit(1);
     }

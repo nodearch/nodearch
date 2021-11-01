@@ -10,6 +10,7 @@ dependencies:
   '@rush-temp/template-socket.io': 'file:projects/template-socket.io.tgz'
   '@rush-temp/vault': 'file:projects/vault.tgz_ts-node@9.1.1'
   '@socket.io/redis-adapter': 7.0.0
+  '@types/chai': 4.2.22
   '@types/decompress': 4.2.3
   '@types/express': 4.17.9
   '@types/hapi__joi': 17.1.6
@@ -25,6 +26,7 @@ dependencies:
   '@types/supertest': 2.0.10
   '@types/yargs': 15.0.12
   axios: 0.21.0
+  chai: 4.3.4
   decompress: 4.2.1
   inquirer: 7.3.3
   inversify: 5.1.1
@@ -677,6 +679,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==
+  /@types/chai/4.2.22:
+    dev: false
+    resolution:
+      integrity: sha512-tFfcE+DSTzWAgifkjik9AySNqIyNoYwmR+uecPwwD/XRNfvOjmC/FjCxpiUGDkDVDphPfCUecSQVFw+lN3M3kQ==
   /@types/component-emitter/1.2.10:
     dev: false
     resolution:
@@ -1097,6 +1103,10 @@ packages:
       node: '>=0.8'
     resolution:
       integrity: sha1-8S4PPF13sLHN2RRpQuTpbB5N1SU=
+  /assertion-error/1.1.0:
+    dev: false
+    resolution:
+      integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==
   /assign-symbols/1.0.0:
     dev: false
     engines:
@@ -1466,6 +1476,19 @@ packages:
     dev: false
     resolution:
       integrity: sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
+  /chai/4.3.4:
+    dependencies:
+      assertion-error: 1.1.0
+      check-error: 1.0.2
+      deep-eql: 3.0.1
+      get-func-name: 2.0.0
+      pathval: 1.1.1
+      type-detect: 4.0.8
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-yS5H68VYOCtN1cjfwumDSuzn/9c+yza4f3reKXlE5rUg7SFcCEy90gJvydNgOYtblyf4Zi6jIWRnXOgErta0KA==
   /chalk/2.4.2:
     dependencies:
       ansi-styles: 3.2.1
@@ -1504,6 +1527,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
+  /check-error/1.0.2:
+    dev: false
+    resolution:
+      integrity: sha1-V00xLt2Iu13YkS6Sht1sCu1KrII=
   /chokidar/3.4.3:
     dependencies:
       anymatch: 3.1.1
@@ -1963,6 +1990,14 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-e48kc2IjU+2Zw8cTb6VZcJQ3lgVbS4uuB1TfCHbiZIP/haNXm+SVyhu+87jts5/3ROpd82GSVCoNs/z8l4ZOaQ==
+  /deep-eql/3.0.1:
+    dependencies:
+      type-detect: 4.0.8
+    dev: false
+    engines:
+      node: '>=0.12'
+    resolution:
+      integrity: sha512-+QeIQyN5ZuO+3Uk5DYh6/1eKO0m0YmJFGNmFHGACpf1ClL1nmlV/p4gNgbl2pJGxgXb4faqo6UE+M5ACEMyVcw==
   /deep-extend/0.6.0:
     dev: false
     engines:
@@ -2649,6 +2684,10 @@ packages:
       node: 6.* || 8.* || >= 10.*
     resolution:
       integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
+  /get-func-name/2.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-6td0q+5y4gQJQzoGY2YCPdaIekE=
   /get-package-type/0.1.0:
     dev: false
     engines:
@@ -4831,6 +4870,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
+  /pathval/1.1.1:
+    dev: false
+    resolution:
+      integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==
   /pend/1.2.0:
     dev: false
     resolution:
@@ -6687,10 +6730,12 @@ packages:
     version: 0.0.0
   'file:projects/template-express.tgz':
     dependencies:
+      '@types/chai': 4.2.22
       '@types/express': 4.17.9
       '@types/jest': 26.0.19
       '@types/node': 14.14.14
       '@types/supertest': 2.0.10
+      chai: 4.3.4
       express: 4.17.1
       jest: 26.6.3_ts-node@9.1.1
       mocha: 9.0.1
@@ -6705,7 +6750,7 @@ packages:
     dev: false
     name: '@rush-temp/template-express'
     resolution:
-      integrity: sha512-6d1UWc8/yra7j6Agd7cp6LDSi+Pk11AcoGnzgpP2goo8IW5n8SmApjyFFl45FIlXp+fR0PtEcdBeekZzRwSd5Q==
+      integrity: sha512-wsIBSUADHh5jCmfGRslj0w9sHg9hFcnKyh+JXAwhkIFAWSq7065SL/JEtgTmvVo2ysMdXX/Bru6dEyUImkfekw==
       tarball: 'file:projects/template-express.tgz'
     version: 0.0.0
   'file:projects/template-socket.io.tgz':
@@ -6762,6 +6807,7 @@ specifiers:
   '@rush-temp/template-socket.io': 'file:./projects/template-socket.io.tgz'
   '@rush-temp/vault': 'file:./projects/vault.tgz'
   '@socket.io/redis-adapter': ~7.0.0
+  '@types/chai': ~4.2.22
   '@types/decompress': ^4.2.3
   '@types/express': ^4.17.9
   '@types/hapi__joi': ^17.1.4
@@ -6777,6 +6823,7 @@ specifiers:
   '@types/supertest': ^2.0.10
   '@types/yargs': ^15.0.9
   axios: ^0.21.0
+  chai: ~4.3.4
   decompress: ^4.2.1
   inquirer: ^7.3.3
   inversify: 5.1.1

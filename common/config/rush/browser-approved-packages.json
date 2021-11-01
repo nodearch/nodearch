@@ -23,6 +23,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@types/chai",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "@types/decompress",
       "allowedCategories": [ "production" ]
     },
@@ -81,6 +85,10 @@
     {
       "name": "axios",
       "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "chai",
+      "allowedCategories": [ "tools" ]
     },
     {
       "name": "decompress",

@@ -1,14 +1,18 @@
 import { Container } from 'inversify';
-import { App } from '../../app';
+import { ClassConstructor } from '../../utils'
 import { IComponentOverride } from './test.interfaces';
 
 
 export class TestBox {
   constructor(private container: Container) {}
 
-  mock(override: IComponentOverride): void;
-  mock(overrides: IComponentOverride[]): void;
-  mock(overrides: IComponentOverride | IComponentOverride[]): void {
+  get<T>(id: ClassConstructor) {
+    return this.container.get<T>(id);
+  }
+
+  mock(override: IComponentOverride): TestBox;
+  mock(overrides: IComponentOverride[]): TestBox;
+  mock(overrides: IComponentOverride | IComponentOverride[]): TestBox {
     this.clearCache();
 
     overrides = Array.isArray(overrides) ? overrides : [overrides];
@@ -16,14 +20,17 @@ export class TestBox {
     overrides.forEach(override => {
       this.container.rebind(override.component).toConstantValue(override.use);
     });
+    return this;
   }
 
   snapshot() {
     this.container.snapshot();
+    return this;
   }
 
   restore() {
     this.container.restore();
+    return this;
   }
 
   private clearCache() {
