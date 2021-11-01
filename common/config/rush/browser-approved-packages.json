@@ -16,7 +16,11 @@
     },
     {
       "name": "@nodearch/socket.io",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "production", "tools" ]
+    },
+    {
+      "name": "@socket.io/redis-adapter",
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "@types/decompress",
@@ -41,10 +45,6 @@
     {
       "name": "@types/jsonwebtoken",
       "allowedCategories": [ "production" ]
-    },
-    {
-      "name": "@types/mocha",
-      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "@types/multer",
@@ -115,10 +115,6 @@
       "allowedCategories": [ "production" ]
     },
     {
-      "name": "mocha",
-      "allowedCategories": [ "production", "tools" ]
-    },
-    {
       "name": "multer",
       "allowedCategories": [ "production" ]
     },
@@ -128,10 +124,6 @@
     },
     {
       "name": "nodemon",
-      "allowedCategories": [ "production", "tools" ]
-    },
-    {
-      "name": "nyc",
       "allowedCategories": [ "production", "tools" ]
     },
     {

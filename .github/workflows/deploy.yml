@@ -37,9 +37,9 @@ jobs:
         --set-access-level public
         --npm-auth-token ${{ secrets.NPM_AUTH_TOKEN }}
         --apply --publish --add-commit-details
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        base-path: ./system/core
-        path-to-lcov: ./system/core/coverage/lcov.info
+    # - name: Coveralls
+    #   uses: coverallsapp/github-action@master
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     base-path: ./system/core
+    #     path-to-lcov: ./system/core/coverage/lcov.info

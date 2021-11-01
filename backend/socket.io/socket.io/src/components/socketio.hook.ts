@@ -3,7 +3,8 @@ import { SocketIOConfig } from './socketio.config';
 import io from 'socket.io';
 import { MetadataManager } from '../metadata';
 import { SocketIOService } from './socketio.service';
-import { INamespace } from '../interfaces';
+import { INamespace, NativeAdapter } from '../interfaces';
+import { Adapter } from '..';
 
 
 @Hook()
@@ -74,7 +75,21 @@ export class SocketIOHook implements IHook {
     });
   }
 
-  async onStart() {
+  async onStart(context: HookContext) {
+    function getComponent<T>(identifier: any) {
+      return context.get<T>(identifier);
+    }
+
+    this.socketIOConfig.adapters.forEach(adapter => {
+      if ((<any>adapter).getAdapter) {
+        const adapterInstance = (<Adapter>adapter).getAdapter(getComponent);
+        this.ioServer.adapter(adapterInstance);
+      }
+      else {
+        this.ioServer.adapter(<NativeAdapter>adapter);
+      }
+    });
+
     if (!this.socketIOConfig.sharedServer) {
       this.ioServer.listen(3000);
     }

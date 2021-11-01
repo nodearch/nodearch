@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io",
   "entries": [
     {
+      "version": "0.5.0",
+      "tag": "@nodearch/socket.io_v0.5.0",
+      "date": "Sun, 10 Oct 2021 23:59:19 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "add support for adapters",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "ff8969cb526b539d2932e8b8d654784230df9950"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.4.1",
       "tag": "@nodearch/socket.io_v0.4.1",
       "date": "Tue, 21 Sep 2021 14:18:24 GMT",
