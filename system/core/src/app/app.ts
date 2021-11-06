@@ -1,12 +1,14 @@
 import { ClassLoader } from '../loader';
-import { Container } from 'inversify';
 import { ComponentManager, HookContext, ComponentType, IHook, ConfigManager } from '../component';
 import { IAppInfo, IAppOptions, IRunApp, IRunCli, IRunExt, IRunOptions, IRunTest, RunMode } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';
 import { IConfigOptions } from '../component/config/interfaces';
+import { TestManager } from '../component/test/test-manager';
+import { TestMode } from '../component/test';
 // import pkg from '../../package.json';
 // const pkg = require('../../package.json');
 
+// TODO: This class requires some refactoring especially the run methods
 export class App {
   // TODO check if we need those to be public still
   componentManager: ComponentManager;
@@ -153,7 +155,11 @@ export class App {
   
   private async runTest(runOptions: IRunTest) {
     this.loadCoreComponents();
-    await this.loadExtensions(false);
+
+    if (runOptions.testMode.includes(TestMode.INTEGRATION) || runOptions.testMode.includes(TestMode.E2E)) {
+      await this.loadExtensions(false);
+    }
+
     await this.loadComponents([
       ComponentType.Cli,
       ComponentType.Component,
@@ -165,9 +171,32 @@ export class App {
       ComponentType.Service,
       ComponentType.Test
     ]);
-    this.registerExtensions();
+
+    if (runOptions.testMode.includes(TestMode.INTEGRATION) || runOptions.testMode.includes(TestMode.E2E)) {
+      this.registerExtensions();
+    }
+
+    const testComponents = this.componentManager.getComponents(ComponentType.Test);
     
-    await this.componentManager.runTests(runOptions.testRunner);
+    if (testComponents) {
+      const testManager = new TestManager(runOptions.testRunner, testComponents, runOptions.testMode, this.componentManager.container);      
+      testManager.init();
+      
+      if (runOptions.testMode.includes(TestMode.INTEGRATION) || runOptions.testMode.includes(TestMode.E2E)) {
+        await this.init();
+      }
+      
+      if (runOptions.testMode.includes(TestMode.E2E)) {
+        await this.start();
+      }
+
+      await runOptions.testRunner.run();
+      
+      if (runOptions.testMode.includes(TestMode.E2E)) {
+        await this.stop();
+      }
+    }
+
   }
 
   async run(runOptions: IRunOptions = { mode: RunMode.APP }) {
@@ -201,9 +230,4 @@ export class App {
       }
     }
   }
-
-  // TODO: check if we still need this
-  // setLogLevel(logLevel: LogLevel) {
-  //   this.logger.setLogLevel(logLevel);
-  // }
 }

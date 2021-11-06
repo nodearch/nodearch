@@ -4,8 +4,9 @@ import {injectable} from 'inversify';
 import {IComponentInfo} from "../interfaces";
 import { TestMetadata } from './test.metadata';
 import { ITestCaseMetadata, ITestCaseOptions, ITestSuiteMetadata, ITestSuiteOptions } from './test.interfaces';
-import { ClassConstructor, ClassInfo } from '../../utils';
+import { ClassConstructor } from '../../utils';
 import { camelToTitle } from '../../utils/utils';
+import { TestMode } from './test.enums';
 
 
 export function Test(): ClassDecorator;
@@ -16,6 +17,7 @@ export function Test(...args: (string | ITestSuiteOptions | Omit<ITestSuiteOptio
   return function (target: any) {
     
     let options: ITestSuiteMetadata = {
+      mode: TestMode.UNIT,
       title: camelToTitle(<string>target.name),
       timeout: 2000
     };

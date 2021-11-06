@@ -1,4 +1,8 @@
+import { TestMode } from '@nodearch/core';
+
 export interface ITestOptions {
+  mode: TestMode[];
+
   // enable test coverage
   coverage?: boolean;
 

@@ -1,3 +1,4 @@
+import { TestMode } from './test.enums';
 import { ClassConstructor } from '../../utils';
 
 // export type TestHook = (hook: () => Promise<void>) => void;
@@ -25,6 +26,7 @@ export interface ITestMockOptions {
 }
 
 export interface ITestSuiteOptions {
+  mode?: TestMode;
   title?: string;
   timeout?: number; // TODO check we're using timeout and pass more options
 }

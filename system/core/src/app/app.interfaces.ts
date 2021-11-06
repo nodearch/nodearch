@@ -3,6 +3,7 @@ import { ComponentScope, ITestRunner } from '../component';
 import {App} from "./app";
 import { ILogger, ILogOptions } from '../log';
 import { IConfigOptions } from '../component/config/interfaces';
+import { TestMode } from '../component/test';
 
 
 export interface IAppConstructor {
@@ -30,6 +31,12 @@ export enum RunMode {
   TEST
 }
 
+export enum AppLifecycle {
+  LOAD = 'load',
+  INIT = 'init',
+  START = 'start'
+}
+
 export interface IRunApp {
   mode: RunMode.APP;
 }
@@ -48,6 +55,7 @@ export interface IRunExt {
 export interface IRunTest {
   mode: RunMode.TEST;
   testRunner: ITestRunner;
+  testMode: TestMode[];
 }
 
 export type IRunOptions = IRunApp | IRunCli | IRunExt | IRunTest;

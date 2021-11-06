@@ -4,7 +4,7 @@ import { ITestOptions } from './testing.interfaces';
 import path from 'path';
 import open from 'open';
 import { MochaRunner } from './mocha/mocha.runner';
-// import { nycOptions } from './mocha/mocha.options';
+import { nycOptions } from './mocha/mocha.options';
 import { testOptions } from './testing.options';
 
 
@@ -50,8 +50,12 @@ export class TestCommand2 implements ICli<ITestOptions> {
         let nyc: any;
 
         if (options.coverage) {
+          // for (const x in require.cache) {
+          //   delete require.cache[x];
+          // }
+
           const NYC = (await this.appInfoService.importNpmPkg('nyc'))?.default;
-          nyc = new NYC({});
+          nyc = new NYC(nycOptions);
           await nyc.reset();
           await nyc.wrap();
           // TODO currently we're cleaning the require cache in the core, we need to validate this
@@ -64,8 +68,10 @@ export class TestCommand2 implements ICli<ITestOptions> {
         this.logger.info('Starting an APP instance in Testing mode...');
 
         // TODO: this runs the APP for a second time
-        await appInstance.run({ mode: RunMode.TEST, 
-          testRunner: new MochaRunner(nyc)
+        await appInstance.run({ 
+          mode: RunMode.TEST, 
+          testRunner: new MochaRunner(nyc),
+          testMode: options.mode
         });
       }
       else {

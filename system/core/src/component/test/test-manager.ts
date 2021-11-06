@@ -3,15 +3,17 @@ import { Container } from 'inversify';
 import { ClassConstructor } from '../../utils';
 import { TestMetadata } from './test.metadata';
 import { TestBox } from './test-box';
+import { TestMode } from '.';
 
 export class TestManager {
   constructor(
     private testRunner: ITestRunner, 
-    private testComponents: ClassConstructor[], 
+    private testComponents: ClassConstructor[],
+    private testMode: TestMode[],
     private container: Container
   ) {}
 
-  private init() {
+  init() {
     const suiteComps = this.getTestComponents();
 
     suiteComps.forEach(suite => {
@@ -52,7 +54,7 @@ export class TestManager {
     this.testComponents
       .forEach(compConstructor => {
         const testInfo = TestMetadata.getTestInfo(compConstructor);
-        if (testInfo) {
+        if (testInfo && this.testMode.includes(testInfo.mode)) {
           suiteComps.push({ info: testInfo, comp: compConstructor });
         }
       });
@@ -163,10 +165,5 @@ export class TestManager {
           fn: compInstance[afterEach.method].bind(compInstance)
         };
       });
-  }
-
-  async run () {
-    this.init();
-    await this.testRunner.run();
   }
 }

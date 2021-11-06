@@ -5,7 +5,7 @@ import { OpenAPICliConfig } from './openapi.interfaces';
 import fs from 'fs';
 import path from 'path';
 
-@Cli()
+@Cli({ export: true })
 export class OpenAPICli implements ICli {
   command: string;
   describe: string;

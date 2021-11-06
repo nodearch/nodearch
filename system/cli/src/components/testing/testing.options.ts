@@ -3,6 +3,15 @@ import { CLIBuilder } from '@nodearch/core';
 
 
 export const testOptions: CLIBuilder = {
+  mode: {
+    alias: ['m'],
+    describe: 'The mode in which to start the testing app',
+    type: 'array',
+    default: 'unit',
+    choices: ['unit', 'integration', 'e2e'],
+    group: 'Test Runner'
+  },
+
   // Test Runner Options
   runner: {
     alias: ['r'],

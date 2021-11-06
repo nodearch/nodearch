@@ -12,14 +12,14 @@ import { ServiceHandler } from './service';
 import { InterceptorHandler } from './interceptor';
 import { CliHandler, ICli } from './cli';
 import { TestHandler } from './test/test.handler';
-import { TestManager } from './test/test-manager'
+import { TestManager } from './test/test-manager';
 import { ITestRunner } from './test';
 
 
 export class ComponentManager {
 
   private options: IComponentsOptions;
-  private container: Container;
+  container: Container;
   private componentsRegistry: Map<ComponentType, { components: ClassConstructor[], handler: IComponentHandler}>;
   private exportedComponents: IExportedComponent[];
 
@@ -174,15 +174,6 @@ export class ComponentManager {
 
   getExported() {
     return this.exportedComponents;
-  }
-
-  async runTests(testRunner: ITestRunner) {
-    const testComponents = this.getComponents(ComponentType.Test);
-    
-    if (testComponents) {
-      const testManager = new TestManager(testRunner, testComponents, this.container);      
-      await testManager.run();
-    }
   }
 
   getContainer() {
