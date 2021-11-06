@@ -40,25 +40,25 @@ export function Test(...args: (string | ITestSuiteOptions | Omit<ITestSuiteOptio
   }
 }
 
-export function Mock(): ClassDecorator {
-  return function (target: any) {
+// TODO: validate the input
+export function Mock(component: ClassConstructor): ClassDecorator {
+  return function (target: Function) {
     ComponentMetadata.setInfo<IComponentInfo>(target, {
       export: false,
       scope: ComponentScope.Transient,
       type: ComponentType.Test
     });
 
-    TestMetadata.setMockInfo(target, {});
+    TestMetadata.setMockInfo(target, component);
 
     injectable()(target);
   }
 }
 
-export function UseMock(mockComponent: ClassConstructor): ClassDecorator {
+// TODO: validate the input
+export function UseMock(component: ClassConstructor): ClassDecorator {
   return function (target: any) {
-    TestMetadata.setMock(target, {
-      mockComponent
-    });
+    TestMetadata.setMock(target, component);
   }
 }
 

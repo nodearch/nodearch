@@ -1,4 +1,4 @@
-import { IComponentOverride, IMock, ITestRunner, ITestSuiteMetadata, TestHook } from './test.interfaces';
+import { IComponentOverride, ITestRunner, ITestSuiteMetadata, TestHook } from './test.interfaces';
 import { Container } from 'inversify';
 import { ClassConstructor } from '../../utils';
 import { TestMetadata } from './test.metadata';
@@ -23,32 +23,23 @@ export class TestManager {
       // Bind an instance of the TestBox to the cloned container
       container.bind(TestBox).toConstantValue(new TestBox(container));
 
-      const mocks = this.getMockInfo(suite.comp, container);
-
-      mocks.forEach(mock => {
-
-        if (mock.override) {
-          this.applyOverrides(mock.override, container);
-        }
-
-      });
+      const suiteOverrides = this.getSuiteOverrides(suite.comp, container);
+      this.applyOverrides(suiteOverrides, container);
 
       const compInstance = container.get(suite.comp);
 
-      const mocksHooks = this.getMockHooks(mocks);
-
       this.testRunner.addSuite({
         name: suite.info.title,
-        beforeAll: mocksHooks.beforeAll.concat(this.getBeforeAll(suite.comp, compInstance)),
-        afterAll: mocksHooks.afterAll.concat(this.getAfterAll(suite.comp, compInstance)),
-        beforeEach: mocksHooks.beforeEach.concat(this.getBeforeEach(suite.comp, compInstance)),
-        afterEach: mocksHooks.afterEach.concat(this.getAfterEach(suite.comp, compInstance)),
+        beforeAll: this.getBeforeAll(suite.comp, compInstance),
+        afterAll: this.getAfterAll(suite.comp, compInstance),
+        beforeEach: this.getBeforeEach(suite.comp, compInstance),
+        afterEach: this.getAfterEach(suite.comp, compInstance),
         testCases: this.getCases(suite.comp, compInstance)
       });
     });
   }
 
-  getTestComponents() {
+  private getTestComponents() {
     const suiteComps: { info: ITestSuiteMetadata, comp: ClassConstructor }[] = [];
 
     this.testComponents
@@ -62,11 +53,29 @@ export class TestManager {
     return suiteComps;
   }
 
-  getMockInfo(suiteComp: ClassConstructor, container: Container): IMock[] {
-    const mocksMetadata = TestMetadata.getMocks(suiteComp);
+  getSuiteOverrides(suiteComp: ClassConstructor, container: Container): IComponentOverride[] {
+    const suiteMocks = TestMetadata.getMocks(suiteComp);
 
-    return mocksMetadata.map(mock => {
-      return container.get<IMock>(mock.mockComponent);
+    return suiteMocks.map(mock => {
+      let mockInstance;
+      
+      try {
+        mockInstance = container.get(mock);
+      }
+      catch(e) {
+        throw new Error(`${mock.name || mock} is not a valid testing mock, on the testing suite ${suiteComp.name}!`);
+      }
+   
+      const mockedComp = TestMetadata.getMockInfo(mock);
+      
+      if (!mockedComp || !mockInstance) {
+        throw new Error(`${mock.name || mock} is not a valid testing mock, on the testing suite ${suiteComp.name}!`);
+      }
+
+      return {
+        component: mockedComp,
+        use: mockInstance
+      } as IComponentOverride;
     });
   }
 
@@ -84,47 +93,6 @@ export class TestManager {
           fn: testCase.active ? compInstance[testCase.method].bind(compInstance, testCase.params) : undefined
         };
       });
-  }
-
-  private getMockHooks(mocks: IMock[]) {
-    const beforeAll: TestHook[] = [],
-      afterAll: TestHook[] = [],
-      beforeEach: TestHook[] = [],
-      afterEach: TestHook[] = [];
-  
-    mocks.forEach(mock => {
-      if (mock.beforeAll) {
-        beforeAll.push({
-          title: mock.beforeAll.name,
-          fn: mock.beforeAll.bind(mock)
-        });
-      }
-      else if (mock.afterAll) {
-        afterAll.push({
-          title: mock.afterAll.name,
-          fn: mock.afterAll.bind(mock)
-        });
-      }
-      else if (mock.beforeEach) {
-        beforeEach.push({
-          title: mock.beforeEach.name,
-          fn: mock.beforeEach.bind(mock)
-        });
-      }
-      else if (mock.afterEach) {
-        afterEach.push({
-          title: mock.afterEach.name,
-          fn: mock.afterEach.bind(mock)
-        });
-      }
-    });
-
-    return {
-      beforeAll,
-      afterAll,
-      beforeEach,
-      afterEach
-    };
   }
 
   private getBeforeAll(compConstructor: ClassConstructor, compInstance: any): TestHook[] {

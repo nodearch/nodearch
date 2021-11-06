@@ -21,10 +21,6 @@ export interface ITestRunner {
   run(): Promise<void>;
 }
 
-export interface ITestMockOptions {
-// TODO: do we need options for Mock?
-}
-
 export interface ITestSuiteOptions {
   mode?: TestMode;
   title?: string;
@@ -32,8 +28,6 @@ export interface ITestSuiteOptions {
 }
 
 export interface ITestSuiteMetadata extends Required<ITestSuiteOptions> {}
-
-export interface ITestMockMetadata {}
 
 export interface ITestHookMetadata {
   method: string;
@@ -58,14 +52,6 @@ export interface IComponentOverride {
 export interface IComponentSpy {
   component: ClassConstructor;
   method: string;
-}
-
-export interface IMock {
-  override?: IComponentOverride[];
-  beforeAll?(): Promise<void>;
-  afterAll?(): Promise<void>;
-  beforeEach?(): Promise<void>;
-  afterEach?(): Promise<void>;
 }
 
 export interface IMockMetadata {

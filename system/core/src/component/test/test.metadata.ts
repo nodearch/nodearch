@@ -1,17 +1,22 @@
+import { ClassConstructor } from '../..';
 import { MetadataInfo } from '../../metadata';
-import { ITestCaseMetadata, ITestHookMetadata, IMockMetadata, ITestSuiteMetadata, ITestMockMetadata } from './test.interfaces';
+import { ITestCaseMetadata, ITestHookMetadata, IMockMetadata, ITestSuiteMetadata } from './test.interfaces';
+
+/**
+ * TODO: revisit methods params types, we used classInstance: object in all the functions
+ * which isn't the case, it's only valid if we want to access a class Method.
+ */
 
 export abstract class TestMetadata {
   static readonly PREFIX = 'core/component/test';
   static readonly TEST = TestMetadata.PREFIX + '-test';
-  static readonly MOCK = TestMetadata.PREFIX + '-mock';
+  static readonly MOCK_INFO = TestMetadata.PREFIX + '-mockInfo';
   static readonly BEFORE_ALL = TestMetadata.PREFIX + '-beforeAll';
   static readonly AFTER_ALL = TestMetadata.PREFIX + '-afterAll';
   static readonly BEFORE_EACH = TestMetadata.PREFIX + '-beforeEach';
   static readonly AFTER_EACH = TestMetadata.PREFIX + '-afterEach';
   static readonly CASE = TestMetadata.PREFIX + '-case';
-  static readonly MOCK_INSTANCE = TestMetadata.PREFIX + '-mockInstance';
-
+  static readonly MOCK = TestMetadata.PREFIX + '-mock';
 
   static getTestInfo(classInstance: object): ITestSuiteMetadata | undefined {
     return MetadataInfo.getClassMetadata(TestMetadata.TEST, classInstance);
@@ -21,23 +26,23 @@ export abstract class TestMetadata {
     MetadataInfo.setClassMetadata(TestMetadata.TEST, classInstance, testInfo);
   }
 
-  static getMockInfo(classInstance: object): ITestMockMetadata | undefined {
-    return MetadataInfo.getClassMetadata(TestMetadata.MOCK, classInstance);
+  static getMockInfo(classConstructor: Function): ClassConstructor | undefined {
+    return MetadataInfo.getClassMetadata(TestMetadata.MOCK_INFO, classConstructor);
   }
 
-  static setMockInfo(classInstance: object, mockInfo: ITestMockMetadata) {
-    MetadataInfo.setClassMetadata(TestMetadata.MOCK, classInstance, mockInfo);
+  static setMockInfo(classConstructor: Function, component: ClassConstructor) {
+    MetadataInfo.setClassMetadata(TestMetadata.MOCK_INFO, classConstructor, component);
   }
 
-  static getMocks(classInstance: object): IMockMetadata[] {
-    return MetadataInfo.getClassMetadata(TestMetadata.MOCK_INSTANCE, classInstance) || [];
+  static getMocks(classInstance: object): ClassConstructor[] {
+    return MetadataInfo.getClassMetadata(TestMetadata.MOCK, classInstance) || [];
   }
 
-  static setMock(classInstance: object, mockInfo: IMockMetadata) {
+  static setMock(classInstance: object, mock: ClassConstructor) {
     const existingMocks = TestMetadata.getMocks(classInstance);
-    existingMocks.push(mockInfo);
+    existingMocks.push(mock);
 
-    MetadataInfo.setClassMetadata(TestMetadata.MOCK_INSTANCE, classInstance, existingMocks)
+    MetadataInfo.setClassMetadata(TestMetadata.MOCK, classInstance, existingMocks)
   }
 
   static getBeforeAll(classInstance: object): ITestHookMetadata[] {
