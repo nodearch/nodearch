@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/socket.io",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "nodearch socket.io server",
   "main": "./dist/index.js",
   "scripts": {

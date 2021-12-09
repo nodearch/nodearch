@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io",
   "entries": [
     {
+      "version": "0.5.1",
+      "tag": "@nodearch/socket.io_v0.5.1",
+      "date": "Thu, 09 Dec 2021 20:19:37 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add debug logs",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "2c283c2f8ca67b5be79824660e1485766fe31034"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.0",
       "tag": "@nodearch/socket.io_v0.5.0",
       "date": "Sun, 10 Oct 2021 23:59:19 GMT",
