@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/socket.io",
+      "comment": "add debug logs",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/socket.io",
+  "email": "bluemax7o1@gmail.com"
+}
