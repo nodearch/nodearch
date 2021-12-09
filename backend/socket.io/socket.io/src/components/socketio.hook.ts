@@ -33,10 +33,14 @@ export class SocketIOHook implements IHook {
     namespacesMetadata.forEach(ns => {
       const nsControllers = MetadataManager.getNamespaceControllers(ns.classRef);
 
+      this.logger.debug(`[Socket.IO] Register Namespace: ${ns.name}`);
+
       this
         .ioServer
         .of(ns.name)
         .use((socket, next) => { 
+          this.logger.debug(`[Socket.IO] Executing Middleware for Namespace: ${ns.name}`);
+
           // get the namespace instance with every new connection and pass it via data
           const nsInstance: INamespace = context.getContainer().get(ns.classRef);
           
@@ -44,6 +48,7 @@ export class SocketIOHook implements IHook {
             nsInstance
           };
 
+          // TODO: check if this is affected by the foreach scope?
           nsInstance.middleware?.(socket)
             .then(() => next())
             .catch((err) => next(err));
@@ -60,7 +65,7 @@ export class SocketIOHook implements IHook {
 
           nsInstance.onConnection?.(socket);
           
-          this.logger.debug(`New socket connected: ${socket.id}`);
+          this.logger.debug(`[Socket.IO] New socket connected: ${socket.id}`);
 
           // TODO: add catch all events https://socket.io/docs/v4/listening-to-events/#catch-all-listeners
           // TODO: add all remaining events, like on error, on connect_error, etc.
@@ -68,7 +73,7 @@ export class SocketIOHook implements IHook {
           socket.on('disconnect', () => {
             nsInstance.onDisconnect?.(socket);
 
-            this.logger.debug(`Socket disconnected: ${socket.id}`);
+            this.logger.debug(`[Socket.IO] Socket disconnected: ${socket.id}`);
           });
         });
 
