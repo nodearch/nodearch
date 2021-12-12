@@ -24,7 +24,7 @@
     "@types/jest": "~26.0.19"
   },
   "dependencies": {
-    "@nodearch/core": "^1.4.0",
+    "@nodearch/core": "^1.4.1",
     "reflect-metadata": "^0.1.13",
     "@nodearch/socket.io": "~0.5.1",
     "socket.io": "~4.1.3"

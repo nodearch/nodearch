@@ -1,6 +1,13 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Sun, 19 Sep 2021 13:03:11 GMT and should not be manually modified.
+This log was last generated on Sun, 12 Dec 2021 22:01:36 GMT and should not be manually modified.
+
+## 1.4.1
+Sun, 12 Dec 2021 22:01:36 GMT
+
+### Patches
+
+- fix a bug with hooks ordering
 
 ## 1.4.0
 Sun, 19 Sep 2021 13:03:11 GMT

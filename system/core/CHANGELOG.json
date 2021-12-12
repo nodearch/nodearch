@@ -2,6 +2,20 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "1.4.1",
+      "tag": "@nodearch/core_v1.4.1",
+      "date": "Sun, 12 Dec 2021 22:01:36 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix a bug with hooks ordering",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "7563ba1cd1ef7d0f4edd3e60759464cceda9fd63"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.4.0",
       "tag": "@nodearch/core_v1.4.0",
       "date": "Sun, 19 Sep 2021 13:03:11 GMT",
