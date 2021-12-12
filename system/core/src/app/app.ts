@@ -78,7 +78,12 @@ export class App {
 
   protected async init() {
     if (this.hooks) {
-      await Promise.all(this.hooks.filter(x => x.onInit).map(x => (<any>x.onInit)(this.hookContext)));
+      // await Promise.all(this.hooks.filter(x => x.onInit).map(x => (<any>x.onInit)(this.hookContext)));
+      for (const hook of this.hooks) {
+        if (hook.onInit) {
+          await hook.onInit(this.hookContext);
+        }
+      }
     }
 
     this.logger.debug('APP Instance Initialized successfully!');
@@ -86,7 +91,12 @@ export class App {
 
   protected async start() {
     if (this.hooks) {
-      await Promise.all(this.hooks.filter(x => x.onStart).map(x => (<any>x.onStart)(this.hookContext)));
+      // await Promise.all(this.hooks.filter(x => x.onStart).map(x => (<any>x.onStart)(this.hookContext)));
+      for (const hook of this.hooks) {
+        if (hook.onStart) {
+          await hook.onStart(this.hookContext);
+        }
+      }
     }
 
     this.logger.debug('APP Instance Started successfully!');
