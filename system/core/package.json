@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/core",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "nodearch core module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
