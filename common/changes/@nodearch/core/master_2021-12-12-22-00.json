@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/core",
+      "comment": "fix a bug with hooks ordering",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/core",
+  "email": "bluemax7o1@gmail.com"
+}
