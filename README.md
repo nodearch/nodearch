@@ -102,7 +102,7 @@ Contributions, issues and feature requests are welcome! If you like the idea and
 ### Setup
 Clone the project on your local machine, using the following command.
 ```bash
-git clone https://github.com/BlueMax-IO/nodearch.git
+git clone https://github.com/nodearch/nodearch.git
 ```
 
 Switch to the repo directory, and then install dependencies
