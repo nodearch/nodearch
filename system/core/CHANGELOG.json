@@ -2,6 +2,25 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "1.4.2",
+      "tag": "@nodearch/core_v1.4.2",
+      "date": "Sun, 29 May 2022 15:25:53 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade typescript version",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "574dc6ff13ca0879ca808d08c2e5891e27b82897"
+          },
+          {
+            "comment": "Upgrade ts-node version",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "b749d61faead02171e8bffa0d0875c7c810303bb"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.4.1",
       "tag": "@nodearch/core_v1.4.1",
       "date": "Sun, 12 Dec 2021 22:01:36 GMT",

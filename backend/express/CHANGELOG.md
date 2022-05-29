@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Sun, 19 Sep 2021 13:03:11 GMT and should not be manually modified.
+This log was last generated on Sun, 29 May 2022 15:25:53 GMT and should not be manually modified.
+
+## 1.3.1
+Sun, 29 May 2022 15:25:53 GMT
+
+### Patches
+
+- Upgrade typescript version
 
 ## 1.3.0
 Sun, 19 Sep 2021 13:03:11 GMT

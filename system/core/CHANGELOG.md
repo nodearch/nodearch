@@ -1,6 +1,14 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Sun, 12 Dec 2021 22:01:36 GMT and should not be manually modified.
+This log was last generated on Sun, 29 May 2022 15:25:53 GMT and should not be manually modified.
+
+## 1.4.2
+Sun, 29 May 2022 15:25:53 GMT
+
+### Patches
+
+- Upgrade typescript version
+- Upgrade ts-node version
 
 ## 1.4.1
 Sun, 12 Dec 2021 22:01:36 GMT

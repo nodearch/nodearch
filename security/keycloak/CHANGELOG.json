@@ -2,6 +2,28 @@
   "name": "@nodearch/keycloak",
   "entries": [
     {
+      "version": "1.2.1",
+      "tag": "@nodearch/keycloak_v1.2.1",
+      "date": "Sun, 29 May 2022 15:25:53 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade typescript version",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "574dc6ff13ca0879ca808d08c2e5891e27b82897"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^1.4.1` to `^1.4.2`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `1.4.1` to `1.4.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.2.0",
       "tag": "@nodearch/keycloak_v1.2.0",
       "date": "Sun, 25 Apr 2021 15:08:51 GMT",

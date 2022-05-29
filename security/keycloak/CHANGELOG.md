@@ -1,6 +1,13 @@
 # Change Log - @nodearch/keycloak
 
-This log was last generated on Sun, 25 Apr 2021 15:08:51 GMT and should not be manually modified.
+This log was last generated on Sun, 29 May 2022 15:25:53 GMT and should not be manually modified.
+
+## 1.2.1
+Sun, 29 May 2022 15:25:53 GMT
+
+### Patches
+
+- Upgrade typescript version
 
 ## 1.2.0
 Sun, 25 Apr 2021 15:08:51 GMT

@@ -1,6 +1,13 @@
 # Change Log - @nodearch/socket.io
 
-This log was last generated on Thu, 09 Dec 2021 20:19:37 GMT and should not be manually modified.
+This log was last generated on Sun, 29 May 2022 15:25:53 GMT and should not be manually modified.
+
+## 0.5.2
+Sun, 29 May 2022 15:25:53 GMT
+
+### Patches
+
+- Upgrade typescript version
 
 ## 0.5.1
 Thu, 09 Dec 2021 20:19:37 GMT

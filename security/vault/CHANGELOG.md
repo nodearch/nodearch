@@ -1,6 +1,13 @@
 # Change Log - @nodearch/vault
 
-This log was last generated on Sun, 21 Mar 2021 13:48:41 GMT and should not be manually modified.
+This log was last generated on Sun, 29 May 2022 15:25:53 GMT and should not be manually modified.
+
+## 1.1.3
+Sun, 29 May 2022 15:25:53 GMT
+
+### Patches
+
+- Upgrade typescript version
 
 ## 1.1.2
 Sun, 21 Mar 2021 13:48:41 GMT
