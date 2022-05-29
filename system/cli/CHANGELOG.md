@@ -1,6 +1,14 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Tue, 21 Sep 2021 14:18:24 GMT and should not be manually modified.
+This log was last generated on Sun, 29 May 2022 15:25:53 GMT and should not be manually modified.
+
+## 1.2.4
+Sun, 29 May 2022 15:25:53 GMT
+
+### Patches
+
+- Upgrade typescript version
+- Upgrade ts-node version
 
 ## 1.2.3
 Tue, 21 Sep 2021 14:18:24 GMT

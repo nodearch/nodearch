@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/keycloak",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "keycloak extension for nodearch",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -30,7 +30,7 @@
     "request-promise-native": "^1.0.8"
   },
   "devDependencies": {
-    "@nodearch/core": "^1.4.1",
+    "@nodearch/core": "^1.4.2",
     "reflect-metadata": "^0.1.13",
     "@types/jsonwebtoken": "^8.3.7",
     "@types/node": "^14.14.10",
@@ -42,7 +42,7 @@
     "@types/jest": "~26.0.19"
   },
   "peerDependencies": {
-    "@nodearch/core": "1.4.1",
+    "@nodearch/core": "1.4.2",
     "reflect-metadata": "0.x"
   }
 }
