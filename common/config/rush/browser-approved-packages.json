@@ -128,7 +128,7 @@
     },
     {
       "name": "mocha",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "multer",
@@ -144,7 +144,7 @@
     },
     {
       "name": "nyc",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "open",
