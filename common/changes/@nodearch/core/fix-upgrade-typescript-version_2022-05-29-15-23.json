@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/core",
+      "comment": "Upgrade typescript version",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/core",
+  "email": "bluemax7o1@gmail.com"
+}

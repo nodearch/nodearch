@@ -47,10 +47,10 @@ dependencies:
   request-promise-native: 1.0.9_request@2.88.2
   rimraf: 3.0.2
   supertest: 4.0.2
-  ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
-  ts-node: 10.8.0_1261c67187ea21ea95c85aa0b5c4bd29
+  ts-jest: 26.4.4_jest@26.6.3+typescript@4.7.2
+  ts-node: 10.8.0_b9f7d489de4b4ca23034b39a6bf1a786
   tsconfig-paths: 3.9.0
-  typescript: 4.1.3
+  typescript: 4.7.2
   yargs: 16.2.0
 lockfileVersion: 5.2
 packages:
@@ -3525,7 +3525,7 @@ packages:
       jest-validate: 26.6.2
       micromatch: 4.0.2
       pretty-format: 26.6.2
-      ts-node: 10.8.0_1261c67187ea21ea95c85aa0b5c4bd29
+      ts-node: 10.8.0_b9f7d489de4b4ca23034b39a6bf1a786
     dev: false
     engines:
       node: '>= 10.14.2'
@@ -6101,7 +6101,7 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-3n1qG+/5kg+jrbTzwAykB5yRYtQCTqOGKq5U5PE3b0a1/mzo6snDhjGS0zJVJunO0NrT3Dg1MLy5TjWP/UJppg==
-  /ts-jest/26.4.4_jest@26.6.3+typescript@4.1.3:
+  /ts-jest/26.4.4_jest@26.6.3+typescript@4.7.2:
     dependencies:
       '@types/jest': 26.0.19
       bs-logger: 0.2.6
@@ -6114,7 +6114,7 @@ packages:
       make-error: 1.3.6
       mkdirp: 1.0.4
       semver: 7.3.4
-      typescript: 4.1.3
+      typescript: 4.7.2
       yargs-parser: 20.2.4
     dev: false
     engines:
@@ -6125,7 +6125,7 @@ packages:
       typescript: '>=3.8 <5.0'
     resolution:
       integrity: sha512-3lFWKbLxJm34QxyVNNCgXX1u4o/RV0myvA2y2Bxm46iGIjKlaY0own9gIckbjZJPn+WaJEnfPPJ20HHGpoq4yg==
-  /ts-node/10.8.0_1261c67187ea21ea95c85aa0b5c4bd29:
+  /ts-node/10.8.0_b9f7d489de4b4ca23034b39a6bf1a786:
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.8
@@ -6139,7 +6139,7 @@ packages:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 4.1.3
+      typescript: 4.7.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: false
@@ -6230,13 +6230,13 @@ packages:
     dev: false
     resolution:
       integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-  /typescript/4.1.3:
+  /typescript/4.7.2:
     dev: false
     engines:
       node: '>=4.2.0'
     hasBin: true
     resolution:
-      integrity: sha512-B3ZIOf1IKeH2ixgHhj6la6xdwR9QrLC5d1VKeCSY4tvkqhF2eqd9O7txNlS0PO3GrBAFIdr3L1ndNwteUbZLYg==
+      integrity: sha512-Mamb1iX2FDUpcTRzltPxgWMKy3fhg0TN378ylbktPGPK/99KbDtMQ4W1hwgsbPAsG3a0xKa1vmw4VKZQbkvz5A==
   /uid2/0.0.3:
     dev: false
     resolution:
@@ -6692,14 +6692,14 @@ packages:
       ora: 5.1.0
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
-      ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
-      ts-node: 10.8.0_1261c67187ea21ea95c85aa0b5c4bd29
-      typescript: 4.1.3
+      ts-jest: 26.4.4_jest@26.6.3+typescript@4.7.2
+      ts-node: 10.8.0_b9f7d489de4b4ca23034b39a6bf1a786
+      typescript: 4.7.2
       yargs: 16.2.0
     dev: false
     name: '@rush-temp/cli'
     resolution:
-      integrity: sha512-pE4g4DQrS8jFbX1UicKEABDQ7+OPxnIdXn39CQeIemgPIuneTZJvt4mW7Y8ROBPkyPMovIySGYP5k8sSvZFIVw==
+      integrity: sha512-3RmtEGglRoRiIdocpxngmXvNVn0gQyg6Qul/akt1mFo0h+jisdPvMyrNCucERtCi7WTdC42Qg0pv15ZljFqFpQ==
       tarball: 'file:projects/cli.tgz'
     version: 0.0.0
   'file:projects/core.tgz':
@@ -6710,13 +6710,13 @@ packages:
       jest: 26.6.3_ts-node@10.8.0
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
-      ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
-      ts-node: 10.8.0_1261c67187ea21ea95c85aa0b5c4bd29
-      typescript: 4.1.3
+      ts-jest: 26.4.4_jest@26.6.3+typescript@4.7.2
+      ts-node: 10.8.0_b9f7d489de4b4ca23034b39a6bf1a786
+      typescript: 4.7.2
     dev: false
     name: '@rush-temp/core'
     resolution:
-      integrity: sha512-GXCYR1Fl5QLrJkt5ywt12OsAJaLIA4clQ3bm5caUmOTB0eb15dgcHX3TFSjMWy31H2yq4tMJDlaMjSoAxjHOxg==
+      integrity: sha512-rginFEBkGfIsv/+0CXhLEl7DpKyelZPKOjXcnkbAF2txdpoigJ6R0g310GY+ipCVaBXDOQHnbjVQ2fAvvJ7/ng==
       tarball: 'file:projects/core.tgz'
     version: 0.0.0
   'file:projects/express.tgz_ts-node@10.8.0':
@@ -6733,15 +6733,15 @@ packages:
       multer: 1.4.2
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
-      ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
-      typescript: 4.1.3
+      ts-jest: 26.4.4_jest@26.6.3+typescript@4.7.2
+      typescript: 4.7.2
     dev: false
     id: 'file:projects/express.tgz'
     name: '@rush-temp/express'
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-BegHKcIFHdYhVgwBtGWzPyL8KPBCnGkGIYQfDYgcQR9LheILmAEpsGwE2xsDm7mke3xiPLELEO7dtvx7LKFKDA==
+      integrity: sha512-q8QtEiMF5Q9lNjboSv7VPlhOqmdcaK+CLvfWxY/xdYIlt7/UC3BhngzpqCfk4RIRSCrUTTa6aqKDu20e2b08SQ==
       tarball: 'file:projects/express.tgz'
     version: 0.0.0
   'file:projects/keycloak.tgz_ts-node@10.8.0':
@@ -6758,15 +6758,15 @@ packages:
       request: 2.88.2
       request-promise-native: 1.0.9_request@2.88.2
       rimraf: 3.0.2
-      ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
-      typescript: 4.1.3
+      ts-jest: 26.4.4_jest@26.6.3+typescript@4.7.2
+      typescript: 4.7.2
     dev: false
     id: 'file:projects/keycloak.tgz'
     name: '@rush-temp/keycloak'
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-uQ7MFzlQIKF94xmA3wssp1ZRBWmmpxOrbGBoX1qaQzzKWT6pwcYD3mNhYbQG0uCiSDIW7YkT6WwWVAXFGQ8IZg==
+      integrity: sha512-lmX1j5LVRThZqTF7kk4mzPLH/VovGgaaZluaDSaY0062xpF4iTlKUOSPNx4pna5aORtuxWP1vtoKM5qg42Z8TA==
       tarball: 'file:projects/keycloak.tgz'
     version: 0.0.0
   'file:projects/socket.io-redis.tgz':
@@ -6775,11 +6775,11 @@ packages:
       '@types/node': 14.14.14
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
-      typescript: 4.1.3
+      typescript: 4.7.2
     dev: false
     name: '@rush-temp/socket.io-redis'
     resolution:
-      integrity: sha512-Np3RLgssyqDtjOsK7nKzP2bZ0Qkapf8p8YkbaexFsgZ27aE4QgVPxpNlWVEubY/Hed+tcVl9x3mRZ46xKFkNtw==
+      integrity: sha512-nH7UKd1YDOwK/+qeupVrovfxTQ8hx6scM/gM2elDL/bM3kQhDmiPxlNbNmcvZOe7dyN2vb7hg5SqkPBuku8eNA==
       tarball: 'file:projects/socket.io-redis.tgz'
     version: 0.0.0
   'file:projects/socket.io.tgz':
@@ -6789,11 +6789,11 @@ packages:
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
       socket.io: 4.1.3
-      typescript: 4.1.3
+      typescript: 4.7.2
     dev: false
     name: '@rush-temp/socket.io'
     resolution:
-      integrity: sha512-Nq83feik9oKUjvXdkHsB8KdqCZ6oH1bFsTiVXLFVPNQ5DBqq5yDlo4qPfruzdQ9Fzc0Q1UZsOKWTPv906c+1Sw==
+      integrity: sha512-1YLz/L/vR5O3xfsDnesy74YvK+6g6oVCMpNxI0wH1N6ztNEosL/PTLwzkHWLEaD1GgQyF+d/CnmNSTvrd9W8ug==
       tarball: 'file:projects/socket.io.tgz'
     version: 0.0.0
   'file:projects/template-express.tgz':
@@ -6810,14 +6810,14 @@ packages:
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
       supertest: 4.0.2
-      ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
-      ts-node: 10.8.0_1261c67187ea21ea95c85aa0b5c4bd29
+      ts-jest: 26.4.4_jest@26.6.3+typescript@4.7.2
+      ts-node: 10.8.0_b9f7d489de4b4ca23034b39a6bf1a786
       tsconfig-paths: 3.9.0
-      typescript: 4.1.3
+      typescript: 4.7.2
     dev: false
     name: '@rush-temp/template-express'
     resolution:
-      integrity: sha512-3TXg4g/jgDIvSa+D2ynNvWLkk16QuLSXmrL8jfvNN837B1j7GgRGzFju6NtjShU/nNr6869GOrqRArf1AYgs9A==
+      integrity: sha512-TwwChM7dO6XNX1vfVJ60RnbAfBJb/ymxOVZQnPQbOnCzsdAfpN/zxUGNf0bBCajxQV2FfolNuYEeC5YQ5n5/eA==
       tarball: 'file:projects/template-express.tgz'
     version: 0.0.0
   'file:projects/template-socket.io.tgz':
@@ -6831,14 +6831,14 @@ packages:
       rimraf: 3.0.2
       socket.io: 4.1.3
       supertest: 4.0.2
-      ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
-      ts-node: 10.8.0_1261c67187ea21ea95c85aa0b5c4bd29
+      ts-jest: 26.4.4_jest@26.6.3+typescript@4.7.2
+      ts-node: 10.8.0_b9f7d489de4b4ca23034b39a6bf1a786
       tsconfig-paths: 3.9.0
-      typescript: 4.1.3
+      typescript: 4.7.2
     dev: false
     name: '@rush-temp/template-socket.io'
     resolution:
-      integrity: sha512-2WV7cZWRQio2a+PMPktgB/rzh4ty6+WaJBjdiY5diAo0Hha0Or1wkK26YekTscEO3xCzb76b4d/F8FgAV6ZvKQ==
+      integrity: sha512-+ZsS1XFE3BPP/CrdkiVFf86LgHRYj3yK1f1ku0kDPpg8IpAp6BcnzuI1VMzyXMXcRkmRz4AyU286fw2NQb2oyw==
       tarball: 'file:projects/template-socket.io.tgz'
     version: 0.0.0
   'file:projects/vault.tgz_ts-node@10.8.0':
@@ -6850,15 +6850,15 @@ packages:
       reflect-metadata: 0.1.13
       request: 2.88.2
       request-promise-native: 1.0.9_request@2.88.2
-      ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
-      typescript: 4.1.3
+      ts-jest: 26.4.4_jest@26.6.3+typescript@4.7.2
+      typescript: 4.7.2
     dev: false
     id: 'file:projects/vault.tgz'
     name: '@rush-temp/vault'
     peerDependencies:
       ts-node: '*'
     resolution:
-      integrity: sha512-Iv0pciZWCj7dU7cbqRYsxr1mDoVJO1LSC3Ad1w5aIh+wC4u91FeNB6aMh6w1QzeUNBAU7VhhvHAE5JLr+LU/Yw==
+      integrity: sha512-aLGeKodhxGe+8CK6PlmACQl6HXS4IkO33da2EKZF8DXUvjbj+R62c5lZN/1l/3ycBVGFKJ0/fsbZvO0gjBTJeg==
       tarball: 'file:projects/vault.tgz'
     version: 0.0.0
 registry: ''
@@ -6914,5 +6914,5 @@ specifiers:
   ts-jest: ^26.4.4
   ts-node: ^10.8.0
   tsconfig-paths: ^3.9.0
-  typescript: ^4.1.2
+  typescript: ^4.7.2
   yargs: ^16.1.1

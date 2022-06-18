@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/keycloak",
+      "comment": "Upgrade typescript version",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/keycloak",
+  "email": "bluemax7o1@gmail.com"
+}
