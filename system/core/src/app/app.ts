@@ -136,7 +136,7 @@ export class App {
   }
   
   private async runCli(runOptions: IRunCli) {
-    this.logOptions === runOptions.logOptions || this.logOptions;
+    this.logOptions = runOptions.logOptions || this.logOptions;
 
     this.loadCoreComponents();
     await this.loadExtensions(true);
