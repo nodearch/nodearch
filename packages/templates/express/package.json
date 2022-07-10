@@ -13,26 +13,22 @@
   "devDependencies": {
     "@types/chai": "~4.2.22",
     "@types/express": "^4.17.9",
-    "@types/jest": "~26.0.19",
     "@types/node": "^14.14.10",
     "@types/supertest": "^2.0.10",
     "chai": "~4.3.4",
-    "jest": "^26.6.3",
     "mocha": "^9.1.3",
     "nodemon": "^2.0.4",
     "nyc": "^15.1.0",
     "rimraf": "~3.0.2",
     "supertest": "^4.0.2",
-    "ts-jest": "^26.4.4",
     "ts-node": "^10.8.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.7.2",
-    "rimraf": "~3.0.2",
-    "@types/jest": "~26.0.19"
+    "rimraf": "~3.0.2"
   },
   "dependencies": {
-    "@nodearch/core": "file:../../packages/system/core",
-    "@nodearch/express": "file:../../packages/backend/express",
+    "@nodearch/core": "*",
+    "@nodearch/express": "*",
     "express": "^4.17.1",
     "reflect-metadata": "^0.1.13"
   }
