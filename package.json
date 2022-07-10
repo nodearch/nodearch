@@ -1,0 +1,11 @@
+{
+  "name": "root",
+  "private": false,
+  "scripts": {
+    "graph": "nx graph"
+  },
+  "devDependencies": {
+    "lerna": "^5.1.8",
+    "nx": "^14.4.2"
+  }
+}
