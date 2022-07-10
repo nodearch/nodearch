@@ -21,7 +21,7 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@nodearch/core": "*",
+    "@nodearch/core": "^1.4.2",
     "@types/node": "^14.14.10",
     "rimraf": "~3.0.2",
     "typescript": "^4.7.2",
