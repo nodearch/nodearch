@@ -1,15 +1,3 @@
-export enum ComponentType {
-  Component = 'component',
-  Service = 'service',
-  Controller = 'controller',
-  Config = 'config',
-  Hook = 'hook',
-  Repository = 'repository',
-  Interceptor = 'interceptor',
-  Cli = 'cli',
-  Test = 'test'
-}
-
 export enum ComponentScope {
   Request = 'Request',
   Singleton = 'Singleton',
@@ -19,5 +7,12 @@ export enum ComponentScope {
 export enum CoreComponentId {
   Component = '@nodearch/core/component-id/component',
   Cli = '@nodearch/core/component-id/cli',
-  Hook = '@nodearch/core/component-id/hook'
+  Hook = '@nodearch/core/component-id/hook',
+  Config = '@nodearch/core/component-id/config',
+  Service = '@nodearch/core/component-id/service',
+  Repository = '@nodearch/core/component-id/repository',
+  Test = '@nodearch/core/component-id/test',
+  Interceptor = '@nodearch/core/component-id/interceptor',
+  Controller = '@nodearch/core/component-id/controller',
+  Mock = '@nodearch/core/component-id/mock'
 }

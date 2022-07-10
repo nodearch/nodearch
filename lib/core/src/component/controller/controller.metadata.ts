@@ -2,6 +2,7 @@ import { MetadataInfo } from '../../metadata';
 
 export abstract class ControllerMetadata {
 
+  // TODO: revisit the metadata prefixes
   static readonly PREFIX = 'core/component/controller';
   static readonly INTERCEPTOR_PREFIX = ControllerMetadata.PREFIX + '-interceptors';
 

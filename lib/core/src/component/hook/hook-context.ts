@@ -1,11 +1,12 @@
 import { ComponentManager } from '../component-manager';
 import { ClassConstructor } from '../../utils';
-import { ComponentType } from '../enums';
+import { CoreComponentId } from '../enums';
 import { IHook } from './hook.interface';
 import { ICli } from '../cli';
 import { DependencyException } from '../../errors';
 import inversify from 'inversify';
 
+// TODO: introduce new features in v2?
 export class HookContext {
   constructor(private components: ComponentManager) {}
 
@@ -18,9 +19,9 @@ export class HookContext {
     }
   }
 
-  getAll<T>(identifier: ComponentType | string | symbol): T[] {
+  getAll<T>(id: string | symbol): T[] {
     try {
-      return this.components.getAll<T>(identifier);
+      return this.components.getAll<T>(id);
     }
     catch(e: any) {
       throw new DependencyException(e.message);
@@ -35,8 +36,8 @@ export class HookContext {
     return this.components.findCLICommands();
   }
 
-  getComponents(componentType: ComponentType) {
-    return this.components.getComponents(componentType);
+  getComponents(id: string) {
+    return this.components.getComponents(id);
   }
 
   getContainer(): inversify.Container {

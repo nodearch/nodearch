@@ -8,6 +8,7 @@ export abstract class ComponentMetadata {
     return MetadataInfo.getClassMetadata(ComponentMetadata.COMPONENT_INFO, classDef);
   }
 
+  // TODO: support for extra-metadata to eliminate the custom metadata work within the decorators 
   static setInfo<T>(classDef: any, componentInfo: T) {
     MetadataInfo.setClassMetadata(ComponentMetadata.COMPONENT_INFO, classDef, componentInfo);
   }

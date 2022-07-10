@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 import { ComponentMetadata } from './component.metadata';
-import { ComponentType, ComponentScope } from './enums';
+import { ComponentScope, CoreComponentId } from './enums';
 import { ClassConstructor } from '../utils';
 import { ComponentHandler } from './component';
 import {IComponentHandler, IComponentInfo, IComponentsOptions, IExportedComponent} from './interfaces';
@@ -60,7 +60,7 @@ export class ComponentManager {
 
         comRegistry.components.push(classDef);
 
-        if (componentInfo.export) {
+        if (componentInfo.options?.export) {
           this.exportedComponents.push({
             classDef,
             info: componentInfo
@@ -100,31 +100,31 @@ export class ComponentManager {
     return this.container.get<T>(classIdentifier);
   }
 
-  getAll<T>(identifier: ComponentType | string | symbol): T[] {
-    return this.container.getAll<T>(identifier);
+  getAll<T>(id: string | symbol): T[] {
+    return this.container.getAll<T>(id);
   }
 
-  private findGroupedCompByType<T>(compType: ComponentType): T[] | undefined {
+  private findGroupedCompById<T>(id: string): T[] | undefined {
     try {
-      return this.getAll<T>(compType);
+      return this.getAll<T>(id);
     }
     catch(e: any) {
-      if (e.message !== `No matching bindings found for serviceIdentifier: ${compType}`) {
+      if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
         throw e;
       }
     }
   }
 
   findHooks(): IHook[] | undefined {
-    return this.findGroupedCompByType(ComponentType.Hook);
+    return this.findGroupedCompById(CoreComponentId.Hook);
   }
 
   findTests() {
-    return this.findGroupedCompByType(ComponentType.Test);
+    return this.findGroupedCompById(CoreComponentId.Test);
   }
 
   findCLICommands(): ICli[] | undefined {
-    return this.findGroupedCompByType(ComponentType.Cli);
+    return this.findGroupedCompById(CoreComponentId.Cli);
   }
 
   snapshot() {

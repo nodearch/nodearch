@@ -13,9 +13,10 @@ export interface IComponentOptions {
   export?: boolean;
 }
 
-export interface IComponentInfo extends IComponentOptions {
+export interface IComponentInfo {
   id: string;
   handler?: ClassConstructor<IComponentHandler>; 
+  options?: IComponentOptions; 
 }
 
 export interface IComponentHandler {

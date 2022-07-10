@@ -1,12 +1,12 @@
-import {ComponentMetadata} from '../component.metadata';
-import {ComponentScope, ComponentType} from '../enums';
-import {injectable} from 'inversify';
-import {IComponentInfo} from "../interfaces";
+import { ComponentScope, CoreComponentId } from '../enums';
 import { TestMetadata } from './test.metadata';
 import { ITestCaseMetadata, ITestCaseOptions, ITestSuiteMetadata, ITestSuiteOptions } from './test.interfaces';
 import { ClassConstructor } from '../../utils';
 import { camelToTitle } from '../../utils/utils';
 import { TestMode } from './test.enums';
+import { ComponentFactory } from '../component-factory';
+
+
 
 
 export function Test(): ClassDecorator;
@@ -14,45 +14,42 @@ export function Test(title: string): ClassDecorator;
 export function Test(options: ITestSuiteOptions): ClassDecorator;
 export function Test(title: string, options: Omit<ITestSuiteOptions, 'title'>): ClassDecorator;
 export function Test(...args: (string | ITestSuiteOptions | Omit<ITestSuiteOptions, 'title'>)[]): ClassDecorator {
-  return function (target: any) {
-    
-    let options: ITestSuiteMetadata = {
-      mode: TestMode.UNIT,
-      title: camelToTitle(<string>target.name),
-      timeout: 2000
-    };
-
-    args.forEach(arg => {
-      if (typeof arg === 'string') options.title = arg;
-      else if (typeof arg === 'object') Object.assign(options, arg);
-    });
-
-
-    ComponentMetadata.setInfo<IComponentInfo>(target, {
+  return ComponentFactory.decorator({ 
+    id: CoreComponentId.Test,
+    options: {
       export: false,
-      scope: ComponentScope.Singleton,
-      type: ComponentType.Test
-    });
-    
-    TestMetadata.setTestInfo(target, options);
+      scope: ComponentScope.Singleton
+    },
+    fn(target) {
+      
+      let options: ITestSuiteMetadata = {
+        mode: TestMode.UNIT,
+        title: camelToTitle(<string>target.name),
+        timeout: 2000
+      };
+  
+      args.forEach(arg => {
+        if (typeof arg === 'string') options.title = arg;
+        else if (typeof arg === 'object') Object.assign(options, arg);
+      });
 
-    injectable()(target);
-  }
+      TestMetadata.setTestInfo(target, options);
+    }
+  });
 }
 
 // TODO: validate the input
 export function Mock(component: ClassConstructor): ClassDecorator {
-  return function (target: Function) {
-    ComponentMetadata.setInfo<IComponentInfo>(target, {
+  return ComponentFactory.decorator({ 
+    id: CoreComponentId.Mock, 
+    options: {
       export: false,
-      scope: ComponentScope.Transient,
-      type: ComponentType.Test
-    });
-
-    TestMetadata.setMockInfo(target, component);
-
-    injectable()(target);
-  }
+      scope: ComponentScope.Transient
+    },
+    fn(target) {
+      TestMetadata.setMockInfo(target, component);
+    }
+  });
 }
 
 // TODO: validate the input

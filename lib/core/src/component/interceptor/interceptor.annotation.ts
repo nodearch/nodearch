@@ -1,22 +1,14 @@
 import { ControllerMetadata } from '../controller';
-import { ComponentMetadata } from '../component.metadata';
-import { ComponentType } from '../enums';
-import { injectable } from 'inversify';
-import { IComponentInfo, IComponentOptions } from "../interfaces";
+import { IComponentOptions } from "../interfaces";
 import { IInterceptorConstructor, IInterceptorMetadataInfo } from './interceptor.interfaces';
 import { ClassMethodDecorator } from '../../utils';
+import { ComponentFactory } from '../component-factory';
+import { CoreComponentId } from '../enums';
 
 
 // TODO: validate that allowing Different scopes for Interceptors is fine
-export function Interceptor(options?: IComponentOptions): ClassDecorator {
-  return function (target: any) {
-    ComponentMetadata.setInfo<IComponentInfo>(target, {
-      ...options,
-      type: ComponentType.Interceptor
-    });
-    injectable()(target);
-  }
-}
+export const Interceptor = (options?: IComponentOptions): ClassDecorator => 
+  ComponentFactory.decorator({ id: CoreComponentId.Interceptor, options });
 
 export function UseInterceptor<T>(guardClass: IInterceptorConstructor<T>, options: T): ClassMethodDecorator;
 export function UseInterceptor(guardClass: IInterceptorConstructor, options?: undefined): ClassMethodDecorator;

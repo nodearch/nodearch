@@ -1,10 +1,11 @@
 import { ClassLoader } from '../loader';
-import { ComponentManager, HookContext, ComponentType, IHook, ConfigManager } from '../component';
+import { 
+  TestMode, IConfigOptions, TestManager, 
+  ComponentManager, HookContext, 
+  CoreComponentId, IHook, ConfigManager 
+} from '../component';
 import { IAppInfo, IAppOptions, IRunApp, IRunCli, IRunExt, IRunOptions, IRunTest, RunMode } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';
-import { IConfigOptions } from '../component/config/interfaces';
-import { TestManager } from '../component/test/test-manager';
-import { TestMode } from '../component/test';
 // import pkg from '../../package.json';
 // const pkg = require('../../package.json');
 
@@ -57,7 +58,7 @@ export class App {
     }
   } 
 
-  private async loadComponents(include: ComponentType[]) {
+  private async loadComponents(include: CoreComponentId[]) {
     this.logger.info(`Load App: ${this.appInfo.name} version: ${this.appInfo.version}`);
 
     await this.classLoader.load();
@@ -97,17 +98,17 @@ export class App {
     this.logger = runOptions.logger;
     
     const enabledComponents = [
-      ComponentType.Component,
-      ComponentType.Config,
-      ComponentType.Controller,
-      ComponentType.Hook,
-      ComponentType.Interceptor,
-      ComponentType.Repository,
-      ComponentType.Service
+      CoreComponentId.Component,
+      CoreComponentId.Config,
+      CoreComponentId.Controller,
+      CoreComponentId.Hook,
+      CoreComponentId.Interceptor,
+      CoreComponentId.Repository,
+      CoreComponentId.Service
     ];
 
     if (runOptions.enableCli) {
-      enabledComponents.push(ComponentType.Cli);
+      enabledComponents.push(CoreComponentId.Cli);
     }
 
     this.loadCoreComponents();
@@ -120,14 +121,14 @@ export class App {
     this.loadCoreComponents();
     await this.loadExtensions(false);
     await this.loadComponents([
-      ComponentType.Cli,
-      ComponentType.Component,
-      ComponentType.Config,
-      ComponentType.Controller,
-      ComponentType.Hook,
-      ComponentType.Interceptor,
-      ComponentType.Repository,
-      ComponentType.Service
+      CoreComponentId.Cli,
+      CoreComponentId.Component,
+      CoreComponentId.Config,
+      CoreComponentId.Controller,
+      CoreComponentId.Hook,
+      CoreComponentId.Interceptor,
+      CoreComponentId.Repository,
+      CoreComponentId.Service
     ]);
     this.registerExtensions();
 
@@ -141,14 +142,14 @@ export class App {
     this.loadCoreComponents();
     await this.loadExtensions(true);
     await this.loadComponents([
-      ComponentType.Cli,
-      ComponentType.Component,
-      ComponentType.Config,
-      ComponentType.Controller,
-      ComponentType.Hook,
-      ComponentType.Interceptor,
-      ComponentType.Repository,
-      ComponentType.Service
+      CoreComponentId.Cli,
+      CoreComponentId.Component,
+      CoreComponentId.Config,
+      CoreComponentId.Controller,
+      CoreComponentId.Hook,
+      CoreComponentId.Interceptor,
+      CoreComponentId.Repository,
+      CoreComponentId.Service
     ]);
     this.registerExtensions();
   }
@@ -161,22 +162,22 @@ export class App {
     }
 
     await this.loadComponents([
-      ComponentType.Cli,
-      ComponentType.Component,
-      ComponentType.Config,
-      ComponentType.Controller,
-      ComponentType.Hook,
-      ComponentType.Interceptor,
-      ComponentType.Repository,
-      ComponentType.Service,
-      ComponentType.Test
+      CoreComponentId.Cli,
+      CoreComponentId.Component,
+      CoreComponentId.Config,
+      CoreComponentId.Controller,
+      CoreComponentId.Hook,
+      CoreComponentId.Interceptor,
+      CoreComponentId.Repository,
+      CoreComponentId.Service,
+      CoreComponentId.Test
     ]);
 
     if (runOptions.testMode.includes(TestMode.INTEGRATION) || runOptions.testMode.includes(TestMode.E2E)) {
       this.registerExtensions();
     }
 
-    const testComponents = this.componentManager.getComponents(ComponentType.Test);
+    const testComponents = this.componentManager.getComponents(CoreComponentId.Test);
     
     if (testComponents) {
       const testManager = new TestManager(runOptions.testRunner, testComponents, runOptions.testMode, this.componentManager.container);      
@@ -218,7 +219,7 @@ export class App {
 
   async stop() {
     try {
-      const hooks = this.componentManager.getAll<IHook>(ComponentType.Hook);
+      const hooks = this.componentManager.getAll<IHook>(CoreComponentId.Hook);
 
       if (hooks) {
         await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)(this.hookContext)));

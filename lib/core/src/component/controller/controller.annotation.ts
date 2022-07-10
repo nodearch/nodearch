@@ -1,15 +1,8 @@
-import { ComponentMetadata } from '../component.metadata';
-import { ComponentType } from '../enums';
-import { injectable } from 'inversify';
-import { IComponentInfo, IComponentOptions } from "../interfaces";
+import { ComponentFactory } from '../component-factory';
+import { CoreComponentId } from '../enums';
+import { IComponentOptions } from '../interfaces';
+import { ControllerHandler } from './controller.handler';
 
 
-export function Controller(options?: IComponentOptions): ClassDecorator {
-  return function (target: any) {
-    ComponentMetadata.setInfo<IComponentInfo>(target, {
-      ...options,
-      type: ComponentType.Controller
-    });
-    injectable()(target);
-  }
-}
+export const Controller = (options?: IComponentOptions): ClassDecorator => 
+  ComponentFactory.decorator({ id: CoreComponentId.Controller, handler: ControllerHandler, options});

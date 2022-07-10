@@ -1,6 +1,6 @@
-import { ClassConstructor } from '../..';
+import { ClassConstructor } from '../../utils';
 import { MetadataInfo } from '../../metadata';
-import { ITestCaseMetadata, ITestHookMetadata, IMockMetadata, ITestSuiteMetadata } from './test.interfaces';
+import { ITestCaseMetadata, ITestHookMetadata, ITestSuiteMetadata } from './test.interfaces';
 
 /**
  * TODO: revisit methods params types, we used classInstance: object in all the functions

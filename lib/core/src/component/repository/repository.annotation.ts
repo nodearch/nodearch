@@ -1,16 +1,7 @@
-import { ComponentMetadata } from '../component.metadata';
-import { ComponentType } from '../enums';
-import { injectable } from 'inversify';
-import { IComponentInfo, IComponentOptions } from "../interfaces";
+import { ComponentFactory } from '../component-factory';
+import { CoreComponentId } from '../enums';
+import { IComponentOptions } from '../interfaces';
 
 
-export function Repository(options?: IComponentOptions): ClassDecorator {
-  return function (target: any) {
-    ComponentMetadata.setInfo<IComponentInfo>(target, {
-      scope: options?.scope,
-      type: ComponentType.Repository,
-      namespace: options?.namespace
-    });
-    injectable()(target);
-  }
-}
+export const Repository = (options?: IComponentOptions): ClassDecorator => 
+  ComponentFactory.decorator({ id: CoreComponentId.Repository, options });

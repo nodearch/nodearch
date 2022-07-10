@@ -1,4 +1,4 @@
-import { IEnvConfig } from './interfaces';
+import { IEnvConfig } from './config.interfaces';
 import { TypeParser } from './type-parser';
 
 export abstract class ConfigResolve {
