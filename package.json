@@ -1,6 +1,6 @@
 {
   "name": "root",
-  "private": false,
+  "private": true,
   "scripts": {
     "graph": "nx graph"
   },
