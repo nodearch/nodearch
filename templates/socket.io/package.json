@@ -21,9 +21,9 @@
     "rimraf": "~3.0.2"
   },
   "dependencies": {
-    "@nodearch/core": "^1.4.2",
+    "@nodearch/core": "workspace:^1.4.2",
     "reflect-metadata": "^0.1.13",
-    "@nodearch/socket.io": "^0.5.2",
+    "@nodearch/socket.io": "workspace:^0.5.2",
     "socket.io": "~4.1.3"
   }
 }
