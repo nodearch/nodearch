@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 import { ClassConstructor } from '../utils';
-import { ComponentType, ComponentScope } from './enums';
+import { ComponentScope } from './enums';
 
 export interface IComponentsOptions {
   // Components default scope ( Singleton if not provided )
@@ -14,12 +14,13 @@ export interface IComponentOptions {
 }
 
 export interface IComponentInfo extends IComponentOptions {
-  type: ComponentType;
+  id: string;
+  handler?: ClassConstructor<IComponentHandler>; 
 }
 
 export interface IComponentHandler {
   register(classDef: ClassConstructor, componentInfo: IComponentInfo): void;
-  registerExtension?(classDef: ClassConstructor, extContainer: Container): void;
+  registerExtension?(classDef: ClassConstructor, componentInfo: IComponentInfo, extContainer: Container): void;
 }
 
 export interface IBindComponentOptions extends IComponentInfo {

@@ -10,3 +10,4 @@ export * from './interfaces';
 export * from './interceptor';
 export * from './cli';
 export * from './test';
+export * from './component-factory';

@@ -15,3 +15,9 @@ export enum ComponentScope {
   Singleton = 'Singleton',
   Transient = 'Transient'
 }
+
+export enum CoreComponentId {
+  Component = '@nodearch/core/component-id/component',
+  Cli = '@nodearch/core/component-id/cli',
+  Hook = '@nodearch/core/component-id/hook'
+}

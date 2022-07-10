@@ -22,11 +22,11 @@ export abstract class BaseComponentHandler {
         binding = this.container.bind(options.component).toSelf();
     }
 
-    if (options.type) {
-      this.container.bind(options.type).toService(options.component);
+    if (options.id) {
+      this.container.bind(options.id).toService(options.component);
     }
 
-    if (options.namespace && options.namespace !== options.type) {
+    if (options.namespace && options.namespace !== options.id) {
       this.container.bind(options.namespace).toService(options.component);
     }
 
@@ -38,11 +38,11 @@ export abstract class BaseComponentHandler {
       return options.extContainer.get(options.component);
     });
 
-    if (options.type) {
-      this.container.bind(options.type).toService(options.component);
+    if (options.id) {
+      this.container.bind(options.id).toService(options.component);
     }
 
-    if (options.namespace && options.namespace !== options.type) {
+    if (options.namespace && options.namespace !== options.id) {
       this.container.bind(options.namespace).toService(options.component);
     }
   }

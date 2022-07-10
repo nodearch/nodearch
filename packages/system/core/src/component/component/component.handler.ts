@@ -1,8 +1,7 @@
+import { IComponentHandler, IComponentInfo } from "../interfaces";
+import { BaseComponentHandler } from '../base-handler';
 import { Container } from 'inversify';
 import { ClassConstructor } from '../../utils';
-import {IComponentHandler, IComponentInfo} from '../interfaces';
-import {BaseComponentHandler} from "../base-handler";
-import { ComponentType } from '../enums';
 
 export class ComponentHandler extends BaseComponentHandler implements IComponentHandler {
   constructor(container: Container) {
@@ -16,11 +15,11 @@ export class ComponentHandler extends BaseComponentHandler implements IComponent
     });
   }
 
-  registerExtension(classDef: ClassConstructor, extContainer: Container) {
+  registerExtension(classDef: ClassConstructor, componentInfo: IComponentInfo, extContainer: Container) {
     this.bindExtComponent({
       component: classDef,
-      extContainer,
-      type: ComponentType.Component
+      ...componentInfo,
+      extContainer
     });
   }
 

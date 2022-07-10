@@ -12,3 +12,8 @@ export function Cli(options?: IComponentOptions): ClassDecorator {
     injectable()(target);
   }
 }
+
+export const DECORATOR_ID_COMPONENT = '@nodearch/core/cli';
+
+export const Component = (options?: IComponentOptions): ClassDecorator => 
+  ComponentFactory.decorator(DECORATOR_ID_COMPONENT, options);
