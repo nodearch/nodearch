@@ -1,0 +1,206 @@
+// DO NOT ADD COMMENTS IN THIS FILE.  They will be lost when the Rush tool resaves it.
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/approved-packages.schema.json",
+  "packages": [
+    {
+      "name": "@hapi/joi",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@nodearch/core",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@nodearch/express",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@nodearch/socket.io",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@socket.io/redis-adapter",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/chai",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@types/decompress",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/express",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@types/hapi__joi",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/inquirer",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/jest",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/jsonwebtoken",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/mocha",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/multer",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/node",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@types/node-notifier",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/nodemon",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/request-promise-native",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/supertest",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@types/yargs",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "axios",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "chai",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "decompress",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "express",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "inquirer",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "inversify",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "jest",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "joi",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "joi-to-swagger",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "jsonwebtoken",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "jwks-rsa",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "mocha",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "multer",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "node-notifier",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "nodemon",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "nyc",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "open",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "ora",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "query-string",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "reflect-metadata",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "request",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "request-promise-native",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "rimraf",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "socket.io",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "supertest",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "ts-jest",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "ts-node",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "tsconfig-paths",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "typescript",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "yargs",
+      "allowedCategories": [ "production" ]
+    }
+  ]
+}
