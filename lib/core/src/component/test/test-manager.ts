@@ -5,6 +5,7 @@ import { TestMetadata } from './test.metadata';
 import { TestBox } from './test-box';
 import { TestMode } from '.';
 
+// TODO: revisit this after the new components changes
 export class TestManager {
   constructor(
     private testRunner: ITestRunner, 

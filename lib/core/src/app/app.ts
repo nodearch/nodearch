@@ -1,13 +1,11 @@
 import { ClassLoader } from '../loader';
 import { 
-  TestMode, IConfigOptions, TestManager, 
-  ComponentManager, HookContext, 
+  IConfigOptions, ComponentManager, HookContext, 
   CoreComponentId, IHook, ConfigManager 
 } from '../component';
 import { IAppOptions, IRunOptions } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';
 
-// TODO: This class requires some refactoring especially the run methods
 export class App {
   // TODO check if we need those to be public still
   componentManager: ComponentManager;
@@ -58,6 +56,7 @@ export class App {
     }
   } 
 
+  // TODO: We can probably add performance insights here
   private async loadComponents(excludeIds?: string[]) {
     this.logger.info(`Registering App: ${this.getAppName()}`);
 
