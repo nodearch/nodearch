@@ -5,6 +5,10 @@ import { IComponentHandler, IComponentInfo, IComponentOptions } from './interfac
 
 
 export abstract class ComponentFactory {
+
+  // TODO: add support for passing custom info to decorator factories.
+  // TODO: create a method decorator helper
+
   static decorator(
     options: {
       id: string;
