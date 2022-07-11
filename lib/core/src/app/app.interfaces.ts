@@ -1,5 +1,5 @@
 import { IClassLoaderOptions } from '../loader';
-import { ComponentScope, ITestRunner, IConfigOptions, TestMode } from '../component';
+import { ComponentScope, IConfigOptions } from '../component';
 import { App } from "./app";
 import { ILogger, ILogOptions } from '../log';
 
@@ -8,13 +8,7 @@ export interface IAppConstructor {
   new(...args: any): App;
 }
 
-export interface IAppInfo {
-  name: string;
-  version: string;
-}
-
 export interface IAppOptions {
-  appInfo: IAppInfo;
   classLoader: IClassLoaderOptions;
   extensions?: App[];
   defaultScope?: ComponentScope;

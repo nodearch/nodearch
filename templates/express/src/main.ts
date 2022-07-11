@@ -16,10 +16,6 @@ export default class MyApp extends App {
     const server = http.createServer(app);
 
     super({
-      appInfo: {
-        name: pkg.name,
-        version: pkg.version
-      },
       classLoader: {
         classpath: path.join(__dirname, 'components')
       },

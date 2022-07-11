@@ -4,16 +4,13 @@ import {
   ComponentManager, HookContext, 
   CoreComponentId, IHook, ConfigManager 
 } from '../component';
-import { IAppInfo, IAppOptions, IRunOptions } from './app.interfaces';
+import { IAppOptions, IRunOptions } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';
-// import pkg from '../../package.json';
-// const pkg = require('../../package.json');
 
 // TODO: This class requires some refactoring especially the run methods
 export class App {
   // TODO check if we need those to be public still
   componentManager: ComponentManager;
-  appInfo: IAppInfo;
   
   private extensions?: App[];
   private logOptions?: ILogOptions;
@@ -27,7 +24,6 @@ export class App {
     this.classLoader = new ClassLoader(options.classLoader);
     this.componentManager = new ComponentManager({ defaultScope: options.defaultScope });
     this.hookContext = new HookContext(this.componentManager);
-    this.appInfo = options.appInfo;
     this.extensions = options.extensions;
     this.logOptions = options.log;
     this.configOptions = options.config;
@@ -63,13 +59,13 @@ export class App {
   } 
 
   private async loadComponents(excludeIds?: string[]) {
-    this.logger.info(`Load App: ${this.appInfo.name} version: ${this.appInfo.version}`);
+    this.logger.info(`Registering App: ${this.getAppName()}`);
 
     await this.classLoader.load();
     const { registered, hooks, exported } = this.componentManager.load(this.classLoader.classes, excludeIds);
     this.logger.debug(`${registered} Components Loaded`);
     this.logger.debug(`${hooks} Hooks registered`);
-    this.logger.debug(`${exported} Component exported`);
+    this.logger.debug(`${exported} Components exported`);
   }
 
   private registerExtensions() {
@@ -174,5 +170,9 @@ export class App {
         throw e;
       }
     }
+  }
+
+  getAppName() {
+    return this.constructor.name;
   }
 }
