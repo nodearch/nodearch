@@ -46,7 +46,7 @@ export class ComponentManager {
     });
   }
 
-  load(classes: ClassConstructor[], include: string[]) {
+  load(classes: ClassConstructor[], excludeIds?: string[]) {
     let registered = 0,
       hooks = 0,
       exported = 0;
@@ -54,25 +54,27 @@ export class ComponentManager {
     classes.forEach(classDef => {
       const componentInfo = ComponentMetadata.getInfo<IComponentInfo>(classDef);
 
-      if (componentInfo && include.includes(componentInfo.id)) {
+      if (!componentInfo) return;
+      
+      if (excludeIds?.includes(componentInfo.id)) return;
 
-        const comRegistry = this.getComponentRegistry(componentInfo);
+      const comRegistry = this.getComponentRegistry(componentInfo);
 
-        comRegistry.components.push(classDef);
+      comRegistry.components.push(classDef);
 
-        if (componentInfo.options?.export) {
-          this.exportedComponents.push({
-            classDef,
-            info: componentInfo
-          });
-          exported++;
-        }
-
-        comRegistry.handler.register(classDef, componentInfo);
-        
-        registered++;
-        // if (componentInfo.type === ComponentType.Hook) hooks++;
+      if (componentInfo.options?.export) {
+        this.exportedComponents.push({
+          classDef,
+          info: componentInfo
+        });
+        exported++;
       }
+
+      comRegistry.handler.register(classDef, componentInfo);
+      
+      registered++;
+
+      if (componentInfo.id === CoreComponentId.Hook) hooks++;
     });
 
     return {
