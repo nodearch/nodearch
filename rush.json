@@ -419,6 +419,12 @@
 
     // ============= Templates =============
     {
+      "packageName": "@nodearch/template-standalone",
+      "projectFolder": "templates/standalone",
+      "reviewCategory": "prototypes",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@nodearch/template-express",
       "projectFolder": "templates/express",
       "reviewCategory": "prototypes",

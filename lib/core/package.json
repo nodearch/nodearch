@@ -7,6 +7,7 @@
   "type": "commonjs",
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc",
     "release": "npm run build && npm publish --tag beta --access public",
     "test": "jest"
   },

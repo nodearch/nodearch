@@ -265,6 +265,25 @@ importers:
       tsconfig-paths: 3.14.1
       typescript: 4.7.4
 
+  ../../templates/standalone:
+    specifiers:
+      '@nodearch/core': workspace:^1.4.2
+      '@types/node': ^14.14.10
+      reflect-metadata: ^0.1.13
+      rimraf: ~3.0.2
+      ts-node: ^10.8.0
+      tsconfig-paths: ^3.9.0
+      typescript: ^4.7.2
+    dependencies:
+      '@nodearch/core': link:../../lib/core
+      reflect-metadata: 0.1.13
+    devDependencies:
+      '@types/node': 14.18.21
+      rimraf: 3.0.2
+      ts-node: 10.8.2_01f4831a90327c4fa15ca04ce3a26ce1
+      tsconfig-paths: 3.14.1
+      typescript: 4.7.4
+
 packages:
 
   /@ampproject/remapping/2.2.0:
