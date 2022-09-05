@@ -3,7 +3,7 @@ import { ComponentMetadata } from './component.metadata';
 import { ComponentScope, CoreComponentId } from './enums';
 import { ClassConstructor } from '../utils';
 import { ComponentHandler } from './component';
-import {IComponentHandler, IComponentInfo, IComponentsOptions, IExportedComponent} from './interfaces';
+import {IComponentHandler, IComponentInfo, IComponentRegistryInfo, IComponentsOptions, IExportedComponent} from './interfaces';
 import { IHook } from './hook';
 import { ICli } from './cli';
 
@@ -12,7 +12,7 @@ export class ComponentManager {
 
   private options: IComponentsOptions;
   container: Container;
-  private componentsRegistry: Map<string, { components: ClassConstructor[], handler: IComponentHandler }>;
+  private componentsRegistry: Map<string, { components: IComponentRegistryInfo[], handler: IComponentHandler }>;
   private exportedComponents: IExportedComponent[];
 
   constructor(options?: IComponentsOptions) {
@@ -38,9 +38,9 @@ export class ComponentManager {
     compManagers.forEach(compManager => {
       const exportedComps = compManager.getExported();
 
-      exportedComps.forEach(({ classDef, info }) => {
+      exportedComps.forEach(({ classConstructor, info }) => {
         const comRegistry = this.getComponentRegistry(info);
-        comRegistry.handler.registerExtension?.(classDef, info, compManager.container);
+        comRegistry.handler.registerExtension?.(classConstructor, info, compManager.container);
       });
 
     });
@@ -51,26 +51,36 @@ export class ComponentManager {
       hooks = 0,
       exported = 0;
 
-    classes.forEach(classDef => {
-      const componentInfo = ComponentMetadata.getInfo<IComponentInfo>(classDef);
+    classes.forEach(classConstructor => {
+      const componentInfo = ComponentMetadata.getComponentInfo(classConstructor);
 
       if (!componentInfo) return;
       
       if (excludeIds?.includes(componentInfo.id)) return;
 
+
       const comRegistry = this.getComponentRegistry(componentInfo);
 
-      comRegistry.components.push(classDef);
+      const decorators = ComponentMetadata.getComponentDecorators(classConstructor);
+
+      comRegistry.components.push({
+        classConstructor,
+        componentInfo,
+        decorators,
+        getInstance: () => { // TODO: replace this object with a class
+          return this.get(classConstructor);
+        },
+      });
 
       if (componentInfo.options?.export) {
         this.exportedComponents.push({
-          classDef,
+          classConstructor,
           info: componentInfo
         });
         exported++;
       }
 
-      comRegistry.handler.register(classDef, componentInfo);
+      comRegistry.handler.register(classConstructor, componentInfo);
       
       registered++;
 
@@ -90,7 +100,7 @@ export class ComponentManager {
     if (!comRegistry) {
       comRegistry = {
         components: [],
-        handler: new (componentInfo.handler || ComponentHandler)(this.container) // TODO - change the default handler?
+        handler: new (componentInfo.handler || ComponentHandler)(this.container)
       };
       this.componentsRegistry.set(componentInfo.id, comRegistry);
     }

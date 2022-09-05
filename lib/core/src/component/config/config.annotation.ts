@@ -4,4 +4,4 @@ import { ComponentFactory } from '../component-factory';
 
 
 export const Config = (options?: IComponentOptions): ClassDecorator => 
-  ComponentFactory.decorator({ id: CoreComponentId.Config, options });
+  ComponentFactory.componentDecorator({ id: CoreComponentId.Config, options });

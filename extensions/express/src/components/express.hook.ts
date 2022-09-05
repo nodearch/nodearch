@@ -1,4 +1,8 @@
-import { Hook, IHook, HookContext, CoreComponentId, Logger, ClassConstructor } from '@nodearch/core';
+import { 
+  Hook, IHook, HookContext, 
+  Logger, IComponentRegistryInfo,
+  CoreComponentId 
+} from '@nodearch/core';
 import { ExpressService } from './express.service';
 
 @Hook({
@@ -8,7 +12,7 @@ export class ExpressHook implements IHook {
 
   private readonly expressService: ExpressService;
   private readonly logger: Logger;
-  private controllers?: ClassConstructor[];
+  private controllers?: IComponentRegistryInfo[];
 
   constructor(expressService: ExpressService, logger: Logger) {
     this.expressService = expressService;

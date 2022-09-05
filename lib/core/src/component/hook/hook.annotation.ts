@@ -4,4 +4,4 @@ import { IComponentOptions } from '../interfaces';
 
 
 export const Hook = (options?: IComponentOptions): ClassDecorator => 
-  ComponentFactory.decorator({ id: CoreComponentId.Hook, options });
+  ComponentFactory.componentDecorator({ id: CoreComponentId.Hook, options });

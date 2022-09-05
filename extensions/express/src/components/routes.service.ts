@@ -1,4 +1,4 @@
-import { Service, Logger } from '@nodearch/core';
+import { Service, Logger, IComponentRegistryInfo } from '@nodearch/core';
 import { HttpControllerInfo } from './http-controller-info';
 import { IHttpControllerMethod, IRouteInfo, IFileUploadInfo, IMiddlewareMetadataInfo } from '../interfaces';
 import { RouteHandlerFactory } from './route-handler.factory';
@@ -32,7 +32,7 @@ export class RoutesService {
     this.routesInfo = [];
   }
 
-  registerController(controller: any, expressApp: express.Application, dependencyFactory: (x: any) => any) {
+  registerController(controller: IComponentRegistryInfo, expressApp: express.Application, dependencyFactory: (x: any) => any) {
     const httpCtrlInfo = this.httpControllerInfo.parse(controller);
     const middlewareInfo = this.middlewareService.getMiddleware(controller);
 

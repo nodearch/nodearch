@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'http';
 import https from 'https';
-import { Service, Logger } from '@nodearch/core';
+import { Service, Logger, IComponentRegistryInfo } from '@nodearch/core';
 import { ServerConfig } from './server.config';
 import { RoutesService } from './routes.service';
 
@@ -32,7 +32,7 @@ export class ExpressService {
    * @param controllers list of controllers to register
    * @param dependencyFactory factory function to resolve controller instances from the DI Container
    */
-  async init(controllers: any[], dependencyFactory: (x: any) => any) {
+  async init(controllers: IComponentRegistryInfo[], dependencyFactory: (x: any) => any) {
     controllers.forEach(controller =>
       this.routesService.registerController(controller, this.expressApp, dependencyFactory)
     );

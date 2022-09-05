@@ -5,16 +5,12 @@ import { IComponentHandler, IComponentInfo, IComponentOptions } from './interfac
 
 
 export abstract class ComponentFactory {
-
-  // TODO: add support for passing custom info to decorator factories.
-  // TODO: create a method decorator helper
-
-  static decorator(
+  static componentDecorator(
     options: {
       id: string;
       handler?: ClassConstructor<IComponentHandler>;
       options?: IComponentOptions;
-      fn?: (target: any) => void;
+      fn?(target: any): object | void;
     }
   ): ClassDecorator {
 
@@ -25,9 +21,82 @@ export abstract class ComponentFactory {
     };
 
     return function (target: any) {
-      options.fn?.(target);
-      ComponentMetadata.setInfo<IComponentInfo>(target, compInfo);
+      compInfo.data = options.fn?.(target);
+      ComponentMetadata.setComponentInfo(target, compInfo);
       injectable()(target);
+    }
+  }
+
+  static classDecorator(
+    options: {
+      id: string;
+      fn?(target: any): object | void;
+    }
+  ): ClassDecorator {
+    return function (target: any) {
+
+      const data = options.fn?.(target);
+
+      ComponentMetadata.setComponentDecorator(target.constructor, {
+        id: options.id,
+        data
+      });
+    }
+  }
+
+  static methodDecorator(
+    options: {
+      id: string;
+      fn?(target: any, propKey: string | symbol): object | void;
+    }
+  ): MethodDecorator {
+    return function (target: any, propKey: string | symbol) {
+
+      const data = options.fn?.(target, propKey);
+
+      ComponentMetadata.setComponentDecorator(target.constructor, {
+        id: options.id,
+        method: propKey,
+        data
+      });
+    }
+  }
+
+  static parameterDecorator(
+    options: {
+      id: string;
+      fn?(target: any, propKey: string | symbol, paramIndex: number): object | void;
+    }
+  ): ParameterDecorator {
+    return function (target: any, propKey: string | symbol, paramIndex: number) {
+      const data = options.fn?.(target, propKey, paramIndex);
+
+      ComponentMetadata.setComponentDecorator(target.constructor, {
+        id: options.id,
+        method: propKey,
+        paramIndex: paramIndex,
+        data
+      });
+    }
+  }
+
+  static globalDecorator(
+    options: {
+      id: string;
+      fn?(target: any, propKey?: string | symbol): object | void;
+    }
+  ) {
+    return function(target: any, propKey?: string | symbol) {
+      const decoratorTarget = propKey ? target.constructor : target;
+      
+      const data = options.fn?.(target, propKey);
+    
+      ComponentMetadata.setComponentDecorator(decoratorTarget, {
+        id: options.id,
+        method: propKey,
+        global: true,
+        data
+      });
     }
   }
 }

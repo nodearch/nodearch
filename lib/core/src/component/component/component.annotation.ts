@@ -4,4 +4,4 @@ import { CoreComponentId } from '../enums';
 
 
 export const Component = (options?: IComponentOptions): ClassDecorator => 
-  ComponentFactory.decorator({ id: CoreComponentId.Component, options });
+  ComponentFactory.componentDecorator({ id: CoreComponentId.Component, options });

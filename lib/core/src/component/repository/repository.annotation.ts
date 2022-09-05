@@ -4,4 +4,4 @@ import { IComponentOptions } from '../interfaces';
 
 
 export const Repository = (options?: IComponentOptions): ClassDecorator => 
-  ComponentFactory.decorator({ id: CoreComponentId.Repository, options });
+  ComponentFactory.componentDecorator({ id: CoreComponentId.Repository, options });

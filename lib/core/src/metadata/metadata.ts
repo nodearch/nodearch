@@ -1,6 +1,6 @@
 export abstract class MetadataInfo {
 
-  static readonly PREFIX = 'nodearch.io/';
+  static readonly PREFIX = '@nodearch/core/';
 
   static getClassMetadata(key: string, target: any) {
     return Reflect.getMetadata(MetadataInfo.PREFIX + key, target);

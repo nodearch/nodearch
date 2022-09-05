@@ -8,7 +8,7 @@ import { CoreComponentId } from '../enums';
 
 // TODO: validate that allowing Different scopes for Interceptors is fine
 export const Interceptor = (options?: IComponentOptions): ClassDecorator => 
-  ComponentFactory.decorator({ id: CoreComponentId.Interceptor, options });
+  ComponentFactory.componentDecorator({ id: CoreComponentId.Interceptor, options });
 
 export function UseInterceptor<T>(guardClass: IInterceptorConstructor<T>, options: T): ClassMethodDecorator;
 export function UseInterceptor(guardClass: IInterceptorConstructor, options?: undefined): ClassMethodDecorator;

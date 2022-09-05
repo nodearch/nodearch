@@ -13,11 +13,30 @@ export interface IComponentOptions {
   export?: boolean;
 }
 
+// TODO: update IComponentMetadata
 export interface IComponentInfo {
   id: string;
   handler?: ClassConstructor<IComponentHandler>; 
-  options?: IComponentOptions; 
+  options?: IComponentOptions;
+  data?: any;
 }
+
+export interface IComponentDecorator {
+  id: string;
+  method?: string | symbol; // Available only for class decorator 
+  paramIndex?: number; // Available only for parameter decorator
+  global?: boolean;  // Apply to all methods of the component
+  data?: any; // Additional options
+}
+
+export interface IComponentRegistryInfo {
+  classConstructor: ClassConstructor;
+  componentInfo: IComponentInfo;  
+  decorators: IComponentDecorator[];
+  getInstance: () => any;
+}
+
+
 
 export interface IComponentHandler {
   register(classDef: ClassConstructor, componentInfo: IComponentInfo): void;
@@ -39,6 +58,6 @@ export interface IProxyMethodOptions {
 }
 
 export interface IExportedComponent {
-    classDef: ClassConstructor;
+    classConstructor: ClassConstructor;
     info: IComponentInfo;
 }

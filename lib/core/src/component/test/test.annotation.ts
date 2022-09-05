@@ -7,14 +7,12 @@ import { TestMode } from './test.enums';
 import { ComponentFactory } from '../component-factory';
 
 
-
-
 export function Test(): ClassDecorator;
 export function Test(title: string): ClassDecorator;
 export function Test(options: ITestSuiteOptions): ClassDecorator;
 export function Test(title: string, options: Omit<ITestSuiteOptions, 'title'>): ClassDecorator;
 export function Test(...args: (string | ITestSuiteOptions | Omit<ITestSuiteOptions, 'title'>)[]): ClassDecorator {
-  return ComponentFactory.decorator({ 
+  return ComponentFactory.componentDecorator({ 
     id: CoreComponentId.Test,
     options: {
       export: false,
@@ -40,7 +38,7 @@ export function Test(...args: (string | ITestSuiteOptions | Omit<ITestSuiteOptio
 
 // TODO: validate the input
 export function Mock(component: ClassConstructor): ClassDecorator {
-  return ComponentFactory.decorator({ 
+  return ComponentFactory.componentDecorator({ 
     id: CoreComponentId.Mock, 
     options: {
       export: false,

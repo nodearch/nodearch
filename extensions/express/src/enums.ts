@@ -23,3 +23,8 @@ export enum MiddlewareType {
   VALIDATION,
   FILE_UPLOAD
 }
+
+export enum ExpressAnnotationId {
+  HttpMethod = '@nodearch/express/annotations/http-method',
+  HttpParam = '@nodearch/express/annotations/http-param',
+}

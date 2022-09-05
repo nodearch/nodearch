@@ -1,5 +1,5 @@
 import { Controller } from "@nodearch/core";
-import { BodyParam, HttpGet, HttpPath, HttpPost, PathParam, QueryParam } from "@nodearch/express";
+import { BodyParam, HttpGet, HttpPath, HttpPost, PathParam, QueryParam} from "@nodearch/express";
 import { IUser } from './user.interface';
 import { UserService } from './user.service';
 

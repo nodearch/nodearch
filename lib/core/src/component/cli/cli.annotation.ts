@@ -4,4 +4,4 @@ import { ComponentFactory } from '../component-factory';
 
 
 export const Cli = (options?: IComponentOptions): ClassDecorator => 
-  ComponentFactory.decorator({ id: CoreComponentId.Cli, options });
+  ComponentFactory.componentDecorator({ id: CoreComponentId.Cli, options });
