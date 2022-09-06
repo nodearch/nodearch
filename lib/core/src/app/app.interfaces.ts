@@ -1,5 +1,5 @@
 import { IClassLoaderOptions } from '../loader';
-import { ComponentScope, IConfigOptions } from '../component';
+import { ComponentScope, IConfigOptions } from '../components';
 import { App } from "./app";
 import { ILogger, ILogOptions } from '../log';
 

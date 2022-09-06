@@ -2,7 +2,7 @@ import { ClassLoader } from '../loader';
 import { 
   IConfigOptions, ComponentManager, HookContext, 
   CoreComponentId, IHook, ConfigManager 
-} from '../component';
+} from '../components';
 import { IAppOptions, IRunOptions } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';
 
@@ -139,6 +139,7 @@ export class App {
 
   // }
 
+  // TODO: Extend the API to support include/exclude with patterns for full flexibility
   async run(options: IRunOptions = {}) {
     options = {
       exclude: [

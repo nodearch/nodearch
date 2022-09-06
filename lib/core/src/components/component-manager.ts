@@ -2,12 +2,13 @@ import { Container } from 'inversify';
 import { ComponentMetadata } from './component.metadata';
 import { ComponentScope, CoreComponentId } from './enums';
 import { ClassConstructor } from '../utils';
-import { ComponentHandler } from './component';
+import { ComponentHandler } from './base/component';
 import {IComponentHandler, IComponentInfo, IComponentRegistryInfo, IComponentsOptions, IExportedComponent} from './interfaces';
 import { IHook } from './hook';
-import { ICli } from './cli';
+import { ICli } from './custom/cli';
 
 
+// TODO: integrate the new registry in here
 export class ComponentManager {
 
   private options: IComponentsOptions;
@@ -34,79 +35,79 @@ export class ComponentManager {
     this.container.rebind(componentClass).toConstantValue(componentInstance);
   }
 
-  registerExternalComponents(compManagers: ComponentManager[]) {
-    compManagers.forEach(compManager => {
-      const exportedComps = compManager.getExported();
+  // registerExternalComponents(compManagers: ComponentManager[]) {
+  //   compManagers.forEach(compManager => {
+  //     const exportedComps = compManager.getExported();
 
-      exportedComps.forEach(({ classConstructor, info }) => {
-        const comRegistry = this.getComponentRegistry(info);
-        comRegistry.handler.registerExtension?.(classConstructor, info, compManager.container);
-      });
+  //     exportedComps.forEach(({ classConstructor, info }) => {
+  //       const comRegistry = this.getComponentRegistry(info);
+  //       comRegistry.handler.registerExtension?.(classConstructor, info, compManager.container);
+  //     });
 
-    });
-  }
+  //   });
+  // }
 
-  load(classes: ClassConstructor[], excludeIds?: string[]) {
-    let registered = 0,
-      hooks = 0,
-      exported = 0;
+  // load(classes: ClassConstructor[], excludeIds?: string[]) {
+  //   let registered = 0,
+  //     hooks = 0,
+  //     exported = 0;
 
-    classes.forEach(classConstructor => {
-      const componentInfo = ComponentMetadata.getComponentInfo(classConstructor);
+  //   classes.forEach(classConstructor => {
+  //     const componentInfo = ComponentMetadata.getComponentInfo(classConstructor);
 
-      if (!componentInfo) return;
+  //     if (!componentInfo) return;
       
-      if (excludeIds?.includes(componentInfo.id)) return;
+  //     if (excludeIds?.includes(componentInfo.id)) return;
 
 
-      const comRegistry = this.getComponentRegistry(componentInfo);
+  //     const comRegistry = this.getComponentRegistry(componentInfo);
 
-      const decorators = ComponentMetadata.getComponentDecorators(classConstructor);
+  //     const decorators = ComponentMetadata.getComponentDecorators(classConstructor);
 
-      comRegistry.components.push({
-        classConstructor,
-        componentInfo,
-        decorators,
-        getInstance: () => { // TODO: replace this object with a class
-          return this.get(classConstructor);
-        },
-      });
+  //     comRegistry.components.push({
+  //       classConstructor,
+  //       componentInfo,
+  //       decorators,
+  //       getInstance: () => { // TODO: replace this object with a class
+  //         return this.get(classConstructor);
+  //       },
+  //     });
 
-      if (componentInfo.options?.export) {
-        this.exportedComponents.push({
-          classConstructor,
-          info: componentInfo
-        });
-        exported++;
-      }
+  //     if (componentInfo.options?.export) {
+  //       this.exportedComponents.push({
+  //         classConstructor,
+  //         info: componentInfo
+  //       });
+  //       exported++;
+  //     }
 
-      comRegistry.handler.register(classConstructor, componentInfo);
+  //     comRegistry.handler.register(classConstructor, componentInfo);
       
-      registered++;
+  //     registered++;
 
-      if (componentInfo.id === CoreComponentId.Hook) hooks++;
-    });
+  //     if (componentInfo.id === CoreComponentId.Hook) hooks++;
+  //   });
 
-    return {
-      registered,
-      hooks,
-      exported
-    };
-  }
+  //   return {
+  //     registered,
+  //     hooks,
+  //     exported
+  //   };
+  // }
 
-  private getComponentRegistry(componentInfo: IComponentInfo) {
-    let comRegistry = this.componentsRegistry.get(componentInfo.id);
+  // private getComponentRegistry(componentInfo: IComponentInfo) {
+  //   let comRegistry = this.componentsRegistry.get(componentInfo.id);
 
-    if (!comRegistry) {
-      comRegistry = {
-        components: [],
-        handler: new (componentInfo.handler || ComponentHandler)(this.container)
-      };
-      this.componentsRegistry.set(componentInfo.id, comRegistry);
-    }
+  //   if (!comRegistry) {
+  //     comRegistry = {
+  //       components: [],
+  //       handler: new (componentInfo.handler || ComponentHandler)(this.container)
+  //     };
+  //     this.componentsRegistry.set(componentInfo.id, comRegistry);
+  //   }
 
-    return comRegistry;
-  }
+  //   return comRegistry;
+  // }
 
   get<T>(classIdentifier: ClassConstructor): T {
     return this.container.get<T>(classIdentifier);

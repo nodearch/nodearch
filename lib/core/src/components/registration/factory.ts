@@ -1,10 +1,16 @@
 import { injectable } from 'inversify';
-import { ClassConstructor } from '../utils';
-import { ComponentMetadata } from './component.metadata';
-import { IComponentHandler, IComponentInfo, IComponentOptions } from './interfaces';
+import { ClassConstructor } from '../../utils';
+import { ComponentMetadata } from './metadata';
+import { IComponentHandler, IComponentInfo, IComponentOptions } from '../interfaces';
 
 
 export abstract class ComponentFactory {
+  
+  /**
+   * The component decorator factory is used to flag a given class
+   * as a compatible component type that will be loaded by nodearch
+   * automatically and made available to all extensions and apps.
+   */
   static componentDecorator(
     options: {
       id: string;
@@ -22,7 +28,7 @@ export abstract class ComponentFactory {
 
     return function (target: any) {
       compInfo.data = options.fn?.(target);
-      ComponentMetadata.setComponentInfo(target, compInfo);
+      ComponentMetadata.setComponentRegistration(target, compInfo);
       injectable()(target);
     }
   }
@@ -80,6 +86,7 @@ export abstract class ComponentFactory {
     }
   }
 
+  // TODO: do we need this? or just support global flag on class decorator 
   static globalDecorator(
     options: {
       id: string;

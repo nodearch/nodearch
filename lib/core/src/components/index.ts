@@ -1,4 +1,4 @@
-export * from './component';
+export * from './base/component';
 export * from './hook';
 export * from './controller';
 export * from './service';
@@ -8,6 +8,6 @@ export * from './enums';
 export * from './component-manager';
 export * from './interfaces';
 export * from './interceptor';
-export * from './cli';
+export * from './custom/cli';
 export * from './test';
 export * from './component-factory';

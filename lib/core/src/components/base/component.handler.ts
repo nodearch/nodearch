@@ -1,7 +1,7 @@
-import { IComponentHandler, IComponentInfo } from "../interfaces";
-import { BaseComponentHandler } from '../base-handler';
+import { IComponentHandler, IComponentInfo } from "../../interfaces";
+import { BaseComponentHandler } from '../../base-handler';
 import { Container } from 'inversify';
-import { ClassConstructor } from '../../utils';
+import { ClassConstructor } from '../../../utils';
 
 export class ComponentHandler extends BaseComponentHandler implements IComponentHandler {
   constructor(container: Container) {
