@@ -1,20 +1,18 @@
 import { Container } from 'inversify';
-import { ComponentMetadata } from './component.metadata';
 import { ComponentScope, CoreComponentId } from './enums';
 import { ClassConstructor } from '../utils';
-import { ComponentHandler } from './base/component';
-import {IComponentHandler, IComponentInfo, IComponentRegistryInfo, IComponentsOptions, IExportedComponent} from './interfaces';
-import { IHook } from './hook';
+import { IComponentsOptions } from './interfaces';
 import { ICli } from './custom/cli';
+import { IHook } from './custom/hook';
+import { ComponentRegistry } from './registration/registry';
 
 
-// TODO: integrate the new registry in here
+// TODO: integrate the new registry in here | or move this to app.ts ?! 
 export class ComponentManager {
 
   private options: IComponentsOptions;
-  container: Container;
-  private componentsRegistry: Map<string, { components: IComponentRegistryInfo[], handler: IComponentHandler }>;
-  private exportedComponents: IExportedComponent[];
+  private container: Container;
+  private componentRegistry: ComponentRegistry;
 
   constructor(options?: IComponentsOptions) {
     this.options = options || {};
@@ -23,8 +21,7 @@ export class ComponentManager {
       defaultScope: this.options.defaultScope || ComponentScope.Singleton
     });
 
-    this.componentsRegistry = new Map();
-    this.exportedComponents = [];
+    this.componentRegistry = new ComponentRegistry(this.container);
   }
 
   registerCoreComponent(componentClass: ClassConstructor, componentInstance: any) {
@@ -34,80 +31,6 @@ export class ComponentManager {
   overrideCoreComponent(componentClass: ClassConstructor, componentInstance: any) {
     this.container.rebind(componentClass).toConstantValue(componentInstance);
   }
-
-  // registerExternalComponents(compManagers: ComponentManager[]) {
-  //   compManagers.forEach(compManager => {
-  //     const exportedComps = compManager.getExported();
-
-  //     exportedComps.forEach(({ classConstructor, info }) => {
-  //       const comRegistry = this.getComponentRegistry(info);
-  //       comRegistry.handler.registerExtension?.(classConstructor, info, compManager.container);
-  //     });
-
-  //   });
-  // }
-
-  // load(classes: ClassConstructor[], excludeIds?: string[]) {
-  //   let registered = 0,
-  //     hooks = 0,
-  //     exported = 0;
-
-  //   classes.forEach(classConstructor => {
-  //     const componentInfo = ComponentMetadata.getComponentInfo(classConstructor);
-
-  //     if (!componentInfo) return;
-      
-  //     if (excludeIds?.includes(componentInfo.id)) return;
-
-
-  //     const comRegistry = this.getComponentRegistry(componentInfo);
-
-  //     const decorators = ComponentMetadata.getComponentDecorators(classConstructor);
-
-  //     comRegistry.components.push({
-  //       classConstructor,
-  //       componentInfo,
-  //       decorators,
-  //       getInstance: () => { // TODO: replace this object with a class
-  //         return this.get(classConstructor);
-  //       },
-  //     });
-
-  //     if (componentInfo.options?.export) {
-  //       this.exportedComponents.push({
-  //         classConstructor,
-  //         info: componentInfo
-  //       });
-  //       exported++;
-  //     }
-
-  //     comRegistry.handler.register(classConstructor, componentInfo);
-      
-  //     registered++;
-
-  //     if (componentInfo.id === CoreComponentId.Hook) hooks++;
-  //   });
-
-  //   return {
-  //     registered,
-  //     hooks,
-  //     exported
-  //   };
-  // }
-
-  // private getComponentRegistry(componentInfo: IComponentInfo) {
-  //   let comRegistry = this.componentsRegistry.get(componentInfo.id);
-
-  //   if (!comRegistry) {
-  //     comRegistry = {
-  //       components: [],
-  //       handler: new (componentInfo.handler || ComponentHandler)(this.container)
-  //     };
-  //     this.componentsRegistry.set(componentInfo.id, comRegistry);
-  //   }
-
-  //   return comRegistry;
-  // }
 
   get<T>(classIdentifier: ClassConstructor): T {
     return this.container.get<T>(classIdentifier);
