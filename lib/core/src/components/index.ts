@@ -1,13 +1,8 @@
-export * from './base/component';
-export * from './hook';
-export * from './controller';
-export * from './service';
-export * from './repository';
-export * from './config';
+export * from './custom';
+export * from './registration';
+export * from './annotations';
 export * from './enums';
-export * from './component-manager';
+export * from './handler';
 export * from './interfaces';
-export * from './interceptor';
-export * from './custom/cli';
-export * from './test';
-export * from './component-factory';
+
+

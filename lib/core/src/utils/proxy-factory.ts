@@ -1,5 +1,8 @@
-import { IProxyMethodOptions } from './interfaces';
-
+export interface IProxyMethodOptions {
+  target: any;
+  before?(methodName: string, args: any[], paramTypes: string[]): Promise<boolean>;
+  after?(methodName: string, args: any[], paramTypes: string[]): Promise<boolean>;
+}
 
 export abstract class ProxyFactory {
   static proxyMethodCall(options: IProxyMethodOptions) {

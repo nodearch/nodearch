@@ -1,7 +1,9 @@
 import { injectable } from 'inversify';
 import { ClassConstructor } from '../../utils';
 import { ComponentMetadata } from './metadata';
-import { IComponentHandler, IComponentInfo, IComponentOptions } from '../interfaces';
+import { IComponentOptions } from '../interfaces';
+import { IComponentRegistration } from './interfaces';
+import { ComponentHandler } from '../handler';
 
 
 export abstract class ComponentFactory {
@@ -14,13 +16,13 @@ export abstract class ComponentFactory {
   static componentDecorator(
     options: {
       id: string;
-      handler?: ClassConstructor<IComponentHandler>;
+      handler?: ClassConstructor<ComponentHandler>;
       options?: IComponentOptions;
       fn?(target: any): object | void;
     }
   ): ClassDecorator {
 
-    const compInfo: IComponentInfo = {
+    const compInfo: IComponentRegistration = {
       id: options.id,
       handler: options.handler,
       options: options.options

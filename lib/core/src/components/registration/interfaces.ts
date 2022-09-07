@@ -1,10 +1,11 @@
 import { ClassConstructor } from '../../utils';
-import { IComponentHandler, IComponentOptions } from '../interfaces';
+import { ComponentHandler } from '../handler';
+import { IComponentOptions } from '../interfaces';
 
 
 export interface IComponentRegistration {
   id: string;
-  handler?: ClassConstructor<IComponentHandler>; 
+  handler?: ClassConstructor<ComponentHandler>; 
   options?: IComponentOptions;
   data?: any;
 }

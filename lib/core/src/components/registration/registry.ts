@@ -1,7 +1,6 @@
 import { Container } from 'inversify';
 import { ClassConstructor } from '../../utils';
-import { ComponentHandler } from '../base';
-import { IComponentHandler } from '../interfaces';
+import { ComponentHandler } from '../handler';
 import { ComponentInfo } from './info';
 import { IComponentRegistration } from './interfaces';
 import { ComponentMetadata } from './metadata';
@@ -11,7 +10,7 @@ export class ComponentRegistry {
   // Dependency injection container that holds all the app components 
   private container: Container;
   // A map of registries for all components types within the app
-  private registryMap: Map<string, { components: ComponentInfo[], handler: IComponentHandler }>;
+  private registryMap: Map<string, { components: ComponentInfo[], handler: ComponentHandler }>;
   // Keeps track of all the exported components from the app
   private exported: ComponentInfo[];
   // Keeps track of all hooks within the app
@@ -26,6 +25,14 @@ export class ComponentRegistry {
 
   getExported() {
     return this.exported;
+  }
+
+  getComponents(id: string) {
+    const registry = this.registryMap.get(id);
+    
+    if (registry && registry.components.length) {
+      return registry.components;
+    }
   }
 
   /**
@@ -57,17 +64,12 @@ export class ComponentRegistry {
   }
 
   /**
-   * Register the exported components from all extensions 
+   * Register the exported components from the extensions 
    */
-  registerExtensions(componentRegistries: ComponentRegistry[]) {
-    componentRegistries.forEach(compRegistry => {
-      const exported = compRegistry.getExported();
-      
-      exported.forEach(componentInfo => {
-        const registry = this.getComponentRegistry(componentInfo.getRegistration());
-        registry.handler.registerExtension?.(componentInfo);
-      });
-    
+  registerExtensions(components: ComponentInfo[]) {
+    components.forEach(componentInfo => {
+      const registry = this.getComponentRegistry(componentInfo.getRegistration());
+      registry.handler.registerExtension?.(componentInfo);
     });
   }
 
