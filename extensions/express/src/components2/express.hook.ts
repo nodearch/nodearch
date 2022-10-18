@@ -7,7 +7,9 @@ export class ExpressHook implements IHook {
     private readonly logger: Logger
   ) {}
 
-  async onInit(context: HookContext) {}
+  async onInit(context: HookContext) {
+    
+  }
 
   async onStart(context: HookContext) {}
 

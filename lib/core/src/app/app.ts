@@ -29,7 +29,7 @@ export class App {
 
     this.componentRegistry = new ComponentRegistry(this.container);
 
-    this.hookContext = new HookContext(this.componentManager);
+    this.hookContext = new HookContext(this.componentRegistry);
     this.extensions = options.extensions;
     this.logOptions = options.log;
     this.configOptions = options.config;
