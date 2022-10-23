@@ -1,7 +1,7 @@
-import { CoreComponentId } from '../enums';
-import { IComponentOptions } from "../interfaces";
-import { ComponentFactory } from '../component-factory';
+import { CoreAnnotation } from '../../enums';
+import { IComponentOptions } from '../../interfaces';
+import { ComponentFactory } from '../../registration';
 
 
 export const Config = (options?: IComponentOptions): ClassDecorator => 
-  ComponentFactory.componentDecorator({ id: CoreComponentId.Config, options });
+  ComponentFactory.componentDecorator({ id: CoreAnnotation.Config, options });

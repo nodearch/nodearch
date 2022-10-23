@@ -16,14 +16,7 @@ export interface IAppOptions {
   config?: IConfigOptions;
 }
 
-export enum AppLifecycle {
-  LOAD = 'load',
-  INIT = 'init',
-  START = 'start'
-}
-
 export interface IRunOptions {
-  exclude?: string[];
-  extExclude?: string[];
+  cli?: boolean;
   logger?: ILogger;
 }

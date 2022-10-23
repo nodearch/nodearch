@@ -4,7 +4,7 @@ export enum ComponentScope {
   Transient = 'Transient'
 }
 
-export enum CoreComponentId {
+export enum CoreAnnotation {
   Component = '@nodearch/core/component-id/component',
   Cli = '@nodearch/core/component-id/cli',
   Hook = '@nodearch/core/component-id/hook',

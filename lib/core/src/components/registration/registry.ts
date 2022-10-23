@@ -38,11 +38,11 @@ export class ComponentRegistry {
   /**
    * Register app components from a given classes list
    */
-  register(classes: ClassConstructor[]) {    
+  register(classes: ClassConstructor[], exclude: string[]) {    
     classes.forEach(classConstructor => {
       const registration = ComponentMetadata.getComponentRegistration(classConstructor);
 
-      if (!registration || !this.canRegister(registration)) return;
+      if (!registration || !this.canRegister(registration, exclude)) return;
 
       const componentInfo = new ComponentInfo(classConstructor, registration, this.container);
 
@@ -50,7 +50,6 @@ export class ComponentRegistry {
 
       registry.components.push(componentInfo);
 
-      // TODO: reflect the changes on register function
       registry.handler.register(componentInfo);
 
       if (componentInfo.isExported) {
@@ -73,9 +72,8 @@ export class ComponentRegistry {
     });
   }
 
-  private canRegister(registration: IComponentRegistration) {
-    // TODO: support include/exclude
-    return true;
+  private canRegister(registration: IComponentRegistration, exclude: string[]) {
+    return !exclude.includes(registration.id);
   }
 
   /**

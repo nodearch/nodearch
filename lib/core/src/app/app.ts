@@ -1,7 +1,7 @@
 import { ClassLoader } from '../loader';
 import { 
   IConfigOptions, HookContext, 
-  CoreComponentId, IHook, ConfigManager, 
+  CoreAnnotation, IHook, ConfigManager, 
   ComponentScope, ComponentRegistry 
 } from '../components';
 import { IAppOptions, IRunOptions } from './app.interfaces';
@@ -44,7 +44,7 @@ export class App {
     this.container.bind(ConfigManager).toConstantValue(new ConfigManager(this.configOptions));
   }
 
-  private async loadExtensions (exclude?: string[]) {
+  private async loadExtensions (cli?: boolean) {
     if (this.extensions) {
       this.logger.debug(`Found ${this.extensions.length} Extensions!`);
 
@@ -52,9 +52,8 @@ export class App {
       for (const extension of this.extensions) {
         try {
           await extension.run({
-            exclude,
-            extExclude: exclude,
-            logger: this.logger
+            cli,
+            logger: this.logger // propagate the logger to the extension
           });
         }
         catch (e: any) {
@@ -65,12 +64,21 @@ export class App {
   } 
 
   
-  private async loadComponents(excludeIds?: string[]) {
+  private async loadComponents(cli?: boolean) {
     this.logger.info(`Registering App: ${this.appName}`);
 
+    const exclude: string[] = [];
+    
+    // If cli mode is not enabled, exclude CLI exclusive components 
+    if (!cli) {
+      exclude.push(
+        CoreAnnotation.Test,
+        CoreAnnotation.Cli
+      );
+    }
+
     await this.classLoader.load();
-    // TODO: add excludes
-    this.componentRegistry.register(this.classLoader.classes);
+    this.componentRegistry.register(this.classLoader.classes, exclude);
 
     // this.logger.debug(`${registered} Components Loaded`);
     // this.logger.debug(`${hooks} Hooks registered`);
@@ -86,7 +94,7 @@ export class App {
   }
 
   async init() {
-    const hooks = this.getAll<IHook[]>(CoreComponentId.Hook);
+    const hooks = this.getAll<IHook[]>(CoreAnnotation.Hook);
       
     if (!hooks) return;
 
@@ -98,13 +106,28 @@ export class App {
   }
 
   async start() {
-    const hooks = this.getAll<IHook[]>(CoreComponentId.Hook);
+    const hooks = this.getAll<IHook[]>(CoreAnnotation.Hook);
       
     if (!hooks) return;
 
     for (const hook of hooks) {
       if (hook.onStart) {
         await hook.onStart(this.hookContext);
+      }
+    }
+  }
+
+  async stop() {
+    try {
+      const hooks = this.getAll<IHook[]>(CoreAnnotation.Hook);
+
+      if (hooks) {
+        await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)(this.hookContext)));
+      }
+    }
+    catch (e: any) {
+      if (e.message !== 'No matching bindings found for serviceIdentifier: hook') {
+        throw e;
       }
     }
   }
@@ -117,22 +140,22 @@ export class App {
   //   }
 
   //   await this.loadComponents([
-  //     CoreComponentId.Cli,
-  //     CoreComponentId.Component,
-  //     CoreComponentId.Config,
-  //     CoreComponentId.Controller,
-  //     CoreComponentId.Hook,
-  //     CoreComponentId.Interceptor,
-  //     CoreComponentId.Repository,
-  //     CoreComponentId.Service,
-  //     CoreComponentId.Test
+  //     CoreAnnotation.Cli,
+  //     CoreAnnotation.Component,
+  //     CoreAnnotation.Config,
+  //     CoreAnnotation.Controller,
+  //     CoreAnnotation.Hook,
+  //     CoreAnnotation.Interceptor,
+  //     CoreAnnotation.Repository,
+  //     CoreAnnotation.Service,
+  //     CoreAnnotation.Test
   //   ]);
 
   //   if (runOptions.testMode.includes(TestMode.INTEGRATION) || runOptions.testMode.includes(TestMode.E2E)) {
   //     this.registerExtensions();
   //   }
 
-  //   const testComponents = this.componentManager.getComponents(CoreComponentId.Test);
+  //   const testComponents = this.componentManager.getComponents(CoreAnnotation.Test);
     
   //   if (testComponents) {
   //     const testManager = new TestManager(runOptions.testRunner, testComponents, runOptions.testMode, this.componentManager.container);      
@@ -155,38 +178,21 @@ export class App {
 
   // }
 
-  // TODO: Extend the API to support include/exclude with patterns for full flexibility
-  async run(options: IRunOptions = {}) {
+  async run(options?: IRunOptions) {
     // TODO: We can probably add performance insights here
-    options = {
-      exclude: [
-        CoreComponentId.Cli,
-        CoreComponentId.Test
-      ],
-      ...options 
-    };
 
-    if (options.logger) this.logger = options.logger;
+    /**
+     * If a logger was passed, set it here, so at later step, 
+     * it would just skip the creation of a new logger instance. 
+     * Also, that probably means this is an extension context
+     * and the logger is being passed from the parent App.
+     */ 
+    if (options?.logger) this.logger = options.logger;
 
     this.loadCoreComponents();
-    await this.loadExtensions(options.extExclude);
-    await this.loadComponents(options.exclude);
+    await this.loadExtensions(options?.cli);
+    await this.loadComponents(options?.cli);
     this.registerExtensions();
-  }
-
-  async stop() {
-    try {
-      const hooks = this.getAll<IHook[]>(CoreComponentId.Hook);
-
-      if (hooks) {
-        await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)(this.hookContext)));
-      }
-    }
-    catch (e: any) {
-      if (e.message !== 'No matching bindings found for serviceIdentifier: hook') {
-        throw e;
-      }
-    }
   }
 
   snapshot() {
@@ -234,7 +240,7 @@ export class App {
    * information about the component class, instance, 
    * methods, decorators, etc. The returned list is 
    * flittered by the id parameter.
-   * @param id Component ID, you can also pass a CoreComponentId value 
+   * @param id Component ID, you can also pass a CoreAnnotation value 
    * @returns ComponentInfo[]
    */
   getComponents(id: string) {

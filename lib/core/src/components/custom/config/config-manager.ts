@@ -13,6 +13,7 @@ export class ConfigManager {
   private static readonly currentEnv = process.env.NODE_ENV || 'development';
 
   constructor(options?: IConfigOptions) {
+    // TODO: Accept class instead of object and merge it with local config data without specifying an external key Or just leave it, because it will be mostly syntax only?
     this.externalConfig = options?.externalConfig;
 
     if (this.externalConfig && (typeof this.externalConfig !== 'object' || !Object.keys(this.externalConfig).length)) {
