@@ -3,7 +3,7 @@ import { ComponentMetadata } from './metadata';
 import { IComponentRegistration } from './interfaces';
 import { IComponentDecorator } from '../interfaces';
 import { Container } from 'inversify';
-import { CoreComponentId } from '../enums';
+import { CoreAnnotation } from '../enums';
 
 
 export class ComponentInfo {
@@ -53,7 +53,7 @@ export class ComponentInfo {
   }
 
   get isHook () {
-    return this.registration.id === CoreComponentId.Hook;
+    return this.registration.id === CoreAnnotation.Hook;
   }
 
   get id () {

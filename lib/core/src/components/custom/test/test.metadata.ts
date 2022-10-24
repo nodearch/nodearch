@@ -1,5 +1,5 @@
-import { ClassConstructor } from '../../utils';
-import { MetadataInfo } from '../../metadata';
+import { MetadataInfo } from '../../../metadata';
+import { ClassConstructor } from '../../../utils';
 import { ITestCaseMetadata, ITestHookMetadata, ITestSuiteMetadata } from './test.interfaces';
 
 /**

@@ -1,5 +1,5 @@
+import { ClassConstructor } from '../../../utils';
 import { TestMode } from './test.enums';
-import { ClassConstructor } from '../../utils';
 
 // export type TestHook = (hook: () => Promise<void>) => void;
 export type TestHookMethod = { (): Promise<void> };

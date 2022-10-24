@@ -15,3 +15,5 @@ export default class Standalone extends App {
     });
   }
 }
+
+// TODO: update app options 

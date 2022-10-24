@@ -1,10 +1,10 @@
-import { ComponentScope, CoreComponentId } from '../enums';
 import { TestMetadata } from './test.metadata';
 import { ITestCaseMetadata, ITestCaseOptions, ITestSuiteMetadata, ITestSuiteOptions } from './test.interfaces';
-import { ClassConstructor } from '../../utils';
-import { camelToTitle } from '../../utils/utils';
 import { TestMode } from './test.enums';
-import { ComponentFactory } from '../component-factory';
+import { ComponentFactory } from '../../registration';
+import { ComponentScope, CoreAnnotation } from '../../enums';
+import { camelToTitle } from '../../../utils/utils';
+import { ClassConstructor } from '../../../utils';
 
 
 export function Test(): ClassDecorator;
@@ -13,7 +13,7 @@ export function Test(options: ITestSuiteOptions): ClassDecorator;
 export function Test(title: string, options: Omit<ITestSuiteOptions, 'title'>): ClassDecorator;
 export function Test(...args: (string | ITestSuiteOptions | Omit<ITestSuiteOptions, 'title'>)[]): ClassDecorator {
   return ComponentFactory.componentDecorator({ 
-    id: CoreComponentId.Test,
+    id: CoreAnnotation.Test,
     options: {
       export: false,
       scope: ComponentScope.Singleton
@@ -39,7 +39,7 @@ export function Test(...args: (string | ITestSuiteOptions | Omit<ITestSuiteOptio
 // TODO: validate the input
 export function Mock(component: ClassConstructor): ClassDecorator {
   return ComponentFactory.componentDecorator({ 
-    id: CoreComponentId.Mock, 
+    id: CoreAnnotation.Mock, 
     options: {
       export: false,
       scope: ComponentScope.Transient

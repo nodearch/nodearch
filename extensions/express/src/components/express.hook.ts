@@ -1,7 +1,7 @@
 import { 
   Hook, IHook, HookContext, 
   Logger, IComponentRegistryInfo,
-  CoreComponentId 
+  CoreAnnotation 
 } from '@nodearch/core';
 import { ExpressService } from './express.service';
 
@@ -21,7 +21,7 @@ export class ExpressHook implements IHook {
 
   async onInit(context: HookContext) {
     try {
-      this.controllers = context.getComponents(CoreComponentId.Controller);
+      this.controllers = context.getComponents(CoreAnnotation.Controller);
     }
     catch(e) {
       this.logger.warn('Express: No controllers loaded!');

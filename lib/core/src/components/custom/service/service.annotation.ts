@@ -1,7 +1,8 @@
-import { CoreComponentId } from '../enums';
-import { IComponentOptions } from "../interfaces";
-import { ComponentFactory } from '../component-factory';
+import { CoreAnnotation } from '../../enums';
+import { IComponentOptions } from '../../interfaces';
+import { ComponentFactory } from '../../registration';
+
 
 
 export const Service = (options?: IComponentOptions): ClassDecorator => 
-  ComponentFactory.componentDecorator({ id: CoreComponentId.Service, options });
+  ComponentFactory.componentDecorator({ id: CoreAnnotation.Service, options });

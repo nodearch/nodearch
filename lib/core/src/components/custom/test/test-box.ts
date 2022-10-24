@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { ClassConstructor } from '../../utils'
+import { ClassConstructor } from '../../../utils';
 import { IComponentOverride } from './test.interfaces';
 
 

@@ -1,9 +1,9 @@
 import { IComponentOverride, ITestRunner, ITestSuiteMetadata, TestHook } from './test.interfaces';
 import { Container } from 'inversify';
-import { ClassConstructor } from '../../utils';
 import { TestMetadata } from './test.metadata';
 import { TestBox } from './test-box';
 import { TestMode } from '.';
+import { ClassConstructor } from '../../../utils';
 
 // TODO: revisit this after the new components changes
 export class TestManager {
