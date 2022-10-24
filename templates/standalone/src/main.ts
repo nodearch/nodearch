@@ -1,5 +1,5 @@
 import path from 'path';
-import { App, Hook, IHook, LogLevel } from '@nodearch/core';
+import { App, LogLevel } from '@nodearch/core';
 
 
 export default class Standalone extends App {
@@ -16,4 +16,10 @@ export default class Standalone extends App {
   }
 }
 
-// TODO: update app options 
+/**
+ * TODO
+ * - Update app options interface
+ * - Use @App on the app class and path the app path 
+ * - When loading we can associate @App to  it's file path so we can later load the package.json and get the App name and relative path
+ * - think about how to pass the app config instead of calling super
+ */ 
