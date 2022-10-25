@@ -13,7 +13,3 @@ export interface IEnvConfig<T> {
 export interface IConfigData {
   [key: string]: any;
 }
-
-export interface IConfigOptions {
-  externalConfig: any;
-}

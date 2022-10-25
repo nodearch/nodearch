@@ -1,18 +1,21 @@
 import { ClassLoader } from '../loader';
 import { 
-  IConfigOptions, HookContext, 
-  CoreAnnotation, IHook, ConfigManager, 
-  ComponentScope, ComponentRegistry 
+  HookContext, CoreAnnotation, IHook, 
+  ConfigManager, ComponentScope, ComponentRegistry 
 } from '../components';
 import { IAppOptions, IRunOptions } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';
 import { Container } from 'inversify';
 import { ClassConstructor } from '../utils';
 
-export class App {  
+export class App {
+
+  // This is used to easily identifies NodeArch Apps when we auto-load classes
+  public static nodearch = true; 
+
   private extensions?: App[];
   private logOptions?: ILogOptions;
-  private configOptions?: IConfigOptions;
+  private configOptions?: Record<string, any>;;
   private classLoader: ClassLoader;
   private hookContext: HookContext;
   private logger!: ILogger;
@@ -21,10 +24,10 @@ export class App {
 
 
   constructor(options: IAppOptions) {
-    this.classLoader = new ClassLoader(options.classLoader);
+    this.classLoader = new ClassLoader(options.path);
     
     this.container = new Container({
-      defaultScope: options.defaultScope || ComponentScope.Singleton
+      defaultScope: options.scope || ComponentScope.Singleton
     });
 
     this.componentRegistry = new ComponentRegistry(this.container);

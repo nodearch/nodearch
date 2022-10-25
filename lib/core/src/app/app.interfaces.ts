@@ -1,5 +1,4 @@
-import { IClassLoaderOptions } from '../loader';
-import { ComponentScope, IConfigOptions } from '../components';
+import { ComponentScope } from '../components';
 import { App } from "./app";
 import { ILogger, ILogOptions } from '../log';
 
@@ -9,11 +8,11 @@ export interface IAppConstructor {
 }
 
 export interface IAppOptions {
-  classLoader: IClassLoaderOptions;
-  extensions?: App[];
-  defaultScope?: ComponentScope;
+  path: string;
+  scope?: ComponentScope;
   log?: ILogOptions;
-  config?: IConfigOptions;
+  config?: Record<string, any>;
+  extensions?: App[];
 }
 
 export interface IRunOptions {

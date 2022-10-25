@@ -1,4 +1,4 @@
-import { IEnvConfig, IConfigOptions } from './config.interfaces';
+import { IEnvConfig } from './config.interfaces';
 import { ConfigResolve } from './config-resolve';
 
 
@@ -12,9 +12,9 @@ export class ConfigManager {
   private externalConfig?: any;
   private static readonly currentEnv = process.env.NODE_ENV || 'development';
 
-  constructor(options?: IConfigOptions) {
+  constructor(externalConfig?: Record<string, any>) {
     // TODO: Accept class instead of object and merge it with local config data without specifying an external key Or just leave it, because it will be mostly syntax only?
-    this.externalConfig = options?.externalConfig;
+    this.externalConfig = externalConfig;
 
     if (this.externalConfig && (typeof this.externalConfig !== 'object' || !Object.keys(this.externalConfig).length)) {
       throw new Error(`External Configurations can only be non-empty object - option: components.externalConfig`);

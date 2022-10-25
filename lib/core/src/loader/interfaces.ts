@@ -17,9 +17,3 @@ export interface IFileLoaderOptions {
   include?: string[];
   exclude?: string[];
 }
-
-export interface IClassLoaderOptions {
-  classpath?: string;
-  classes?: ClassConstructor[];
-  files?: IFileLoaderOptions;
-}
