@@ -12,8 +12,10 @@ export interface IFile extends IFileInfo {
   content: any;
 }
 
-export interface IFileLoaderOptions {
-  deep?: number;
+export interface IClassLoaderOptions {
+  classes?: ClassConstructor[];
+  path?: string;
+  depth?: number;
   include?: string[];
   exclude?: string[];
 }

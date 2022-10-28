@@ -11,3 +11,5 @@ export default class Standalone extends App {
     });
   }
 }
+
+// TODO: log or logging? I guess log

@@ -12,7 +12,7 @@ export class App {
 
   // This is used to easily identifies NodeArch Apps when we auto-load classes
   public static nodearch = true; 
-
+  private options: IAppOptions;
   private extensions?: App[];
   private logOptions?: ILogOptions;
   private configOptions?: Record<string, any>;;
@@ -23,8 +23,10 @@ export class App {
   private componentRegistry: ComponentRegistry;
 
 
-  constructor(options: IAppOptions) {
-    this.classLoader = new ClassLoader(options.path);
+  constructor(options: IAppOptions = {}) {
+    this.options = options;
+
+    this.classLoader = new ClassLoader(options.components);
     
     this.container = new Container({
       defaultScope: options.scope || ComponentScope.Singleton
@@ -34,7 +36,7 @@ export class App {
 
     this.hookContext = new HookContext(this.componentRegistry);
     this.extensions = options.extensions;
-    this.logOptions = options.log;
+    this.logOptions = options.logging;
     this.configOptions = options.config;
   }
 

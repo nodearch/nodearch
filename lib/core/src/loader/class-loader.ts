@@ -1,24 +1,40 @@
-import { IFile, IFileLoaderOptions } from './interfaces';
+import { IFile, IClassLoaderOptions } from './interfaces';
 import { ClassConstructor } from '../utils';
 import { FileSystem } from './file-system';
 
 export class ClassLoader {
-
-  private path: string;
   classes: ClassConstructor[];
 
-  constructor(path: string) {
-    this.classes = [];
-    this.path = path;
+  private path?: string;
+  private depth: number;
+  private include: string[];
+  private exclude: string[];
+
+  constructor(options: IClassLoaderOptions = {}) {
+    this.classes = options.classes || [];
+    this.path =  options.path;
+
+    this.include = options.include || ['*.js', '*.ts'];
+    this.exclude = options.exclude || ['*.d.ts', '*.spec.ts', '*.e2e-spec.ts', '*.spec.js', '*.e2e-spec.ts'];
+    this.depth = options.depth || 10;
+
+
+    // TODO: remove this after validation it won't be needed
+    // if (!this.classpath && (!options.classes || !options.classes.length)) {
+    //   throw new Error('Requires either classpath or classes configurations to be present');
+    // }
   }
 
   async load() {
-    const filesInfo = await FileSystem.readFiles(this.path, 50);
+    if (this.path) {
+      const filesInfo = await FileSystem.readFiles(this.path, this.depth);
 
-    const filteredFilesInfo = FileSystem.filterFiles(filesInfo, ['*.js', '*.ts'], ['*.d.ts']);
-    const files = await FileSystem.loadFiles(filteredFilesInfo);
+      const filteredFilesInfo = FileSystem.filterFiles(filesInfo, this.include, this.exclude);
+      
+      const files = await FileSystem.loadFiles(filteredFilesInfo);
 
-    this.loadClassesFromFiles(files);
+      this.loadClassesFromFiles(files);
+    }
   }
 
   private loadClassesFromFiles(filesInfo: IFile[]) {
@@ -37,5 +53,4 @@ export class ClassLoader {
       }
     });
   }
-
 }
