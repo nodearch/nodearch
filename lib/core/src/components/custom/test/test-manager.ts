@@ -54,7 +54,7 @@ export class TestManager {
     return suiteComps;
   }
 
-  getSuiteOverrides(suiteComp: ClassConstructor, container: Container): IComponentOverride[] {
+  private getSuiteOverrides(suiteComp: ClassConstructor, container: Container): IComponentOverride[] {
     const suiteMocks = TestMetadata.getMocks(suiteComp);
 
     return suiteMocks.map(mock => {
@@ -80,7 +80,7 @@ export class TestManager {
     });
   }
 
-  applyOverrides(overrides: IComponentOverride[], container: Container) {
+  private applyOverrides(overrides: IComponentOverride[], container: Container) {
     overrides.forEach(override => {
       container.rebind(override.component).toConstantValue(override.use);
     });

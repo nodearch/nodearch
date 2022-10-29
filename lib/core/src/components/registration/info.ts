@@ -6,9 +6,9 @@ import { Container } from 'inversify';
 import { CoreAnnotation } from '../enums';
 
 
-export class ComponentInfo {
+export class ComponentInfo<T = any> {
   private classConstructor: ClassConstructor;
-  private registration: IComponentRegistration;
+  private registration: IComponentRegistration<T>;
   private decorators: IComponentDecorator[];
   private container: Container;
   private methods: string[];
@@ -34,13 +34,19 @@ export class ComponentInfo {
     return this.methods;
   }
 
-  getDecorators() {
+  getDecorators<T = any>(): IComponentDecorator<T>[] {
     return this.decorators;
   }
 
-  getDecoratorsByMethod(method: string) {
+  getDecoratorsByMethod<T = any>(method: string): IComponentDecorator<T>[] {
     return this.decorators.filter(deco => {
       return deco.global || deco.method === method;
+    });
+  }
+
+  getDecoratorsById<T = any>(id: string): IComponentDecorator<T>[] {
+    return this.decorators.filter(deco => {
+      return deco.id === id;
     });
   }
 

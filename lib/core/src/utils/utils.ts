@@ -136,10 +136,3 @@ export function get(obj: any, dottedPath: any) {
 export function capitalize(txt: string) {
   return txt.charAt(0).toUpperCase() + txt.slice(1);
 }
-
-export function camelToTitle(camelCase: string) {
-  return camelCase
-    .replace(/([A-Z])/g, (match) => ` ${match.toLowerCase()}`)
-    .trim()
-    .replace(/^./, (match) => match.toUpperCase());
-}

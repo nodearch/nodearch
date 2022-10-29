@@ -1,8 +1,12 @@
 import { ComponentRegistry } from '../../registration';
+import { Container } from 'inversify';
 
 // TODO: introduce new features in v2?
 export class HookContext {
-  constructor(private components: ComponentRegistry) {}
+  constructor(
+    private components: ComponentRegistry,
+    private container: Container
+  ) {}
 
   // get<T>(classIdentifier: ClassConstructor): T {
   //   try {
@@ -34,7 +38,7 @@ export class HookContext {
     return this.components.getComponents(id);
   }
 
-  // getContainer(): inversify.Container {
-  //   return this.components.getContainer();
-  // }
+  getContainer(): Container {
+    return this.container;
+  }
 }

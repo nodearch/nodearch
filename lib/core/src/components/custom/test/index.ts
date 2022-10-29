@@ -1,4 +1,4 @@
-export * from './test.annotation';
+// export * from './test.annotation';
 export * from './test-manager';
 export * from './test.interfaces';
 export * from './test.enums';

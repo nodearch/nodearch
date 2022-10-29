@@ -7,12 +7,12 @@ export interface IComponentsOptions {
   defaultScope?: ComponentScope;
 }
 
-export interface IComponentDecorator {
+export interface IComponentDecorator<T = any> {
   id: string;
   method?: string | symbol; // Available only for class decorator 
   paramIndex?: number; // Available only for parameter decorator
   global?: boolean;  // Apply to all methods of the component
-  data?: any; // Additional options
+  data?: T; // Additional options
 }
 
 export interface IComponentHandler {

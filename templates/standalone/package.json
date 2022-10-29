@@ -12,6 +12,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@nodearch/mocha": "workspace:^0.0.1",
     "@types/node": "^14.14.10",
     "ts-node": "^10.8.0",
     "tsconfig-paths": "^3.9.0",

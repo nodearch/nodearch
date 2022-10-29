@@ -3,9 +3,9 @@ import { ComponentHandler } from '../handler';
 import { IComponentOptions } from '../interfaces';
 
 
-export interface IComponentRegistration {
+export interface IComponentRegistration<T = any> {
   id: string;
   handler?: ClassConstructor<ComponentHandler>; 
   options?: IComponentOptions;
-  data?: any;
+  data?: T;
 }

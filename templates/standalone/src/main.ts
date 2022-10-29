@@ -1,5 +1,6 @@
 import path from 'path';
 import { App, LogLevel } from '@nodearch/core';
+import { Mocha } from '@nodearch/mocha';
 
 export default class Standalone extends App {
   constructor() {
@@ -9,7 +10,10 @@ export default class Standalone extends App {
       },
       logs: {
         logLevel: LogLevel.Debug
-      }
+      },
+      extensions: [
+        new Mocha()
+      ]
     });
   }
 }
