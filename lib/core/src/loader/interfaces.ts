@@ -16,6 +16,4 @@ export interface IClassLoaderOptions {
   classes?: ClassConstructor[];
   path?: string;
   depth?: number;
-  include?: string[];
-  exclude?: string[];
 }

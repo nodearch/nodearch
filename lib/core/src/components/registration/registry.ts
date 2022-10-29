@@ -38,11 +38,11 @@ export class ComponentRegistry {
   /**
    * Register app components from a given classes list
    */
-  register(classes: ClassConstructor[], exclude: string[]) {    
+  register(classes: ClassConstructor[]) {    
     classes.forEach(classConstructor => {
       const registration = ComponentMetadata.getComponentRegistration(classConstructor);
 
-      if (!registration || !this.canRegister(registration, exclude)) return;
+      if (!registration) return;
 
       const componentInfo = new ComponentInfo(classConstructor, registration, this.container);
 
@@ -70,10 +70,6 @@ export class ComponentRegistry {
       const registry = this.getComponentRegistry(componentInfo.getRegistration());
       registry.handler.registerExtension?.(componentInfo);
     });
-  }
-
-  private canRegister(registration: IComponentRegistration, exclude: string[]) {
-    return !exclude.includes(registration.id);
   }
 
   /**

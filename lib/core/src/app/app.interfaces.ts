@@ -11,12 +11,11 @@ export interface IAppConstructor {
 export type IAppOptions = {
   components?: IClassLoaderOptions;
   scope?: ComponentScope;
-  logging?: ILogOptions;
+  logs?: ILogOptions;
   config?: Record<string, any>;
   extensions?: App[];
 };
 
 export interface IRunOptions {
-  cli?: boolean;
   logger?: ILogger;
 }

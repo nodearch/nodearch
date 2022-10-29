@@ -12,7 +12,6 @@ export class App {
 
   // This is used to easily identifies NodeArch Apps when we auto-load classes
   public static nodearch = true; 
-  private options: IAppOptions;
   private extensions?: App[];
   private logOptions?: ILogOptions;
   private configOptions?: Record<string, any>;;
@@ -24,7 +23,6 @@ export class App {
 
 
   constructor(options: IAppOptions = {}) {
-    this.options = options;
 
     this.classLoader = new ClassLoader(options.components);
     
@@ -36,7 +34,7 @@ export class App {
 
     this.hookContext = new HookContext(this.componentRegistry);
     this.extensions = options.extensions;
-    this.logOptions = options.logging;
+    this.logOptions = options.logs;
     this.configOptions = options.config;
   }
 
@@ -49,7 +47,7 @@ export class App {
     this.container.bind(ConfigManager).toConstantValue(new ConfigManager(this.configOptions));
   }
 
-  private async loadExtensions (cli?: boolean) {
+  private async loadExtensions () {
     if (this.extensions) {
       this.logger.debug(`Found ${this.extensions.length} Extensions!`);
 
@@ -57,7 +55,6 @@ export class App {
       for (const extension of this.extensions) {
         try {
           await extension.run({
-            cli,
             logger: this.logger // propagate the logger to the extension
           });
         }
@@ -69,21 +66,11 @@ export class App {
   } 
 
   
-  private async loadComponents(cli?: boolean) {
+  private async loadComponents() {
     this.logger.info(`Registering App: ${this.appName}`);
 
-    const exclude: string[] = [];
-    
-    // If cli mode is not enabled, exclude CLI exclusive components 
-    if (!cli) {
-      exclude.push(
-        CoreAnnotation.Test,
-        CoreAnnotation.Cli
-      );
-    }
-
     await this.classLoader.load();
-    this.componentRegistry.register(this.classLoader.classes, exclude);
+    this.componentRegistry.register(this.classLoader.classes);
 
     // this.logger.debug(`${registered} Components Loaded`);
     // this.logger.debug(`${hooks} Hooks registered`);
@@ -99,8 +86,8 @@ export class App {
   }
 
   async init() {
-    const hooks = this.getAll<IHook[]>(CoreAnnotation.Hook);
-      
+    const hooks = this.getAll<IHook>(CoreAnnotation.Hook);
+
     if (!hooks) return;
 
     for (const hook of hooks) {
@@ -111,7 +98,7 @@ export class App {
   }
 
   async start() {
-    const hooks = this.getAll<IHook[]>(CoreAnnotation.Hook);
+    const hooks = this.getAll<IHook>(CoreAnnotation.Hook);
       
     if (!hooks) return;
 
@@ -124,7 +111,7 @@ export class App {
 
   async stop() {
     try {
-      const hooks = this.getAll<IHook[]>(CoreAnnotation.Hook);
+      const hooks = this.getAll<IHook>(CoreAnnotation.Hook);
 
       if (hooks) {
         await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)(this.hookContext)));
@@ -195,8 +182,8 @@ export class App {
     if (options?.logger) this.logger = options.logger;
 
     this.loadCoreComponents();
-    await this.loadExtensions(options?.cli);
-    await this.loadComponents(options?.cli);
+    await this.loadExtensions();
+    await this.loadComponents();
     this.registerExtensions();
   }
 
@@ -231,7 +218,7 @@ export class App {
 
   getAll<T>(id: string) {
     try {
-      return this.container.get<T>(id);
+      return this.container.getAll<T>(id);
     }
     catch(e: any) {
       if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
