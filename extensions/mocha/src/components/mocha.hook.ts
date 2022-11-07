@@ -20,4 +20,8 @@ export class MochaHook implements IHook {
     }
 
   }
+
+  async onStart(context: HookContext) {
+    await this.mochaService.run();
+  }
 }
