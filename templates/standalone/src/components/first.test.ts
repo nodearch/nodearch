@@ -1,8 +1,8 @@
-import { Case, Test } from '@nodearch/mocha';
+import { Case, Test, TestMode } from '@nodearch/mocha';
 import { expect } from 'chai';
 import { SimpleService } from './simple.service';
 
-@Test()
+@Test({ mode: TestMode.UNIT })
 export class FirstTest {
   
   constructor(

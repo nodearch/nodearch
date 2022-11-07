@@ -1,56 +1,64 @@
 import { ClassConstructor, ComponentInfo, Container, Service } from '@nodearch/core';
-import { ITestCaseOptions, ITestRunnerSuite, ITestSuiteMetadata, ITestSuiteOptions, TestHook } from '../interfaces';
+import { ITestCaseOptions, ITestSuiteOptions, TestHook } from '../interfaces';
 import { TestBox } from '../test-box';
-import { MochaAnnotation } from '../enums';
+import { MochaAnnotation, TestMode } from '../enums';
 import Mocha, { Test } from 'mocha';
 
 
 @Service()
 export class MochaService {
   
-  private suites: ITestRunnerSuite[];
+  private container!: Container;
+  private testComponents!: ComponentInfo<ITestSuiteOptions>[];
+  private mockComponents?: ComponentInfo[];
 
-  constructor() {
-    this.suites = [];
-  }
 
-  init(container: Container, testComponents: ComponentInfo[], mockComponents?: ComponentInfo[]) {
+  init(container: Container, testComponents: ComponentInfo<ITestSuiteOptions>[], mockComponents?: ComponentInfo[]) {
+    this.container = container;
+    this.testComponents = testComponents;
+    this.mockComponents = mockComponents;
+  } 
 
-    testComponents.forEach(componentInfo => {
+  private getTestSuitesInfo(testModes: TestMode[]) {
+    return this.testComponents
+      .filter((componentInfo) => testModes.includes(componentInfo.data!.mode as TestMode))
+      .map(componentInfo => {
 
-      // Create a clone from the original container
-      const cloneContainer = Container.merge(container, new Container()) as Container;
+        // Create a clone from the original container
+        const cloneContainer = Container.merge(this.container, new Container()) as Container;
 
-      // Bind an instance of the TestBox to the cloned container
-      cloneContainer.bind(TestBox).toConstantValue(new TestBox(cloneContainer));
+        // Bind an instance of the TestBox to the cloned container
+        cloneContainer.bind(TestBox).toConstantValue(new TestBox(cloneContainer));
 
-      if (mockComponents) {
-        this.applyMocks(componentInfo, mockComponents, cloneContainer);
-      }
+        if (this.mockComponents) {
+          this.applyMocks(componentInfo, this.mockComponents, cloneContainer);
+        }
 
-      const compInstance = cloneContainer.get(componentInfo.getClass());
+        const compInstance = cloneContainer.get(componentInfo.getClass());
 
-      const data: ITestSuiteOptions = componentInfo.data;
+        const suiteOptions = componentInfo.data as ITestSuiteOptions;
 
-      this.suites.push({
-        name: data.title as string,
-        timeout: data.timeout,
-        beforeEach: this.getBeforeEach(componentInfo, compInstance),
-        afterEach: this.getAfterEach(componentInfo, compInstance),
-        beforeAll: this.getBeforeAll(componentInfo, compInstance),
-        afterAll: this.getAfterAll(componentInfo, compInstance),
-        testCases: this.getCases(componentInfo, compInstance)
+        return {
+          name: suiteOptions.title as string,
+          timeout: suiteOptions.timeout,
+          beforeEach: this.getBeforeEach(componentInfo, compInstance),
+          afterEach: this.getAfterEach(componentInfo, compInstance),
+          beforeAll: this.getBeforeAll(componentInfo, compInstance),
+          afterAll: this.getAfterAll(componentInfo, compInstance),
+          testCases: this.getCases(componentInfo, compInstance)
+        };
+
       });
-
-    });
-
   }
 
-  async run() {
+  async run(modes: TestMode[]) {
+
+    const suites = this.getTestSuitesInfo(modes);
+
     // TODO: pass mocha options
     const mochaInstance = new Mocha({});
 
-    this.suites.forEach(suite => {
+    suites.forEach(suite => {
       const suiteInstance = Mocha.Suite.create(mochaInstance.suite, suite.name);
 
       suite.beforeAll.forEach(beforeAll => {

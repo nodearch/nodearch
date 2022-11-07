@@ -1,5 +1,5 @@
 import { Hook, HookContext, IHook } from '@nodearch/core';
-import { MochaAnnotation } from '../enums';
+import { MochaAnnotation, TestMode } from '../enums';
 import { MochaService } from './mocha.service';
 
 
@@ -22,6 +22,6 @@ export class MochaHook implements IHook {
   }
 
   async onStart(context: HookContext) {
-    await this.mochaService.run();
+    await this.mochaService.run([TestMode.UNIT]);
   }
 }
