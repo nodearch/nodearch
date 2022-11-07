@@ -1,7 +1,7 @@
 import { ClassLoader } from '../loader';
 import { 
   HookContext, CoreAnnotation, IHook, 
-  ConfigManager, ComponentScope, ComponentRegistry 
+  ConfigManager, ComponentScope, ComponentRegistry, TestManager, TestMode, MochaAnnotation 
 } from '../components';
 import { IAppOptions, IRunOptions } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';
@@ -20,6 +20,7 @@ export class App {
   private logger!: ILogger;
   private container: Container;
   private componentRegistry: ComponentRegistry;
+  private testManager: TestManager;
 
 
   constructor(options: IAppOptions = {}) {
@@ -33,6 +34,7 @@ export class App {
     this.componentRegistry = new ComponentRegistry(this.container);
 
     this.hookContext = new HookContext(this.componentRegistry, this.container);
+    this.testManager = new TestManager(this.container);
     this.extensions = options.extensions;
     this.logOptions = options.logs;
     this.configOptions = options.config;
@@ -123,52 +125,6 @@ export class App {
       }
     }
   }
-  
-  // private async runTest(runOptions: IRunTest) {
-  //   this.loadCoreComponents();
-
-  //   if (runOptions.testMode.includes(TestMode.INTEGRATION) || runOptions.testMode.includes(TestMode.E2E)) {
-  //     await this.loadExtensions(false);
-  //   }
-
-  //   await this.loadComponents([
-  //     CoreAnnotation.Cli,
-  //     CoreAnnotation.Component,
-  //     CoreAnnotation.Config,
-  //     CoreAnnotation.Controller,
-  //     CoreAnnotation.Hook,
-  //     CoreAnnotation.Interceptor,
-  //     CoreAnnotation.Repository,
-  //     CoreAnnotation.Service,
-  //     CoreAnnotation.Test
-  //   ]);
-
-  //   if (runOptions.testMode.includes(TestMode.INTEGRATION) || runOptions.testMode.includes(TestMode.E2E)) {
-  //     this.registerExtensions();
-  //   }
-
-  //   const testComponents = this.componentManager.getComponents(CoreAnnotation.Test);
-    
-  //   if (testComponents) {
-  //     const testManager = new TestManager(runOptions.testRunner, testComponents, runOptions.testMode, this.componentManager.container);      
-  //     testManager.init();
-      
-  //     if (runOptions.testMode.includes(TestMode.INTEGRATION) || runOptions.testMode.includes(TestMode.E2E)) {
-  //       await this.init();
-  //     }
-      
-  //     if (runOptions.testMode.includes(TestMode.E2E)) {
-  //       await this.start();
-  //     }
-
-  //     await runOptions.testRunner.run();
-      
-  //     if (runOptions.testMode.includes(TestMode.E2E)) {
-  //       await this.stop();
-  //     }
-  //   }
-
-  // }
 
   async run(options?: IRunOptions) {
     // TODO: We can probably add performance insights here
@@ -248,6 +204,15 @@ export class App {
    */
   getExportedComponents() {
     return this.componentRegistry.getExported();
+  }
+
+  getTestSuites(testModes: TestMode[]) {
+    const testComponents = this.getComponents(MochaAnnotation.Test);
+    const mockComponents = this.getComponents(MochaAnnotation.Mock);
+
+    if (testComponents) {
+      return this.testManager.getTestSuitesInfo(testModes, testComponents, mockComponents)
+    }
   }
 
   /**

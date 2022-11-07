@@ -56,7 +56,7 @@
     },
     {
       "name": "@types/mocha",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@types/multer",

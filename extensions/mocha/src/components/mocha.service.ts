@@ -3,6 +3,8 @@ import { ITestCaseOptions, ITestSuiteOptions, TestHook } from '../interfaces';
 import { TestBox } from '../test-box';
 import { MochaAnnotation, TestMode } from '../enums';
 import Mocha, { Test } from 'mocha';
+import NYC from 'nyc';
+
 
 
 @Service()
@@ -19,41 +21,23 @@ export class MochaService {
     this.mockComponents = mockComponents;
   } 
 
-  private getTestSuitesInfo(testModes: TestMode[]) {
-    return this.testComponents
-      .filter((componentInfo) => testModes.includes(componentInfo.data!.mode as TestMode))
-      .map(componentInfo => {
-
-        // Create a clone from the original container
-        const cloneContainer = Container.merge(this.container, new Container()) as Container;
-
-        // Bind an instance of the TestBox to the cloned container
-        cloneContainer.bind(TestBox).toConstantValue(new TestBox(cloneContainer));
-
-        if (this.mockComponents) {
-          this.applyMocks(componentInfo, this.mockComponents, cloneContainer);
-        }
-
-        const compInstance = cloneContainer.get(componentInfo.getClass());
-
-        const suiteOptions = componentInfo.data as ITestSuiteOptions;
-
-        return {
-          name: suiteOptions.title as string,
-          timeout: suiteOptions.timeout,
-          beforeEach: this.getBeforeEach(componentInfo, compInstance),
-          afterEach: this.getAfterEach(componentInfo, compInstance),
-          beforeAll: this.getBeforeAll(componentInfo, compInstance),
-          afterAll: this.getAfterAll(componentInfo, compInstance),
-          testCases: this.getCases(componentInfo, compInstance)
-        };
-
-      });
-  }
-
-  async run(modes: TestMode[]) {
+  async run(modes: TestMode[], coverage?: any) {
 
     const suites = this.getTestSuitesInfo(modes);
+
+    let nyc: NYC | undefined;
+
+    if (coverage) {
+
+      // for (const x in require.cache) {
+      //   delete require.cache[x];
+      // }
+
+      nyc = new NYC(coverage);
+      await nyc.reset();
+      await nyc.wrap();
+      await nyc.addAllFiles();      
+    }
 
     // TODO: pass mocha options
     const mochaInstance = new Mocha({});
@@ -99,6 +83,12 @@ export class MochaService {
 
     const code = await this.runMocha(mochaInstance);
 
+    if (nyc) {
+      console.log(nyc);
+      await nyc.writeCoverageFile();
+      await nyc.report();
+    }
+
     process.exit(code);
   }
 
@@ -108,6 +98,38 @@ export class MochaService {
         resolve(failures);
       });
     });
+  }
+  
+  private getTestSuitesInfo(testModes: TestMode[]) {
+    return this.testComponents
+      .filter((componentInfo) => testModes.includes(componentInfo.data!.mode as TestMode))
+      .map(componentInfo => {
+
+        // Create a clone from the original container
+        const cloneContainer = Container.merge(this.container, new Container()) as Container;
+
+        // Bind an instance of the TestBox to the cloned container
+        cloneContainer.bind(TestBox).toConstantValue(new TestBox(cloneContainer));
+
+        if (this.mockComponents) {
+          this.applyMocks(componentInfo, this.mockComponents, cloneContainer);
+        }
+
+        const compInstance = cloneContainer.get(componentInfo.getClass());
+
+        const suiteOptions = componentInfo.data as ITestSuiteOptions;
+
+        return {
+          name: suiteOptions.title as string,
+          timeout: suiteOptions.timeout,
+          beforeEach: this.getBeforeEach(componentInfo, compInstance),
+          afterEach: this.getAfterEach(componentInfo, compInstance),
+          beforeAll: this.getBeforeAll(componentInfo, compInstance),
+          afterAll: this.getAfterAll(componentInfo, compInstance),
+          testCases: this.getCases(componentInfo, compInstance)
+        };
+
+      });
   }
 
   private applyMocks(testComponentInfo: ComponentInfo, mockComponents: ComponentInfo[], container: Container) {

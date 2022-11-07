@@ -1,138 +1,124 @@
-import { IComponentOverride, ITestRunner, ITestSuiteMetadata, TestHook } from './test.interfaces';
 import { Container } from 'inversify';
-import { TestMetadata } from './test.metadata';
+import { ComponentInfo } from '../../registration';
+import { MochaAnnotation, TestMode } from './test.enums';
+import { ITestCaseOptions, ITestSuiteOptions, TestHook } from './test.interfaces';
 import { TestBox } from './test-box';
-import { TestMode } from '.';
 import { ClassConstructor } from '../../../utils';
 
-// TODO: revisit this after the new components changes
+
 export class TestManager {
-  constructor(
-    private testRunner: ITestRunner, 
-    private testComponents: ClassConstructor[],
-    private testMode: TestMode[],
-    private container: Container
-  ) {}
+  
+  private container: Container;
 
-  init() {
-    const suiteComps = this.getTestComponents();
-
-    suiteComps.forEach(suite => {
-      // Create a clone from the original container
-      const container = Container.merge(this.container, new Container()) as Container;
-      
-      // Bind an instance of the TestBox to the cloned container
-      container.bind(TestBox).toConstantValue(new TestBox(container));
-
-      const suiteOverrides = this.getSuiteOverrides(suite.comp, container);
-      this.applyOverrides(suiteOverrides, container);
-
-      const compInstance = container.get(suite.comp);
-
-      this.testRunner.addSuite({
-        name: suite.info.title,
-        beforeAll: this.getBeforeAll(suite.comp, compInstance),
-        afterAll: this.getAfterAll(suite.comp, compInstance),
-        beforeEach: this.getBeforeEach(suite.comp, compInstance),
-        afterEach: this.getAfterEach(suite.comp, compInstance),
-        testCases: this.getCases(suite.comp, compInstance)
-      });
-    });
+  constructor(container: Container) {
+    this.container = container;
   }
+  
+  getTestSuitesInfo(testModes: TestMode[], testComponents: ComponentInfo<ITestSuiteOptions>[], mockComponents?: ComponentInfo[]) {
+    return testComponents
+      .filter((componentInfo) => testModes.includes(componentInfo.data!.mode as TestMode))
+      .map(componentInfo => {
 
-  private getTestComponents() {
-    const suiteComps: { info: ITestSuiteMetadata, comp: ClassConstructor }[] = [];
+        // Create a clone from the original container
+        const cloneContainer = Container.merge(this.container, new Container()) as Container;
 
-    this.testComponents
-      .forEach(compConstructor => {
-        const testInfo = TestMetadata.getTestInfo(compConstructor);
-        if (testInfo && this.testMode.includes(testInfo.mode)) {
-          suiteComps.push({ info: testInfo, comp: compConstructor });
+        // Bind an instance of the TestBox to the cloned container
+        cloneContainer.bind(TestBox).toConstantValue(new TestBox(cloneContainer));
+
+        if (mockComponents) {
+          this.applyMocks(componentInfo, mockComponents, cloneContainer);
         }
-      });
 
-    return suiteComps;
-  }
+        const compInstance = cloneContainer.get(componentInfo.getClass());
 
-  private getSuiteOverrides(suiteComp: ClassConstructor, container: Container): IComponentOverride[] {
-    const suiteMocks = TestMetadata.getMocks(suiteComp);
+        const suiteOptions = componentInfo.data as ITestSuiteOptions;
 
-    return suiteMocks.map(mock => {
-      let mockInstance;
-      
-      try {
-        mockInstance = container.get(mock);
-      }
-      catch(e) {
-        throw new Error(`${mock.name || mock} is not a valid testing mock, on the testing suite ${suiteComp.name}!`);
-      }
-   
-      const mockedComp = TestMetadata.getMockInfo(mock);
-      
-      if (!mockedComp || !mockInstance) {
-        throw new Error(`${mock.name || mock} is not a valid testing mock, on the testing suite ${suiteComp.name}!`);
-      }
-
-      return {
-        component: mockedComp,
-        use: mockInstance
-      } as IComponentOverride;
-    });
-  }
-
-  private applyOverrides(overrides: IComponentOverride[], container: Container) {
-    overrides.forEach(override => {
-      container.rebind(override.component).toConstantValue(override.use);
-    });
-  }
-
-  private getCases(compConstructor: ClassConstructor, compInstance: any) {
-    return TestMetadata.getCases(compConstructor)
-      .map(testCase => {
         return {
-          title: testCase.title,
-          fn: testCase.active ? compInstance[testCase.method].bind(compInstance, testCase.params) : undefined
+          name: suiteOptions.title as string,
+          timeout: suiteOptions.timeout,
+          beforeEach: this.getBeforeEach(componentInfo, compInstance),
+          afterEach: this.getAfterEach(componentInfo, compInstance),
+          beforeAll: this.getBeforeAll(componentInfo, compInstance),
+          afterAll: this.getAfterAll(componentInfo, compInstance),
+          testCases: this.getCases(componentInfo, compInstance)
         };
+
       });
   }
 
-  private getBeforeAll(compConstructor: ClassConstructor, compInstance: any): TestHook[] {
-    return TestMetadata.getBeforeAll(compConstructor)
-      .map(beforeAll => {
-        return {
-          title: beforeAll.title,
-          fn: compInstance[beforeAll.method].bind(compInstance)
-        };
+  private applyMocks(testComponentInfo: ComponentInfo, mockComponents: ComponentInfo[], container: Container) {
+    testComponentInfo.getDecoratorsById<{ component: ClassConstructor }>(MochaAnnotation.UseMock)
+      .forEach(({ data }) => {
+
+        const mockComp = mockComponents
+          .find(
+            comp => comp.getClass() === data!.component
+          ) as ComponentInfo<{ component: ClassConstructor }>;
+
+        const mockInstance = container.get(mockComp.getClass());
+
+        container.rebind(mockComp.data!.component).toConstantValue(mockInstance);
+
       });
   }
 
-  private getAfterAll(compConstructor: ClassConstructor, compInstance: any): TestHook[] {
-    return TestMetadata.getAfterAll(compConstructor)
-      .map(afterAll => {
+  private getCases(componentInfo: ComponentInfo, compInstance: any) {
+    return componentInfo.getDecoratorsById(MochaAnnotation.Case)
+      .map(({method, data}) => {
+        const { title, active, params } = data as Required<ITestCaseOptions>;
         return {
-          title: afterAll.title,
-          fn: compInstance[afterAll.method].bind(compInstance)
+          title,
+          fn: active ? compInstance[method as string].bind(compInstance, params) : undefined
         };
-      });
+      })
+      .reverse();
   }
 
-  private getBeforeEach(compConstructor: ClassConstructor, compInstance: any): TestHook[] {
-    return TestMetadata.getBeforeEach(compConstructor)
-      .map(beforeEach => {
+  private getBeforeAll(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
+    return componentInfo.getDecoratorsById(MochaAnnotation.BeforeAll)
+      .map(({method, data}) => {
+        const { title } = data as { title: string };
         return {
-          title: beforeEach.title,
-          fn: compInstance[beforeEach.method].bind(compInstance)
+          title,
+          fn: compInstance[method as string].bind(compInstance)
         };
-      });
+      })
+      .reverse();
   }
 
-  private getAfterEach(compConstructor: ClassConstructor, compInstance: any): TestHook[] {
-    return TestMetadata.getAfterEach(compConstructor)
-      .map(afterEach => {
+  private getAfterAll(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
+    return componentInfo.getDecoratorsById(MochaAnnotation.AfterAll)
+      .map(({method, data}) => {
+        const { title } = data as { title: string };
         return {
-          title: afterEach.title,
-          fn: compInstance[afterEach.method].bind(compInstance)
+          title,
+          fn: compInstance[method as string].bind(compInstance)
         };
-      });
+      })
+      .reverse();
+  }
+
+  private getBeforeEach(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
+    return componentInfo.getDecoratorsById(MochaAnnotation.BeforeEach)
+      .map(({method, data}) => {
+        const { title } = data as { title: string };
+        return {
+          title,
+          fn: compInstance[method as string].bind(compInstance)
+        };
+      })
+      .reverse();
+  }
+
+  private getAfterEach(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
+    return componentInfo.getDecoratorsById(MochaAnnotation.AfterEach)
+      .map(({method, data}) => {
+        const { title } = data as { title: string };
+        return {
+          title,
+          fn: compInstance[method as string].bind(compInstance)
+        };
+      })
+      .reverse();
   }
 }
