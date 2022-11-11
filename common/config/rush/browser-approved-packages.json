@@ -19,6 +19,10 @@
       "allowedCategories": [ "prototypes" ]
     },
     {
+      "name": "@nodearch/server",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@nodearch/socket.io",
       "allowedCategories": [ "production", "prototypes" ]
     },
@@ -95,6 +99,10 @@
       "allowedCategories": [ "prototypes" ]
     },
     {
+      "name": "cli-spinners",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "decompress",
       "allowedCategories": [ "production" ]
     },
@@ -120,6 +128,10 @@
     },
     {
       "name": "joi-to-swagger",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "json5",
       "allowedCategories": [ "production" ]
     },
     {

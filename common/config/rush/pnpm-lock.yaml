@@ -152,13 +152,15 @@ importers:
       '@types/nodemon': ^1.19.0
       '@types/yargs': ^15.0.9
       axios: ^0.21.0
+      cli-spinners: ^2.7.0
       decompress: ^4.2.1
       inquirer: ^7.3.3
       joi: ^17.3.0
+      json5: ^2.2.1
       node-notifier: ^8.0.0
       nodemon: ^2.0.4
       open: ^7.3.0
-      ora: ^5.1.0
+      ora: ^5.4.1
       reflect-metadata: ^0.1.13
       rimraf: ~3.0.2
       ts-node: ^10.8.0
@@ -167,9 +169,11 @@ importers:
     dependencies:
       '@nodearch/core': link:../core
       axios: 0.21.4
+      cli-spinners: 2.7.0
       decompress: 4.2.1
       inquirer: 7.3.3
       joi: 17.6.0
+      json5: 2.2.1
       node-notifier: 8.0.2
       open: 7.4.2
       ora: 5.4.1
@@ -1847,8 +1851,8 @@ packages:
       restore-cursor: 3.1.0
     dev: false
 
-  /cli-spinners/2.6.1:
-    resolution: {integrity: sha512-x/5fWmGMnbKQAaNwN+UZlV79qBLM9JFnJuJ03gIi5whrob0xV0ofNVHy9DhwGdsMJQc2OKv0oGmLzvaqvAVv+g==}
+  /cli-spinners/2.7.0:
+    resolution: {integrity: sha512-qu3pN8Y3qHNgE2AFweciB1IfMnmZ/fsNTEE+NOFjmGB2F/7rLhnhzppvpCnN4FovtP26k8lHyy9ptEbNwWFLzw==}
     engines: {node: '>=6'}
     dev: false
 
@@ -4600,7 +4604,7 @@ packages:
       bl: 4.1.0
       chalk: 4.1.2
       cli-cursor: 3.1.0
-      cli-spinners: 2.6.1
+      cli-spinners: 2.7.0
       is-interactive: 1.0.0
       is-unicode-supported: 0.1.0
       log-symbols: 4.1.0

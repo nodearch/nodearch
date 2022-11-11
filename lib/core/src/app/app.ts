@@ -139,8 +139,8 @@ export class App {
 
     this.loadCoreComponents();
     await this.loadExtensions();
-    await this.loadComponents();
     this.registerExtensions();
+    await this.loadComponents();
   }
 
   snapshot() {

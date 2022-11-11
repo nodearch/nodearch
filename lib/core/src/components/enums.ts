@@ -6,7 +6,7 @@ export enum ComponentScope {
 
 export enum CoreAnnotation {
   Component = '@nodearch/core/component-id/component',
-  Cli = '@nodearch/core/component-id/cli',
+  Command = '@nodearch/core/component-id/command',
   Hook = '@nodearch/core/component-id/hook',
   Config = '@nodearch/core/component-id/config',
   Service = '@nodearch/core/component-id/service',

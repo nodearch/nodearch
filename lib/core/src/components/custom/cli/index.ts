@@ -1,2 +1,2 @@
-export * from './cli.annotation';
-export * from './cli.interfaces';
+export * from './command.annotation';
+export * from './command.interfaces';

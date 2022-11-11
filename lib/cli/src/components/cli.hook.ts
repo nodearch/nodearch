@@ -1,14 +1,17 @@
-import { Hook, HookContext, IHook } from '@nodearch/core';
-import { AppInfoService } from './app-info/app-info.service';
-import { CLIService } from './cli.service';
+import { Hook, IHook } from '@nodearch/core';
+import { AppService } from './app/app.service';
+import { CliService } from './command/cli.service';
 
 @Hook()
-export class CLIHook implements IHook {
-  constructor(private readonly cliService: CLIService, private readonly appInfoService: AppInfoService) {}
+export class CliHook implements IHook {
+  
+  constructor(
+    private readonly appService: AppService,
+    private readonly cliService: CliService
+  ) {}
 
-  async onInit(context: HookContext) {
-    await this.appInfoService.init();
-    const builtinCommands = context.findCLICommands();
-    await this.cliService.init(builtinCommands);
+  async onInit() {
+    await this.appService.load();
+    await this.cliService.start();
   }
 }

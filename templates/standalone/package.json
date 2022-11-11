@@ -8,6 +8,9 @@
     "build:watch": "tsc",
     "start": "node dist/start.js"
   },
+  "nodearch": {
+    "path": "src/main.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "MIT",
