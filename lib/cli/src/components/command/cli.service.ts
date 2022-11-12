@@ -1,4 +1,4 @@
-import { Service } from '@nodearch/core';
+import { CoreAnnotation, ICommand, Service } from '@nodearch/core';
 import yargs, { Argv, Arguments, CommandModule } from 'yargs';
 import { AppService } from '../app/app.service';
 
@@ -13,6 +13,18 @@ export class CliService {
   ) {}
 
   async start() {
+
+    if (this.appService.appInfo) {
+      const commandsInfo = this.appService.appInfo.app.getComponents(CoreAnnotation.Command);
+
+      if (commandsInfo) {
+        commandsInfo.forEach(cmdInfo => {
+          const instance = cmdInfo.getInstance();
+          console.log('instance', instance);
+        });
+      }
+    }
+
     this.args = yargs
       .scriptName('nodearch')
       .usage('Usage: nodearch <command> [options]')

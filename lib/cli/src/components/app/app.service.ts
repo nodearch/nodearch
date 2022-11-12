@@ -30,13 +30,16 @@ export class AppService {
     
     if (!LocalApp.nodearch) return;
 
+    const app = new LocalApp();
+    await app.run(); 
+
     this.appInfo = {
       paths: {
         root: this.resolvePath(process.cwd()),
         nodeModules: this.resolvePath(path.join(process.cwd(), 'node_modules')),
         app: appConfig.path
       },
-      app: new LocalApp()
+      app
     };
 
     this.loading.stop();

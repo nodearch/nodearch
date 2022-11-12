@@ -1,4 +1,4 @@
-export enum CLIQuestionType {
+export enum CommandQuestionType {
   Input = 'input',
   Number = 'number',
   Password = 'password',
@@ -10,20 +10,19 @@ export enum CLIQuestionType {
   Editor = 'editor'
 }
 
-export type CLICommandHandler<T> = (data: T) => Promise<void>;
-export type CLIAnswers = Record<string, any>;
-export type CLIQuestionsDefault = string | number | boolean | Array<any> | 
-  {(answers: CLIAnswers): string | number | boolean | Array<any>};
-export type CLIQuestionsChoices = string | number | { name?: string, value?: any, short?: string; extra?: any; };
-export type CLIBuilder = {<T = any>(yargs: T): T} | Record<string, { alias?: string | string[]; describe?: string, default?: any, [key: string]: any } >;
+export type CommandHandler<T> = (data: T) => Promise<void>;
+export type CommandAnswers = Record<string, any>;
+export type CommandQuestionsDefault = string | number | boolean | Array<any> | 
+  {(answers: CommandAnswers): string | number | boolean | Array<any>};
+export type CommandQuestionsChoices = string | number | { name?: string, value?: any, short?: string; extra?: any; };
+export type CommandBuilder<T> = Record<keyof T, { alias?: string | string[]; describe?: string, default?: any, [key: string]: any } >;
 
-// TODO: cli -> command, aliases, questions, options, handler
 
-export interface CLIQuestion<T = any> extends Record<string, any> {
+export interface CommandQuestion<T = any> extends Record<string, any> {
   /**
    * (String) Type of the prompt.
    */
-  type: CLIQuestionType;
+  type: CommandQuestionType;
 
   /** 
    * (String) The name to use when storing the answer in the answers hash. 
@@ -37,7 +36,7 @@ export interface CLIQuestion<T = any> extends Record<string, any> {
    * the first parameter will be the current inquirer session answers. 
    * Defaults to the value of name (followed by a colon).
    */
-  message?: string | {(answers: CLIAnswers): string};
+  message?: string | {(answers: CommandAnswers): string};
 
   /**
    * (String|Number|Boolean|Array|Function) 
@@ -46,7 +45,7 @@ export interface CLIQuestion<T = any> extends Record<string, any> {
    * If defined as a function, 
    * the first parameter will be the current inquirer session answers.
    */
-  default?: CLIQuestionsDefault;
+  default?: CommandQuestionsDefault;
 
   /**
    * (Array|Function) Choices array or a function 
@@ -59,7 +58,7 @@ export interface CLIQuestion<T = any> extends Record<string, any> {
    * and a short (to display after selection) properties. 
    * The choices array can also contain a Separator.
    */
-  choices?: CLIQuestionsChoices[] | {(answers?: CLIAnswers): Promise<CLIQuestionsChoices[]>};
+  choices?: CommandQuestionsChoices[] | {(answers?: CommandAnswers): Promise<CommandQuestionsChoices[]>};
 
   /**
    * (Function) Receive the user input and answers hash. 
@@ -67,14 +66,14 @@ export interface CLIQuestion<T = any> extends Record<string, any> {
    * and an error message (String) otherwise. 
    * If false is returned, a default error message is provided. 
    */
-  validate?(input: any, answers?: CLIAnswers): boolean | string | Promise<boolean | string>;
+  validate?(input: any, answers?: CommandAnswers): boolean | string | Promise<boolean | string>;
 
   /**
    * (Function) Receive the user input and answers hash. 
    * Returns the filtered value to be used inside the program. 
    * The value returned will be added to the Answers hash.
    */
-  filter?(input: any, answers?: CLIAnswers): any;
+  filter?(input: any, answers?: CommandAnswers): any;
 
   /**
    * (Function) Receive the user input, answers hash and option flags, 
@@ -82,7 +81,7 @@ export interface CLIQuestion<T = any> extends Record<string, any> {
    * The transformation only impacts what is shown while editing. 
    * It does not modify the answers hash.
    */
-  transformer?(input: any, answers: CLIAnswers, flags: { isFinal?: boolean }): string | Promise<string>;
+  transformer?(input: any, answers: CommandAnswers, flags: { isFinal?: boolean }): string | Promise<string>;
 
   /**
    * (Function, Boolean) Receive the current user answers hash 
@@ -90,7 +89,7 @@ export interface CLIQuestion<T = any> extends Record<string, any> {
    * on whether or not this question should be asked. 
    * The value can also be a simple boolean.
    */
-  when?: boolean | {(answers: CLIAnswers): boolean};
+  when?: boolean | {(answers: CommandAnswers): boolean};
 
   /**
    * (Number) Change the number of lines 
@@ -120,7 +119,7 @@ export interface CLIQuestion<T = any> extends Record<string, any> {
   loop?: boolean;
 };
 
-export interface ICli<T = any> {
+export interface ICommand<T extends Record<string, any> = any> {
   /** 
    * string (or array of strings) that executes this command 
    * when given on the command line, 
@@ -143,7 +142,7 @@ export interface ICli<T = any> {
   /** 
    * a function which will be passed the data. 
    */
-  handler: CLICommandHandler<T>;
+  handler(data: T): Promise<void>;
   
   /** 
    * string used as the description for the command in help text, 
@@ -156,12 +155,12 @@ export interface ICli<T = any> {
    * can also be a function. This function is executed with a yargs instance, 
    * and can be used to provide advanced command specific help.
    */
-  builder?: CLIBuilder; 
+  builder?: CommandBuilder<T>;
 
   /**
    * inquirer questions
    */
-  questions?: CLIQuestion[];
+  questions?: CommandQuestion[];
 
   /**
    * NPM dependencies required by the Cli command

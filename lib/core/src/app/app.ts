@@ -1,7 +1,7 @@
 import { ClassLoader } from '../loader';
 import { 
   HookContext, CoreAnnotation, IHook, 
-  ConfigManager, ComponentScope, ComponentRegistry, TestManager, TestMode, MochaAnnotation 
+  ConfigManager, ComponentScope, ComponentRegistry, TestManager, TestMode, MochaAnnotation, ComponentInfo 
 } from '../components';
 import { IAppOptions, IRunOptions } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';

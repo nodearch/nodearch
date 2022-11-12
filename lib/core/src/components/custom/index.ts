@@ -1,4 +1,4 @@
-export * from './cli';
+export * from './command';
 export * from './config';
 export * from './controller';
 export * from './hook';
