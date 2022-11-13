@@ -10,6 +10,11 @@ export enum CommandQuestionType {
   Editor = 'editor'
 }
 
+export enum CommandMode {
+  App = 'app',
+  NoApp = 'noApp'
+}
+
 export type CommandHandler<T> = (data: T) => Promise<void>;
 export type CommandAnswers = Record<string, any>;
 export type CommandQuestionsDefault = string | number | boolean | Array<any> | 
@@ -168,6 +173,12 @@ export interface ICommand<T extends Record<string, any> = any> {
    * are installed, and if not, it will install them automatically 
    */
   npmDependencies?: INpmDependency[];
+
+  /**
+   * Used internally to indicate when the command will be active
+   * by default (No mode specified) the command is always active
+   */
+  mode?: CommandMode[];
 }
 
 export enum NpmDependencyType {

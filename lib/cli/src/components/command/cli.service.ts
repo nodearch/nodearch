@@ -1,4 +1,4 @@
-import { CoreAnnotation, ICommand, Service } from '@nodearch/core';
+import { CommandMode, CoreAnnotation, ICommand, Service } from '@nodearch/core';
 import yargs, { Argv, Arguments, CommandModule } from 'yargs';
 import { AppService } from '../app/app.service';
 
@@ -12,18 +12,20 @@ export class CliService {
     private readonly appService: AppService
   ) {}
 
-  async start() {
+  async start(builtinCommands: ICommand[]) {
 
+    let commands = builtinCommands;
+
+    let mode = CommandMode.NoApp;
+
+    // Add commands from loaded app
     if (this.appService.appInfo) {
-      const commandsInfo = this.appService.appInfo.app.getComponents(CoreAnnotation.Command);
-
-      if (commandsInfo) {
-        commandsInfo.forEach(cmdInfo => {
-          const instance = cmdInfo.getInstance();
-          console.log('instance', instance);
-        });
-      }
+      mode = CommandMode.App;
+      commands = [...builtinCommands, ...this.appService.getCommands()];
     }
+
+    // filter commands based on current mode
+    commands = commands.filter(cmd => cmd.mode ? cmd.mode.includes(mode) : true);
 
     this.args = yargs
       .scriptName('nodearch')
@@ -54,6 +56,7 @@ export class CliService {
       .argv;
 
   }
+
 
 
 }

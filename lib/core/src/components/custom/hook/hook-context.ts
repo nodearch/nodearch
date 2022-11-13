@@ -1,38 +1,40 @@
 import { ComponentRegistry } from '../../registration';
 import { Container } from 'inversify';
+import { DependencyException } from '../../../errors';
+import { ClassConstructor } from '../../../utils';
 
-// TODO: introduce new features in v2?
+
 export class HookContext {
   constructor(
     private components: ComponentRegistry,
     private container: Container
   ) {}
 
-  // get<T>(classIdentifier: ClassConstructor): T {
-  //   try {
-  //     return this.components.get<T>(classIdentifier);
-  //   }
-  //   catch(e: any) {
-  //     throw new DependencyException(e.message);
-  //   }
-  // }
+  get<T>(classIdentifier: ClassConstructor): T | undefined {
+    try {
+      return this.container.get<T>(classIdentifier);
+    }
+    catch(e: any) {
+      if (e.message !== `No matching bindings found for serviceIdentifier: ${classIdentifier}`) {
+        throw new DependencyException(e.message);
+      }
+    }
+  }
 
-  // getAll<T>(id: string | symbol): T[] {
-  //   try {
-  //     return this.components.getAll<T>(id);
-  //   }
-  //   catch(e: any) {
-  //     throw new DependencyException(e.message);
-  //   }
-  // }
+  getAll<T>(id: string): T[] {
+    let instances: T[] = [];
+    
+    try {
+      instances = this.container.getAll<T>(id);
+    }
+    catch(e: any) {
+      if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
+        throw new DependencyException(e.message);
+      }
+    }
 
-  // findHooks(): IHook[] | undefined {
-  //   return this.components.findHooks();
-  // }
-
-  // findCLICommands(): ICli[] | undefined {
-  //   return this.components.findCLICommands();
-  // }
+    return instances;
+  }
 
   getComponents(id: string) {
     return this.components.getComponents(id);

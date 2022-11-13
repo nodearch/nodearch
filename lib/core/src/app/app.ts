@@ -7,6 +7,7 @@ import { IAppOptions, IRunOptions } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';
 import { Container } from 'inversify';
 import { ClassConstructor } from '../utils';
+import { DependencyException } from '../errors';
 
 export class App {
 
@@ -168,19 +169,30 @@ export class App {
     });
   }
 
-  get<T>(id: ClassConstructor) {
-    return this.container.get<T>(id);
-  }
-
-  getAll<T>(id: string) {
+  get<T>(id: ClassConstructor): T | undefined {
     try {
-      return this.container.getAll<T>(id);
+      return this.container.get<T>(id);
     }
     catch(e: any) {
       if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
-        throw e;
+        throw new DependencyException(e.message);
       }
     }
+  }
+
+  getAll<T>(id: string) {
+    let instances: T[] = [];
+    
+    try {
+      instances = this.container.getAll<T>(id);
+    }
+    catch(e: any) {
+      if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
+        throw new DependencyException(e.message);
+      }
+    }
+
+    return instances;
   }
 
   /**

@@ -1,5 +1,5 @@
 import path from 'path';
-import { Service } from '@nodearch/core';
+import { CoreAnnotation, ICommand, Service } from '@nodearch/core';
 import { IAppConfig, IAppInfo } from './app.interfaces';
 import { Loading } from '../loading.service';
 
@@ -14,9 +14,13 @@ export class AppService {
   ) {}
 
   getCommands() {
+    let commands: ICommand[] = [];
+    
     if (this.appInfo) {
-      // TODO: return commands
+      commands = this.appInfo.app.getAll<ICommand>(CoreAnnotation.Command);
     }
+
+    return commands;
   }
 
   async load() {
