@@ -2,16 +2,18 @@ import { CommandMode, CommandQuestion, ICommand, INpmDependency, Logger, Service
 import inquirer from 'inquirer';
 import yargs, { Arguments, CommandModule } from 'yargs';
 import { AppService } from '../app/app.service';
+import { NotifierService } from '../utils/notifier.service';
+import { NpmService } from '../utils/npm.service';
 
 
 @Service()
 export class CliService { 
 
-  private args: any;
-
   constructor(
+    private readonly logger: Logger,
     private readonly appService: AppService,
-    private readonly logger: Logger
+    private readonly notifierService: NotifierService,
+    private readonly npmService: NpmService
   ) {}
 
   async start(builtinCommands: ICommand[]) {
@@ -34,27 +36,15 @@ export class CliService {
       .usage('Usage: nodearch <command> [options]')
       .demandCommand()
 
-      // .example('new', 'Generates a new app')
-      // .example('build', 'Build the app')
-      // .example('start', 'Starts the app')
-
       .alias('h', 'help')
       .alias('v', 'version')
 
-      .option('path', {
-        alias: ['p'],
-        string: true,
-        describe: 'App file path'
-      })
-
-      // .option('notify', { 
-      //   alias: ['y'], 
-      //   boolean: true, 
-      //   default: true,
-      //   describe: 'turn desktop notifier on or off' 
-      // });
-
-
+      .option('notify', { 
+        alias: ['y'], 
+        boolean: true, 
+        default: true,
+        describe: 'Enable/disable desktop notifications' 
+      });
 
     if (commands.length) {
       const yargsCommands = this.getYargsCommands(commands);
@@ -64,7 +54,6 @@ export class CliService {
     }
 
     yargs.pkgConf('nodearch').argv;
-
   }
 
   getYargsCommands(commands: ICommand[]): CommandModule[] {
@@ -94,11 +83,11 @@ export class CliService {
   
       const data = { ...args, ...answers };
   
-      // this.notifierService.enabled = args?.notify ? true : false;
+      this.notifierService.enabled = !!args?.notify;
       
-      // if (command.npmDependencies && command.npmDependencies.length) {
-      //   await this.npmService.resolveDependencies(command.npmDependencies.filter(dep => dep.when ? dep.when(data) : true));
-      // }
+      if (command.npmDependencies && command.npmDependencies.length) {
+        await this.npmService.resolveDependencies(command.npmDependencies.filter(dep => dep.when ? dep.when(data) : true));
+      }
   
       await command.handler.bind(command)(data);
     }

@@ -136,7 +136,7 @@ export interface ICommand<T extends Record<string, any> = any> {
    * string used as the description for the command in help text, 
    * use `false` for a hidden command 
    */
-   describe: string;
+  describe: string;
 
   /** 
    * array of strings (or a single string) 
