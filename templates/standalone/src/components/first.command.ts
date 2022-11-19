@@ -10,6 +10,7 @@ type One = {
 export class FirstCommand implements ICommand<One> {
 
   command = 'test-cmd';
+  describe = 'ssssssssssssssssssss';
 
   // builder = {};
 

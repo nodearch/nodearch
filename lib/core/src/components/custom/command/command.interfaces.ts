@@ -133,6 +133,12 @@ export interface ICommand<T extends Record<string, any> = any> {
   command: string | string[];
   
   /** 
+   * string used as the description for the command in help text, 
+   * use `false` for a hidden command 
+   */
+   describe: string;
+
+  /** 
    * array of strings (or a single string) 
    * representing aliases of `exports.command`, 
    * positional args defined in an alias are ignored 
@@ -148,12 +154,6 @@ export interface ICommand<T extends Record<string, any> = any> {
    * a function which will be passed the data. 
    */
   handler(data: T): Promise<void>;
-  
-  /** 
-   * string used as the description for the command in help text, 
-   * use `false` for a hidden command 
-   */
-  describe?: string | false;
   
   /**
    * Object that gives hints about the options that your command accepts.

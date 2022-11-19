@@ -1,7 +1,9 @@
 import path from 'path';
-import { CoreAnnotation, ICommand, Service } from '@nodearch/core';
+import { CoreAnnotation, ICommand, Logger, Service } from '@nodearch/core';
 import { IAppConfig, IAppInfo } from './app.interfaces';
-import { Loading } from '../loading.service';
+
+import util from 'util';
+const sleep = util.promisify(setTimeout); 
 
 
 @Service()
@@ -10,7 +12,7 @@ export class AppService {
   appInfo?: IAppInfo;
 
   constructor(
-    private readonly loading: Loading
+    private readonly logger: Logger
   ) {}
 
   getCommands() {
@@ -24,7 +26,7 @@ export class AppService {
   }
 
   async load() {
-    this.loading.start('Scanning for a local App...');
+    this.logger.info('Scanning for a local App...');
     
     const appConfig = await this.getAppConfig();
 
@@ -45,8 +47,6 @@ export class AppService {
       },
       app
     };
-
-    this.loading.stop();
   }
 
   private async getAppConfig() {
