@@ -440,13 +440,6 @@
 
     // ============= Extensions =============
     {
-      "packageName": "@nodearch/mocha",
-      "projectFolder": "extensions/mocha",
-      "reviewCategory": "production",
-      "versionPolicyName": "packages",
-      "tags": ["extension"]
-    },
-    {
       "packageName": "@nodearch/express",
       "projectFolder": "extensions/express",
       "reviewCategory": "production",

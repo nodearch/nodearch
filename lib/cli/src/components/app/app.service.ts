@@ -1,8 +1,6 @@
 import path from 'path';
-import { Logger, Service } from '@nodearch/core';
+import { CoreAnnotation, ICommand, Logger, Service } from '@nodearch/core';
 import { IAppConfig, IAppInfo } from './app.interfaces';
-import { ICommand } from '../../interfaces';
-import { CliAnnotation } from '../../enums';
 
 
 @Service()
@@ -18,7 +16,7 @@ export class AppService {
     let commands: ICommand[] = [];
     
     if (this.appInfo) {
-      commands = this.appInfo.app.getAll<ICommand>(CliAnnotation.Command);
+      commands = this.appInfo.app.getAll<ICommand>(CoreAnnotation.Command);
     }
 
     return commands;

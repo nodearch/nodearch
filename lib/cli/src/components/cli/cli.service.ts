@@ -1,10 +1,8 @@
-import { Logger, Service } from '@nodearch/core';
+import { CommandMode, CommandQuestion, ICommand, Logger, Service } from '@nodearch/core';
 import inquirer from 'inquirer';
 import yargs, { Arguments, CommandModule } from 'yargs';
-import { CommandMode } from '../../enums';
-import { CommandQuestion, ICommand } from '../../interfaces';
 import { AppService } from '../app/app.service';
-import { NotifierService } from '../utils/notifier.service';
+import { NotificationService } from '../utils/notification.service';
 import { NpmService } from '../utils/npm.service';
 
 
@@ -14,7 +12,7 @@ export class CliService {
   constructor(
     private readonly logger: Logger,
     private readonly appService: AppService,
-    private readonly notifierService: NotifierService,
+    private readonly notificationService: NotificationService,
     private readonly npmService: NpmService
   ) {}
 
@@ -85,13 +83,13 @@ export class CliService {
   
       const data = { ...args, ...answers };
   
-      this.notifierService.enabled = !!args?.notify;
+      this.notificationService.enabled = !!args?.notify;
       
       if (command.npmDependencies && command.npmDependencies.length) {
         await this.npmService.resolveDependencies(command.npmDependencies.filter(dep => dep.when ? dep.when(data) : true));
       }
   
-      await command.handler.bind(command)({ data, notifierService: this.notifierService, appInfo: this.appService.appInfo });
+      await command.handler.bind(command)({ data, notificationService: this.notificationService, appInfo: this.appService.appInfo });
     }
     catch(e: any) {
       this.logger.error(e.message);

@@ -4,7 +4,7 @@ import path from 'path';
 
 
 @Service()
-export class NotifierService { 
+export class NotificationService { 
 
   private isEnabled = true;
 

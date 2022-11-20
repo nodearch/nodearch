@@ -124,6 +124,10 @@ export interface CommandQuestion<T = any> extends Record<string, any> {
   loop?: boolean;
 };
 
+export interface INotificationService {
+  notify(message: string): void;
+}
+
 export interface ICommand<T extends Record<string, any> = any> {
   /** 
    * string (or array of strings) that executes this command 
@@ -155,14 +159,14 @@ export interface ICommand<T extends Record<string, any> = any> {
    */
   handler(options: { 
     data: T,
-    appInfo: { 
+    appInfo?: { 
       paths: {
         root: string;
         app: string;
         nodeModules: string;
       } 
     },
-    // notificationService
+    notificationService: INotificationService
   }): Promise<void>;
   
   /**
