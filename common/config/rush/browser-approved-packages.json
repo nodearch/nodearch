@@ -7,6 +7,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@nodearch/cli",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
       "name": "@nodearch/core",
       "allowedCategories": [ "production", "prototypes" ]
     },

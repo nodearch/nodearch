@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@nodearch/core": "workspace:^1.4.2",
+    "@nodearch/cli": "workspace:^1.2.4",
     "@types/mocha": "^10.0.0",
     "@types/node": "^14.14.10",
     "rimraf": "~3.0.2",

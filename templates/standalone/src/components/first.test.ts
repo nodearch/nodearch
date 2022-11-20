@@ -1,5 +1,5 @@
 // import { Case, Test, TestMode } from '@nodearch/mocha';
-import { Case, Test, TestMode } from '@nodearch/core';
+import { Case, Test, TestMode } from '@nodearch/mocha';
 import { expect } from 'chai';
 import { SimpleService } from './simple.service';
 

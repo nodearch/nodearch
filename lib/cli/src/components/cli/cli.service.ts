@@ -1,6 +1,8 @@
-import { CommandMode, CommandQuestion, ICommand, INpmDependency, Logger, Service } from '@nodearch/core';
+import { Logger, Service } from '@nodearch/core';
 import inquirer from 'inquirer';
 import yargs, { Arguments, CommandModule } from 'yargs';
+import { CommandMode } from '../../enums';
+import { CommandQuestion, ICommand } from '../../interfaces';
 import { AppService } from '../app/app.service';
 import { NotifierService } from '../utils/notifier.service';
 import { NpmService } from '../utils/npm.service';
@@ -89,7 +91,7 @@ export class CliService {
         await this.npmService.resolveDependencies(command.npmDependencies.filter(dep => dep.when ? dep.when(data) : true));
       }
   
-      await command.handler.bind(command)(data);
+      await command.handler.bind(command)({ data, notifierService: this.notifierService, appInfo: this.appService.appInfo });
     }
     catch(e: any) {
       this.logger.error(e.message);

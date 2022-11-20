@@ -2,8 +2,8 @@
   "name": "@nodearch/cli",
   "version": "1.2.4",
   "description": "nodearch cli",
-  "main": "./dist/main.js",
-  "types": "./dist/main.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
     "nodearch": "./dist/start.js"
   },

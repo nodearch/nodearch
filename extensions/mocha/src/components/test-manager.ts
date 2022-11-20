@@ -1,117 +1,25 @@
 import { ClassConstructor, ComponentInfo, Container, Service } from '@nodearch/core';
+import { MochaAnnotation, TestMode } from '../enums';
 import { ITestCaseOptions, ITestSuiteOptions, TestHook } from '../interfaces';
 import { TestBox } from '../test-box';
-import { MochaAnnotation, TestMode } from '../enums';
-import Mocha, { Test } from 'mocha';
-import NYC from 'nyc';
-
 
 
 @Service()
-export class MochaService {
+export class TestManager {
   
-  private container!: Container;
-  private testComponents!: ComponentInfo<ITestSuiteOptions>[];
-  private mockComponents?: ComponentInfo[];
-
-
-  init(container: Container, testComponents: ComponentInfo<ITestSuiteOptions>[], mockComponents?: ComponentInfo[]) {
-    this.container = container;
-    this.testComponents = testComponents;
-    this.mockComponents = mockComponents;
-  } 
-
-  async run(modes: TestMode[], coverage?: any) {
-
-    const suites = this.getTestSuitesInfo(modes);
-
-    let nyc: NYC | undefined;
-
-    if (coverage) {
-
-      // for (const x in require.cache) {
-      //   delete require.cache[x];
-      // }
-
-      nyc = new NYC(coverage);
-      await nyc.reset();
-      await nyc.wrap();
-      await nyc.addAllFiles();      
-    }
-
-    // TODO: pass mocha options
-    const mochaInstance = new Mocha({});
-
-    suites.forEach(suite => {
-      const suiteInstance = Mocha.Suite.create(mochaInstance.suite, suite.name);
-
-      suite.beforeAll.forEach(beforeAll => {
-        suiteInstance.beforeAll(
-          beforeAll.title || beforeAll.fn.name,
-          beforeAll.fn.bind(beforeAll.fn)
-        );
-      });
-
-      suite.afterAll.forEach(afterAll => {
-        suiteInstance.afterAll(
-          afterAll.title || afterAll.fn.name,
-          afterAll.fn.bind(afterAll.fn)
-        );
-      });
-
-      suite.beforeEach.forEach(beforeEach => {
-        suiteInstance.beforeEach(
-          beforeEach.title || beforeEach.fn.name,
-          beforeEach.fn.bind(beforeEach.fn)
-        );
-      });
-
-      suite.afterEach.forEach(afterEach => {
-        suiteInstance.afterEach(
-          afterEach.title || afterEach.fn.name,
-          afterEach.fn.bind(afterEach.fn)
-        );
-      });
-
-      suite.testCases.forEach(testCase => {
-        suiteInstance.addTest(
-          new Test(testCase.title, testCase.fn ? testCase.fn.bind(testCase.fn) : undefined)
-        );
-      });
-
-    });
-
-    const code = await this.runMocha(mochaInstance);
-
-    if (nyc) {
-      await nyc.writeCoverageFile();
-      await nyc.report();
-    }
-
-    process.exit(code);
-  }
-
-  private async runMocha (mochaInstance: Mocha): Promise<number> {
-    return new Promise((resolve, reject) => {
-      mochaInstance.run((failures) => {
-        resolve(failures);
-      });
-    });
-  }
-  
-  private getTestSuitesInfo(testModes: TestMode[]) {
-    return this.testComponents
+  getTestSuitesInfo(container: Container, testModes: TestMode[], testComponents: ComponentInfo<ITestSuiteOptions>[], mockComponents?: ComponentInfo[]) {
+    return testComponents
       .filter((componentInfo) => testModes.includes(componentInfo.data!.mode as TestMode))
       .map(componentInfo => {
 
         // Create a clone from the original container
-        const cloneContainer = Container.merge(this.container, new Container()) as Container;
+        const cloneContainer = Container.merge(container, new Container()) as Container;
 
         // Bind an instance of the TestBox to the cloned container
         cloneContainer.bind(TestBox).toConstantValue(new TestBox(cloneContainer));
 
-        if (this.mockComponents) {
-          this.applyMocks(componentInfo, this.mockComponents, cloneContainer);
+        if (mockComponents) {
+          this.applyMocks(componentInfo, mockComponents, cloneContainer);
         }
 
         const compInstance = cloneContainer.get(componentInfo.getClass());

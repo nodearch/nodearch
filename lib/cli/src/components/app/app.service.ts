@@ -1,9 +1,8 @@
 import path from 'path';
-import { CoreAnnotation, ICommand, Logger, Service } from '@nodearch/core';
+import { Logger, Service } from '@nodearch/core';
 import { IAppConfig, IAppInfo } from './app.interfaces';
-
-import util from 'util';
-const sleep = util.promisify(setTimeout); 
+import { ICommand } from '../../interfaces';
+import { CliAnnotation } from '../../enums';
 
 
 @Service()
@@ -19,7 +18,7 @@ export class AppService {
     let commands: ICommand[] = [];
     
     if (this.appInfo) {
-      commands = this.appInfo.app.getAll<ICommand>(CoreAnnotation.Command);
+      commands = this.appInfo.app.getAll<ICommand>(CliAnnotation.Command);
     }
 
     return commands;

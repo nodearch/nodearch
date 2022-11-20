@@ -12,7 +12,7 @@ import { DependencyException } from '../errors';
 export class App {
 
   // This is used to easily identifies NodeArch Apps when we auto-load classes
-  public static nodearch = true; 
+  public static nodearch = true;
   private extensions?: App[];
   private logOptions?: ILogOptions;
   private configOptions?: Record<string, any>;;

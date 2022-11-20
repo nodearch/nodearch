@@ -1,19 +1,7 @@
-export enum CommandQuestionType {
-  Input = 'input',
-  Number = 'number',
-  Password = 'password',
-  List = 'list',
-  RawList = 'rawList',
-  Expand = 'expand',
-  Checkbox = 'checkbox',
-  Confirm = 'confirm',
-  Editor = 'editor'
-}
+import { IAppInfo } from './components/app/app.interfaces';
+import { NotifierService } from './components/utils/notifier.service';
+import { CommandQuestionType, CommandMode } from './enums';
 
-export enum CommandMode {
-  App = 'app',
-  NoApp = 'noApp'
-}
 
 export type CommandHandler<T> = (data: T) => Promise<void>;
 export type CommandAnswers = Record<string, any>;
@@ -124,6 +112,12 @@ export interface CommandQuestion<T = any> extends Record<string, any> {
   loop?: boolean;
 };
 
+export interface ICommandHandlerOptions <T = any> {
+  data: T,
+  appInfo?: IAppInfo,
+  notifierService: NotifierService
+}
+
 export interface ICommand<T extends Record<string, any> = any> {
   /** 
    * string (or array of strings) that executes this command 
@@ -153,17 +147,7 @@ export interface ICommand<T extends Record<string, any> = any> {
   /** 
    * a function which will be passed the data.
    */
-  handler(options: { 
-    data: T,
-    appInfo: { 
-      paths: {
-        root: string;
-        app: string;
-        nodeModules: string;
-      } 
-    },
-    // notificationService
-  }): Promise<void>;
+  handler(options: ICommandHandlerOptions<T>): Promise<void>;
   
   /**
    * Object that gives hints about the options that your command accepts.

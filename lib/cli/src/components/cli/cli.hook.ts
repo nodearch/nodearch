@@ -1,6 +1,9 @@
-import { CoreAnnotation, Hook, HookContext, ICommand, IHook } from '@nodearch/core';
+import { Hook, HookContext, IHook } from '@nodearch/core';
+import { CliAnnotation } from '../../enums';
+import { ICommand } from '../../interfaces';
 import { AppService } from '../app/app.service';
 import { CliService } from './cli.service';
+
 
 @Hook()
 export class CliHook implements IHook {
@@ -15,7 +18,7 @@ export class CliHook implements IHook {
   }
 
   async onStart(context: HookContext) {
-    const builtinCommands = context.getAll<ICommand>(CoreAnnotation.Command);
+    const builtinCommands = context.getAll<ICommand>(CliAnnotation.Command);
     await this.cliService.start(builtinCommands);
   }
 }

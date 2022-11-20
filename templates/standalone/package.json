@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@nodearch/core": "workspace:^1.4.2",
+    "@nodearch/cli": "workspace:^1.2.4",
     "reflect-metadata": "^0.1.13"
   }
 }
