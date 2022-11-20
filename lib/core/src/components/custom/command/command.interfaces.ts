@@ -128,6 +128,18 @@ export interface INotificationService {
   notify(message: string): void;
 }
 
+export interface ICommandHandlerOptions<T = any> {
+  data: T,
+  appInfo?: { 
+    paths: {
+      root: string;
+      app: string;
+      nodeModules: string;
+    } 
+  },
+  notificationService: INotificationService
+}
+
 export interface ICommand<T extends Record<string, any> = any> {
   /** 
    * string (or array of strings) that executes this command 
@@ -157,17 +169,7 @@ export interface ICommand<T extends Record<string, any> = any> {
   /** 
    * a function which will be passed the data.
    */
-  handler(options: { 
-    data: T,
-    appInfo?: { 
-      paths: {
-        root: string;
-        app: string;
-        nodeModules: string;
-      } 
-    },
-    notificationService: INotificationService
-  }): Promise<void>;
+  handler(options: ICommandHandlerOptions<T>): Promise<void>;
   
   /**
    * Object that gives hints about the options that your command accepts.
