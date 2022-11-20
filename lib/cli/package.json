@@ -40,7 +40,10 @@
     "ts-node": "^10.8.0",
     "typescript": "^4.7.2",
     "yargs": "^16.1.1",
-    "json5": "^2.2.1"
+    "json5": "^2.2.1",
+    "@types/mocha": "^10.0.0",
+    "mocha": "^10.1.0",
+    "nyc": "^15.1.0"
   },
   "devDependencies": {
     "@types/node-notifier": "^8.0.0",

@@ -52,8 +52,6 @@ export class App {
 
   private async loadExtensions () {
     if (this.extensions) {
-      this.logger.debug(`Found ${this.extensions.length} Extensions!`);
-
       // TODO: consider making this Promise.all
       for (const extension of this.extensions) {
         try {
@@ -70,8 +68,6 @@ export class App {
 
   
   private async loadComponents() {
-    this.logger.info(`Registering App: ${this.appName}`);
-
     await this.classLoader.load();
     this.componentRegistry.register(this.classLoader.classes);
 

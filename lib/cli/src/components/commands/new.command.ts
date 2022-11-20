@@ -1,5 +1,8 @@
-
-import { Command, CommandBuilder, CommandMode, CommandQuestion, CommandQuestionType, ICommand, ICommandHandlerOptions, Logger } from '@nodearch/core';
+import { 
+  Command, CommandBuilder, CommandMode, 
+  CommandQuestion, CommandQuestionType, 
+  ICommand, ICommandHandlerOptions, Logger 
+} from '@nodearch/core';
 import path from 'path';
 import { GitHubService } from '../utils/github.service';
 import { NpmService } from '../utils/npm.service';

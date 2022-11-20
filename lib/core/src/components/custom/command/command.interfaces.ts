@@ -128,15 +128,17 @@ export interface INotificationService {
   notify(message: string): void;
 }
 
+export interface IAppInfo {
+  paths: {
+    root: string;
+    app: string;
+    nodeModules: string;
+  };
+}
+
 export interface ICommandHandlerOptions<T = any> {
   data: T,
-  appInfo?: { 
-    paths: {
-      root: string;
-      app: string;
-      nodeModules: string;
-    } 
-  },
+  appInfo?: IAppInfo,
   notificationService: INotificationService
 }
 
