@@ -1,138 +1,163 @@
 import { CommandBuilder } from '@nodearch/core';
 import { MochaOptions } from 'mocha';
 // common\temp\node_modules\.pnpm\mocha@10.1.0\node_modules\mocha\lib\cli\run.js
-export const mochaOptions: CommandBuilder<MochaOptions & { mode: string[] }> = {
+const list = (str: any) =>
+  Array.isArray(str) ? exports.list(str.join(',')) : str.split(/ *, */);
+
+const GROUPS = {
+  GENERAL: 'General Options',
+  MOCHA: 'Test Runner Options [Mocha]',
+  NYC: 'Code Coverage Options [Nyc]'
+};
+
+export const mochaOptions: CommandBuilder<any> = {
+  // General Options
+
   mode: {
     alias: ['m'],
     describe: 'The mode in which to start the testing app',
     type: 'array',
     default: 'unit',
     choices: ['unit', 'integration', 'e2e'],
-    group: 'Test Runner'
+    group: GROUPS.GENERAL
   },
 
-  // Test Runner Options
-  allowUncaught: {
+  // Test Runner Options [Mocha]
+  'allow-uncaught': {
     describe: 'Allow uncaught errors to propagate',
     type: 'boolean',
     default: false,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   bail: {
     describe: 'Bail on the first test failure',
     type: 'boolean',
     default: false,
     alias: ['b'],
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
-  'checkLeaks': {
+  'check-leaks': {
     describe: 'Check for global variable leaks',
     type: 'boolean',
     default: false,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   color: {
     describe: 'Force-enable color output',
     type: 'boolean',
     default: true,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   delay: {
     describe: 'Delay initial execution of root suite',
     type: 'boolean',
     default: false,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   diff: {
     describe: 'Show diff on failure',
     type: 'boolean',
     default: true,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
-  'dryRun': {
+  'dry-run': {
     describe: 'Report tests without running them?',
     type: 'boolean',
     default: false,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
-  'fullTrace': {
+  'fail-zero': {
+    description: 'Fail test run if no test(s) encountered',
+    type: 'boolean',
+    default: false,
+    group: GROUPS.MOCHA
+  },
+  'full-trace': {
     describe: 'Full stacktrace upon failure?',
     type: 'boolean',
     requiresArg: false,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   globals: {
+    coerce: list,
     describe: 'Variables expected in global scope.',
     type: 'array',
-    requiresArg: false,
-    group: 'Test Runner'
+    requiresArg: true,
+    group: GROUPS.MOCHA
   },
-  'inlineDiffs': {
+  'forbid-only': {
+    description: 'Fail if exclusive test(s) encountered',
+    type: 'boolean',
+    default: false,
+    group: GROUPS.MOCHA
+  },
+  'forbid-pending': {
+    description: 'Fail if pending test(s) encountered',
+    type: 'boolean',
+    default: false,
+    group: GROUPS.MOCHA
+  },
+  'inline-diffs': {
     describe: 'Display inline diffs?',
     type: 'boolean',
     requiresArg: false,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   invert: {
     describe: 'Invert test filter matches?',
     type: 'boolean',
     default: false,
-    group: 'Test Runner'
-  },
-  'noHighlighting': {
-    describe: 'Disable syntax highlighting?',
-    type: 'boolean',
-    default: false,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   reporter: {
     describe: 'Reporter name or constructor.',
     type: 'string',
     default: 'spec',
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   fgrep: {
     describe: 'Only run tests containing this string',
     alias: ['f'],
-    type: 'boolean',
-    requiresArg: false,
+    type: 'string',
+    requiresArg: true,
     conflicts: 'grep',
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   grep: {
+    coerce: (value: any) => (!value ? null : value),
     describe: 'Only run tests matching this string or regexp',
     alias: ['g'],
-    type: 'boolean',
-    requiresArg: false,
+    type: 'string',
+    requiresArg: true,
     conflicts: 'fgrep',
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   retries: {
     describe: 'Number of times to retry failed tests.',
     type: 'number',
     requiresArg: false,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   slow: {
     describe: 'Slow threshold value.',
     type: 'number',
     default: 75,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   timeout: {
     describe: 'Timeout threshold value.',
     type: 'number',
     default: 2000,
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
   ui: {
     describe: 'Interface name.',
     type: 'string',
     default: 'bdd',
-    group: 'Test Runner'
+    group: GROUPS.MOCHA
   },
 
-  // Coverage Options
+  // Coverage Options [Nyc]
   // coverage: {
   //   alias: ['c'],
   //   describe: 'enable test coverage',
