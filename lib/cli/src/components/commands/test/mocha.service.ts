@@ -2,6 +2,8 @@ import { IAppInfo, Logger, Service, TestMode } from '@nodearch/core';
 import Mocha, {Test} from 'mocha';
 import NYC from 'nyc';
 import { ITestOptions } from './test.interfaces';
+import open from 'open';
+import path from 'path';
 
 
 @Service()
@@ -12,84 +14,20 @@ export class MochaService {
   ) {}
 
   async run(appInfo: IAppInfo, options: ITestOptions) {
-
+    console.log(options);
     this.logger.info('Running test cases using Mocha');
 
     let nyc: NYC | undefined = undefined;
 
-    if (options.coverage) {
+    if (options.generalOptions.coverage) {
       nyc = new NYC(
         {
-          _: [ 'node' ],
-          // cwd: 'D:\\dev\\nodearch\\templates\\standalone',
-          cwd: process.cwd(),
-          all: true,
-          a: true,
-          checkCoverage: false,
-    
+          ...options.nycOptions,
+          cwd: appInfo.paths.root,
           extension: [ '.ts' ],
-          e: [ '.ts' ],
           include: [ 'src/**/**.ts' ],
-          n: [ 'src/**/**.ts' ],
-    
-          // exclude: [ 'node_modules', 'src/**/**.spec.js' ],
-          // x: [ 'node_modules', 'src/**/**.spec.js' ],
-          reporter: [ 'lcov', 'text' ],
-          r: [ 'lcov', 'text' ],
-          reportDir: './coverage',
-          skipFull: false,
-          tempDir: './.nyc_output',
-          t: './.nyc_output',
-          nycrcPath: undefined,
-          excludeNodeModules: true,
-          ignoreClassMethods: [],
-          autoWrap: true,
-          esModules: true,
-          parserPlugins: [
-            'asyncGenerators',
-            'bigInt',
-            'classProperties',
-            'classPrivateProperties',
-            'classPrivateMethods',
-            'dynamicImport',
-            'importMeta',
-            'numericSeparator',
-            'objectRestSpread',
-            'optionalCatchBinding',
-            'topLevelAwait'
-          ],
-          compact: true,
-          preserveComments: true,
-          produceSourceMap: true,
-          sourceMap: true,
-          require: [],
-          i: [],
-          instrument: true,
-          excludeAfterRemap: true,
-          branches: 0,
-          functions: 0,
-          lines: 90,
-          statements: 0,
-          perFile: false,
-          showProcessTree: false,
-          skipEmpty: false,
-          silent: false,
-          s: false,
-          eager: false,
-          cache: true,
-          c: true,
-          cacheDir: undefined,
-          babelCache: false,
-          useSpawnWrap: false,
-          hookRequire: true,
-          hookRunInContext: false,
-          hookRunInThisContext: false,
-          clean: true,
-          inPlace: false,
-          exitOnError: false,
-          delete: false,
-          completeCopy: false,
-          instrumenter: './lib/instrumenters/istanbul'
+          exclude: [ 'node_modules', 'src/**/**.spec.ts', 'src/**/**.test.ts' ],
+          hookRequire: true
         }
       );
       await nyc.reset();
@@ -106,7 +44,7 @@ export class MochaService {
   
     const suites = app.getTestSuites([TestMode.UNIT]);
 
-    const mochaInstance = new Mocha(options as any);
+    const mochaInstance = new Mocha(options.mochaOptions);
 
     suites.forEach((suite: any) => {
       const suiteInstance = Mocha.Suite.create(mochaInstance.suite, suite.name);
@@ -156,8 +94,26 @@ export class MochaService {
     if (nyc) {
       await nyc.writeCoverageFile();
       await nyc.report();
+      
+      if (options.generalOptions.openCoverage) {
+        await this.openCoverageReport(appInfo, options.nycOptions);
+      }
     }
 
     return code;
+  }
+
+  private async openCoverageReport(appInfo: IAppInfo, nycOptions: Record<string, any>) {
+    const reporters = nycOptions.reporter;
+    const htmlEnabled = reporters.includes('lcov') || reporters.includes('html');
+    
+    if (!htmlEnabled) return;
+
+    const reportSpecificPath = reporters.includes('html') ? 'index.html' : path.join('lcov-report', 'index.html');
+
+    const htmlPath = path.join(appInfo.paths.root, nycOptions.reporterDir, reportSpecificPath);
+
+    await open(htmlPath, { wait: true });
+
   }
 }

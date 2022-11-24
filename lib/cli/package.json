@@ -33,7 +33,7 @@
     "inquirer": "^7.3.3",
     "joi": "^17.3.0",
     "node-notifier": "^8.0.0",
-    "open": "^7.3.0",
+    "open": "^8.4.0",
     "ora": "^5.4.1",
     "cli-spinners": "^2.7.0",
     "reflect-metadata": "^0.1.13",

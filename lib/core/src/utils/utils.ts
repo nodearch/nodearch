@@ -137,9 +137,29 @@ export function capitalize(txt: string) {
   return txt.charAt(0).toUpperCase() + txt.slice(1);
 }
 
+export function lowerCase(txt: string) {
+  return txt.charAt(0).toLowerCase() + txt.slice(1);
+}
+
 export function camelToTitle(camelCase: string) {
   return camelCase
     .replace(/([A-Z])/g, (match) => ` ${match.toLowerCase()}`)
     .trim()
     .replace(/^./, (match) => match.toUpperCase());
+}
+
+export function toCamelCase (str: string, separator: string | RegExp): string {
+  return lowerCase(str.split(separator).map(capitalize).join(''));
+}
+
+export function getAllIndexes(str: string, searchElement: string) {
+  const indexes = [];
+
+  for (let index = 0; index < str.length; index++) {
+    if (str[index] === searchElement) {
+      indexes.push(index);
+    }
+  }
+
+  return indexes;
 }
