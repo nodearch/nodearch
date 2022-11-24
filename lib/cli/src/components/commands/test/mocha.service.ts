@@ -14,7 +14,6 @@ export class MochaService {
   ) {}
 
   async run(appInfo: IAppInfo, options: ITestOptions) {
-    console.log(options);
     this.logger.info('Running test cases using Mocha');
 
     let nyc: NYC | undefined = undefined;
@@ -40,9 +39,12 @@ export class MochaService {
     const app = new MainApp();
     await app.run();
     await app.init();
-    await app.start();
+    
+    if (options.generalOptions.mode.includes(TestMode.E2E)) {
+      await app.start();
+    }
   
-    const suites = app.getTestSuites([TestMode.UNIT]);
+    const suites = app.getTestSuites(options.generalOptions.mode);
 
     const mochaInstance = new Mocha(options.mochaOptions);
 

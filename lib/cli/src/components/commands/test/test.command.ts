@@ -37,7 +37,7 @@ export class TestCommand implements ICommand {
         }
       });
 
-      // process.exit(code);
+      process.exit(code);
     }
   }
 
