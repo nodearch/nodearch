@@ -1,37 +1,26 @@
-import { ControllerMetadata } from '../metadata';
-import { ContextMiddlewareHandler, MiddlewareHandler } from '../types';
-import { ClassInfo, ClassMethodDecorator, Component } from '@nodearch/core';
-import { MiddlewareType } from '../enums';
+import { ClassMethodDecorator, ComponentFactory } from '@nodearch/core';
+import { ExpressAnnotationId } from './enums';
+import { MiddlewareHandler, ExpressMiddlewareHandler } from './interfaces';
 
-
-export function MiddlewareProvider(): ClassDecorator{
-  return function(target: any) {
-    ControllerMetadata.setMiddlewareProvider(target);
-    Component()(target);
-  };
+export function Middleware(): ClassDecorator {
+  return ComponentFactory.componentDecorator({ id: ExpressAnnotationId.Middleware });
 }
 
 // TODO: rename to UseMiddleware
-export function Middleware(middlewareHandler: MiddlewareHandler): ClassMethodDecorator;
-export function Middleware(middlewareHandler: ContextMiddlewareHandler): ClassMethodDecorator;
-export function Middleware<T>(middlewareHandler: ContextMiddlewareHandler<T>, options: T): ClassMethodDecorator;
-export function Middleware(handler: MiddlewareHandler | ContextMiddlewareHandler, options?: any): ClassMethodDecorator {
-  return function(target: any, propertyKey?: string) {
-    const decoratorTarget = propertyKey ? target.constructor : target;
-    let type = MiddlewareType.EXPRESS;
-    const id = ControllerMetadata.getMiddleware(decoratorTarget).length;
+export function UseMiddleware(middlewareHandler: ExpressMiddlewareHandler): ClassMethodDecorator;
+export function UseMiddleware(middlewareHandler: MiddlewareHandler): ClassMethodDecorator;
+export function UseMiddleware<T>(middlewareHandler: MiddlewareHandler<T>, options: T): ClassMethodDecorator;
+export function UseMiddleware(handler: ExpressMiddlewareHandler | MiddlewareHandler, options?: any): ClassMethodDecorator {
+  return ComponentFactory.classMethodDecorator({
+    id: ExpressAnnotationId.UseMiddleware,
+    fn(target, propKey?) {
 
-    if (ControllerMetadata.isMiddlewareProvider(handler)) {
-      ClassInfo.propertyInject(decoratorTarget, <ContextMiddlewareHandler>handler, 'middleware:' + id);
-      type = MiddlewareType.CONTEXT;
-    }
+      const isMiddleware = ComponentFactory.isComponent(handler, ExpressAnnotationId.Middleware);
 
-    ControllerMetadata.setMiddleware(decoratorTarget, {
-      middleware: handler,
-      method: propertyKey,
-      options,
-      type,
-      id
-    });
-  };
+      return {
+        isMiddleware, 
+        handler
+      };
+    },
+  });
 }

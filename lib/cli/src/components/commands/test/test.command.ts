@@ -1,5 +1,5 @@
 import { 
-  Command, CommandBuilder, ICommand, ICommandHandlerOptions, utils
+  Command, CommandBuilder, CommandMode, ICommand, ICommandHandlerOptions, utils
 } from '@nodearch/core';
 import { MochaService } from './mocha.service';
 import { testOptions } from './test.options';
@@ -11,15 +11,17 @@ export class TestCommand implements ICommand {
   describe: string;
   aliases: string[];
   builder: CommandBuilder<any>;
-
+  mode: CommandMode[];
+  
   constructor(
     private readonly mochaService: MochaService
   ) {
     this.command = 'test';
     this.describe = 'Run automated test cases using mocha';
     this.aliases = ['t'];
-
     this.builder = testOptions;
+    this.mode = [CommandMode.App];
+    
   }
 
   async handler(options: ICommandHandlerOptions<Record<string, any>>) {

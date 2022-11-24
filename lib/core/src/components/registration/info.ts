@@ -40,7 +40,7 @@ export class ComponentInfo<T = any> {
 
   getDecoratorsByMethod<T = any>(method: string): IComponentDecorator<T>[] {
     return this.decorators.filter(deco => {
-      return deco.global || deco.method === method;
+      return deco.method === method;
     });
   }
 

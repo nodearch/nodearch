@@ -1,35 +1,42 @@
-import { RouteHandlerParam } from '../enums';
+import { RouteHandlerParam } from './enums';
 import { handlerParamFactory } from './helpers';
 
 
-
-// TODO: add key to BodyParam
-export const BodyParam = (): ParameterDecorator => handlerParamFactory(RouteHandlerParam.BODY);
-export const PathParam = (key?: string): ParameterDecorator => handlerParamFactory(RouteHandlerParam.PARAMS, key);
+/**
+ * Get an object containing the whole request payload 
+ * or provide a valid path inside the object
+ * @param path valid path in the request body/payload 
+ */
+export const HttpBody = (path?: string): ParameterDecorator => handlerParamFactory(RouteHandlerParam.BODY, path);
 
 /**
- * 
- * @param key property key to picked from the headers object.
+ * Get an object containing all path params or 
+ * provide the param name.
+ * @param name parameter name  
  */
-export const HeaderParam = (key?: string): ParameterDecorator => handlerParamFactory(RouteHandlerParam.HEADERS, key);
+export const HttpPath = (name?: string): ParameterDecorator => handlerParamFactory(RouteHandlerParam.PARAMS, name);
 
 /**
- * This property is an object containing a property 
- * for each query string parameter in the route. 
- * When query parser is set to disabled, it is an empty object {}, 
- * otherwise it is the result of the configured query parser.
- * @param key property key to picked from the query object.
+ * Get all the request headers or provide the header name.
+ * @param name header name
  */
-export const QueryParam = (key?: string): ParameterDecorator => handlerParamFactory(RouteHandlerParam.QUERY, key);
+export const HttpHeader = (name?: string): ParameterDecorator => handlerParamFactory(RouteHandlerParam.HEADERS, name);
+
+/**
+ * Get an object containing parsed query params 
+ * or provide a specific query param name.  
+ * @param name query parameter name.
+ */
+export const HttpQuery = (name?: string): ParameterDecorator => handlerParamFactory(RouteHandlerParam.QUERY, name);
 
 /**
  * The req object represents the HTTP request and has properties 
  * for the request query string, parameters, body, HTTP headers, and so on.
  */
-export const ReqParam = (): ParameterDecorator => handlerParamFactory(RouteHandlerParam.REQ);
+export const HttpReq = (): ParameterDecorator => handlerParamFactory(RouteHandlerParam.REQ);
 
 /**
  * The res object represents the HTTP response that 
  * an Express app sends when it gets an HTTP request.
  */
-export const ResParam = (): ParameterDecorator => handlerParamFactory(RouteHandlerParam.RES);
+export const HttpRes = (): ParameterDecorator => handlerParamFactory(RouteHandlerParam.RES);

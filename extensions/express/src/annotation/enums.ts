@@ -17,14 +17,9 @@ export enum RouteHandlerParam {
   RES = 'res'
 }
 
-export enum MiddlewareType {
-  CONTEXT,
-  EXPRESS,
-  VALIDATION,
-  FILE_UPLOAD
-}
-
 export enum ExpressAnnotationId {
   HttpMethod = '@nodearch/express/annotations/http-method',
   HttpParam = '@nodearch/express/annotations/http-param',
+  Middleware = '@nodearch/express/annotations/middleware',
+  UseMiddleware = '@nodearch/express/annotations/use-middleware',
 }

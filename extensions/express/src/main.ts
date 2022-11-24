@@ -1,17 +1,15 @@
 import { App } from '@nodearch/core';
 import path from 'path';
-import { IExpressServerOptions } from './interfaces';
+import { IExpressAppOptions } from './interfaces';
 
 
-export class ExpressServer extends App {
-  constructor(options: IExpressServerOptions) {
+export class ExpressApp extends App {
+  constructor(options: IExpressAppOptions) {
     super({
-      classLoader: {
-        classpath: path.join(__dirname, 'components')
+      components: {
+        path: path.join(__dirname, 'components')
       },
-      config: {
-        externalConfig: options
-      }
+      config: options
     });
   }
 }

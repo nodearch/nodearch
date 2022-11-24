@@ -11,7 +11,6 @@ export interface IComponentDecorator<T = any> {
   id: string;
   method?: string | symbol; // Available only for class decorator 
   paramIndex?: number; // Available only for parameter decorator
-  global?: boolean;  // Apply to all methods of the component
   data?: T; // Additional options
 }
 

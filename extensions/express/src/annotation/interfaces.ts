@@ -4,8 +4,8 @@ import { ILogger, ClassConstructor } from '@nodearch/core';
 
 export type HttpErrorHandler = (error: HttpError | Error, res: express.Response, logger: ILogger) => void;
 
-export type MiddlewareHandler = (req: express.Request, res: express.Response, next: express.NextFunction) => void;
+export type ExpressMiddlewareHandler = (req: express.Request, res: express.Response, next: express.NextFunction) => void;
 
 export type MiddlewareProvider<T> = { handler: (req: express.Request, res: express.Response, options: T) => Promise<void>; };
 
-export type ContextMiddlewareHandler<T = undefined> = ClassConstructor<MiddlewareProvider<T>>;
+export type MiddlewareHandler<T = undefined> = ClassConstructor<MiddlewareProvider<T>>;

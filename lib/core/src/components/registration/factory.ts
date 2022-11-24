@@ -88,8 +88,7 @@ export abstract class ComponentFactory {
     }
   }
 
-  // TODO: do we need this? or just support global flag on class decorator 
-  static globalDecorator(
+  static classMethodDecorator(
     options: {
       id: string;
       fn?(target: any, propKey?: string | symbol): object | void;
@@ -103,9 +102,17 @@ export abstract class ComponentFactory {
       ComponentMetadata.setComponentDecorator(decoratorTarget, {
         id: options.id,
         method: propKey,
-        global: true,
         data
       });
     }
+  }
+
+  static isComponent(component: any, id?: string) {
+    const registry = ComponentMetadata.getComponentRegistration(component);
+    
+    if (!registry) return false;
+    if (id && registry.id !== id) return false;
+    
+    return true;
   }
 }

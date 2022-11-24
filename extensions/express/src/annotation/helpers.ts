@@ -1,5 +1,5 @@
-import { ExpressAnnotationId, HttpMethod, RouteHandlerParam } from '../enums';
 import { ComponentFactory } from '@nodearch/core';
+import { ExpressAnnotationId, HttpMethod, RouteHandlerParam } from './enums';
 
 
 export function httpMethodFactory(httpMethod: HttpMethod, path?: string) {
