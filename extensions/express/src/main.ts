@@ -1,6 +1,6 @@
 import { App } from '@nodearch/core';
 import path from 'path';
-import { IExpressAppOptions } from './interfaces';
+import { IExpressAppOptions } from './components/express/interfaces';
 
 
 export class ExpressApp extends App {

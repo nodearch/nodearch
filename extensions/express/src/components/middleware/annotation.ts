@@ -1,5 +1,5 @@
 import { ClassMethodDecorator, ComponentFactory } from '@nodearch/core';
-import { ExpressAnnotationId } from './enums';
+import { ExpressAnnotationId } from '../express/enums';
 import { MiddlewareHandler, ExpressMiddlewareHandler } from './interfaces';
 
 
