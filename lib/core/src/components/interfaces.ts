@@ -1,4 +1,5 @@
 import { Container } from 'inversify';
+import { ClassConstructor } from '../utils';
 import { ComponentScope } from './enums';
 import { ComponentInfo } from './registration/info';
 
@@ -8,10 +9,38 @@ export interface IComponentsOptions {
 }
 
 export interface IComponentDecorator<T = any> {
+  
+  /**
+   * The id used to register and identify this decorator
+   */
   id: string;
-  method?: string | symbol; // Available only for class decorator 
-  paramIndex?: number; // Available only for parameter decorator
-  data?: T; // Additional options
+
+  /**
+   * Available only for method decorator
+   */
+  method?: string | symbol; 
+  
+  /**
+   * Available only for parameter decorator 
+   */
+  paramIndex?: number;
+  
+  /**
+   * Data passed by the decorator implementation
+   */
+  data?: T;
+  
+  /**
+   * Information about all registered dependencies (components)
+   * added by this decorator instance. Use the key to find the instance 
+   * of your dependency on the target (the component this decorator is placed on)
+   */
+  dependencies?: IComponentDecoratorDependency[];
+}
+
+export interface IComponentDecoratorDependency {
+  key: symbol;
+  component: ClassConstructor;
 }
 
 export interface IComponentHandler {

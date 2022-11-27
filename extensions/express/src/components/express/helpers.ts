@@ -18,8 +18,9 @@ export function httpMethodFactory(httpMethod: HttpMethod, path?: string) {
 export function handlerParamFactory (paramType: RouteHandlerParam, key?: string) {
   return ComponentFactory.parameterDecorator({
     id: ExpressAnnotationId.HttpParam,
-    fn: () => {
+    fn: (target, propKey, paramIndex) => {
       return {
+        index: paramIndex,
         type: paramType,
         key
       };

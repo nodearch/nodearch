@@ -1,4 +1,4 @@
-import { HttpMethod } from './enums';
+import { HttpMethod, RouteHandlerParam } from './enums';
 import { ExpressMiddlewareHandler, MiddlewareHandler } from '../middleware/interfaces';
 import { IOpenAPIInfo } from '../openapi/interfaces';
 import { IUploadInfo } from '../upload/interfaces';
@@ -21,14 +21,22 @@ export interface IExpressRouter {
 export interface IExpressRoute {
   path: string;
   method: HttpMethod;
+  middleware: IExpressMiddleware[];
+  inputs: IExpressRouteHandlerInput[];
   openApi?: IOpenAPIInfo;
   validation?: IValidationSchema;
-  upload: IUploadInfo;
-  middleware: IExpressMiddleware[];
+  upload?: IUploadInfo;
 }
 
 export interface IExpressMiddleware {
   isExpressMiddleware: boolean;
   handler: ExpressMiddlewareHandler | MiddlewareHandler;
   options?: any;
+  dependencyKey?: symbol;
+}
+
+export interface IExpressRouteHandlerInput {
+  index: number;
+  type: RouteHandlerParam;
+  key?: string;
 }

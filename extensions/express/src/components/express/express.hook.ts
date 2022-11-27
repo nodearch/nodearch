@@ -1,5 +1,6 @@
 import { Hook, HookContext, IHook } from '@nodearch/core';
 import { ExpressAnnotationId } from './enums';
+import { ExpressParser } from './express-parser';
 import { ExpressService } from './express.service';
 
 
@@ -7,16 +8,16 @@ import { ExpressService } from './express.service';
 export class ExpressHook implements IHook {
   
   constructor(
-    private readonly expressService: ExpressService
+    private readonly expressParser: ExpressParser,
+    private readonly expressService: ExpressService,
   ) {}
 
   async onInit(context: HookContext) {
     const componentsInfo = context.getComponents(ExpressAnnotationId.HttpController);
     
     if (componentsInfo) {
-      this.expressService.init(componentsInfo);
-
-      console.log(JSON.stringify(this.expressService.expressInfo, null, 2));
+      const expressInfo = this.expressParser.parse(componentsInfo);
+      this.expressService.init(expressInfo);
     }
 
   }

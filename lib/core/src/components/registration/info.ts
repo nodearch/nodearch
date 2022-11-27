@@ -73,4 +73,8 @@ export class ComponentInfo<T = any> {
   get data () {
     return this.registration.data;
   }
+
+  get dependencies () {
+    return this.registration.dependencies;
+  }
 }

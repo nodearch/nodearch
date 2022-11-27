@@ -1,7 +1,7 @@
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { ClassConstructor } from '../../utils';
 import { ComponentMetadata } from './metadata';
-import { IComponentOptions } from '../interfaces';
+import { IComponentDecoratorDependency, IComponentOptions } from '../interfaces';
 import { IComponentRegistration } from './interfaces';
 import { ComponentHandler } from '../handler';
 
@@ -19,6 +19,7 @@ export abstract class ComponentFactory {
       handler?: ClassConstructor<ComponentHandler>;
       options?: IComponentOptions;
       fn?(target: any): object | void;
+      dependencies?: ClassConstructor[];
     }
   ): ClassDecorator {
 
@@ -30,6 +31,10 @@ export abstract class ComponentFactory {
 
     return function (target: any) {
       compInfo.data = options.fn?.(target);
+      
+      compInfo.dependencies = options.dependencies ? 
+        ComponentFactory.addComponentDependencies(target, options.dependencies) : [];
+      
       ComponentMetadata.setComponentRegistration(target, compInfo);
       injectable()(target);
     }
@@ -39,15 +44,18 @@ export abstract class ComponentFactory {
     options: {
       id: string;
       fn?(target: any): object | void;
+      dependencies?: ClassConstructor[];
     }
   ): ClassDecorator {
     return function (target: any) {
 
       const data = options.fn?.(target);
 
-      ComponentMetadata.setComponentDecorator(target.constructor, {
+      ComponentMetadata.setComponentDecorator(target, {
         id: options.id,
-        data
+        data,
+        dependencies: options.dependencies ? 
+          ComponentFactory.addComponentDependencies(target, options.dependencies) : []
       });
     }
   }
@@ -56,6 +64,7 @@ export abstract class ComponentFactory {
     options: {
       id: string;
       fn?(target: any, propKey: string | symbol): object | void;
+      dependencies?: ClassConstructor[];
     }
   ): MethodDecorator {
     return function (target: any, propKey: string | symbol) {
@@ -65,7 +74,9 @@ export abstract class ComponentFactory {
       ComponentMetadata.setComponentDecorator(target.constructor, {
         id: options.id,
         method: propKey,
-        data
+        data,
+        dependencies: options.dependencies ? 
+          ComponentFactory.addComponentDependencies(target.constructor, options.dependencies) : []
       });
     }
   }
@@ -74,6 +85,7 @@ export abstract class ComponentFactory {
     options: {
       id: string;
       fn?(target: any, propKey: string | symbol, paramIndex: number): object | void;
+      dependencies?: ClassConstructor[];
     }
   ): ParameterDecorator {
     return function (target: any, propKey: string | symbol, paramIndex: number) {
@@ -83,7 +95,9 @@ export abstract class ComponentFactory {
         id: options.id,
         method: propKey,
         paramIndex: paramIndex,
-        data
+        data,
+        dependencies: options.dependencies ? 
+          ComponentFactory.addComponentDependencies(target.constructor, options.dependencies) : []
       });
     }
   }
@@ -92,6 +106,7 @@ export abstract class ComponentFactory {
     options: {
       id: string;
       fn?(target: any, propKey?: string | symbol): object | void;
+      dependencies?: ClassConstructor[];
     }
   ) {
     return function(target: any, propKey?: string | symbol) {
@@ -102,7 +117,9 @@ export abstract class ComponentFactory {
       ComponentMetadata.setComponentDecorator(decoratorTarget, {
         id: options.id,
         method: propKey,
-        data
+        data,
+        dependencies: options.dependencies ? 
+          ComponentFactory.addComponentDependencies(decoratorTarget, options.dependencies) : []
       });
     }
   }
@@ -114,5 +131,19 @@ export abstract class ComponentFactory {
     if (id && registry.id !== id) return false;
     
     return true;
+  }
+
+  static addComponentDependency(component: ClassConstructor, dependency: ClassConstructor) {
+    const key: any = Symbol(dependency.name);
+    inject(dependency)(component, key);
+    return key;
+  }
+
+  static addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[]): IComponentDecoratorDependency[] {
+    return dependencies.map(dep => {
+      const key = ComponentFactory.addComponentDependency(component, dep);
+      
+      return { key, component };
+    });
   }
 }

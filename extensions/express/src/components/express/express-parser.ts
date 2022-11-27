@@ -3,7 +3,7 @@ import { IOpenAPIInfo } from '../openapi/interfaces';
 import { IUploadInfo } from '../upload/interfaces';
 import { IValidationSchema } from '../validation/interfaces';
 import { ExpressAnnotationId } from './enums';
-import { IExpressInfo, IExpressMiddleware, IExpressRoute } from './interfaces';
+import { IExpressInfo, IExpressMiddleware, IExpressRoute, IExpressRouteHandlerInput } from './interfaces';
 
 @Service()
 export class ExpressParser {
@@ -12,8 +12,18 @@ export class ExpressParser {
     const expressInfo: IExpressInfo = { routers: [] };
 
     componentsInfo.forEach(comp => {
-      const ctrlOpenApi: IOpenAPIInfo = comp.getDecoratorsById(ExpressAnnotationId.OpenAPI).find( x => !x.method)?.data;
-      const middleware: IExpressMiddleware[] = comp.getDecoratorsById(ExpressAnnotationId.Middleware).filter( x => !x.method).map(x => x.data);
+      const ctrlOpenApi: IOpenAPIInfo = comp
+        .getDecoratorsById(ExpressAnnotationId.OpenAPI)
+        .find( x => !x.method)?.data;
+      
+      const middleware: IExpressMiddleware[] = comp
+        .getDecoratorsById(ExpressAnnotationId.Middleware)
+        .filter(deco => !deco.method)
+        .map(deco => {
+          const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
+          return { ...deco.data, dependencyKey };
+        });
+      
       const ctrlPath: string = comp.data?.path || '/';
 
       const routes = comp.getMethods()
@@ -30,26 +40,44 @@ export class ExpressParser {
     });
 
     return expressInfo;
-  }
+  } 
 
 
   private getRouteInfo(componentInfo: ComponentInfo, method: string): IExpressRoute {
     const decorators = componentInfo.getDecoratorsByMethod(method);
 
-    const { httpPath, httpMethod } = decorators.find(deco => deco.id === ExpressAnnotationId.HttpMethod)?.data;
-    const openApi: IOpenAPIInfo = decorators.find(deco => deco.id === ExpressAnnotationId.OpenAPI)?.data;
-    const validation: IValidationSchema = decorators.find(deco => deco.id === ExpressAnnotationId.Validation)?.data;
-    const upload: IUploadInfo = decorators.find(deco => deco.id === ExpressAnnotationId.Upload)?.data;
-    const middleware: IExpressMiddleware[] = decorators.filter(deco => deco.id === ExpressAnnotationId.UseMiddleware).map(x => x.data);
+    const { httpPath, httpMethod } = decorators
+      .find(deco => deco.id === ExpressAnnotationId.HttpMethod)?.data;
+    
+    const openApi: IOpenAPIInfo = decorators
+      .find(deco => deco.id === ExpressAnnotationId.OpenAPI)?.data;
+    
+    const validation: IValidationSchema = decorators
+      .find(deco => deco.id === ExpressAnnotationId.Validation)?.data;
+    
+    const upload: IUploadInfo = decorators
+      .find(deco => deco.id === ExpressAnnotationId.Upload)?.data;
+    
+    const middleware: IExpressMiddleware[] = decorators
+      .filter(deco => deco.id === ExpressAnnotationId.UseMiddleware)
+      .map(deco => {
+        const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
+
+        return { ...deco.data, dependencyKey };
+      });
+    
+    const inputs: IExpressRouteHandlerInput[] = decorators
+      .filter(deco => deco.id === ExpressAnnotationId.HttpParam)
+      .map(deco => deco.data);
 
     return {
       method: httpMethod,
       path: httpPath,
       middleware,
+      inputs,
       upload,
       validation,
       openApi
     };
-
   }
 }
