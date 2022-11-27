@@ -23,7 +23,7 @@ export class AppService {
   }
 
   async load() {
-    this.logger.info('Scanning for a local App...');
+    this.logger.info('Scanning for a local App...'); 
     
     const appConfig = await this.getAppConfig();
 
@@ -40,6 +40,7 @@ export class AppService {
       paths: {
         root: this.resolvePath(process.cwd()),
         nodeModules: this.resolvePath(path.join(process.cwd(), 'node_modules')),
+        appDir: path.dirname(appConfig.path),
         app: appConfig.path
       },
       app

@@ -131,6 +131,7 @@ export interface INotificationService {
 export interface IAppInfo {
   paths: {
     root: string;
+    appDir: string;
     app: string;
     nodeModules: string;
   };

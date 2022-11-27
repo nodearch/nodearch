@@ -3,7 +3,7 @@ import { IOpenAPIInfo } from '../openapi/interfaces';
 import { IUploadInfo } from '../upload/interfaces';
 import { IValidationSchema } from '../validation/interfaces';
 import { ExpressAnnotationId } from './enums';
-import { IExpressInfo, IExpressMiddleware, IExpressRoute, IExpressRouteHandlerInput } from './interfaces';
+import { IExpressInfo, IMiddlewareInfo, IExpressRoute, IExpressRouteHandlerInput } from './interfaces';
 
 @Service()
 export class ExpressParser {
@@ -16,7 +16,7 @@ export class ExpressParser {
         .getDecoratorsById(ExpressAnnotationId.OpenAPI)
         .find( x => !x.method)?.data;
       
-      const middleware: IExpressMiddleware[] = comp
+      const middleware: IMiddlewareInfo[] = comp
         .getDecoratorsById(ExpressAnnotationId.Middleware)
         .filter(deco => !deco.method)
         .map(deco => {
@@ -32,6 +32,7 @@ export class ExpressParser {
         });
 
       expressInfo.routers.push({
+        controllerInfo: comp,
         path: ctrlPath,
         openApi: ctrlOpenApi,
         middleware,
@@ -58,7 +59,7 @@ export class ExpressParser {
     const upload: IUploadInfo = decorators
       .find(deco => deco.id === ExpressAnnotationId.Upload)?.data;
     
-    const middleware: IExpressMiddleware[] = decorators
+    const middleware: IMiddlewareInfo[] = decorators
       .filter(deco => deco.id === ExpressAnnotationId.UseMiddleware)
       .map(deco => {
         const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
@@ -71,6 +72,7 @@ export class ExpressParser {
       .map(deco => deco.data);
 
     return {
+      controllerMethod: method,
       method: httpMethod,
       path: httpPath,
       middleware,

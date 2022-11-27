@@ -7,3 +7,10 @@ export type ExpressMiddlewareHandler = (req: express.Request, res: express.Respo
 export type MiddlewareProvider<T> = { handler: (req: express.Request, res: express.Response, options: T) => Promise<void>; };
 
 export type MiddlewareHandler<T = undefined> = ClassConstructor<MiddlewareProvider<T>>;
+
+export interface IMiddlewareInfo {
+  isExpressMiddleware: boolean;
+  handler: ExpressMiddlewareHandler | MiddlewareHandler;
+  options?: any;
+  dependencyKey?: symbol;
+}

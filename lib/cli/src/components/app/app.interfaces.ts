@@ -11,6 +11,7 @@ export interface IAppInfo {
 
 export interface IAppPaths {
   root: string;
+  appDir: string;
   app: string;
   nodeModules: string;
 }

@@ -123,7 +123,7 @@ importers:
       '@types/mocha': ^10.0.0
       '@types/node': ^16.18.0
       '@types/node-notifier': ^8.0.0
-      '@types/nodemon': ^1.19.0
+      '@types/nodemon': ^1.19.2
       '@types/yargs': ^15.0.9
       axios: ^0.21.0
       cli-spinners: ^2.7.0
@@ -132,7 +132,7 @@ importers:
       json5: ^2.2.1
       mocha: ^10.1.0
       node-notifier: ^8.0.0
-      nodemon: ^2.0.4
+      nodemon: ^2.0.20
       nyc: ^15.1.0
       open: ^8.4.0
       ora: ^5.4.1
@@ -163,9 +163,9 @@ importers:
       '@types/inquirer': 7.3.3
       '@types/node': 16.18.3
       '@types/node-notifier': 8.0.2
-      '@types/nodemon': 1.19.1
+      '@types/nodemon': 1.19.2
       '@types/yargs': 15.0.14
-      nodemon: 2.0.19
+      nodemon: 2.0.20
       rimraf: 3.0.2
 
   ../../lib/core:
@@ -202,7 +202,6 @@ importers:
       chai: ^4.3.6
       express: ^4.18.2
       mocha: ^10.1.0
-      nodemon: ^2.0.4
       nyc: ^15.1.0
       reflect-metadata: ^0.1.13
       rimraf: ~3.0.2
@@ -222,7 +221,6 @@ importers:
       '@types/supertest': 2.0.12
       chai: 4.3.6
       mocha: 10.1.0
-      nodemon: 2.0.19
       nyc: 15.1.0
       rimraf: 3.0.2
       supertest: 4.0.2
@@ -236,7 +234,6 @@ importers:
       '@nodearch/socket.io': workspace:^0.5.2
       '@types/node': ^16.18.0
       '@types/supertest': ^2.0.10
-      nodemon: ^2.0.4
       reflect-metadata: ^0.1.13
       rimraf: ~3.0.2
       socket.io: ~4.1.3
@@ -252,7 +249,6 @@ importers:
     devDependencies:
       '@types/node': 16.18.3
       '@types/supertest': 2.0.12
-      nodemon: 2.0.19
       rimraf: 3.0.2
       supertest: 4.0.2
       ts-node: 10.8.2_4e2f4e06de040c9b7b0a9fa7e3df8ef1
@@ -1117,8 +1113,8 @@ packages:
   /@types/node/16.18.3:
     resolution: {integrity: sha512-jh6m0QUhIRcZpNv7Z/rpN+ZWXOicUUQbSoWks7Htkbb9IjFQj4kzcX/xFCkjstCj5flMsN8FiSvt+q+Tcs4Llg==}
 
-  /@types/nodemon/1.19.1:
-    resolution: {integrity: sha512-3teAFqCFba3W9zk4dAGUZ+rW/nrQBrSGXWyK9HfJuWxmITk2z2d3u/5cy7oFqNG2fZxPwSAWkP+a8q/QC6UU5Q==}
+  /@types/nodemon/1.19.2:
+    resolution: {integrity: sha512-4GWiTN3HevkxMIxEQ7OpD3MAHhlVsX2tairCMRmf8oYZxmhHw9+UpQpIdGdJrjsMT2Ty26FtJzUUcP/qM5fR8A==}
     dependencies:
       '@types/node': 16.18.3
     dev: true
@@ -4356,11 +4352,10 @@ packages:
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
 
-  /nodemon/2.0.19:
-    resolution: {integrity: sha512-4pv1f2bMDj0Eeg/MhGqxrtveeQ5/G/UVe9iO6uTZzjnRluSA4PVWf8CW99LUPwGB3eNIA7zUFoP77YuI7hOc0A==}
+  /nodemon/2.0.20:
+    resolution: {integrity: sha512-Km2mWHKKY5GzRg6i1j5OxOHQtuvVsgskLfigG25yTtbyfRGn/GNvIbRyOf1PSCKJ2aT/58TiuUsuOU5UToVViw==}
     engines: {node: '>=8.10.0'}
     hasBin: true
-    requiresBuild: true
     dependencies:
       chokidar: 3.5.3
       debug: 3.2.7
