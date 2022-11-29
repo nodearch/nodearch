@@ -1,6 +1,11 @@
 # Change Log - @nodearch/socket.io-redis
 
-This log was last generated on Sun, 29 May 2022 15:25:53 GMT and should not be manually modified.
+This log was last generated on Tue, 29 Nov 2022 19:56:51 GMT and should not be manually modified.
+
+## 0.2.3
+Tue, 29 Nov 2022 19:56:51 GMT
+
+_Version update only_
 
 ## 0.2.2
 Sun, 29 May 2022 15:25:53 GMT

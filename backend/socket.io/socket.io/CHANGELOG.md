@@ -1,6 +1,13 @@
 # Change Log - @nodearch/socket.io
 
-This log was last generated on Sun, 29 May 2022 15:25:53 GMT and should not be manually modified.
+This log was last generated on Tue, 29 Nov 2022 19:56:51 GMT and should not be manually modified.
+
+## 0.6.0
+Tue, 29 Nov 2022 19:56:51 GMT
+
+### Minor changes
+
+- Fix for Socket.IO dynamic Ns matching
 
 ## 0.5.2
 Sun, 29 May 2022 15:25:53 GMT

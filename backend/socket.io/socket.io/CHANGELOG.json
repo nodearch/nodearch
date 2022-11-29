@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io",
   "entries": [
     {
+      "version": "0.6.0",
+      "tag": "@nodearch/socket.io_v0.6.0",
+      "date": "Tue, 29 Nov 2022 19:56:51 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Fix for Socket.IO dynamic Ns matching",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "28d3c43f2e5a72e12897c223c5a061e734caa78a"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.5.2",
       "tag": "@nodearch/socket.io_v0.5.2",
       "date": "Sun, 29 May 2022 15:25:53 GMT",
