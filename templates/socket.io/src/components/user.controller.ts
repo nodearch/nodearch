@@ -13,7 +13,7 @@ export class UserController {
     console.log('UserController.One triggered!');
     console.log(socket.id);
     console.log(data);
-    this.io.server
+    this.io
       .of('/userNamespace1')
       .emit('one', data);
 
