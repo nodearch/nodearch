@@ -1,10 +1,9 @@
 import { HttpMethod, RouteHandlerParam } from './enums';
 import { IMiddlewareInfo } from '../middleware/interfaces';
 import { IOpenAPIInfo, OpenAPIOptions } from '../openapi/interfaces';
-import { IUploadInfo } from '../upload/interfaces';
+import { IUploadInfo } from '../file-upload/interfaces';
 import { IValidationSchema } from '../validation/interfaces';
 import { ComponentInfo } from '@nodearch/core';
-import express from 'express';
 import { IHttpErrorsOptions } from '../errors/interfaces';
 import Joi from 'joi';
 import multer from 'multer';
@@ -13,14 +12,16 @@ import https from 'https';
 
 
 export interface IExpressAppOptions {
-  expressApp: express.Application;
-  httpErrorsOptions?: IHttpErrorsOptions;
-  joiValidationOptions?: Joi.ValidationOptions;
-  openAPIOptions?: OpenAPIOptions;
-  fileUploadOptions?: multer.Options;
   hostname?: string;
   port?: number;
-  server?: http.Server | https.Server;
+
+  http?: http.ServerOptions;
+  https?: https.ServerOptions;
+
+  httpErrors?: IHttpErrorsOptions;
+  validation?: Joi.ValidationOptions;
+  openAPI?: OpenAPIOptions;
+  fileUpload?: multer.Options;
 }
 
 export interface IExpressInfo {
@@ -43,7 +44,7 @@ export interface IExpressRoute {
   inputs: IExpressRouteHandlerInput[];
   openApi?: IOpenAPIInfo;
   validation?: IValidationSchema;
-  upload?: IUploadInfo;
+  fileUpload?: IUploadInfo;
 }
 
 export interface IExpressRouteHandlerInput {

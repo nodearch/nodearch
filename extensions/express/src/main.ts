@@ -4,7 +4,7 @@ import { IExpressAppOptions } from './components/express/interfaces';
 
 
 export class ExpressApp extends App {
-  constructor(options: IExpressAppOptions) {
+  constructor(options?: IExpressAppOptions) {
     super({
       components: {
         path: path.join(__dirname, 'components')

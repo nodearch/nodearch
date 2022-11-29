@@ -15,7 +15,7 @@ export function Upload(files: string[]): MethodDecorator;
 export function Upload(options?: IUploadInfo): MethodDecorator;
 export function Upload(options?: any): MethodDecorator {
   return ComponentFactory.methodDecorator({
-    id: ExpressAnnotationId.Upload,
+    id: ExpressAnnotationId.FileUpload,
     fn() {
 
       let uploadInfo: IUploadInfo = { allowFiles: true };

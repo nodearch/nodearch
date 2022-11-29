@@ -28,7 +28,9 @@ export class MiddlewareFactory {
 
   defaultRouterMiddleware(componentInfo: ComponentInfo): ExpressMiddlewareHandler {
     return (req, res, next) => {
-      req.nodearch.controller = componentInfo.getInstance();
+      req.nodearch = {
+        controller: componentInfo.getInstance()
+      };
       next();
     };
   }
@@ -37,7 +39,7 @@ export class MiddlewareFactory {
     return (req, res, next) => {
 
       const middlewareHandler = req.nodearch.controller[middlewareInfo.dependencyKey!] as MiddlewareProvider<any>;
-      
+
       middlewareHandler
         .handler(req, res, middlewareInfo.options)
         .then(() => next())

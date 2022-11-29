@@ -1,13 +1,14 @@
 import { ComponentInfo, Service } from '@nodearch/core';
 import { IOpenAPIInfo } from '../openapi/interfaces';
-import { IUploadInfo } from '../upload/interfaces';
+import { IUploadInfo } from '../file-upload/interfaces';
 import { IValidationSchema } from '../validation/interfaces';
 import { ExpressAnnotationId } from './enums';
-import { IExpressInfo, IMiddlewareInfo, IExpressRoute, IExpressRouteHandlerInput } from './interfaces';
+import { IExpressInfo, IExpressRoute, IExpressRouteHandlerInput } from './interfaces';
+import { IMiddlewareInfo } from '../middleware/interfaces';
+
 
 @Service()
 export class ExpressParser {
-  
   parse(componentsInfo: ComponentInfo[]) {
     const expressInfo: IExpressInfo = { routers: [] };
 
@@ -41,8 +42,7 @@ export class ExpressParser {
     });
 
     return expressInfo;
-  } 
-
+  }
 
   private getRouteInfo(componentInfo: ComponentInfo, method: string): IExpressRoute {
     const decorators = componentInfo.getDecoratorsByMethod(method);
@@ -56,8 +56,8 @@ export class ExpressParser {
     const validation: IValidationSchema = decorators
       .find(deco => deco.id === ExpressAnnotationId.Validation)?.data;
     
-    const upload: IUploadInfo = decorators
-      .find(deco => deco.id === ExpressAnnotationId.Upload)?.data;
+    const fileUpload: IUploadInfo = decorators
+      .find(deco => deco.id === ExpressAnnotationId.FileUpload)?.data;
     
     const middleware: IMiddlewareInfo[] = decorators
       .filter(deco => deco.id === ExpressAnnotationId.UseMiddleware)
@@ -77,7 +77,7 @@ export class ExpressParser {
       path: httpPath,
       middleware,
       inputs,
-      upload,
+      fileUpload,
       validation,
       openApi
     };

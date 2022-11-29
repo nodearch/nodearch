@@ -31,7 +31,7 @@ export abstract class ComponentFactory {
 
     return function (target: any) {
       compInfo.data = options.fn?.(target);
-      
+
       compInfo.dependencies = options.dependencies ? 
         ComponentFactory.addComponentDependencies(target, options.dependencies) : [];
       

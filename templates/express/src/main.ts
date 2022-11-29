@@ -10,7 +10,7 @@ export default class MyApp extends App {
         path: path.join(__dirname, 'components')
       },
       extensions: [
-        new ExpressApp({ temp: 'ss' })
+        new ExpressApp()
       ]
     });
   }

@@ -22,4 +22,8 @@ export class ExpressHook implements IHook {
 
   }
 
+  async onStart(context: HookContext) {
+    await this.expressService.start();
+  }
+
 }

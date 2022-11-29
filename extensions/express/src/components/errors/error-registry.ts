@@ -7,11 +7,11 @@ import { ExpressConfig } from '../express/express.config';
 
 @Service()
 export class ErrorRegistry {
-  private httpErrorsOptions: IHttpErrorsOptions;
+  private httpErrors?: IHttpErrorsOptions;
   private logger: Logger;
 
   constructor(expressConfig: ExpressConfig, logger: Logger) {
-    this.httpErrorsOptions = expressConfig.httpErrorsOptions;
+    this.httpErrors = expressConfig.httpErrors;
     this.logger = logger;
   }
 
@@ -27,7 +27,7 @@ export class ErrorRegistry {
 
     let handler!: HttpErrorHandler;
 
-    const customErrors = this.httpErrorsOptions.customErrors;
+    const customErrors = this.httpErrors?.customErrors;
 
     if (customErrors) {
       const customErr = customErrors.find(err => httpError instanceof err.error);
@@ -36,8 +36,8 @@ export class ErrorRegistry {
         handler = customErr.handler;
       }
     }
-    else if (this.httpErrorsOptions.handler) {
-      handler = this.httpErrorsOptions.handler;
+    else if (this.httpErrors?.handler) {
+      handler = this.httpErrors.handler;
     }
     else {
       handler = this.defaultHandler;

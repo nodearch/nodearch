@@ -1,8 +1,11 @@
 import express from 'express';
+import http from 'http';
+import https from 'https';
 import { Service } from '@nodearch/core';
 import { IExpressInfo, IExpressRoute, IExpressRouter } from './interfaces';
 import { RouteHandler } from './route-handler';
 import { MiddlewareFactory } from '../middleware/middleware-factory';
+import { ExpressServer } from './express-server';
 
 
 /**
@@ -20,24 +23,26 @@ export class ExpressService {
 
   private routeHandler: RouteHandler;
   private middlewareFactory: MiddlewareFactory;
-  private app: express.Application;
+  private expressServer: ExpressServer;
 
   constructor(
     routeHandler: RouteHandler,
-    middlewareFactory: MiddlewareFactory
+    middlewareFactory: MiddlewareFactory,
+    expressServer: ExpressServer
   ) {
     this.routeHandler = routeHandler;
     this.middlewareFactory = middlewareFactory;
-    this.app = express();
+    this.expressServer = expressServer;
   }
 
   init(expressInfo: IExpressInfo) {
-    
     expressInfo.routers.forEach(routerInfo => {
-      this.app.use(routerInfo.path, this.createRouter(routerInfo));
+      this.expressServer.expressApp.use(routerInfo.path, this.createRouter(routerInfo));
     });
-    
+  }
 
+  async start() {
+    await this.expressServer.start();
   }
 
   private createRouter(routerInfo: IExpressRouter) {

@@ -1,7 +1,7 @@
 import { Config, ConfigManager } from '@nodearch/core';
 import { IHttpErrorsOptions } from '../errors/interfaces';
-import Joi from 'joi';
 import { OpenAPIOptions } from '../openapi/interfaces';
+import Joi from 'joi';
 import multer from 'multer';
 import express from 'express';
 import http from 'http';
@@ -12,12 +12,12 @@ import https from 'https';
 export class ExpressConfig {
   hostname: string;
   port: number;
-  httpErrorsOptions: IHttpErrorsOptions;
-  joiValidationOptions: Joi.ValidationOptions;
-  openAPIOptions: OpenAPIOptions;
-  fileUploadOptions?: multer.Options;
-  expressApp: express.Application;
-  server?: http.Server | https.Server;
+  http?: http.ServerOptions;
+  https?: https.ServerOptions;
+  httpErrors?: IHttpErrorsOptions;
+  validation: Joi.ValidationOptions;
+  openAPI: OpenAPIOptions;
+  fileUpload?: multer.Options;
 
   constructor(config: ConfigManager) {
     this.hostname = config.env({
@@ -34,19 +34,27 @@ export class ExpressConfig {
       }
     });
 
-    this.httpErrorsOptions = config.env({
-      external: 'httpErrorsOptions'
+    this.http = config.env({
+      external: 'http'
     });
 
-    this.joiValidationOptions = config.env({
-      external: 'joiValidationOptions',
+    this.https = config.env({
+      external: 'https'
+    });
+
+    this.httpErrors = config.env({
+      external: 'httpErrors'
+    });
+
+    this.validation = config.env({
+      external: 'validation',
       defaults: {
         all: { abortEarly: false, allowUnknown: true, presence: 'optional' }
       }
     });
 
-    this.openAPIOptions = config.env({
-      external: 'openAPIOptions',
+    this.openAPI = config.env({
+      external: 'openAPI',
       defaults: {
         all: {
           info: {
@@ -60,16 +68,9 @@ export class ExpressConfig {
       }
     });
 
-    this.fileUploadOptions = config.env({
-      external: 'fileUploadOptions'
+    this.fileUpload = config.env({
+      external: 'fileUpload'
     });
 
-    this.expressApp = config.env({
-      external: 'expressApp'
-    });
-
-    this.server = config.env({
-      external: 'server'
-    });
   }
 }

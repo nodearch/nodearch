@@ -17,7 +17,7 @@ export class RouteHandler {
     return (req, res) => {
       const params = this.getHandlerParams(req, res, inputs);
 
-      const handler = req.nodearch.controller[controllerMethodName];
+      const handler = req.nodearch.controller[controllerMethodName].bind(req.nodearch.controller);
 
       handler(...params)
         .then((result: any) => {
