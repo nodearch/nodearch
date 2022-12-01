@@ -1,6 +1,4 @@
 import express from 'express';
-import http from 'http';
-import https from 'https';
 import { Service } from '@nodearch/core';
 import { IExpressInfo, IExpressRoute, IExpressRouter } from './interfaces';
 import { RouteHandler } from './route-handler';
@@ -63,7 +61,7 @@ export class ExpressService {
   }
 
   private registerRoute(router: express.Router, routeInfo: IExpressRoute) {
-    const routeMiddleware = this.middlewareFactory.createExpressMiddleware(routeInfo.middleware);;
+    const routeMiddleware = this.middlewareFactory.createExpressMiddleware(routeInfo.middleware);
     router[routeInfo.method](
       routeInfo.path, 
       ...routeMiddleware, 
