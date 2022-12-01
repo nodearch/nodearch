@@ -30,14 +30,17 @@ export abstract class ComponentFactory {
       options: options.options
     };
 
-    return function (target: any) {
-      compInfo.data = options.fn?.(target);
+    return function (decoratorTarget: any) {
+      compInfo.data = options.fn?.(decoratorTarget);
 
-      compInfo.dependencies = options.dependencies ? 
-        ComponentFactory.addComponentDependencies(target, options.dependencies) : [];
+      compInfo.dependencies = options.dependencies ? ComponentFactory.getComponentDependencies({ 
+        target: decoratorTarget, 
+        decoratorId: options.id, 
+        depsInfo: options.dependencies
+      }) : [];
       
-      ComponentMetadata.setComponentRegistration(target, compInfo);
-      injectable()(target);
+      ComponentMetadata.setComponentRegistration(decoratorTarget, compInfo);
+      injectable()(decoratorTarget);
     }
   }
 
@@ -48,15 +51,18 @@ export abstract class ComponentFactory {
       dependencies?: ClassConstructor[];
     }
   ): ClassDecorator {
-    return function (target: any) {
+    return function (decoratorTarget: any) {
 
-      const data = options.fn?.(target);
+      const data = options.fn?.(decoratorTarget);
 
-      ComponentMetadata.setComponentDecorator(target, {
+      ComponentMetadata.setComponentDecorator(decoratorTarget, {
         id: options.id,
         data,
-        dependencies: options.dependencies ? 
-          ComponentFactory.addComponentDependencies(target, options.dependencies) : []
+        dependencies: options.dependencies ? ComponentFactory.getComponentDependencies({ 
+          target: decoratorTarget, 
+          decoratorId: options.id, 
+          depsInfo: options.dependencies
+        }) : []
       });
     }
   }
@@ -69,15 +75,20 @@ export abstract class ComponentFactory {
     }
   ): MethodDecorator {
     return function (target: any, propKey: string | symbol) {
+      const decoratorTarget = target.constructor;
 
       const data = options.fn?.(target, propKey);
 
-      ComponentMetadata.setComponentDecorator(target.constructor, {
+      ComponentMetadata.setComponentDecorator(decoratorTarget, {
         id: options.id,
         method: propKey,
         data,
-        dependencies: options.dependencies ? 
-          ComponentFactory.addComponentDependencies(target.constructor, options.dependencies) : []
+        dependencies: options.dependencies ? ComponentFactory.getComponentDependencies({ 
+          target: decoratorTarget, 
+          decoratorId: options.id, 
+          depsInfo: options.dependencies, 
+          propKey: (propKey as string) 
+        }) : []
       });
     }
   }
@@ -90,15 +101,21 @@ export abstract class ComponentFactory {
     }
   ): ParameterDecorator {
     return function (target: any, propKey: string | symbol, paramIndex: number) {
+      const decoratorTarget = target.constructor;
+
       const data = options.fn?.(target, propKey, paramIndex);
 
-      ComponentMetadata.setComponentDecorator(target.constructor, {
+      ComponentMetadata.setComponentDecorator(decoratorTarget, {
         id: options.id,
         method: propKey,
         paramIndex: paramIndex,
         data,
-        dependencies: options.dependencies ? 
-          ComponentFactory.addComponentDependencies(target.constructor, options.dependencies) : []
+        dependencies: options.dependencies ? ComponentFactory.getComponentDependencies({ 
+          target: decoratorTarget, 
+          decoratorId: options.id, 
+          depsInfo: options.dependencies, 
+          propKey: (propKey as string) 
+        }) : []
       });
     }
   }
@@ -119,8 +136,12 @@ export abstract class ComponentFactory {
         id: options.id,
         method: propKey,
         data,
-        dependencies: options.dependencies ? 
-          ComponentFactory.addComponentDependencies(decoratorTarget, options.dependencies, propKey as string) : []
+        dependencies: options.dependencies ? ComponentFactory.getComponentDependencies({ 
+          target: decoratorTarget, 
+          decoratorId: options.id, 
+          depsInfo: options.dependencies, 
+          propKey: (propKey as string) 
+        }) : []
       });
     }
   }
@@ -134,17 +155,32 @@ export abstract class ComponentFactory {
     return true;
   }
 
-  static addComponentDependency(component: ClassConstructor, dependency: ClassConstructor, propKey?: string) {
-    const key = `${NodeArchPath.ComponentDependency}/${component.name}-${dependency.name}${propKey? '-' + propKey : ''}`;
+  static addComponentDependency(component: ClassConstructor, dependency: ClassConstructor, prefix: string) {
+    const key = `${prefix}-${dependency.name}`;
     ClassInfo.propertyInject(component, dependency, key)
     return key;
   }
 
-  static addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[], propKey?: string): IComponentDecoratorDependency[] {
+  static addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[], prefix: string): IComponentDecoratorDependency[] {
     return dependencies.map(dep => {
-      const key = ComponentFactory.addComponentDependency(component, dep, propKey);
-      
-      return { key, component };
+      const key = ComponentFactory.addComponentDependency(component, dep, prefix);
+      return { key, component: dep };
     });
+  }
+
+  private static getComponentDependencies(options: {
+    depsInfo: ClassConstructor<any>[];
+    decoratorId: string;
+    propKey?: string;
+    target: any;
+  }) {
+    let dependencies: IComponentDecoratorDependency[] | undefined;
+      
+    if (options.depsInfo) {
+      const prefix = `${options.decoratorId}/dependency/${options.target.name}${options.propKey? '-' + options.propKey as string : ''}`;
+      dependencies = ComponentFactory.addComponentDependencies(options.target, options.depsInfo, prefix)
+    }
+
+    return dependencies;
   }
 }
