@@ -39,7 +39,7 @@ export interface IComponentDecorator<T = any> {
 }
 
 export interface IComponentDecoratorDependency {
-  key: symbol;
+  key: string;
   component: ClassConstructor;
 }
 

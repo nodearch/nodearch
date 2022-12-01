@@ -18,13 +18,13 @@ export class ExpressParser {
         .find( x => !x.method)?.data;
       
       const middleware: IMiddlewareInfo[] = comp
-        .getDecoratorsById(ExpressAnnotationId.Middleware)
+        .getDecoratorsById(ExpressAnnotationId.UseMiddleware)
         .filter(deco => !deco.method)
         .map(deco => {
           const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
           return { ...deco.data, dependencyKey };
         });
-      
+
       const ctrlPath: string = comp.data?.path || '/';
 
       const routes = comp.getMethods()

@@ -1,9 +1,10 @@
-import { inject, injectable } from 'inversify';
-import { ClassConstructor } from '../../utils';
+import { injectable } from 'inversify';
+import { ClassConstructor, ClassInfo } from '../../utils';
 import { ComponentMetadata } from './metadata';
 import { IComponentDecoratorDependency, IComponentOptions } from '../interfaces';
 import { IComponentRegistration } from './interfaces';
 import { ComponentHandler } from '../handler';
+import { NodeArchPath } from '../../constants';
 
 
 export abstract class ComponentFactory {
@@ -111,15 +112,15 @@ export abstract class ComponentFactory {
   ) {
     return function(target: any, propKey?: string | symbol) {
       const decoratorTarget = propKey ? target.constructor : target;
-      
+
       const data = options.fn?.(target, propKey);
-    
+
       ComponentMetadata.setComponentDecorator(decoratorTarget, {
         id: options.id,
         method: propKey,
         data,
         dependencies: options.dependencies ? 
-          ComponentFactory.addComponentDependencies(decoratorTarget, options.dependencies) : []
+          ComponentFactory.addComponentDependencies(decoratorTarget, options.dependencies, propKey as string) : []
       });
     }
   }
@@ -133,15 +134,15 @@ export abstract class ComponentFactory {
     return true;
   }
 
-  static addComponentDependency(component: ClassConstructor, dependency: ClassConstructor) {
-    const key: any = Symbol(dependency.name);
-    inject(dependency)(component, key);
+  static addComponentDependency(component: ClassConstructor, dependency: ClassConstructor, propKey?: string) {
+    const key = `${NodeArchPath.ComponentDependency}/${component.name}-${dependency.name}${propKey? '-' + propKey : ''}`;
+    ClassInfo.propertyInject(component, dependency, key)
     return key;
   }
 
-  static addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[]): IComponentDecoratorDependency[] {
+  static addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[], propKey?: string): IComponentDecoratorDependency[] {
     return dependencies.map(dep => {
-      const key = ComponentFactory.addComponentDependency(component, dep);
+      const key = ComponentFactory.addComponentDependency(component, dep, propKey);
       
       return { key, component };
     });
