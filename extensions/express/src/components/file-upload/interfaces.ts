@@ -9,9 +9,9 @@ export interface IFileUploadInfo {
 export interface IUploadInfo {
   files?: string[] | IFileUploadInfo[];
 
-  /** by default it allow files */
+  /** by default, it allows files */
   allowFiles?: boolean;
 
-  /** Options for initializing a Upload instance. */
-  options?: multer.Options
+  /** Options for initializing an Upload instance. */
+  options?: multer.Options;
 }

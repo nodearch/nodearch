@@ -8,28 +8,23 @@ import { UserService } from './user.service';
 @HttpController()
 export class UserController {
 
+  constructor(private readonly userService: UserService) {}
+
   @UseMiddleware(FirstMiddleware as any)
   @HttpGet('/')
-  async getUsers() {
-    return 'something';
+  async getUsers(@HttpQuery() user?: Partial<IUser>) {
+    return this.userService.getUsers(user);
   }
 
-  // constructor(private readonly userService: UserService) {}
+  @HttpGet('/:id')
+  async getUserById(@HttpPath('id') id: string) {
+    return this.userService.getUsers({ id: parseInt(id) })[0];
+  }
 
-  // @HttpGet('/')
-  // async getUsers(@HttpQuery() user?: Partial<IUser>) {
-  //   return this.userService.getUsers(user);
-  // }
-
-  // @HttpGet('/:id')
-  // async getUserById(@HttpPath('id') id: string) {
-  //   return this.userService.getUsers({ id: parseInt(id) })[0];
-  // }
-
-  // @HttpPost('/')
-  // async addUser(@HttpBody() user: Omit<IUser, 'id'>) {
-  //   this.userService.addUser(user);
-  //   return 'ok';
-  // }
+  @HttpPost('/')
+  async addUser(@HttpBody() user: Omit<IUser, 'id'>) {
+    this.userService.addUser(user);
+    return 'ok';
+  }
 
 }
