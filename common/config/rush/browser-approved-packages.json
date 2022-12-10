@@ -23,6 +23,10 @@
       "allowedCategories": [ "prototypes" ]
     },
     {
+      "name": "@nodearch/openapi",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "@nodearch/server",
       "allowedCategories": [ "production" ]
     },
@@ -168,6 +172,10 @@
     },
     {
       "name": "open",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "openapi3-ts",
       "allowedCategories": [ "production" ]
     },
     {
