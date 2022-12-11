@@ -168,8 +168,6 @@ export class FileSystem {
   }
 
   static async importFile(filePath: string) {
-    // TODO: validate this step
-    delete require.cache[require.resolve(filePath)];
     return import(filePath);
   }
 

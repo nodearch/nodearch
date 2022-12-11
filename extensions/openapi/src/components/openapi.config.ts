@@ -1,10 +1,10 @@
 import { Config, ConfigManager } from '@nodearch/core';
-import { IOpenAPIProvider } from '../interfaces';
+import { IOpenAPIProviderConstructor } from '../interfaces';
 
 @Config()
 export class OpenAPIConfig {
   
-  providers: IOpenAPIProvider[];
+  providers: IOpenAPIProviderConstructor[];
 
   constructor(config: ConfigManager) {
     this.providers = config.env({

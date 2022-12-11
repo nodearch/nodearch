@@ -1,5 +1,4 @@
-import { HttpBody, HttpController, HttpGet, HttpPath, HttpPost, HttpQuery, Middleware, UseMiddleware } from "@nodearch/express";
-import { OpenAPI } from '@nodearch/openapi';
+import { HttpBody, HttpController, HttpGet, HttpPath, HttpPost, HttpQuery, UseMiddleware } from "@nodearch/express";
 import { FirstMiddleware } from './middleware';
 import { IUser } from './user.interface';
 import { UserService } from './user.service';
@@ -10,10 +9,6 @@ import { UserService } from './user.service';
 export class UserController {
 
   constructor(private readonly userService: UserService) {}
-
-  // constructor(private readonly userService: UserService, private readonly openAPI: OpenAPI) {
-  //   console.log(this.openAPI);
-  // }
 
   @UseMiddleware(FirstMiddleware as any)
   @HttpGet('/')
@@ -32,4 +27,4 @@ export class UserController {
     return 'ok';
   }
 
-}
+} 

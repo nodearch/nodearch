@@ -34,6 +34,9 @@ export class MochaService {
       await nyc.addAllFiles();
     }
 
+    // TODO: validate this step
+    // delete require.cache[require.resolve(filePath)];
+
     const MainApp: any = (await import(appInfo.paths.app)).default;
 
     const app = new MainApp();

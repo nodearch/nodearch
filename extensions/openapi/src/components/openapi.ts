@@ -1,15 +1,24 @@
 import { Service } from '@nodearch/core';
-import { OpenAPIConfig } from './openapi.config';
+import { OpenAPIObject } from 'openapi3-ts';
+import { IOpenAPIProvider } from '../interfaces';
 
 
 @Service({ export: true })
 export class OpenAPI {
 
-  constructor(
-    private readonly openAPIConfig: OpenAPIConfig
-  ) {}
+  private providers: IOpenAPIProvider[] = [];
+
+  init(providers: IOpenAPIProvider[]) {
+    this.providers = providers; 
+  }
 
   get() {
-    return { something: 'something' };
+    let openAPIObj: Partial<OpenAPIObject> = {};
+
+    this.providers.forEach(provider => {
+      openAPIObj = Object.assign(openAPIObj, provider.get())
+    });
+
+    return openAPIObj;
   }
 }
