@@ -6,3 +6,5 @@ export * from './components/express/interfaces';
 
 export * from './components/middleware/annotation';
 export * from './components/middleware/interfaces';
+
+export * from './components/openapi/provider';

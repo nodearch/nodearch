@@ -1,7 +1,12 @@
 import { ClassConstructor } from '@nodearch/core';
+import { OpenAPIObject } from 'openapi3-ts';
 
 export interface IOpenAPIAppOptions {
-  providers?: IOpenAPIProvider[];
+  providers?: IOpenAPIProviderConstructor[];
 }
 
-export type IOpenAPIProvider = ClassConstructor<{}>;
+export interface IOpenAPIProvider {
+  get(): Partial<OpenAPIObject>;
+}
+
+export type IOpenAPIProviderConstructor = ClassConstructor<IOpenAPIProvider>;

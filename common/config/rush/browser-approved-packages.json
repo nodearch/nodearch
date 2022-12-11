@@ -24,7 +24,7 @@
     },
     {
       "name": "@nodearch/openapi",
-      "allowedCategories": [ "prototypes" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@nodearch/server",
@@ -33,6 +33,10 @@
     {
       "name": "@nodearch/socket.io",
       "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@nodearch/swagger",
+      "allowedCategories": [ "prototypes" ]
     },
     {
       "name": "@socket.io/redis-adapter",

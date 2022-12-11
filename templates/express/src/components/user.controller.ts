@@ -1,14 +1,19 @@
 import { HttpBody, HttpController, HttpGet, HttpPath, HttpPost, HttpQuery, Middleware, UseMiddleware } from "@nodearch/express";
+import { OpenAPI } from '@nodearch/openapi';
 import { FirstMiddleware } from './middleware';
 import { IUser } from './user.interface';
 import { UserService } from './user.service';
 
-
+ 
 @UseMiddleware(FirstMiddleware as any)
 @HttpController()
 export class UserController {
 
   constructor(private readonly userService: UserService) {}
+
+  // constructor(private readonly userService: UserService, private readonly openAPI: OpenAPI) {
+  //   console.log(this.openAPI);
+  // }
 
   @UseMiddleware(FirstMiddleware as any)
   @HttpGet('/')

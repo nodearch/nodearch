@@ -60,7 +60,7 @@ export class ComponentRegistry {
         this.hooks.push(componentInfo);
       }
     });
-  }
+  } 
 
   /**
    * Register the exported components from the extensions 
@@ -68,6 +68,7 @@ export class ComponentRegistry {
   registerExtensions(components: ComponentInfo[]) {
     components.forEach(componentInfo => {
       const registry = this.getComponentRegistry(componentInfo.getRegistration());
+      registry.components.push(componentInfo);
       registry.handler.registerExtension?.(componentInfo);
     });
   }

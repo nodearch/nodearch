@@ -480,6 +480,13 @@
       "reviewCategory": "production",
       "versionPolicyName": "packages",
       "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/swagger",
+      "projectFolder": "extensions/swagger",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
     }
     // {
     //   /**
