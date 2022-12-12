@@ -1,14 +1,14 @@
 import { Service } from '@nodearch/core';
-import { IOpenAPIProvider, OpenAPIObject } from '@nodearch/openapi';
+import { IOpenAPIProvider } from '@nodearch/openapi';
+import { OpenAPIParser } from './parser';
 
 @Service({ export: true })
 export class ExpressOAIProvider implements IOpenAPIProvider {
-  get(): Partial<OpenAPIObject> {
-    return {
-      info: {
-        title: 'this is from express',
-        version: '1'
-      }
-    };
+  constructor(
+    private readonly openAPIParser: OpenAPIParser
+  ) {}
+
+  get() {
+    return this.openAPIParser.parse();
   }
 }

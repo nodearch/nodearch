@@ -1,10 +1,10 @@
-import { ClassConstructor, ClassMethodDecorator, ComponentFactory } from '@nodearch/core';
+import { ClassConstructor, ClassMethodDecorator, ComponentFactory, IComponentOptions } from '@nodearch/core';
 import { ExpressAnnotationId } from '../express/enums';
 import { MiddlewareHandler, ExpressMiddlewareHandler } from './interfaces';
 
 
-export function Middleware(): ClassDecorator {
-  return ComponentFactory.componentDecorator({ id: ExpressAnnotationId.Middleware });
+export function Middleware(options?: IComponentOptions): ClassDecorator {
+  return ComponentFactory.componentDecorator({ id: ExpressAnnotationId.Middleware, options });
 }
 
 export function UseMiddleware(middlewareHandler: ExpressMiddlewareHandler): ClassMethodDecorator;

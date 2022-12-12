@@ -4,7 +4,6 @@ import { ComponentMetadata } from './metadata';
 import { IComponentDecoratorDependency, IComponentOptions } from '../interfaces';
 import { IComponentRegistration } from './interfaces';
 import { ComponentHandler } from '../handler';
-import { NodeArchPath } from '../../constants';
 
 
 export abstract class ComponentFactory {

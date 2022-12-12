@@ -17,7 +17,7 @@ export const HttpController = (options?: IComponentOptions): ClassDecorator =>
  *    - An array of combinations of any of the above.
  *    - examples: https://expressjs.com/en/4x/api.html#path-examples.
  */
-  export const HttpGet = (path?: string): MethodDecorator => httpMethodFactory(HttpMethod.GET, path);
+export const HttpGet = (path?: string): MethodDecorator => httpMethodFactory(HttpMethod.GET, path);
 
 
 /**

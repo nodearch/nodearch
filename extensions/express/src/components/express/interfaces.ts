@@ -52,3 +52,5 @@ export interface IExpressRouteHandlerInput {
   type: RouteHandlerParam;
   key?: string;
 }
+
+export type IHttpControllerOptions = string;

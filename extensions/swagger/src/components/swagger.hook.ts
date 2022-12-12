@@ -13,7 +13,7 @@ export class SwaggerHook implements IHook {
     const openAPI = context.get<OpenAPI>(this.swaggerConfig.openAPI);
 
     if (openAPI) {
-      console.log('openapi', openAPI.get());    
+      console.log('openapi', JSON.stringify(openAPI.get(), null, 2));    
     }
   }
 }

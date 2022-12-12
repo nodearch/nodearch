@@ -3,13 +3,13 @@ import { IOpenAPIInfo } from '../openapi/interfaces';
 import { IUploadInfo } from '../file-upload/interfaces';
 import { IValidationSchema } from '../validation/interfaces';
 import { ExpressAnnotationId } from './enums';
-import { IExpressInfo, IExpressRoute, IExpressRouteHandlerInput } from './interfaces';
+import { IExpressInfo, IExpressRoute, IExpressRouteHandlerInput, IHttpControllerOptions } from './interfaces';
 import { IMiddlewareInfo } from '../middleware/interfaces';
 
 
 @Service()
 export class ExpressParser {
-  parse(componentsInfo: ComponentInfo[]) {
+  parse(componentsInfo: ComponentInfo<IHttpControllerOptions>[]) {
     const expressInfo: IExpressInfo = { routers: [] };
 
     componentsInfo.forEach(comp => {
@@ -25,7 +25,7 @@ export class ExpressParser {
           return { ...deco.data, dependencyKey };
         });
 
-      const ctrlPath: string = comp.data?.path || '/';
+      const ctrlPath = this.formatPath(comp.data);
 
       const routes = comp.getMethods()
         .map(method => {
@@ -74,12 +74,26 @@ export class ExpressParser {
     return {
       controllerMethod: method,
       method: httpMethod,
-      path: httpPath,
+      path: this.formatPath(httpPath),
       middleware,
       inputs,
       fileUpload,
       validation,
       openApi
     };
+  }
+
+  private formatPath(urlPath?: string) {
+    let newPath = urlPath || '';
+    
+    if (!newPath.startsWith('/')) {
+      newPath = '/' + newPath;
+    }
+    
+    if (newPath.length > 1 && newPath.endsWith('/')) {
+      newPath = newPath.slice(0, newPath.length - 1);
+    }
+    
+    return newPath;
   }
 }
