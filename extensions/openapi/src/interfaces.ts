@@ -5,8 +5,16 @@ export interface IOpenAPIAppOptions {
   providers?: IOpenAPIProviderConstructor[];
 }
 
+export interface IOpenAPIAppMapItem {
+  component: ClassConstructor;
+  method: string;
+  httpPath: string;
+  httpMethod: string;
+}
+
 export interface IOpenAPIProvider {
-  get(): Partial<OpenAPIObject>;
+  getOpenAPI(): Partial<OpenAPIObject>;
+  getAppMap?(): IOpenAPIAppMapItem[];
 }
 
 export type IOpenAPIProviderConstructor = ClassConstructor<IOpenAPIProvider>;

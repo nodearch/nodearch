@@ -1,10 +1,12 @@
 import { Service } from '@nodearch/core';
-import { OpenAPIObject, PathsObject, OperationObject, ParameterObject } from '@nodearch/openapi';
+import { OpenAPIObject, PathsObject, OperationObject, ParameterObject, IOpenAPIAppMapItem } from '@nodearch/openapi';
 import { IExpressInfo } from '../express/interfaces';
 
 @Service()
 export class OpenAPIParser {
   
+  appMap: IOpenAPIAppMapItem[] = [];
+
   private expressInfo!: IExpressInfo;
 
   init(expressInfo: IExpressInfo) {
@@ -13,7 +15,7 @@ export class OpenAPIParser {
 
   parse(): Partial<OpenAPIObject> {
     const paths: PathsObject = {};
-    
+
     this.expressInfo.routers.forEach(router => {
       
       router.routes.forEach(route => {
@@ -22,6 +24,13 @@ export class OpenAPIParser {
 
         paths[pathInfo.path] = paths[pathInfo.path] || {};
         paths[pathInfo.path][route.method] = this.getOperationObject(pathInfo.params);
+
+        this.appMap.push({
+          component: router.controllerInfo.getClass(),
+          method: route.controllerMethod,
+          httpMethod: route.method,
+          httpPath: pathInfo.path
+        });
       });
 
     });
