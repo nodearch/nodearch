@@ -1,13 +1,18 @@
-import { Service } from '@nodearch/core';
+import { Service, utils } from '@nodearch/core';
 import { OpenAPIObject, PathsObject, OperationObject, ParameterObject, IOpenAPIAppMapItem } from '@nodearch/openapi';
+import { HttpMethod } from '../express/enums';
+import { ExpressConfig } from '../express/express.config';
 import { IExpressInfo } from '../express/interfaces';
 
 @Service()
 export class OpenAPIParser {
   
   appMap: IOpenAPIAppMapItem[] = [];
-
   private expressInfo!: IExpressInfo;
+
+  constructor(
+    private expressConfig: ExpressConfig
+  ) {}
 
   init(expressInfo: IExpressInfo) {
     this.expressInfo = expressInfo;
@@ -23,7 +28,7 @@ export class OpenAPIParser {
         const pathInfo = this.getPathInfo(urlPath);
 
         paths[pathInfo.path] = paths[pathInfo.path] || {};
-        paths[pathInfo.path][route.method] = this.getOperationObject(pathInfo.params);
+        paths[pathInfo.path][route.method] = this.getOperationObject(pathInfo.params, route.controllerMethod, route.method);
 
         this.appMap.push({
           component: router.controllerInfo.getClass(),
@@ -36,14 +41,35 @@ export class OpenAPIParser {
     });
 
     return {
+      servers: this.getServers(),
       paths
     };
   }
 
-  private getOperationObject(params: string[]): Partial<OperationObject> {
-    return {
-      parameters: this.getPathParams(params)
+  private getServers() {
+    return [{
+      url: 'http://' + this.expressConfig.hostname + ':' + this.expressConfig.port,
+      description: 'Express Server URL'
+    }];
+  }
+
+  private getOperationObject(params: string[], controllerMethod: string, httpMethod: HttpMethod): Partial<OperationObject> {
+    const opObj: Partial<OperationObject> = {
+      summary: controllerMethod,
+      description: utils.camelToTitle(controllerMethod),
+      parameters: this.getPathParams(params),
+      responses: {
+        200: { description: 'OK' },
+        500: { description: 'Internal Server Error' }
+      },
+      tags: ['default']
     };
+
+    if ([HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH].includes(httpMethod)) {
+      opObj['requestBody'] = {content: { 'application/json': { schema: { type: 'object' } } }};
+    }
+
+    return opObj;
   }
 
   private getPathParams(params: string[]): ParameterObject[] {

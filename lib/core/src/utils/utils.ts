@@ -143,7 +143,7 @@ export function lowerCase(txt: string) {
 
 export function camelToTitle(camelCase: string) {
   return camelCase
-    .replace(/([A-Z])/g, (match) => ` ${match.toLowerCase()}`)
+    .replace(/([A-Z]+)/g, (match) => ` ${match}`)
     .trim()
     .replace(/^./, (match) => match.toUpperCase());
 }

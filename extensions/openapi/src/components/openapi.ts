@@ -14,7 +14,7 @@ export class OpenAPI {
   }
 
   get() {
-    let openAPIObj: Partial<OpenAPIObject> = {};
+    let openAPIObj: Partial<OpenAPIObject> = this.getDefaults();
 
     this.providers.forEach(provider => {
       openAPIObj = Object.assign(openAPIObj, provider.getOpenAPI());
@@ -25,6 +25,17 @@ export class OpenAPI {
     });
 
     return openAPIObj;
+  }
+
+  private getDefaults(): Partial<OpenAPIObject> {
+    return {
+      openapi: '3.0.0',
+      info: {
+        version: '0.1.0',
+        title: 'NodeArch App',
+        description: 'NodeArch Template App'
+      }
+    };
   }
 
   private setAppMapItems(appMap: IOpenAPIAppMapItem[]) {
