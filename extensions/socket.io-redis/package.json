@@ -13,7 +13,8 @@
   "keywords": [
     "nodearch",
     "nodearch-socketio",
-    "nodearch-socketio-redis"
+    "nodearch-socketio-redis",
+    "socket.io-redis"
   ],
   "author": "https://github.com/AhmedAli7O1",
   "license": "MIT",

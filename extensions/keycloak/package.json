@@ -14,7 +14,8 @@
   },
   "keywords": [
     "nodearch",
-    "nodearch-keycloak"
+    "nodearch-keycloak",
+    "keycloak"
   ],
   "author": "https://github.com/AhmedAli7O1",
   "license": "MIT",
