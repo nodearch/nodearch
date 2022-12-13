@@ -3,6 +3,7 @@ import { OpenAPIObject } from 'openapi3-ts';
 
 export interface IOpenAPIAppOptions {
   providers?: IOpenAPIProviderConstructor[];
+  openAPI?: Partial<OpenAPIObject>;
 }
 
 export interface IOpenAPIAppMapItem {

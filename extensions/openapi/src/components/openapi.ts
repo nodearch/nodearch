@@ -1,6 +1,7 @@
 import { Service } from '@nodearch/core';
 import { OpenAPIObject } from 'openapi3-ts';
 import { IOpenAPIAppMapItem, IOpenAPIProvider } from '../interfaces';
+import { OpenAPIConfig } from './openapi.config';
 
 
 @Service({ export: true })
@@ -8,6 +9,10 @@ export class OpenAPI {
 
   private providers: IOpenAPIProvider[] = [];
   private appMap: IOpenAPIAppMapItem[] = [];
+
+  constructor(
+    private readonly openAPIConfig: OpenAPIConfig
+  ) {}
 
   init(providers: IOpenAPIProvider[]) {
     this.providers = providers; 
@@ -28,14 +33,14 @@ export class OpenAPI {
   }
 
   private getDefaults(): Partial<OpenAPIObject> {
-    return {
+    return Object.assign({
       openapi: '3.0.0',
       info: {
         version: '0.1.0',
         title: 'NodeArch App',
         description: 'NodeArch Template App'
       }
-    };
+    }, this.openAPIConfig.openAPI);
   }
 
   private setAppMapItems(appMap: IOpenAPIAppMapItem[]) {

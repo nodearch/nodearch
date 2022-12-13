@@ -13,7 +13,15 @@ export default class MyApp extends App {
       },
       extensions: [
         new ExpressApp(),
-        new OpenAPIApp({ providers: [ExpressOAIProvider] }),
+        new OpenAPIApp({ 
+          providers: [ExpressOAIProvider],
+          openAPI: {
+            info: {
+              title: 'NodeArch Express Template',
+              version: '0.1.0'
+            }
+          } 
+        }),
         new SwaggerApp({ openAPI: OpenAPI })
       ]
     });
