@@ -22,7 +22,6 @@ async function main() {
   }
 
   const app = new CliApp();
-  await app.run();
   await app.init();
   await app.start();
 }

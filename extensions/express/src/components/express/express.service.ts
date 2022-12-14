@@ -1,9 +1,11 @@
 import express from 'express';
-import { Service } from '@nodearch/core';
+import { AppContext, Service } from '@nodearch/core';
 import { IExpressInfo, IExpressRoute, IExpressRouter } from './interfaces';
 import { RouteHandler } from './route-handler';
 import { MiddlewareFactory } from '../middleware/middleware-factory';
 import { ExpressServer } from './express-server';
+import { ExpressAnnotationId } from './enums';
+import { ExpressParser } from './express-parser';
 
 
 /**
@@ -19,24 +21,35 @@ import { ExpressServer } from './express-server';
 @Service()
 export class ExpressService {
 
+  public expressInfo: IExpressInfo;
+
   private routeHandler: RouteHandler;
   private middlewareFactory: MiddlewareFactory;
   private expressServer: ExpressServer;
+  private expressParser: ExpressParser;
 
   constructor(
     routeHandler: RouteHandler,
     middlewareFactory: MiddlewareFactory,
-    expressServer: ExpressServer
+    expressServer: ExpressServer,
+    expressParser: ExpressParser,  
+    appContext: AppContext
   ) {
     this.routeHandler = routeHandler;
     this.middlewareFactory = middlewareFactory;
     this.expressServer = expressServer;
-  }
+    this.expressParser = expressParser;
+    this.expressInfo = { routers: [] };
 
-  init(expressInfo: IExpressInfo) {
-    expressInfo.routers.forEach(routerInfo => {
-      this.expressServer.expressApp.use(routerInfo.path, this.createRouter(routerInfo));
-    });
+    const componentsInfo = appContext.getComponents(ExpressAnnotationId.HttpController);
+
+    if (componentsInfo) {
+      this.expressInfo = this.expressParser.parse(componentsInfo);
+
+      this.expressInfo.routers.forEach(routerInfo => {
+        this.expressServer.expressApp.use(routerInfo.path, this.createRouter(routerInfo));
+      });
+    }
   }
 
   async start() {

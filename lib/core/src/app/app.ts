@@ -1,13 +1,15 @@
 import { ClassLoader } from '../loader';
 import { 
-  HookContext, CoreAnnotation, IHook, 
-  ConfigManager, ComponentScope, ComponentRegistry, TestManager, TestMode, MochaAnnotation, ComponentInfo 
+  CoreAnnotation, IHook, ConfigManager, 
+  ComponentScope, ComponentRegistry, 
+  TestManager, TestMode, MochaAnnotation 
 } from '../components';
-import { IAppOptions, IRunOptions } from './app.interfaces';
+import { IAppOptions, IInitOptions } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';
 import { Container } from 'inversify';
 import { ClassConstructor } from '../utils';
 import { DependencyException } from '../errors';
+import { AppContext } from './app-context';
 
 export class App {
 
@@ -17,8 +19,8 @@ export class App {
   private logOptions?: ILogOptions;
   private configOptions?: Record<string, any>;;
   private classLoader: ClassLoader;
-  private hookContext: HookContext;
   private logger!: ILogger;
+  private appContext!: AppContext;
   private container: Container;
   private componentRegistry: ComponentRegistry;
   private testManager: TestManager;
@@ -27,14 +29,10 @@ export class App {
   constructor(options: IAppOptions = {}) {
 
     this.classLoader = new ClassLoader(options.components);
-    
     this.container = new Container({
       defaultScope: options.scope || ComponentScope.Singleton
     });
-
     this.componentRegistry = new ComponentRegistry(this.container);
-
-    this.hookContext = new HookContext(this.componentRegistry, this.container);
     this.testManager = new TestManager(this.container);
     this.extensions = options.extensions;
     this.logOptions = options.logs;
@@ -46,7 +44,12 @@ export class App {
       this.logger = new Logger(this.logOptions);
     }
 
+    if(!this.appContext) {
+      this.appContext = new AppContext(this.componentRegistry, this.container);
+    }
+
     this.container.bind(Logger).toConstantValue(this.logger as Logger);
+    this.container.bind(AppContext).toConstantValue(this.appContext);
     this.container.bind(ConfigManager).toConstantValue(new ConfigManager(this.configOptions));
   }
 
@@ -55,8 +58,9 @@ export class App {
       // TODO: consider making this Promise.all
       for (const extension of this.extensions) {
         try {
-          await extension.run({
-            logger: this.logger // propagate the logger to the extension
+          await extension.init({
+            logger: this.logger, // propagate the logger to the extension
+            appContext: this.appContext
           });
         }
         catch (e: any) {
@@ -84,18 +88,6 @@ export class App {
     }
   }
 
-  async init() {
-    const hooks = this.getAll<IHook>(CoreAnnotation.Hook);
-
-    if (!hooks) return;
-
-    for (const hook of hooks) {
-      if (hook.onInit) {
-        await hook.onInit(this.hookContext);
-      }
-    }
-  }
-
   async start() {
     const hooks = this.getAll<IHook>(CoreAnnotation.Hook);
       
@@ -103,7 +95,7 @@ export class App {
 
     for (const hook of hooks) {
       if (hook.onStart) {
-        await hook.onStart(this.hookContext);
+        await hook.onStart();
       }
     }
   }
@@ -113,7 +105,7 @@ export class App {
       const hooks = this.getAll<IHook>(CoreAnnotation.Hook);
 
       if (hooks) {
-        await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)(this.hookContext)));
+        await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)()));
       }
     }
     catch (e: any) {
@@ -123,7 +115,7 @@ export class App {
     }
   }
 
-  async run(options?: IRunOptions) {
+  async init(options?: IInitOptions) {
     // TODO: We can probably add performance insights here
 
     /**
@@ -133,6 +125,8 @@ export class App {
      * and the logger is being passed from the parent App.
      */ 
     if (options?.logger) this.logger = options.logger;
+
+    if (options?.appContext) this.appContext = options.appContext;
 
     this.loadCoreComponents();
     await this.loadExtensions();

@@ -40,7 +40,6 @@ export class MochaService {
     const MainApp: any = (await import(appInfo.paths.app)).default;
 
     const app = new MainApp();
-    await app.run();
     await app.init();
     
     if (options.generalOptions.mode.includes(TestMode.E2E)) {

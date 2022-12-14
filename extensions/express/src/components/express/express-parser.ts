@@ -1,7 +1,4 @@
 import { ComponentInfo, Service } from '@nodearch/core';
-import { IOpenAPIInfo } from '../openapi/interfaces';
-import { IUploadInfo } from '../file-upload/interfaces';
-import { IValidationSchema } from '../validation/interfaces';
 import { ExpressAnnotationId } from './enums';
 import { IExpressInfo, IExpressRoute, IExpressRouteHandlerInput, IHttpControllerOptions } from './interfaces';
 import { IMiddlewareInfo } from '../middleware/interfaces';
@@ -13,12 +10,8 @@ export class ExpressParser {
     const expressInfo: IExpressInfo = { routers: [] };
 
     componentsInfo.forEach(comp => {
-      const ctrlOpenApi: IOpenAPIInfo = comp
-        .getDecoratorsById(ExpressAnnotationId.OpenAPI)
-        .find( x => !x.method)?.data;
-      
       const middleware: IMiddlewareInfo[] = comp
-        .getDecoratorsById(ExpressAnnotationId.UseMiddleware)
+        .getDecoratorsById(ExpressAnnotationId.Use)
         .filter(deco => !deco.method)
         .map(deco => {
           const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
@@ -35,7 +28,6 @@ export class ExpressParser {
       expressInfo.routers.push({
         controllerInfo: comp,
         path: ctrlPath,
-        openApi: ctrlOpenApi,
         middleware,
         routes
       });
@@ -50,17 +42,8 @@ export class ExpressParser {
     const { httpPath, httpMethod } = decorators
       .find(deco => deco.id === ExpressAnnotationId.HttpMethod)?.data;
     
-    const openApi: IOpenAPIInfo = decorators
-      .find(deco => deco.id === ExpressAnnotationId.OpenAPI)?.data;
-    
-    const validation: IValidationSchema = decorators
-      .find(deco => deco.id === ExpressAnnotationId.Validation)?.data;
-    
-    const fileUpload: IUploadInfo = decorators
-      .find(deco => deco.id === ExpressAnnotationId.FileUpload)?.data;
-    
     const middleware: IMiddlewareInfo[] = decorators
-      .filter(deco => deco.id === ExpressAnnotationId.UseMiddleware)
+      .filter(deco => deco.id === ExpressAnnotationId.Use)
       .map(deco => {
         const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
 
@@ -76,10 +59,7 @@ export class ExpressParser {
       method: httpMethod,
       path: this.formatPath(httpPath),
       middleware,
-      inputs,
-      fileUpload,
-      validation,
-      openApi
+      inputs
     };
   }
 

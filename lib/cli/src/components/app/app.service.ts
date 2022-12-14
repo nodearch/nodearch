@@ -34,7 +34,7 @@ export class AppService {
     if (!LocalApp.nodearch) return;
 
     const app = new LocalApp();
-    await app.run();
+    await app.init();
 
     this.appInfo = {
       paths: {

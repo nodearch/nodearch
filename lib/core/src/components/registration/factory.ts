@@ -177,7 +177,7 @@ export abstract class ComponentFactory {
       
     if (options.depsInfo) {
       const prefix = `${options.decoratorId}/dependency/${options.target.name}${options.propKey? '-' + options.propKey as string : ''}`;
-      dependencies = ComponentFactory.addComponentDependencies(options.target, options.depsInfo, prefix)
+      dependencies = ComponentFactory.addComponentDependencies(options.target, options.depsInfo, prefix);
     }
 
     return dependencies;

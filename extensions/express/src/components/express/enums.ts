@@ -21,9 +21,6 @@ export enum ExpressAnnotationId {
   HttpMethod = '@nodearch/express/annotations/http-method',
   HttpParam = '@nodearch/express/annotations/http-param',
   Middleware = '@nodearch/express/annotations/middleware',
-  UseMiddleware = '@nodearch/express/annotations/use-middleware',
-  Validation = '@nodearch/express/annotations/validation',
-  OpenAPI = '@nodearch/express/annotations/openapi',
-  FileUpload = '@nodearch/express/annotations/upload',
+  Use = '@nodearch/express/annotations/use',
   HttpController = '@nodearch/express/annotations/http-controller'
 }

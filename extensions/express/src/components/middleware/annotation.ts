@@ -7,17 +7,17 @@ export function Middleware(options?: IComponentOptions): ClassDecorator {
   return ComponentFactory.componentDecorator({ id: ExpressAnnotationId.Middleware, options });
 }
 
-export function UseMiddleware(middlewareHandler: ExpressMiddlewareHandler): ClassMethodDecorator;
-export function UseMiddleware(middlewareHandler: MiddlewareHandler): ClassMethodDecorator;
-export function UseMiddleware<T>(middlewareHandler: MiddlewareHandler<T>, options: T): ClassMethodDecorator;
-export function UseMiddleware(handler: ExpressMiddlewareHandler | MiddlewareHandler, options?: any): ClassMethodDecorator {
+export function Use(middlewareHandler: ExpressMiddlewareHandler): ClassMethodDecorator;
+export function Use(middlewareHandler: MiddlewareHandler): ClassMethodDecorator;
+export function Use<T>(middlewareHandler: MiddlewareHandler<T>, options: T): ClassMethodDecorator;
+export function Use(handler: ExpressMiddlewareHandler | MiddlewareHandler, options?: any): ClassMethodDecorator {
   
   const isExpressMiddleware = !ComponentFactory.isComponent(handler, ExpressAnnotationId.Middleware);
 
   const dependencies = isExpressMiddleware ? [] : [handler as ClassConstructor];
 
   return ComponentFactory.classMethodDecorator({
-    id: ExpressAnnotationId.UseMiddleware,
+    id: ExpressAnnotationId.Use,
     fn() {
       return {
         isExpressMiddleware,

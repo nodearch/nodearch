@@ -2,6 +2,7 @@ import { ComponentScope } from '../components';
 import { App } from "./app";
 import { ILogger, ILogOptions } from '../log';
 import { IClassLoaderOptions } from '../loader';
+import { AppContext } from './app-context';
 
 
 export interface IAppConstructor {
@@ -16,6 +17,7 @@ export type IAppOptions = {
   extensions?: App[];
 };
 
-export interface IRunOptions {
+export interface IInitOptions {
   logger?: ILogger;
+  appContext?: AppContext;
 }

@@ -1,16 +1,16 @@
-import { HttpBody, HttpController, HttpGet, HttpPath, HttpPost, HttpQuery, UseMiddleware } from "@nodearch/express";
+import { HttpBody, HttpController, HttpGet, HttpPath, HttpPost, HttpQuery, Use } from "@nodearch/express";
 import { FirstMiddleware } from './middleware';
 import { IUser } from './user.interface';
 import { UserService } from './user.service';
 
  
-@UseMiddleware(FirstMiddleware as any)
+@Use(FirstMiddleware)
 @HttpController()
 export class UserController {
 
   constructor(private readonly userService: UserService) {}
 
-  @UseMiddleware(FirstMiddleware as any)
+  @Use(FirstMiddleware)
   @HttpGet('/')
   async getUsers(@HttpQuery() user?: Partial<IUser>) {
     return this.userService.getUsers(user);

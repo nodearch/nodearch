@@ -1,10 +1,10 @@
-import { ComponentRegistry } from '../../registration';
 import { Container } from 'inversify';
-import { DependencyException } from '../../../errors';
-import { ClassConstructor } from '../../../utils';
+import { ComponentRegistry } from '../components';
+import { DependencyException } from '../errors';
+import { ClassConstructor } from '../utils';
 
 
-export class HookContext {
+export class AppContext {
   constructor(
     private components: ComponentRegistry,
     private container: Container

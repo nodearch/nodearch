@@ -1,4 +1,4 @@
-import { Service } from '@nodearch/core';
+import { AppContext, Service } from '@nodearch/core';
 import { OpenAPIObject } from 'openapi3-ts';
 import { IOpenAPIAppMapItem, IOpenAPIProvider } from '../interfaces';
 import { OpenAPIConfig } from './openapi.config';
@@ -11,12 +11,23 @@ export class OpenAPI {
   private appMap: IOpenAPIAppMapItem[] = [];
 
   constructor(
-    private readonly openAPIConfig: OpenAPIConfig
-  ) {}
+    private readonly openAPIConfig: OpenAPIConfig,
+    private readonly appContext: AppContext
+  ) {
+    this.providers = [];
 
-  init(providers: IOpenAPIProvider[]) {
-    this.providers = providers; 
+    this.openAPIConfig.providers.forEach(provider => {
+      const oaiProvider = this.appContext.get<IOpenAPIProvider>(provider);
+
+      if (oaiProvider) {
+        this.providers.push(oaiProvider);
+      }
+    });
   }
+
+  // init(providers: IOpenAPIProvider[]) {
+  //   this.providers = providers; 
+  // }
 
   get() {
     let openAPIObj: OpenAPIObject = this.getDefaults();
