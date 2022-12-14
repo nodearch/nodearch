@@ -47,6 +47,7 @@ export class CliService {
       });
 
     if (commands.length) {
+      // TODO: refuse to register a command if we already registered another one with the same name
       const yargsCommands = this.getYargsCommands(commands);
       yargsCommands.forEach(yargsCmd => {
         yargs.command(yargsCmd);

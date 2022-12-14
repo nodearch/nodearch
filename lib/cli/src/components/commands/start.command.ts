@@ -1,4 +1,4 @@
-import { Command, IAppInfo, ICommand, ICommandHandlerOptions } from '@nodearch/core';
+import { Command, CommandMode, IAppInfo, ICommand, ICommandHandlerOptions } from '@nodearch/core';
 import nodemon from 'nodemon';
 import path from 'path';
 
@@ -15,6 +15,7 @@ export class StartCommand implements ICommand {
       describe: 'Start in watch mode [nodemon]'
     }
   };
+  mode = [CommandMode.App];
 
   async handler({ data, appInfo }: ICommandHandlerOptions) {
     if (appInfo) {

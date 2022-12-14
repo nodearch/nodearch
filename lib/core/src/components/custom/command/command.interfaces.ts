@@ -169,11 +169,6 @@ export interface ICommand<T extends Record<string, any> = any> {
    */
   deprecated?: boolean | string;
   
-  /** 
-   * a function which will be passed the data.
-   */
-  handler(options: ICommandHandlerOptions<T>): Promise<void>;
-  
   /**
    * Object that gives hints about the options that your command accepts.
    * can also be a function. This function is executed with a yargs instance, 
@@ -198,6 +193,11 @@ export interface ICommand<T extends Record<string, any> = any> {
    * by default (No mode specified) the command is always active
    */
   mode?: CommandMode[];
+
+  /** 
+   * a function which will be passed the data.
+   */
+  handler(options: ICommandHandlerOptions<T>): Promise<void>;
 }
 
 export enum NpmDependencyType {

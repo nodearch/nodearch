@@ -19,3 +19,7 @@ export interface IOpenAPIProvider {
 }
 
 export type IOpenAPIProviderConstructor = ClassConstructor<IOpenAPIProvider>;
+
+export interface IOpenAPICommandOptions {
+  format: ('json' | 'yaml');
+}
