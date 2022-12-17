@@ -54,7 +54,7 @@ export class CliService {
       });
     }
 
-    yargs.pkgConf('nodearch').argv;
+    yargs.argv;
   }
 
   getYargsCommands(commands: ICommand[]): CommandModule[] {

@@ -4,6 +4,8 @@ import { OpenAPIObject } from 'openapi3-ts';
 export interface IOpenAPIAppOptions {
   providers?: IOpenAPIProviderConstructor[];
   openAPI?: Partial<OpenAPIObject>;
+  format?: OpenAPIFormat;
+  path?: string;
 }
 
 export interface IOpenAPIAppMapItem {
@@ -20,6 +22,13 @@ export interface IOpenAPIProvider {
 
 export type IOpenAPIProviderConstructor = ClassConstructor<IOpenAPIProvider>;
 
-export interface IOpenAPICommandOptions {
-  format: ('json' | 'yaml');
+export enum OpenAPIFormat {
+  Json = 'json',
+  Yaml = 'yaml'
 }
+
+export interface IOpenAPICommandOptions {
+  format: OpenAPIFormat;
+  path?: string;
+}
+
