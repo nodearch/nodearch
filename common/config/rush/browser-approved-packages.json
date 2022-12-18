@@ -100,7 +100,7 @@
     },
     {
       "name": "@types/swagger-ui-dist",
-      "allowedCategories": [ "prototypes" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@types/yargs",
@@ -220,7 +220,7 @@
     },
     {
       "name": "swagger-ui-dist",
-      "allowedCategories": [ "prototypes" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "ts-jest",

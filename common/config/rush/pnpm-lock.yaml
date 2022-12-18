@@ -110,14 +110,17 @@ importers:
   ../../extensions/swagger:
     specifiers:
       '@nodearch/core': workspace:^1.4.2
-      '@nodearch/openapi': workspace:^0.0.1
       '@types/node': ^16.18.0
+      '@types/swagger-ui-dist': ^3.30.1
       rimraf: ~3.0.2
+      swagger-ui-dist: ^4.15.5
       typescript: ^4.7.2
+    dependencies:
+      swagger-ui-dist: 4.15.5
     devDependencies:
       '@nodearch/core': link:../../lib/core
-      '@nodearch/openapi': link:../openapi
       '@types/node': 16.18.3
+      '@types/swagger-ui-dist': 3.30.1
       rimraf: 3.0.2
       typescript: 4.7.4
 

@@ -25,16 +25,16 @@
   },
   "devDependencies": {
     "@nodearch/core": "workspace:^1.4.2",
-    "@nodearch/openapi": "workspace:^0.0.1",
     "@types/node": "^16.18.0",
     "rimraf": "~3.0.2",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.2",
+    "@types/swagger-ui-dist": "^3.30.1"
   },
   "dependencies": {
+    "swagger-ui-dist": "^4.15.5"
   },
   "peerDependencies": {
     "@nodearch/core": "1.4.2",
-    "@nodearch/openapi": "workspace:^0.0.1",
     "reflect-metadata": "0.x"
   }
 }
