@@ -4,6 +4,8 @@ import { ComponentInfo } from '@nodearch/core';
 import { IHttpErrorsOptions } from '../errors/interfaces';
 import http from 'http';
 import https from 'https';
+import express from 'express';
+import { Stats } from 'fs';
 
 
 export interface IExpressAppOptions {
@@ -15,7 +17,24 @@ export interface IExpressAppOptions {
 
   httpErrors?: IHttpErrorsOptions;
 
-  static?: string[];
+  static?: IExpressStatic[];
+}
+
+export interface IExpressStatic {
+  path: string;
+  root: string;
+  options?: {
+    dotfiles?: string;
+    etag?: boolean;
+    extensions?: string[];
+    fallthrough?: boolean;
+    immutable?: boolean;
+    index?: string | boolean;
+    lastModified?: boolean;
+    maxAge?: number | string;
+    redirect?: boolean;
+    setHeaders?: (res: express.Response, path: string, stat: Stats) => void;
+  }; 
 }
 
 export interface IExpressInfo {

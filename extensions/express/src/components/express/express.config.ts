@@ -2,6 +2,7 @@ import { Config, ConfigManager } from '@nodearch/core';
 import { IHttpErrorsOptions } from '../errors/interfaces';
 import http from 'http';
 import https from 'https';
+import { IExpressStatic } from './interfaces';
 
 
 @Config()
@@ -11,6 +12,7 @@ export class ExpressConfig {
   http?: http.ServerOptions;
   https?: https.ServerOptions;
   httpErrors?: IHttpErrorsOptions;
+  static?: IExpressStatic[];
 
   constructor(config: ConfigManager) {
     this.hostname = config.env({
@@ -37,6 +39,10 @@ export class ExpressConfig {
 
     this.httpErrors = config.env({
       external: 'httpErrors'
+    });
+
+    this.static = config.env({
+      external: 'static'
     });
 
   }

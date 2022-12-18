@@ -5,9 +5,9 @@ import { OpenAPI, OpenAPIApp, OpenAPIFormat } from '@nodearch/openapi';
 import { SwaggerApp } from '@nodearch/swagger';
 import { SwaggerUIBundle, SwaggerUIStandalonePreset, getAbsoluteFSPath } from 'swagger-ui-dist';
 
-// const x = SwaggerUIBundle({
-
-// })
+// SwaggerUIBundle({
+//   url: '/docs/openapi.json'
+// });
 
 
 export default class MyApp extends App {
@@ -17,7 +17,12 @@ export default class MyApp extends App {
         path: path.join(__dirname, 'components')
       },
       extensions: [
-        new ExpressApp(),
+        new ExpressApp({
+          static: [
+            { path: '/docs', root: './public/docs' },
+            { path: '/docs', root: getAbsoluteFSPath() }
+          ]
+        }),
         new OpenAPIApp({ 
           providers: [ExpressOAIProvider],
           openAPI: {
