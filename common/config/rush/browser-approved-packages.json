@@ -99,6 +99,10 @@
       "allowedCategories": [ "prototypes" ]
     },
     {
+      "name": "@types/swagger-ui-dist",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "@types/yargs",
       "allowedCategories": [ "production" ]
     },
@@ -212,6 +216,10 @@
     },
     {
       "name": "supertest",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "swagger-ui-dist",
       "allowedCategories": [ "prototypes" ]
     },
     {

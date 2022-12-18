@@ -61,6 +61,8 @@ export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
       }
     }
 
+
+    await fs.mkdir(path.parse(filePath).dir, { recursive: true });
     await fs.writeFile(filePath, specs);
 
     this.logger.info(`OpenAPI document generated and saved to: ${filePath}`);

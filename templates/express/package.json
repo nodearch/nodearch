@@ -23,7 +23,8 @@
     "ts-node": "^10.8.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.7.2",
-    "rimraf": "~3.0.2"
+    "rimraf": "~3.0.2",
+    "@types/swagger-ui-dist": "^3.30.1"
   },
   "dependencies": {
     "@nodearch/core": "workspace:^1.4.2",
@@ -31,7 +32,8 @@
     "@nodearch/openapi": "workspace:^0.0.1",
     "@nodearch/swagger": "workspace:^0.0.1",
     "express": "^4.18.2",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "swagger-ui-dist": "^4.15.5"
   },
   "nodearch": {
     "path": "src/main.ts"

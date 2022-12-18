@@ -232,6 +232,7 @@ importers:
       '@types/express': ^4.17.14
       '@types/node': ^16.18.0
       '@types/supertest': ^2.0.10
+      '@types/swagger-ui-dist': ^3.30.1
       chai: ^4.3.6
       express: ^4.18.2
       mocha: ^10.1.0
@@ -239,6 +240,7 @@ importers:
       reflect-metadata: ^0.1.13
       rimraf: ~3.0.2
       supertest: ^4.0.2
+      swagger-ui-dist: ^4.15.5
       ts-node: ^10.8.0
       tsconfig-paths: ^3.9.0
       typescript: ^4.7.2
@@ -249,11 +251,13 @@ importers:
       '@nodearch/swagger': link:../../extensions/swagger
       express: 4.18.2
       reflect-metadata: 0.1.13
+      swagger-ui-dist: 4.15.5
     devDependencies:
       '@types/chai': 4.3.3
       '@types/express': 4.17.14
       '@types/node': 16.18.3
       '@types/supertest': 2.0.12
+      '@types/swagger-ui-dist': 3.30.1
       chai: 4.3.6
       mocha: 10.1.0
       nyc: 15.1.0
@@ -1204,6 +1208,10 @@ packages:
     resolution: {integrity: sha512-X3HPWTwXRerBZS7Mo1k6vMVR1Z6zmJcDVn5O/31whe0tnjE4te6ZJSJGq1RiqHPjzPdMTfjCFogDJmwng9xHaQ==}
     dependencies:
       '@types/superagent': 4.1.15
+    dev: true
+
+  /@types/swagger-ui-dist/3.30.1:
+    resolution: {integrity: sha512-wWojDensMF33dSrhak4iWSPOsWBbvf+rSJ6VWQ7ohQbGdKAiT2IwUexrDZkMvf3+vVAPVnNFDRDtxADFszbh+Q==}
     dev: true
 
   /@types/through/0.0.30:
@@ -5522,6 +5530,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
     dev: true
+
+  /swagger-ui-dist/4.15.5:
+    resolution: {integrity: sha512-V3eIa28lwB6gg7/wfNvAbjwJYmDXy1Jo1POjyTzlB6wPcHiGlRxq39TSjYGVjQrUSAzpv+a7nzp7mDxgNy57xA==}
+    dev: false
 
   /symbol-tree/3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}

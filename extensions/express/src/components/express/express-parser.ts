@@ -1,4 +1,4 @@
-import { ComponentInfo, Service } from '@nodearch/core';
+import { AppContext, ComponentInfo, Service } from '@nodearch/core';
 import { ExpressAnnotationId } from './enums';
 import { IExpressInfo, IExpressRoute, IExpressRouteHandlerInput, IHttpControllerOptions } from './interfaces';
 import { IMiddlewareInfo } from '../middleware/interfaces';
@@ -6,7 +6,24 @@ import { IMiddlewareInfo } from '../middleware/interfaces';
 
 @Service()
 export class ExpressParser {
-  parse(componentsInfo: ComponentInfo<IHttpControllerOptions>[]) {
+
+  private expressInfo: IExpressInfo;
+
+  constructor(appContext: AppContext) {
+    this.expressInfo = { routers: [] };
+
+    const componentsInfo = appContext.getComponents(ExpressAnnotationId.HttpController);
+
+    if (componentsInfo) {
+      this.expressInfo = this.parse(componentsInfo);
+    }
+  }
+
+  getExpressInfo() {
+    return this.expressInfo;
+  }
+
+  private parse(componentsInfo: ComponentInfo<IHttpControllerOptions>[]) {
     const expressInfo: IExpressInfo = { routers: [] };
 
     componentsInfo.forEach(comp => {

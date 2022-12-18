@@ -1,16 +1,17 @@
 import { Hook, IHook } from '@nodearch/core';
-import { ExpressService } from './express.service';
+import { ExpressServer } from './express-server';
 
 
 @Hook({ export: true })
 export class ExpressHook implements IHook {
   
   constructor(
-    private readonly expressService: ExpressService
+    private readonly expressServer: ExpressServer
   ) {}
 
   async onStart() {
-    await this.expressService.start();
+    await this.expressServer.start();
   }
 
+  // TODO: onStop ?
 }

@@ -2,33 +2,32 @@ import { Logger, Service } from '@nodearch/core';
 import { ExpressConfig } from './express.config';
 import http from 'http';
 import https from 'https';
-import express from 'express';
+import { ExpressApp } from './express-app';
 
 
 @Service()
 export class ExpressServer {
-  httpServer: http.Server | https.Server;
-  expressApp: express.Application;
   private expressConfig: ExpressConfig;
   private logger: Logger;
+  private expressApp: ExpressApp;
 
-  constructor(expressConfig: ExpressConfig, logger: Logger) {
+  constructor(expressConfig: ExpressConfig, expressApp: ExpressApp, logger: Logger) {
     this.expressConfig = expressConfig;
+    this.expressApp = expressApp;
     this.logger  = logger;
-    const { httpServer, expressApp } = this.createServer();
-    this.httpServer = httpServer;
-    this.expressApp = expressApp;    
   }
 
   async start() {
-    await new Promise((resolve, reject) => {
-      this.httpServer.listen(this.expressConfig.port, this.expressConfig.hostname);
+    const httpServer = this.createServer();
 
-      this.httpServer.on('error', err => {
+    await new Promise((resolve, reject) => {
+      httpServer.listen(this.expressConfig.port, this.expressConfig.hostname);
+
+      httpServer.on('error', err => {
         reject(err);
       });
 
-      this.httpServer.on('listening', () => {
+      httpServer.on('listening', () => {
         this.logger.info(`Express: Server running at: ${this.expressConfig.hostname}:${this.expressConfig.port}`);
         resolve(0);
       });
@@ -38,7 +37,7 @@ export class ExpressServer {
   private createServer() {
     let httpServer: http.Server | https.Server;
     
-    const expressApp = express();
+    const expressApp = this.expressApp.create();
 
     if (this.expressConfig.https) {
       httpServer = https.createServer(this.expressConfig.https, expressApp);
@@ -50,6 +49,6 @@ export class ExpressServer {
       httpServer = http.createServer(expressApp);
     }
 
-    return { httpServer, expressApp };
+    return httpServer;
   }
 }

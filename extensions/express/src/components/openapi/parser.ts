@@ -1,31 +1,26 @@
 import { Service, utils } from '@nodearch/core';
 import { OpenAPIObject, PathsObject, OperationObject, ParameterObject, IOpenAPIAppMapItem } from '@nodearch/openapi';
 import { HttpMethod } from '../express/enums';
+import { ExpressParser } from '../express/express-parser';
 import { ExpressConfig } from '../express/express.config';
-import { ExpressService } from '../express/express.service';
-import { IExpressInfo } from '../express/interfaces';
+
 
 @Service()
 export class OpenAPIParser {
   
   public appMap: IOpenAPIAppMapItem[] = [];
-  private expressInfo: IExpressInfo;
-  private expressConfig: ExpressConfig;
-  private expressService: ExpressService;
 
   constructor(
-    expressConfig: ExpressConfig,
-    expressService: ExpressService
-  ) {
-    this.expressConfig = expressConfig;
-    this.expressService = expressService;
-    this.expressInfo = this.expressService.expressInfo;
-  }
+    private readonly expressConfig: ExpressConfig,
+    private readonly expressParser: ExpressParser
+  ) {}
 
   parse(): Partial<OpenAPIObject> {
     const paths: PathsObject = {};
 
-    this.expressInfo.routers.forEach(router => {
+    const expressInfo = this.expressParser.getExpressInfo();
+
+    expressInfo.routers.forEach(router => {
       
       router.routes.forEach(route => {
         const urlPath = this.mergePaths(router.path, route.path);

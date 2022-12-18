@@ -14,6 +14,8 @@ export interface IExpressAppOptions {
   https?: https.ServerOptions;
 
   httpErrors?: IHttpErrorsOptions;
+
+  static?: string[];
 }
 
 export interface IExpressInfo {

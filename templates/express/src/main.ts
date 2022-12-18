@@ -3,6 +3,11 @@ import { App } from '@nodearch/core';
 import { ExpressApp, ExpressOAIProvider } from '@nodearch/express';
 import { OpenAPI, OpenAPIApp, OpenAPIFormat } from '@nodearch/openapi';
 import { SwaggerApp } from '@nodearch/swagger';
+import { SwaggerUIBundle, SwaggerUIStandalonePreset, getAbsoluteFSPath } from 'swagger-ui-dist';
+
+// const x = SwaggerUIBundle({
+
+// })
 
 
 export default class MyApp extends App {
@@ -22,7 +27,7 @@ export default class MyApp extends App {
             }
           },
           format: OpenAPIFormat.Json,
-          path: './src/lol.json'
+          path: './public/docs/openapi.json'
         }),
         new SwaggerApp({ openAPI: OpenAPI })
       ]
