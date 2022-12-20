@@ -1,3 +1,5 @@
+import { App } from '../../../app';
+
 export enum CommandQuestionType {
   Input = 'input',
   Number = 'number',
@@ -129,6 +131,7 @@ export interface INotificationService {
 }
 
 export interface IAppInfo {
+  app: App;
   paths: {
     root: string;
     appDir: string;

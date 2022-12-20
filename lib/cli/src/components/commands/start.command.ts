@@ -22,6 +22,9 @@ export class StartCommand implements ICommand {
       if (data.watch) {
         this.startWatch(appInfo);
       }
+      else {
+        await appInfo.app.start();
+      }
     }
   }
 
@@ -34,4 +37,4 @@ export class StartCommand implements ICommand {
     });
   }
 
-}
+} 

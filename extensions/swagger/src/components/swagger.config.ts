@@ -1,14 +1,13 @@
-import { ClassConstructor, Config, ConfigManager } from '@nodearch/core';
-import { OpenAPI } from '@nodearch/openapi';
+import { Config, ConfigManager } from '@nodearch/core';
 
 @Config()
 export class SwaggerConfig {
   
-  openAPI: ClassConstructor<OpenAPI>;
+  url: string;
 
   constructor(config: ConfigManager) {
-    this.openAPI = config.env({
-      external: 'openAPI'
+    this.url = config.env({
+      external: 'url'
     });
   }
 }

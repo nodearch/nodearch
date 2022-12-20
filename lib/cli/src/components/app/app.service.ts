@@ -1,6 +1,6 @@
 import path from 'path';
-import { CoreAnnotation, ICommand, Logger, Service } from '@nodearch/core';
-import { IAppConfig, IAppInfo } from './app.interfaces';
+import { CoreAnnotation, ICommand, Logger, Service, IAppInfo } from '@nodearch/core';
+import { IAppConfig } from './app.interfaces';
 
 
 @Service()
