@@ -31,7 +31,7 @@
 
 ## 👋 Welcome to NodeArch
 
-NodeArch is a Node.js backend framework targeting to solve the design and architectural problems when creating Node.js APPs for the backend. Using Typescript and dependency injection, we bring the concepts we used to in languages like Java, C# etc. While still getting the best out of Javascript flexibility and Node.js non-blocking I/O model. There is also a big focus on wiring everything together, so our intention is not to reinvent/rewrite the tools/frameworks we already know and use. Instead, our target is to wire everything together and leverage the opensource community behind Node.js and Javascript. You can think of NodeArch as the glue that links all your tools and libraries together and helps create a readable, maintainable and scalable application architecture. 
+NodeArch is a backend framework for Node.js that aims to address design and architectural issues when building Node.js applications. It uses Typescript and dependency injection to bring concepts from languages like Java and C# to Node.js, while still taking advantage of Javascript's flexibility and Node.js's non-blocking I/O model. NodeArch is designed to work seamlessly with existing tools and libraries, rather than replacing them, and focuses on creating a readable, maintainable, and scalable application architecture. It acts as a glue that connects all your tools and libraries together, making it easier to develop and maintain your Node.js applications.
 
 
 ## 🔗 Links
@@ -41,13 +41,16 @@ NodeArch is a Node.js backend framework targeting to solve the design and archit
 
 ## 📦 Install
 
-You need to install the NodeArch command-line interface to be able to generate new apps. Start by Running the following command in your terminal to install the CLI globally.
+To create new NodeArch apps, you need to install the NodeArch command-line interface (CLI) on your machine. To do this, open your terminal and run the following command:
 
 ```sh
 npm i -g @nodearch/cli
 ```
 
-Once installed, you can run `nodearch -h` in your terminal to see the usage.
+Once you have installed the NodeArch command-line interface (CLI), you can use it to see the available options and usage instructions. To do this, open your terminal and run the following command:
+```sh
+nodearch -h
+```
 
 ## 🚀 Usage
 
@@ -91,7 +94,7 @@ Examples:
 for all the options, please check the [documentation](https://nodearch.io/docs)
 
 ## 🤝 Contributing
-Contributions, issues and feature requests are welcome! If you like the idea and want to improve, add, or suggest something, please use the GitHub Issue tracker to communicate your thoughts with us.
+If you would like to contribute to the NodeArch project, report an issue, or request a new feature, you can use the GitHub Issue tracker to communicate with the development team. Contributions, issues, and feature requests are all welcome, and we encourage you to share your thoughts and ideas with us through the Issue tracker. If you have an idea for improving NodeArch, adding new functionality, or suggesting something else, please don't hesitate to use the Issue tracker to let us know.
 
 ## 👷 Development
 ### Prerequisites
@@ -100,10 +103,11 @@ Contributions, issues and feature requests are welcome! If you like the idea and
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ### Setup
-Clone the project on your local machine, using the following command.
+To clone the NodeArch project onto your local machine, you can use the following command in your terminal:
 ```bash
 git clone https://github.com/nodearch/nodearch.git
 ```
+This will create a local copy of the NodeArch project on your machine, allowing you to access the source code and make changes as needed.
 
 Switch to the repo directory, and then install dependencies
 ```bash
@@ -137,11 +141,8 @@ Give a ⭐️ if this project helped you!
 [![Star on GitHub](https://img.shields.io/github/stars/bluemax-io/nodearch?style=social)](https://github.com/bluemax-io/nodearch/stargazers)
 
 ## 📝 License
-
-Copyright © 2020 [BlueMax IO](https://github.com/BlueMax-IO).<br />
 This project is [MIT](https://github.com/BlueMax-IO/nodearch/blob/master/LICENSE) licensed.
 
 ***
 
-Open Source Software made with ❤️ for the Node.js Community.<br />
-© BlueMax IO. All rights reserved. [Ahmed Ali](https://github.com/AhmedAli7O1)
+Open Source Software made with ❤️ for the Node.js Community. [Ahmed Ali](https://github.com/AhmedAli7O1)
