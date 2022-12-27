@@ -1,4 +1,4 @@
-import { Command, CommandBuilder, CommandMode, CommandQuestion, ICommand, ICommandHandlerOptions, INpmDependency } from '@nodearch/core';
+import { Command, CommandBuilder, CommandQuestion, ICommand, INpmDependency } from '@nodearch/core';
 
 // @Command()
 // export class SwaggerCommand implements ICommand {

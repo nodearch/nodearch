@@ -12,11 +12,6 @@ export enum CommandQuestionType {
   Editor = 'editor'
 }
 
-export enum CommandMode {
-  App = 'app',
-  NoApp = 'noApp'
-}
-
 export type CommandHandler<T> = (data: T) => Promise<void>;
 export type CommandAnswers = Record<string, any>;
 export type CommandQuestionsDefault = string | number | boolean | Array<any> | 
@@ -130,22 +125,6 @@ export interface INotificationService {
   notify(message: string): void;
 }
 
-export interface IAppInfo {
-  app: App;
-  paths: {
-    root: string;
-    appDir: string;
-    app: string;
-    nodeModules: string;
-  };
-}
-
-export interface ICommandHandlerOptions<T = any> {
-  data: T,
-  appInfo?: IAppInfo,
-  notificationService: INotificationService
-}
-
 export interface ICommand<T extends Record<string, any> = any> {
   /** 
    * string (or array of strings) that executes this command 
@@ -191,16 +170,10 @@ export interface ICommand<T extends Record<string, any> = any> {
    */
   npmDependencies?: INpmDependency[];
 
-  /**
-   * Used internally to indicate when the command will be active
-   * by default (No mode specified) the command is always active
-   */
-  mode?: CommandMode[];
-
   /** 
    * a function which will be passed the data.
    */
-  handler(options: ICommandHandlerOptions<T>): Promise<void>;
+  handler(options: T): Promise<void>;
 }
 
 export enum NpmDependencyType {

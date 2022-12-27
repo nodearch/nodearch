@@ -22,7 +22,7 @@ export class MochaService {
       nyc = new NYC(
         {
           ...options.nycOptions,
-          cwd: appInfo.paths.root,
+          cwd: appInfo.paths.dirs.root,
           extension: [ '.ts' ],
           include: [ 'src/**/**.ts' ],
           exclude: [ 'node_modules', 'src/**/**.spec.ts', 'src/**/**.test.ts' ],
@@ -37,7 +37,7 @@ export class MochaService {
     // TODO: validate this step
     // delete require.cache[require.resolve(filePath)];
 
-    const MainApp: any = (await import(appInfo.paths.app)).default;
+    const MainApp: any = (await import(appInfo.paths.files.app)).default;
 
     const app = new MainApp();
     await app.init();
@@ -115,7 +115,7 @@ export class MochaService {
 
     const reportSpecificPath = reporters.includes('html') ? 'index.html' : path.join('lcov-report', 'index.html');
 
-    const htmlPath = path.join(appInfo.paths.root, nycOptions.reporterDir, reportSpecificPath);
+    const htmlPath = path.join(appInfo.paths.dirs.root, nycOptions.reporterDir, reportSpecificPath);
 
     await open(htmlPath, { wait: true });
 

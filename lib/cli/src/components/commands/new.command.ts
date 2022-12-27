@@ -1,9 +1,10 @@
 import { 
-  Command, CommandBuilder, CommandMode, 
+  Command, CommandBuilder, 
   CommandQuestion, CommandQuestionType, 
-  ICommand, ICommandHandlerOptions, Logger 
+  ICommand, Logger 
 } from '@nodearch/core';
 import path from 'path';
+import { CommandMode } from '../cli/enum';
 import { GitHubService } from '../utils/github.service';
 import { NpmService } from '../utils/npm.service';
 
@@ -57,17 +58,17 @@ export class NewCommand implements ICommand {
     this.currentDirectory = process.cwd();
   }
 
-  async handler(options: ICommandHandlerOptions) {
+  async handler(options: Record<string, any>) {
     try {
-      const appName = this.formatName(options.data.name);
+      const appName = this.formatName(options.name);
 
       const distPath = path.join(this.currentDirectory, appName);
 
-      this.logger.info(`Generating a new app [${appName}] from the template [${options.data.template}]`);
+      this.logger.info(`Generating a new app [${appName}] from the template [${options.template}]`);
 
       this.logger.info('Downloading the selected template');
   
-      await this.githubService.downloadTemplate(distPath, options.data.template);
+      await this.githubService.downloadTemplate(distPath, options.template);
   
       this.logger.info('Installing template dependencies [Running npm i]');
   

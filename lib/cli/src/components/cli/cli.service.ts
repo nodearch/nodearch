@@ -1,8 +1,7 @@
-import { CommandMode, CommandQuestion, ICommand, Logger, Service } from '@nodearch/core';
+import { CommandQuestion, ICommand, Logger, Service } from '@nodearch/core';
 import inquirer from 'inquirer';
 import yargs, { Arguments, CommandModule } from 'yargs';
 import { AppService } from '../app/app.service';
-import { NotificationService } from '../utils/notification.service';
 import { NpmService } from '../utils/npm.service';
 
 
@@ -12,7 +11,6 @@ export class CliService {
   constructor(
     private readonly logger: Logger,
     private readonly appService: AppService,
-    private readonly notificationService: NotificationService,
     private readonly npmService: NpmService
   ) {}
 
@@ -20,16 +18,10 @@ export class CliService {
 
     let commands = builtinCommands;
 
-    let mode = CommandMode.NoApp;
-
     // Add commands from loaded app
     if (this.appService.appInfo) {
-      mode = CommandMode.App;
       commands = [...builtinCommands, ...this.appService.getCommands()];
     }
-
-    // filter commands based on current mode
-    commands = commands.filter(cmd => cmd.mode ? cmd.mode.includes(mode) : true);
 
     yargs
       .scriptName('nodearch')
@@ -37,14 +29,7 @@ export class CliService {
       .demandCommand()
 
       .alias('h', 'help')
-      .alias('v', 'version')
-
-      .option('notify', { 
-        alias: ['y'], 
-        boolean: true, 
-        default: true,
-        describe: 'Enable/disable desktop notifications' 
-      });
+      .alias('v', 'version');
 
     if (commands.length) {
       // TODO: refuse to register a command if we already registered another one with the same name
@@ -84,13 +69,11 @@ export class CliService {
   
       const data = { ...args, ...answers };
   
-      this.notificationService.enabled = !!args?.notify;
-      
       if (command.npmDependencies && command.npmDependencies.length) {
         await this.npmService.resolveDependencies(command.npmDependencies.filter(dep => dep.when ? dep.when(data) : true));
       }
   
-      await command.handler.bind(command)({ data, notificationService: this.notificationService, appInfo: this.appService.appInfo });
+      await command.handler.bind(command)(data);
     }
     catch(e: any) {
       this.logger.error(e.message);

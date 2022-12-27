@@ -2,12 +2,14 @@ import { Container } from 'inversify';
 import { ComponentRegistry } from '../components';
 import { DependencyException } from '../errors';
 import { ClassConstructor } from '../utils';
+import { IAppInfo } from './app.interfaces';
 
 
 export class AppContext {
   constructor(
     private components: ComponentRegistry,
-    private container: Container
+    private container: Container,
+    public appInfo: IAppInfo
   ) {}
 
   get<T>(classIdentifier: ClassConstructor): T | undefined {

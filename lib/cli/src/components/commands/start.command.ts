@@ -1,10 +1,11 @@
-import { Command, CommandMode, IAppInfo, ICommand, ICommandHandlerOptions } from '@nodearch/core';
+import { Command, IAppInfo, ICommand } from '@nodearch/core';
 import nodemon from 'nodemon';
 import path from 'path';
+import { AppService } from '../app/app.service';
+import { CommandMode } from '../cli/enum';
 
 @Command()
 export class StartCommand implements ICommand {
-
   command = 'start';
   describe = 'Start your App';
   aliases = ['s'];
@@ -17,22 +18,24 @@ export class StartCommand implements ICommand {
   };
   mode = [CommandMode.App];
 
-  async handler({ data, appInfo }: ICommandHandlerOptions) {
-    if (appInfo) {
-      if (data.watch) {
-        this.startWatch(appInfo);
-      }
-      else {
-        await appInfo.app.start();
-      }
+  constructor(
+    private readonly appService: AppService
+  ) {}
+
+  async handler(options: Record<string, any>) {
+    if (options.watch) {
+      this.startWatch(this.appService.appInfo!);
+    }
+    else {
+      await this.appService.app!.start();
     }
   }
 
   private startWatch(appInfo: IAppInfo) {
     nodemon({
-      watch: [appInfo.paths.appDir],
+      watch: [appInfo.paths.dirs.app],
       ext: 'ts',
-      script: path.join(appInfo.paths.appDir, 'start.ts'),
+      script: path.join(appInfo.paths.dirs.app, 'start.ts'),
       legacyWatch: true
     });
   }

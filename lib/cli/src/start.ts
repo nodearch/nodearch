@@ -22,7 +22,10 @@ async function main() {
   }
 
   const app = new CliApp();
-  await app.init();
+  await app.init({
+    mode: 'app',
+    appInfo: path.join(__dirname, '..', 'package.json')
+  });
   await app.start();
 }
  

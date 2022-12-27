@@ -34,6 +34,9 @@
     "reflect-metadata": "^0.1.13"
   },
   "nodearch": {
-    "path": "src/main.ts"
+    "paths": {
+      "root": "./",
+      "app": "./src/main.ts"
+    }
   }
 }

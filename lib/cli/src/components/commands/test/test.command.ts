@@ -1,6 +1,8 @@
 import { 
-  Command, CommandBuilder, CommandMode, ICommand, ICommandHandlerOptions, utils
+  Command, CommandBuilder, ICommand, utils
 } from '@nodearch/core';
+import { AppService } from '../../app/app.service';
+import { CommandMode } from '../../cli/enum';
 import { MochaService } from './mocha.service';
 import { testOptions } from './test.options';
 
@@ -14,7 +16,8 @@ export class TestCommand implements ICommand {
   mode: CommandMode[];
   
   constructor(
-    private readonly mochaService: MochaService
+    private readonly mochaService: MochaService,
+    private readonly appService: AppService
   ) {
     this.command = 'test';
     this.describe = 'Run automated test cases using mocha';
@@ -24,18 +27,18 @@ export class TestCommand implements ICommand {
     
   }
 
-  async handler(options: ICommandHandlerOptions<Record<string, any>>) {
-    if (options.appInfo) {
-      const mochaOptions = this.getCommandOptionsByPrefix(options.data, 'mocha-'); 
-      const nycOptions = this.getCommandOptionsByPrefix(options.data, 'nyc-'); 
+  async handler(options: Record<string, any>) {
+    if (this.appService.appInfo) {
+      const mochaOptions = this.getCommandOptionsByPrefix(options, 'mocha-'); 
+      const nycOptions = this.getCommandOptionsByPrefix(options, 'nyc-'); 
       
-      const code = await this.mochaService.run(options.appInfo, {
+      const code = await this.mochaService.run(this.appService.appInfo, {
         mochaOptions,
         nycOptions,
         generalOptions: {
-          mode: options.data.mode,
-          coverage: options.data.coverage,
-          openCoverage: options.data.openCoverage
+          mode: options.mode,
+          coverage: options.coverage,
+          openCoverage: options.openCoverage
         }
       });
 

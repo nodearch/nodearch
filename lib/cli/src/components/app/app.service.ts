@@ -1,12 +1,11 @@
-import path from 'path';
-import { CoreAnnotation, ICommand, Logger, Service, IAppInfo } from '@nodearch/core';
-import { IAppConfig } from './app.interfaces';
+import { CoreAnnotation, ICommand, Logger, Service, IAppInfo, App, FileSystem } from '@nodearch/core';
 
 
 @Service()
 export class AppService {
 
   appInfo?: IAppInfo;
+  app?: App;
 
   constructor(
     private readonly logger: Logger
@@ -15,8 +14,8 @@ export class AppService {
   getCommands() {
     let commands: ICommand[] = [];
     
-    if (this.appInfo) {
-      commands = this.appInfo.app.getAll<ICommand>(CoreAnnotation.Command);
+    if (this.app) {
+      commands = this.app.getAll<ICommand>(CoreAnnotation.Command);
     }
 
     return commands;
@@ -25,49 +24,31 @@ export class AppService {
   async load() {
     this.logger.info('Scanning for a local App...'); 
     
-    const appConfig = await this.getAppConfig();
+    const appInfo = await this.getAppInfo();
 
-    if (!appConfig) return;
+    if (!appInfo) return;
 
-    const LocalApp = (await this.importIfExist(appConfig.path))?.default;
+    const LocalApp = (await FileSystem.importFile(appInfo.paths.files.app))?.default;
     
+    // TODO: throw error instead?
     if (!LocalApp.nodearch) return;
 
-    const app = new LocalApp();
-    await app.init();
+    this.app = new LocalApp();
 
-    this.appInfo = {
-      paths: {
-        root: this.resolvePath(process.cwd()),
-        nodeModules: this.resolvePath(path.join(process.cwd(), 'node_modules')),
-        appDir: path.dirname(appConfig.path),
-        app: appConfig.path
-      },
-      app
-    };
-  }
-
-  private async getAppConfig() {
-    const pkgPath = path.join(process.cwd(), 'package.json');
-    const pkg = await this.importIfExist(pkgPath); 
-    
-    if (pkg && pkg.nodearch && pkg.nodearch.path) {
-      pkg.nodearch.path = this.resolvePath(pkg.nodearch.path);
-      return pkg.nodearch as IAppConfig;
+    if (this.app) {
+      await this.app.init({
+        mode: 'app',
+        appInfo: appInfo 
+      });
     }
   }
 
-  private async importIfExist(path: string) {
+  private async getAppInfo() {
     try {
-      return await import(path);
+      return await App.getAppInfo(FileSystem.resolvePath(process.cwd(), 'node_modules'));
     }
     catch(e: any) {
       if (e.code !== 'MODULE_NOT_FOUND') throw e;
     }
-  }
-
-  private resolvePath(strPath: string) {
-    return (path.isAbsolute(strPath) ? 
-      path.normalize(strPath) : path.resolve(strPath)).replace(/\\/g, '/');
   }
 }

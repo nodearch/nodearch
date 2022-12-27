@@ -10,7 +10,7 @@ export class ClassLoader {
   private include: string[];
   private exclude: string[];
 
-  constructor(options: IClassLoaderOptions = {}) {
+  constructor(options: IClassLoaderOptions) {
     this.classes = options.classes || [];
     this.path =  options.path;
 

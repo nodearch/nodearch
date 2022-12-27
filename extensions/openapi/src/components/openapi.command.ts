@@ -1,4 +1,4 @@
-import { Command, ICommand, ICommandHandlerOptions, Logger } from '@nodearch/core';
+import { AppContext, Command, ICommand, Logger } from '@nodearch/core';
 import { IOpenAPICommandOptions, OpenAPIFormat } from '../interfaces';
 import { OpenApiBuilder } from 'openapi3-ts';
 import { OpenAPI } from './openapi';
@@ -9,7 +9,7 @@ import { OpenAPIConfig } from './openapi.config';
 
 @Command({ export: true })
 export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
-  command = 'openapi:generate';
+  command = 'openapi generate';
   describe = 'Generate OpenAPI Document';
 
   builder = {
@@ -28,12 +28,13 @@ export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
   constructor(
     private readonly openAPI: OpenAPI,
     private readonly logger: Logger,
-    private readonly config: OpenAPIConfig
+    private readonly config: OpenAPIConfig,
+    private readonly appContext: AppContext
   ) {}
 
-  async handler(options: ICommandHandlerOptions<IOpenAPICommandOptions>) {
-    const format = this.config.format || options.data.format;
-    let filePath = this.config.path || options.data.path;
+  async handler(options: IOpenAPICommandOptions) {
+    const format = this.config.format || options.format;
+    let filePath = this.config.path || options.path;
 
     const fileExtensions = Object.values(OpenAPIFormat).map(ft => '.' + ft);
     let specs: string = '';
@@ -49,7 +50,7 @@ export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
     }
 
     if (!filePath) {
-      filePath = path.join(options.appInfo!.paths.root, 'openapi.' + format);
+      filePath = path.join(this.appContext.appInfo.paths.dirs.root, 'openapi.' + format);
     }
     else {
       filePath = path.isAbsolute(filePath) ? filePath : path.join(process.cwd(), filePath);

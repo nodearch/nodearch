@@ -53,7 +53,7 @@ export class NpmService {
       let nodeModules: string[] = [];
 
       try {
-        nodeModules = await fs.promises.readdir(this.appService.appInfo.paths.nodeModules);
+        nodeModules = await fs.promises.readdir(this.appService.appInfo.paths.dirs.nodeModules);
       }
       catch(e) { console.log(e) }
       finally {
@@ -63,11 +63,11 @@ export class NpmService {
           });
 
           if (depsToInstall.length) {
-            await this.installPackages(depsToInstall, this.appService.appInfo.paths.root);
+            await this.installPackages(depsToInstall, this.appService.appInfo.paths.dirs.root);
           }
         }
         else {
-          await this.install(this.appService.appInfo.paths.root);
+          await this.install(this.appService.appInfo.paths.dirs.root);
           await this.resolveDependencies(deps);
         }
       }

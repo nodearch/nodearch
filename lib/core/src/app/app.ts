@@ -1,15 +1,16 @@
-import { ClassLoader } from '../loader';
+import { ClassLoader, FileSystem } from '../loader';
 import { 
   CoreAnnotation, IHook, ConfigManager, 
   ComponentScope, ComponentRegistry, 
-  TestManager, TestMode, MochaAnnotation 
+  TestManager, TestMode, MochaAnnotation,
 } from '../components';
-import { IAppOptions, IInitOptions } from './app.interfaces';
+import { IAppOptions, IAppPaths, IInitOptions, IAppInfo, IPackageJSON } from './app.interfaces';
 import { ILogger, ILogOptions, Logger } from '../log';
 import { Container } from 'inversify';
 import { ClassConstructor } from '../utils';
 import { DependencyException } from '../errors';
 import { AppContext } from './app-context';
+import path from 'path';
 
 export class App {
 
@@ -24,13 +25,13 @@ export class App {
   private container: Container;
   private componentRegistry: ComponentRegistry;
   private testManager: TestManager;
+  private appInfo?: IAppInfo;
 
 
-  constructor(options: IAppOptions = {}) {
-
+  constructor(options: IAppOptions) {
     this.classLoader = new ClassLoader(options.components);
     this.container = new Container({
-      defaultScope: options.scope || ComponentScope.Singleton
+      defaultScope: options.components.scope || ComponentScope.Singleton
     });
     this.componentRegistry = new ComponentRegistry(this.container);
     this.testManager = new TestManager(this.container);
@@ -45,7 +46,7 @@ export class App {
     }
 
     if(!this.appContext) {
-      this.appContext = new AppContext(this.componentRegistry, this.container);
+      this.appContext = new AppContext(this.componentRegistry, this.container, this.appInfo!);
     }
 
     this.container.bind(Logger).toConstantValue(this.logger as Logger);
@@ -55,11 +56,11 @@ export class App {
 
   private async loadExtensions () {
     if (this.extensions) {
-      // TODO: consider making this Promise.all
       for (const extension of this.extensions) {
         try {
           await extension.init({
-            logger: this.logger, // propagate the logger to the extension
+            mode: 'ext',
+            logger: this.logger,
             appContext: this.appContext
           });
         }
@@ -115,18 +116,18 @@ export class App {
     }
   }
 
-  async init(options?: IInitOptions) {
+  async init(options: IInitOptions) {
     // TODO: We can probably add performance insights here
 
-    /**
-     * If a logger was passed, set it here, so at later step, 
-     * it would just skip the creation of a new logger instance. 
-     * Also, that probably means this is an extension context
-     * and the logger is being passed from the parent App.
-     */ 
-    if (options?.logger) this.logger = options.logger;
-
-    if (options?.appContext) this.appContext = options.appContext;
+    if (options.mode === 'app') {
+      this.appInfo = typeof options.appInfo === 'string' ? 
+        await App.getAppInfo(options.appInfo) : 
+        options.appInfo; // TODO: validate
+    }
+    else if (options.mode === 'ext') {
+      this.logger = options.logger;
+      this.appContext = options.appContext;
+    }
 
     this.loadCoreComponents();
     await this.loadExtensions();
@@ -222,5 +223,32 @@ export class App {
    */
   get appName () {
     return this.constructor.name;
+  }
+
+  static async getAppInfo(packagePath: string) {
+    const pkgInfo = await FileSystem.importFile(packagePath) as IPackageJSON;
+
+    const paths = FileSystem
+      .resolvePaths(pkgInfo.nodearch.paths, path.dirname(packagePath));
+
+    const appInfo: IAppInfo = {
+      name: pkgInfo.name,
+      version: pkgInfo.version,
+      paths: {
+        dirs: {
+          root: paths.root,
+          app: path.dirname(paths.app),
+          nodeModules: path.join(paths.root, 'node_modules')
+        },
+        files: {
+          app: paths.app,
+          package: path.join(paths.root, 'package.json')
+        }
+      }
+    };
+
+    // TODO: validate package.json
+
+    return appInfo as IAppInfo;
   }
 }

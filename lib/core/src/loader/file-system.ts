@@ -174,4 +174,18 @@ export class FileSystem {
   static importFileSync(filePath: string) {
     return module.require(filePath);
   }
+
+  static resolvePath(strPath: string, to?: string) {
+    return path.normalize(path.resolve(to || process.cwd(), strPath));
+  }
+
+  static resolvePaths(paths: Record<string, string>, to?: string) {
+    const resolvedPaths: Record<string, string> = {};
+    
+    for (const p in paths) {
+      resolvedPaths[p] = FileSystem.resolvePath(paths[p], to);
+    }
+
+    return resolvedPaths;
+  }
 }
