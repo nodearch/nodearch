@@ -202,6 +202,23 @@ importers:
       nodemon: 2.0.20
       rimraf: 3.0.2
 
+  ../../lib/command:
+    specifiers:
+      '@nodearch/core': workspace:^1.4.2
+      '@types/node': ^16.18.0
+      '@types/yargs': ^15.0.9
+      rimraf: ~3.0.2
+      typescript: ^4.7.2
+      yargs: ^16.1.1
+    dependencies:
+      yargs: 16.2.0
+    devDependencies:
+      '@nodearch/core': link:../core
+      '@types/node': 16.18.3
+      '@types/yargs': 15.0.14
+      rimraf: 3.0.2
+      typescript: 4.7.4
+
   ../../lib/core:
     specifiers:
       '@types/jest': ~26.0.19
@@ -223,6 +240,21 @@ importers:
       rimraf: 3.0.2
       ts-jest: 26.5.6_jest@26.6.3+typescript@4.7.4
       ts-node: 10.8.2_4e2f4e06de040c9b7b0a9fa7e3df8ef1
+      typescript: 4.7.4
+
+  ../../templates/cli:
+    specifiers:
+      '@nodearch/command': workspace:^0.1.0
+      '@nodearch/core': workspace:^1.4.2
+      '@types/node': ^16.18.0
+      rimraf: ~3.0.2
+      typescript: ^4.7.2
+    dependencies:
+      '@nodearch/command': link:../../lib/command
+      '@nodearch/core': link:../../lib/core
+    devDependencies:
+      '@types/node': 16.18.3
+      rimraf: 3.0.2
       typescript: 4.7.4
 
   ../../templates/express:

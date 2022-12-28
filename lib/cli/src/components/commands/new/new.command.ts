@@ -4,9 +4,9 @@ import {
   ICommand, Logger 
 } from '@nodearch/core';
 import path from 'path';
-import { CommandMode } from '../cli/enum';
-import { GitHubService } from '../utils/github.service';
-import { NpmService } from '../utils/npm.service';
+import { CommandMode } from '../../cli/enum';
+import { GitHubService } from '../../utils/github.service';
+import { NpmService } from '../../utils/npm.service';
 
 
 @Command()

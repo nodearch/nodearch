@@ -1,4 +1,5 @@
 import { CoreAnnotation, ICommand, Logger, Service, IAppInfo, App, FileSystem } from '@nodearch/core';
+import path from 'path';
 
 
 @Service()
@@ -24,12 +25,12 @@ export class AppService {
   async load() {
     this.logger.info('Scanning for a local App...'); 
     
-    const appInfo = await this.getAppInfo();
+    this.appInfo = await this.getAppInfo();
 
-    if (!appInfo) return;
+    if (!this.appInfo) return;
 
-    const LocalApp = (await FileSystem.importFile(appInfo.paths.files.app))?.default;
-    
+    const LocalApp = (await FileSystem.importFile(this.appInfo.paths.files.app))?.default;
+
     // TODO: throw error instead?
     if (!LocalApp.nodearch) return;
 
@@ -38,14 +39,14 @@ export class AppService {
     if (this.app) {
       await this.app.init({
         mode: 'app',
-        appInfo: appInfo 
+        appInfo: this.appInfo 
       });
     }
   }
 
   private async getAppInfo() {
     try {
-      return await App.getAppInfo(FileSystem.resolvePath(process.cwd(), 'node_modules'));
+      return await App.getAppInfo(path.join(process.cwd(), 'package.json'));
     }
     catch(e: any) {
       if (e.code !== 'MODULE_NOT_FOUND') throw e;

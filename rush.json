@@ -403,6 +403,12 @@
       "versionPolicyName": "packages"
     },
     {
+      "packageName": "@nodearch/command",
+      "projectFolder": "lib/command",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages"
+    },
+    {
       "packageName": "@nodearch/cli",
       "projectFolder": "lib/cli",
       "reviewCategory": "production",
@@ -421,6 +427,12 @@
     {
       "packageName": "@nodearch/template-standalone",
       "projectFolder": "templates/standalone",
+      "reviewCategory": "prototypes",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@nodearch/template-cli",
+      "projectFolder": "templates/cli",
       "reviewCategory": "prototypes",
       "shouldPublish": false
     },

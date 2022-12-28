@@ -11,6 +11,10 @@
       "allowedCategories": [ "production", "prototypes" ]
     },
     {
+      "name": "@nodearch/command",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "@nodearch/core",
       "allowedCategories": [ "production", "prototypes" ]
     },
