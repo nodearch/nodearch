@@ -4,13 +4,14 @@ import path from 'path';
 
 
 export default class CliTemplate extends App {
-  constructor() {
+  constructor(enable?: boolean) {
     super({
       components: {
         path: path.join(__dirname, 'components')
       },
       extensions: [
         new CommandApp({
+          enable,
           name: 'cli-template',
           usage: 'Usage: cli-template <command> [options]'
         })

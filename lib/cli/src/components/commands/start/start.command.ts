@@ -21,8 +21,7 @@ export class StartCommand implements ICommand {
   mode = [CommandMode.App]; 
 
   constructor(
-    private readonly appService: AppService,
-    private readonly execService: ExecService
+    private readonly appService: AppService
   ) {}
 
   async handler(options: Record<string, any>) {
@@ -30,34 +29,7 @@ export class StartCommand implements ICommand {
       this.startWatch(this.appService.appInfo!);
     }
     else {
-
-      fork(
-        path.join(__dirname, '..', '..', '..', '..', 'child-processes', 'start-app'), 
-        // [
-        //   this.appService.appInfo!.paths.files.app,
-        //   this.appService.appInfo!.paths.files.package
-        // ], 
-        { 
-          cwd: this.appService.appInfo?.paths.dirs.app
-        }
-      );
-
-      // await this.appService.app!.start();
-      // await this.execService.tsNode(`
-      // console.log('XX', '${this.appService.appInfo?.paths.files.app.replace(/\\/g, "\\\\")}')
-      //   async function main() { 
-      //     const CliTemplate = (await import('${this.appService.appInfo?.paths.files.app.replace(/\\/g, "\\\\")}'))?.default; 
-      //     const app = new CliTemplate(); 
-      //     await app.init({ 
-      //       mode: 'app', 
-      //       appInfo: "${this.appService.appInfo?.paths.files.package.replace(/\\/g, "\\\\")}" 
-      //     }); 
-          
-      //     await app.start(); 
-      //   } 
-        
-      //   main().catch(console.log);
-      // `);
+      await this.appService.app?.start();
     }
   }
 

@@ -3,7 +3,7 @@ import CliTemplate from './main';
 
 
 async function main() {
-  const app = new CliTemplate();
+  const app = new CliTemplate(true);
 
   await app.init({
     mode: 'app',

@@ -11,13 +11,13 @@ export class CommandHook implements IHook {
   ) {}
 
   async onStart() {
-    console.log('Hellllllllllllllllllllllllllllll');
+    if (!this.commandConfig.enable) return;
+
     yargs
       .scriptName(this.commandConfig.name)
       .usage(this.commandConfig.usage)
       .demandCommand()
 
-      .command('hi', 'dddd')
 
       .alias('h', 'help')
       .alias('v', 'version');
