@@ -1,9 +1,9 @@
 import { Container } from 'inversify';
-import { ClassConstructor } from '../../utils';
-import { ComponentHandler } from '../handler';
-import { ComponentInfo } from './info';
-import { IComponentRegistration } from './interfaces';
-import { ComponentMetadata } from './metadata';
+import { ClassConstructor } from '../../utils/types.js';
+import { ComponentHandler } from '../handler.js';
+import { ComponentInfo } from './info.js';
+import { IComponentRegistration } from './interfaces.js';
+import { ComponentMetadata } from './metadata.js';
 
 
 export class ComponentRegistry {

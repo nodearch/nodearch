@@ -1,6 +1,7 @@
 import { ParsedPath } from 'path';
-import { FileType } from './enums';
-import { ClassConstructor } from '../utils';
+import { ClassConstructor } from '../utils/types.js';
+import { FileType } from './enums.js';
+
 
 
 export interface IFileInfo extends ParsedPath {

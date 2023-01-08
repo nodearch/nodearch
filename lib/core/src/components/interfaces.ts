@@ -1,7 +1,8 @@
 import { Container } from 'inversify';
-import { ClassConstructor } from '../utils';
-import { ComponentScope } from './enums';
-import { ComponentInfo } from './registration/info';
+import { ClassConstructor } from '../utils/types.js';
+import { ComponentScope } from './enums.js';
+import { ComponentInfo } from './registration/info.js';
+
 
 export interface IComponentsOptions {
   // Components default scope ( Singleton if not provided )

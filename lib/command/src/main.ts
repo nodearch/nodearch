@@ -1,4 +1,4 @@
-import { App } from '@nodearch/core';
+import {  } from '@nodearch/core/app';
 import path from 'path';
 import { ICommandAppOptions } from './components/interfaces';
 

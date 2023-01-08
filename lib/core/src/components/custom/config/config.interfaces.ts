@@ -1,4 +1,4 @@
-import { ConfigType } from './config.enums';
+import { ConfigType } from './config.enums.js';
 
 export interface IEnvConfig<T> {
   key?: string;

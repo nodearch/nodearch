@@ -1,16 +1,20 @@
-import { ClassLoader, FileSystem } from '../loader';
-import { 
-  CoreAnnotation, IHook, ConfigManager, 
-  ComponentScope, ComponentRegistry, 
-  TestManager, TestMode, MochaAnnotation,
-} from '../components';
-import { IAppOptions, IAppPaths, IInitOptions, IAppInfo, IPackageJSON } from './app.interfaces';
-import { ILogger, ILogOptions, Logger } from '../log';
 import { Container } from 'inversify';
-import { ClassConstructor } from '../utils';
-import { DependencyException } from '../errors';
-import { AppContext } from './app-context';
-import path from 'path';
+import path from 'node:path';
+import { ConfigManager } from '../components/custom/config/config-manager.js';
+import { IHook } from '../components/custom/hook/hook.interface.js';
+import { TestManager } from '../components/custom/test/test-manager.js';
+import { MochaAnnotation, TestMode } from '../components/custom/test/test.enums.js';
+import { ComponentScope, CoreAnnotation } from '../components/enums.js';
+import { ComponentRegistry } from '../components/registration/registry.js';
+import { DependencyException } from '../errors.js';
+import { ClassLoader } from '../loader/class-loader.js';
+import { FileSystem } from '../loader/file-system.js';
+import { ILogger, ILogOptions } from '../log/interfaces.js';
+import { Logger } from '../log/logger.js';
+import { ClassConstructor } from '../utils/types.js';
+import { AppContext } from './app-context.js';
+import { IAppInfo, IAppOptions, IInitOptions, IPackageJSON } from './app.interfaces.js';
+
 
 export class App {
 

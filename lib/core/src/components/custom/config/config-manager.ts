@@ -1,5 +1,5 @@
-import { IEnvConfig } from './config.interfaces';
-import { ConfigResolve } from './config-resolve';
+import { ConfigResolve } from './config-resolve.js';
+import { IEnvConfig } from './config.interfaces.js';
 
 
 /**

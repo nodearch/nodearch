@@ -1,7 +1,7 @@
 import { multiInject } from 'inversify';
-import { CoreAnnotation } from './enums';
-import { IComponentOptions } from './interfaces';
-import { ComponentFactory } from './registration/factory';
+import { CoreAnnotation } from './enums.js';
+import { IComponentOptions } from './interfaces.js';
+import { ComponentFactory } from './registration/factory.js';
 
 
 export const Component = (options?: IComponentOptions): ClassDecorator => 

@@ -1,4 +1,4 @@
-import { ConfigType } from './config.enums';
+import { ConfigType } from './config.enums.js';
 
 export abstract class TypeParser {
   static parse(value: string, defaultValue?: any, configType?: ConfigType) {

@@ -1,8 +1,10 @@
-import { MochaAnnotation, TestMode } from './test.enums';
-import { ITestCaseOptions, ITestSuiteMetadata, ITestSuiteOptions } from './test.interfaces';
-import { utils, ClassConstructor } from '../../../utils';
-import { ComponentScope } from '../../enums';
-import { ComponentFactory } from '../../registration';
+import { ClassConstructor } from '../../../utils/types.js';
+import * as utils from '../../../utils/utils.js';
+import { ComponentScope } from '../../enums.js';
+import { ComponentFactory } from '../../registration/factory.js';
+import { MochaAnnotation, TestMode } from './test.enums.js';
+import { ITestCaseOptions, ITestSuiteMetadata, ITestSuiteOptions } from './test.interfaces.js';
+
 
 
 export function Test(): ClassDecorator;

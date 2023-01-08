@@ -1,5 +1,3 @@
-import { App } from '../../../app';
-
 export enum CommandQuestionType {
   Input = 'input',
   Number = 'number',

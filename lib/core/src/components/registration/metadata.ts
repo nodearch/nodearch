@@ -1,8 +1,7 @@
-import { MetadataInfo } from '../../metadata';
-import { ClassConstructor } from '../../utils';
-import { IComponentDecorator } from '../interfaces';
-import { IComponentRegistration } from './interfaces';
-
+import { MetadataInfo } from '../../metadata/metadata.js';
+import { ClassConstructor } from '../../utils/types.js';
+import { IComponentDecorator } from '../interfaces.js';
+import { IComponentRegistration } from './interfaces.js';
 
 
 export abstract class ComponentMetadata {

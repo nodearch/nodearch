@@ -1,6 +1,7 @@
-import { ConsoleLogger } from './console';
-import { LogLevel } from './enums';
-import { ILoggerHandler, ILogOptions } from './interfaces';
+import { ConsoleLogger } from './console/console-logger.js';
+import { LogLevel } from './enums.js';
+import { ILoggerHandler, ILogOptions } from './interfaces.js';
+
 
 export class Logger {
   

@@ -1,6 +1,6 @@
-import { ClassConstructor } from '../../utils';
-import { ComponentHandler } from '../handler';
-import { IComponentDecoratorDependency, IComponentOptions } from '../interfaces';
+import { ClassConstructor } from '../../utils/types.js';
+import { ComponentHandler } from '../handler.js';
+import { IComponentDecoratorDependency, IComponentOptions } from '../interfaces.js';
 
 
 export interface IComponentRegistration<T = any> {

@@ -2,9 +2,21 @@
   "name": "@nodearch/core",
   "version": "1.4.2",
   "description": "nodearch core module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "type": "commonjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./app": {
+      "import": "./dist/app/*.js",
+      "types": "./dist/app/*.d.ts"
+    }
+  },
+  "types": "./dist/*.d.ts",
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc",

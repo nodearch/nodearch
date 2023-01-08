@@ -1,9 +1,10 @@
-import { ClassConstructor, ClassInfo } from '../../utils';
-import { ComponentMetadata } from './metadata';
-import { IComponentRegistration } from './interfaces';
-import { IComponentDecorator } from '../interfaces';
 import { Container } from 'inversify';
-import { CoreAnnotation } from '../enums';
+import { ClassInfo } from '../../utils/class-info.js';
+import { ClassConstructor } from '../../utils/types.js';
+import { CoreAnnotation } from '../enums.js';
+import { IComponentDecorator } from '../interfaces.js';
+import { IComponentRegistration } from './interfaces.js';
+import { ComponentMetadata } from './metadata.js';
 
 
 export class ComponentInfo<T = any> {

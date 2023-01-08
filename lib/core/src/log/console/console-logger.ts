@@ -1,7 +1,8 @@
-import { ILoggerHandler } from '../interfaces';
-import { LogLevel } from '../enums';
-import { IConsoleLoggerOptions, ILogColorMap } from './interfaces';
-import { Color } from './enums';
+import { LogLevel } from '../enums.js';
+import { ILoggerHandler } from '../interfaces.js';
+import { Color } from './enums.js';
+import { IConsoleLoggerOptions, ILogColorMap } from './interfaces.js';
+
 
 
 export class ConsoleLogger implements ILoggerHandler {

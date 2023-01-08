@@ -1,8 +1,9 @@
-import { ComponentScope } from '../components';
-import { App } from "./app";
-import { ILogger, ILogOptions } from '../log';
-import { IClassLoaderOptions } from '../loader';
-import { AppContext } from './app-context';
+import { ComponentScope } from '../components/enums.js';
+import { IClassLoaderOptions } from '../loader/interfaces.js';
+import { ILogger, ILogOptions } from '../log/interfaces.js';
+import { AppContext } from './app-context.js';
+import { App } from './app.js';
+
 
 
 export interface IAppConstructor {

@@ -1,5 +1,6 @@
-import { IEnvConfig } from './config.interfaces';
-import { TypeParser } from './type-parser';
+import { IEnvConfig } from './config.interfaces.js';
+import { TypeParser } from './type-parser.js';
+
 
 export abstract class ConfigResolve {
   static hasValue(x: any) {

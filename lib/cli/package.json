@@ -30,7 +30,6 @@
     "@nodearch/core": "workspace:^1.4.2",
     "axios": "^0.21.0",
     "decompress": "^4.2.1",
-    "inquirer": "^7.3.3",
     "node-notifier": "^8.0.0",
     "open": "^8.4.0",
     "ora": "^5.4.1",
@@ -47,7 +46,6 @@
   "devDependencies": {
     "@types/node-notifier": "^8.0.0",
     "@types/decompress": "^4.2.3",
-    "@types/inquirer": "^7.3.1",
     "@types/node": "^16.18.0",
     "@types/nodemon": "^1.19.2",
     "@types/yargs": "^15.0.9",

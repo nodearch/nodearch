@@ -1,17 +1,24 @@
-import { AppContext, CoreAnnotation, ICommand, Service } from '@nodearch/core';
+import { AppContext, Logger, Service } from '@nodearch/core';
 import { Arguments, CommandModule } from 'yargs';
+import { CommandAnnotation } from './annotation/enums';
+import { CommandQuestion, ICommand } from './annotation/interfaces';
+import inquirer from 'inquirer';
+
 
 @Service()
 export class CommandParser {
   constructor(
-    private readonly appContext: AppContext
+    private readonly appContext: AppContext,
+    private readonly logger: Logger
+
   ) {}
 
   getCommands() {
-    const commands = this.appContext.getAll<ICommand>(CoreAnnotation.Command);
+    const commands = this.appContext.getAll<ICommand>(CommandAnnotation.Command);
+    return this.getYargsCommands(commands);
   }
 
-  getYargsCommands(commands: ICommand[]): CommandModule[] {
+  private getYargsCommands(commands: ICommand[]): CommandModule[] {
     return commands.map(cmd => {
       const { handler, questions, npmDependencies, ...commandOptions } = cmd;
       const handlerFn = (args: Arguments) => this.handlerFactory(cmd, args);
@@ -38,9 +45,9 @@ export class CommandParser {
   
       const data = { ...args, ...answers };
   
-      if (command.npmDependencies && command.npmDependencies.length) {
-        await this.npmService.resolveDependencies(command.npmDependencies.filter(dep => dep.when ? dep.when(data) : true));
-      }
+      // if (command.npmDependencies && command.npmDependencies.length) {
+      //   await this.npmService.resolveDependencies(command.npmDependencies.filter(dep => dep.when ? dep.when(data) : true));
+      // }
   
       await command.handler.bind(command)(data);
     }

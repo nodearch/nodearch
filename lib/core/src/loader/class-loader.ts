@@ -1,6 +1,7 @@
-import { IFile, IClassLoaderOptions } from './interfaces';
-import { ClassConstructor } from '../utils';
-import { FileSystem } from './file-system';
+import { ClassConstructor } from '../utils/types.js';
+import { FileSystem } from './file-system.js';
+import { IClassLoaderOptions, IFile } from './interfaces.js';
+
 
 export class ClassLoader {
   classes: ClassConstructor[];

@@ -1,9 +1,10 @@
 import { Container } from 'inversify';
-import { ComponentInfo } from '../../registration';
-import { MochaAnnotation, TestMode } from './test.enums';
-import { ITestCaseOptions, ITestSuiteOptions, TestHook } from './test.interfaces';
-import { TestBox } from './test-box';
-import { ClassConstructor } from '../../../utils';
+import { ClassConstructor } from '../../../utils/types.js';
+import { ComponentInfo } from '../../registration/info.js';
+import { TestBox } from './test-box.js';
+import { MochaAnnotation, TestMode } from './test.enums.js';
+import { ITestCaseOptions, ITestSuiteOptions, TestHook } from './test.interfaces.js';
+
 
 
 export class TestManager {

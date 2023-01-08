@@ -1,4 +1,4 @@
-import { LogLevel } from './enums';
+import { LogLevel } from './enums.js';
 
 export interface ILogger {
   error(...args: any[]): void;

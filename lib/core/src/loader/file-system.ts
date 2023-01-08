@@ -1,8 +1,9 @@
-import path from 'path';
-import fs from 'fs';
-import util from 'util';
-import { IFileInfo, IFile } from './interfaces';
-import { FileType } from './enums';
+import path from 'node:path';
+import fs from 'node:fs';
+import util from 'node:util';
+import { IFile, IFileInfo } from './interfaces.js';
+import { FileType } from './enums.js';
+
 
 
 const fsAccess = util.promisify(fs.access);
