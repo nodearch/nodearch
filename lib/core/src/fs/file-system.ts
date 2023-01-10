@@ -1,14 +1,7 @@
 import path from 'node:path';
-import fs from 'node:fs';
-import util from 'node:util';
+import fs from 'node:fs/promises';
 import { IFile, IFileInfo } from './interfaces.js';
 import { FileType } from './enums.js';
-
-
-
-const fsAccess = util.promisify(fs.access);
-const readdir = util.promisify(fs.readdir);
-const lstat = util.promisify(fs.lstat);
 
 
 export class FileSystem {
@@ -31,7 +24,7 @@ export class FileSystem {
   }
 
   static async readDir(dirPath: string): Promise<IFileInfo[]> {
-    const dirContent = await readdir(dirPath);
+    const dirContent = await fs.readdir(dirPath);
 
     return Promise.all(
       dirContent.map(async (item) => {
@@ -41,7 +34,7 @@ export class FileSystem {
 
         let itemType;
 
-        const stat = await lstat(itemPath);
+        const stat = await fs.lstat(itemPath);
 
         if (stat.isDirectory()) {
           itemType = FileType.Directory;
@@ -108,30 +101,30 @@ export class FileSystem {
     });
   }
 
-  static findUpSync(fileName: string, searchPath?: string): string | undefined {
-    let searchDir = searchPath || process.cwd();
-    let foundDir = null;
-    let isSearch = true;
+  // static findUpSync(fileName: string, searchPath?: string): string | undefined {
+  //   let searchDir = searchPath || process.cwd();
+  //   let foundDir = null;
+  //   let isSearch = true;
 
-    while (isSearch) {
-      const result = fs.existsSync(path.join(searchDir, fileName));
-      const parentDir = path.join(searchDir, '..');
-      if (!result && parentDir !== searchDir) {
-        searchDir = parentDir;
-      }
-      else if (!result && parentDir === searchDir) {
-        // not found.
-        isSearch = false;
-      }
-      else {
-        // found.
-        foundDir = searchDir;
-        isSearch = false;
-      }
-    }
+  //   while (isSearch) {
+  //     const result = fs.existsSync(path.join(searchDir, fileName));
+  //     const parentDir = path.join(searchDir, '..');
+  //     if (!result && parentDir !== searchDir) {
+  //       searchDir = parentDir;
+  //     }
+  //     else if (!result && parentDir === searchDir) {
+  //       // not found.
+  //       isSearch = false;
+  //     }
+  //     else {
+  //       // found.
+  //       foundDir = searchDir;
+  //       isSearch = false;
+  //     }
+  //   }
 
-    return foundDir ? path.join(foundDir, fileName) : undefined;
-  }
+  //   return foundDir ? path.join(foundDir, fileName) : undefined;
+  // }
 
   static async findUp(fileName: string, searchPath?: string): Promise<string | undefined> {
     let searchDir = searchPath || process.cwd();
@@ -159,7 +152,7 @@ export class FileSystem {
   }
 
   static async access(filePath: string) {
-    return fsAccess(filePath, fs.constants.F_OK)
+    return fs.access(filePath, fs.constants.F_OK)
       .then(() => {
         return true;
       })

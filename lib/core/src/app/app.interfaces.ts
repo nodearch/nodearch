@@ -1,5 +1,5 @@
-import { ComponentScope } from '../components/enums.js';
-import { IClassLoaderOptions } from '../loader/interfaces.js';
+import { ComponentScope } from '../registry/enums.js';
+import { IClassLoaderOptions } from '../fs/interfaces.js';
 import { ILogger, ILogOptions } from '../log/interfaces.js';
 import { AppContext } from './app-context.js';
 import { App } from './app.js';

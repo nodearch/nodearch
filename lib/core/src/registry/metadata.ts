@@ -1,6 +1,6 @@
-import { MetadataInfo } from '../../metadata/metadata.js';
-import { ClassConstructor } from '../../utils/types.js';
-import { IComponentDecorator } from '../interfaces.js';
+import { MetadataInfo } from '../metadata/metadata.js';
+import { ClassConstructor } from '../utils/types.js';
+import { IComponentDecorator } from './interfaces.js';
 import { IComponentRegistration } from './interfaces.js';
 
 

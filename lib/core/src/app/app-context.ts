@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { ComponentRegistry } from '../components/registration/registry.js';
+import { ComponentRegistry } from '../registry/registry.js';
 import { DependencyException } from '../errors.js';
 import { ClassConstructor } from '../utils/types.js';
 import { IAppInfo } from './app.interfaces.js';

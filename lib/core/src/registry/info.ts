@@ -1,8 +1,8 @@
 import { Container } from 'inversify';
-import { ClassInfo } from '../../utils/class-info.js';
-import { ClassConstructor } from '../../utils/types.js';
-import { CoreAnnotation } from '../enums.js';
-import { IComponentDecorator } from '../interfaces.js';
+import { ClassInfo } from '../utils/class-info.js';
+import { ClassConstructor } from '../utils/types.js';
+import { CoreAnnotation } from './enums.js';
+import { IComponentDecorator } from './interfaces.js';
 import { IComponentRegistration } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 

@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
-import { ClassConstructor } from '../../utils/types.js';
-import { ComponentHandler } from '../handler.js';
+import { ClassConstructor } from '../utils/types.js';
+import { ComponentHandler } from './handler.js';
 import { ComponentInfo } from './info.js';
 import { IComponentRegistration } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';

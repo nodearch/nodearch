@@ -1,6 +1,6 @@
 import { Container, interfaces } from "inversify";
 import { ComponentScope } from './enums.js';
-import { ComponentInfo } from './registration/info.js';
+import { ComponentInfo } from './info.js';
 
 export class ComponentHandler {
   constructor(private readonly container: Container) {}

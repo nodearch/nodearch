@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
-import { ClassInfo } from '../../utils/class-info.js';
-import { ClassConstructor } from '../../utils/types.js';
-import { ComponentHandler } from '../handler.js';
-import { IComponentDecoratorDependency, IComponentOptions } from '../interfaces.js';
+import { ClassInfo } from '../utils/class-info.js';
+import { ClassConstructor } from '../utils/types.js';
+import { ComponentHandler } from './handler.js';
+import { IComponentDecoratorDependency, IComponentOptions } from './interfaces.js';
 import { IComponentRegistration } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 

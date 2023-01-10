@@ -3,25 +3,25 @@
   "version": "1.4.2",
   "description": "nodearch core module",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
     "./app": {
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts"
+      "import": "./dist/app/index.js",
+      "types": "./dist/app/index.d.ts"
     },
     "./components": {
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts"
-    },
-    "./registry": {
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts"
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts"
     },
     "./fs": {
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts"
+      "import": "./dist/fs/index.js",
+      "types": "./dist/fs/index.d.ts"
+    },
+    "./log": {
+      "import": "./dist/log/index.js",
+      "types": "./dist/log/index.d.ts"
+    },
+    "./registry": {
+      "import": "./dist/registry/index.js",
+      "types": "./dist/registry/index.d.ts"
     },
     "./utils": {
       "import": "./dist/utils/index.js",
