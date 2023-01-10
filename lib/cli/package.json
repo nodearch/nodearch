@@ -2,8 +2,16 @@
   "name": "@nodearch/cli",
   "version": "1.2.4",
   "description": "nodearch cli",
-  "main": "./dist/main.js",
-  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
+  },
   "bin": {
     "nodearch": "./dist/start.js"
   },

@@ -2,9 +2,16 @@
   "name": "@nodearch/command",
   "version": "0.1.0",
   "description": "NodeArch Command Toolkit",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "type": "module",
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc"

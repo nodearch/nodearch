@@ -1,7 +1,7 @@
 import { Hook, IHook } from '@nodearch/core';
 import yargs, { Arguments, CommandModule } from 'yargs';
-import { CommandParser } from './command-parser';
-import { CommandConfig } from './command.config';
+import { CommandParser } from './command-parser.js';
+import { CommandConfig } from './command.config.js';
 
 
 @Hook({ export: true })

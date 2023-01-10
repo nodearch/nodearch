@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import { App, ClassConstructor } from '@nodearch/core';
+import { App } from '@nodearch/core';
+import { ClassConstructor } from '@nodearch/core/utils';
 import path from 'path';
 import { register } from 'ts-node';
 
@@ -18,7 +19,7 @@ async function main() {
   catch(e: any) {}
 
   if (!CliApp) {
-    CliApp = (await import('./main')).Cli;
+    CliApp = (await import('./main.js')).Cli;
   }
 
   const app = new CliApp();

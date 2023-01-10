@@ -1,5 +1,5 @@
 import { ComponentFactory, IComponentOptions } from '@nodearch/core';
-import { CommandAnnotation } from './enums';
+import { CommandAnnotation } from './enums.js';
 
 
 export const Command = (options?: IComponentOptions): ClassDecorator => 

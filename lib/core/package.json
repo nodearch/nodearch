@@ -8,11 +8,26 @@
       "types": "./dist/index.d.ts"
     },
     "./app": {
-      "import": "./dist/app/*.js",
-      "types": "./dist/app/*.d.ts"
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    },
+    "./components": {
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    },
+    "./registry": {
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    },
+    "./fs": {
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
     }
   },
-  "types": "./dist/*.d.ts",
   "type": "module",
   "engines": {
     "node": ">=14.16"

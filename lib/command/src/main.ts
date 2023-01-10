@@ -1,6 +1,7 @@
-import {  } from '@nodearch/core/app';
+import { App } from '@nodearch/core';
+// import { ClassInfo } from '@nodearch/core/components';
 import path from 'path';
-import { ICommandAppOptions } from './components/interfaces';
+import { ICommandAppOptions } from './components/interfaces.js';
 
 
 export class CommandApp extends App {

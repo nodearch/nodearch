@@ -1,3 +1,3 @@
-export * from './main';
-export * from './components/annotation/interfaces';
-export * from './components/annotation/annotation';
+export * from './main.js';
+export * from './components/annotation/interfaces.js';
+export * from './components/annotation/annotation.js';

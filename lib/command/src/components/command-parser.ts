@@ -1,7 +1,7 @@
 import { AppContext, Logger, Service } from '@nodearch/core';
 import { Arguments, CommandModule } from 'yargs';
-import { CommandAnnotation } from './annotation/enums';
-import { CommandQuestion, ICommand } from './annotation/interfaces';
+import { CommandAnnotation } from './annotation/enums.js';
+import { CommandQuestion, ICommand } from './annotation/interfaces.js';
 import inquirer from 'inquirer';
 
 
