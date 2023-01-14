@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
-import { ClassConstructor } from '../../../utils/types.js';
-import { ComponentInfo } from '../../registration/info.js';
+import { ClassConstructor } from '../../utils/types.js';
+import { ComponentInfo } from '../../registry/info.js';
 import { TestBox } from './test-box.js';
 import { MochaAnnotation, TestMode } from './test.enums.js';
 import { ITestCaseOptions, ITestSuiteOptions, TestHook } from './test.interfaces.js';

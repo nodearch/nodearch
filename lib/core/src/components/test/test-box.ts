@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { ClassConstructor } from '../../../utils/types.js';
+import { ClassConstructor } from '../../utils/types.js';
 import { IComponentOverride } from './test.interfaces.js';
 
 

@@ -1,4 +1,4 @@
-import { ClassConstructor } from '../../../utils/types.js';
+import { ClassConstructor } from '../../utils/types.js';
 import { TestMode } from './test.enums.js';
 
 

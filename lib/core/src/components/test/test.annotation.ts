@@ -1,7 +1,7 @@
-import { ClassConstructor } from '../../../utils/types.js';
-import * as utils from '../../../utils/utils.js';
-import { ComponentScope } from '../../enums.js';
-import { ComponentFactory } from '../../registration/factory.js';
+import { ClassConstructor } from '../../utils/types.js';
+import * as utils from '../../utils/utils.js';
+import { ComponentScope } from '../../registry/enums.js';
+import { ComponentFactory } from '../../registry/factory.js';
 import { MochaAnnotation, TestMode } from './test.enums.js';
 import { ITestCaseOptions, ITestSuiteMetadata, ITestSuiteOptions } from './test.interfaces.js';
 

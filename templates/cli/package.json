@@ -2,7 +2,11 @@
   "name": "@nodearch/template-cli",
   "version": "0.1.0",
   "description": "",
-  "main": "./dist/main.js",
+  "exports": {},
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc",

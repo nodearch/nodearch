@@ -4,6 +4,7 @@ import { IFile, IFileInfo } from './interfaces.js';
 import { FileType } from './enums.js';
 
 
+// TODO: rename this class to FileLoader
 export class FileSystem {
   static async loadFiles(filesInfo: IFileInfo[]) {
     return Promise.all(
@@ -162,7 +163,7 @@ export class FileSystem {
   }
 
   static async importFile(filePath: string) {
-    return import(filePath);
+    return await import(filePath);
   }
 
   static importFileSync(filePath: string) {
@@ -181,5 +182,9 @@ export class FileSystem {
     }
 
     return resolvedPaths;
+  }
+
+  static async importJSON(filePath: string) {
+    return JSON.parse(await fs.readFile(filePath, 'utf8'));
   }
 }

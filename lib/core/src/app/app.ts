@@ -230,7 +230,7 @@ export class App {
   }
 
   static async getAppInfo(packagePath: string) {
-    const pkgInfo = await FileSystem.importFile(packagePath) as IPackageJSON;
+    const pkgInfo = await FileSystem.importJSON(packagePath) as IPackageJSON;
 
     const paths = FileSystem
       .resolvePaths(pkgInfo.nodearch.paths, path.dirname(packagePath));

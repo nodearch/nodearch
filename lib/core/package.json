@@ -3,25 +3,13 @@
   "version": "1.4.2",
   "description": "nodearch core module",
   "exports": {
-    "./app": {
-      "import": "./dist/app/index.js",
-      "types": "./dist/app/index.d.ts"
-    },
-    "./components": {
-      "import": "./dist/components/index.js",
-      "types": "./dist/components/index.d.ts"
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     },
     "./fs": {
       "import": "./dist/fs/index.js",
       "types": "./dist/fs/index.d.ts"
-    },
-    "./log": {
-      "import": "./dist/log/index.js",
-      "types": "./dist/log/index.d.ts"
-    },
-    "./registry": {
-      "import": "./dist/registry/index.js",
-      "types": "./dist/registry/index.d.ts"
     },
     "./utils": {
       "import": "./dist/utils/index.js",
@@ -40,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bluemax-io/nodearch.git"
+    "url": "git+https://github.com/nodearch/nodearch.git"
   },
   "keywords": [
     "nodearch",
@@ -49,7 +37,7 @@
   "author": "https://github.com/AhmedAli7O1",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bluemax-io/nodearch/issues",
+    "url": "https://github.com/nodearch/nodearch/issues",
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {

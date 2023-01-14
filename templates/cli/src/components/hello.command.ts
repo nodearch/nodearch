@@ -1,6 +1,7 @@
 import { Logger } from '@nodearch/core';
 import { Command, ICommand } from '@nodearch/command';
 
+
 @Command({ export: true })
 export class HelloCommand implements ICommand {
 
