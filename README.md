@@ -24,6 +24,9 @@
   <a href="https://img.shields.io/github/workflow/status/bluemax-io/nodearch/Deploy/master" target="_blank">
     <img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/bluemax-io/nodearch/deploy.yml?branch=master" />
   </a>
+  <a href="https://github.com/nodearch/nodearch/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2023.svg" />
+  </a>
   <a href="https://github.com/bluemax-io/nodearch/stargazers" target="_blank">
     <img alt="Star on GitHub" src="https://img.shields.io/github/stars/bluemax-io/nodearch?style=social" />
   </a>
