@@ -2,14 +2,14 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 import { IFile, IFileInfo } from './interfaces.js';
 import { FileType } from './enums.js';
+import { fileURLToPath } from 'node:url';
 
 
-// TODO: rename this class to FileLoader
-export class FileSystem {
+export class FileLoader {
   static async loadFiles(filesInfo: IFileInfo[]) {
     return Promise.all(
       filesInfo.map(async fileInfo => {
-        const fileContent = await FileSystem.importFile(fileInfo.path);
+        const fileContent = await FileLoader.importFile(fileInfo.path);
 
         (<IFile>fileInfo).content = fileContent;
 
@@ -20,16 +20,16 @@ export class FileSystem {
 
   static filterFiles(filesInfo: IFileInfo[], include: string[], exclude: string[]) {
     return filesInfo.filter(item => {
-      return FileSystem.isFileNameMatching(item.base, include, exclude);
+      return FileLoader.isFileNameMatching(item.base, include, exclude);
     });
   }
 
-  static async readDir(dirPath: string): Promise<IFileInfo[]> {
+  static async readDir(dirPath: URL): Promise<IFileInfo[]> {
     const dirContent = await fs.readdir(dirPath);
 
     return Promise.all(
       dirContent.map(async (item) => {
-        const itemPath = path.join(dirPath, item);
+        const itemPath = fileURLToPath(new URL(item, dirPath));
 
         const parsedPath = path.parse(itemPath);
 
@@ -56,19 +56,19 @@ export class FileSystem {
     );
   }
 
-  static async readFiles(dirPath: string, deep: number = 1): Promise<IFileInfo[]> {
+  static async readFiles(dirPath: URL, deep: number = 1): Promise<IFileInfo[]> {
     if (deep <= 0) {
       return [];
     }
 
     let content: IFileInfo[] = [];
-    const dirContent = await FileSystem.readDir(dirPath);
+    const dirContent = await FileLoader.readDir(dirPath);
 
     content = content.concat(
       ...await Promise.all(
         dirContent.map(async (file) => {
           if (file.type === FileType.Directory) {
-            return [file, ...await FileSystem.readFiles(file.path, deep - 1)];
+            return [file, ...await FileLoader.readFiles(file.path, deep - 1)];
           }
           else {
             return [file];
@@ -90,14 +90,14 @@ export class FileSystem {
 
   static isFileNameMatching(fileName: string, include: string[], exclude: string[]) {
     const isExcluded = exclude.some((exp) => {
-      const rgx = FileSystem.getFileNameMatcher(exp);
+      const rgx = FileLoader.getFileNameMatcher(exp);
       return fileName.match(rgx);
     });
 
     if (isExcluded) return false;
 
     return include.some((exp) => {
-      const rgx = FileSystem.getFileNameMatcher(exp);
+      const rgx = FileLoader.getFileNameMatcher(exp);
       return fileName.match(rgx);
     });
   }
@@ -133,7 +133,7 @@ export class FileSystem {
     let isSearch = true;
 
     while (isSearch) {
-      const result = await FileSystem.access(path.join(searchDir, fileName));
+      const result = await FileLoader.access(path.join(searchDir, fileName));
       const parentDir = path.join(searchDir, '..');
       if (!result && parentDir !== searchDir) {
         searchDir = parentDir;
@@ -162,7 +162,7 @@ export class FileSystem {
       });
   }
 
-  static async importFile(filePath: string) {
+  static async importFile(filePath: URL) {
     return await import(filePath);
   }
 
@@ -178,7 +178,7 @@ export class FileSystem {
     const resolvedPaths: Record<string, string> = {};
     
     for (const p in paths) {
-      resolvedPaths[p] = FileSystem.resolvePath(paths[p], to);
+      resolvedPaths[p] = FileLoader.resolvePath(paths[p], to);
     }
 
     return resolvedPaths;

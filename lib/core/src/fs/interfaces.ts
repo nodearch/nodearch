@@ -15,6 +15,6 @@ export interface IFile extends IFileInfo {
 
 export interface IClassLoaderOptions {
   classes?: ClassConstructor[];
-  path?: string;
+  path?: URL;
   depth?: number;
 }

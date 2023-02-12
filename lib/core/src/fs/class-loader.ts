@@ -1,12 +1,13 @@
 import { ClassConstructor } from '../utils/types.js';
-import { FileSystem } from './file-system.js';
+import { FileSystem } from './file-loader.js';
 import { IClassLoaderOptions, IFile } from './interfaces.js';
+import { fileURLToPath } from 'node:url';
 
 
 export class ClassLoader {
   classes: ClassConstructor[];
 
-  private path?: string;
+  private path?: URL;
   private depth: number;
   private include: string[];
   private exclude: string[];

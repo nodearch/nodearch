@@ -8,7 +8,7 @@ import { ComponentScope, CoreAnnotation } from '../registry/enums.js';
 import { ComponentRegistry } from '../registry/registry.js';
 import { DependencyException } from '../errors.js';
 import { ClassLoader } from '../fs/class-loader.js';
-import { FileSystem } from '../fs/file-system.js';
+import { FileSystem } from '../fs/file-loader.js';
 import { ILogger, ILogOptions } from '../log/interfaces.js';
 import { Logger } from '../log/logger.js';
 import { ClassConstructor } from '../utils/types.js';
@@ -122,7 +122,7 @@ export class App {
 
   async init(options: IInitOptions) {
     // TODO: We can probably add performance insights here
-
+    
     if (options.mode === 'app') {
       this.appInfo = typeof options.appInfo === 'string' ? 
         await App.getAppInfo(options.appInfo) : 
