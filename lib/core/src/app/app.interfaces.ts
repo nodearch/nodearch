@@ -5,7 +5,6 @@ import { AppContext } from './app-context.js';
 import { App } from './app.js';
 
 
-
 export interface IAppConstructor {
   new(...args: any): App;
 }

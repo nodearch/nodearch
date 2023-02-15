@@ -8,7 +8,7 @@ import { ComponentScope, CoreAnnotation } from '../registry/enums.js';
 import { ComponentRegistry } from '../registry/registry.js';
 import { DependencyException } from '../errors.js';
 import { ClassLoader } from '../fs/class-loader.js';
-import { FileSystem } from '../fs/file-loader.js';
+import { FileLoader } from '../fs/file-loader.js';
 import { ILogger, ILogOptions } from '../log/interfaces.js';
 import { Logger } from '../log/logger.js';
 import { ClassConstructor } from '../utils/types.js';
@@ -230,9 +230,9 @@ export class App {
   }
 
   static async getAppInfo(packagePath: string) {
-    const pkgInfo = await FileSystem.importJSON(packagePath) as IPackageJSON;
+    const pkgInfo = await FileLoader.importJSON(packagePath) as IPackageJSON;
 
-    const paths = FileSystem
+    const paths = FileLoader
       .resolvePaths(pkgInfo.nodearch.paths, path.dirname(packagePath));
 
     const appInfo: IAppInfo = {

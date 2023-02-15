@@ -1,5 +1,5 @@
 import { ClassConstructor } from '../utils/types.js';
-import { FileSystem } from './file-loader.js';
+import { FileLoader } from './file-loader.js';
 import { IClassLoaderOptions, IFile } from './interfaces.js';
 import { fileURLToPath } from 'node:url';
 
@@ -29,11 +29,11 @@ export class ClassLoader {
 
   async load() {
     if (this.path) {
-      const filesInfo = await FileSystem.readFiles(this.path, this.depth);
+      const filesInfo = await FileLoader.readFiles(this.path, this.depth);
 
-      const filteredFilesInfo = FileSystem.filterFiles(filesInfo, this.include, this.exclude);
+      const filteredFilesInfo = FileLoader.filterFiles(filesInfo, this.include, this.exclude);
       
-      const files = await FileSystem.loadFiles(filteredFilesInfo);
+      const files = await FileLoader.loadFiles(filteredFilesInfo);
 
       this.loadClassesFromFiles(files);
     }

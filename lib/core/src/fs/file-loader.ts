@@ -24,12 +24,12 @@ export class FileLoader {
     });
   }
 
-  static async readDir(dirPath: URL): Promise<IFileInfo[]> {
-    const dirContent = await fs.readdir(dirPath);
+  static async readDir(url: URL): Promise<IFileInfo[]> {
+    const dirContent = await fs.readdir(url);
 
     return Promise.all(
       dirContent.map(async (item) => {
-        const itemPath = fileURLToPath(new URL(item, dirPath));
+        const itemPath = fileURLToPath(new URL(item, url));
 
         const parsedPath = path.parse(itemPath);
 
@@ -102,13 +102,13 @@ export class FileLoader {
     });
   }
 
-  // static findUpSync(fileName: string, searchPath?: string): string | undefined {
-  //   let searchDir = searchPath || process.cwd();
+  // static async findUp(fileName: string, searchDir?: URL): Promise<string | undefined> {
+  //   searchDir = searchDir || new URL(process.cwd());
   //   let foundDir = null;
   //   let isSearch = true;
 
   //   while (isSearch) {
-  //     const result = fs.existsSync(path.join(searchDir, fileName));
+  //     const result = await FileLoader.access( path.join(searchDir, fileName));
   //     const parentDir = path.join(searchDir, '..');
   //     if (!result && parentDir !== searchDir) {
   //       searchDir = parentDir;
@@ -127,33 +127,8 @@ export class FileLoader {
   //   return foundDir ? path.join(foundDir, fileName) : undefined;
   // }
 
-  static async findUp(fileName: string, searchPath?: string): Promise<string | undefined> {
-    let searchDir = searchPath || process.cwd();
-    let foundDir = null;
-    let isSearch = true;
-
-    while (isSearch) {
-      const result = await FileLoader.access(path.join(searchDir, fileName));
-      const parentDir = path.join(searchDir, '..');
-      if (!result && parentDir !== searchDir) {
-        searchDir = parentDir;
-      }
-      else if (!result && parentDir === searchDir) {
-        // not found.
-        isSearch = false;
-      }
-      else {
-        // found.
-        foundDir = searchDir;
-        isSearch = false;
-      }
-    }
-
-    return foundDir ? path.join(foundDir, fileName) : undefined;
-  }
-
-  static async access(filePath: string) {
-    return fs.access(filePath, fs.constants.F_OK)
+  static async access(url: URL) {
+    return fs.access(url, fs.constants.F_OK)
       .then(() => {
         return true;
       })
@@ -162,29 +137,11 @@ export class FileLoader {
       });
   }
 
-  static async importFile(filePath: URL) {
-    return await import(filePath);
+  static async importFile(url: URL) {
+    return await import(fileURLToPath(url));
   }
 
-  static importFileSync(filePath: string) {
-    return module.require(filePath);
-  }
-
-  static resolvePath(strPath: string, to?: string) {
-    return path.normalize(path.resolve(to || process.cwd(), strPath));
-  }
-
-  static resolvePaths(paths: Record<string, string>, to?: string) {
-    const resolvedPaths: Record<string, string> = {};
-    
-    for (const p in paths) {
-      resolvedPaths[p] = FileLoader.resolvePath(paths[p], to);
-    }
-
-    return resolvedPaths;
-  }
-
-  static async importJSON(filePath: string) {
-    return JSON.parse(await fs.readFile(filePath, 'utf8'));
+  static async importJSON(url: URL) {
+    return JSON.parse(await fs.readFile(url, 'utf8'));
   }
 }
