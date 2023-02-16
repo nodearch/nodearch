@@ -9,7 +9,7 @@ export class FileLoader {
   static async loadFiles(filesInfo: IFileInfo[]) {
     return Promise.all(
       filesInfo.map(async fileInfo => {
-        const fileContent = await FileLoader.importFile(fileInfo.path);
+        const fileContent = await FileLoader.importModule(fileInfo.path);
 
         (<IFile>fileInfo).content = fileContent;
 
@@ -24,12 +24,16 @@ export class FileLoader {
     });
   }
 
-  static async readDir(url: URL): Promise<IFileInfo[]> {
+  /**
+   * Get a list of all files within a directory
+   */
+  static async getDirFilesList(url: URL, include: string[], exclude: string[]): Promise<IFileInfo[]> {
     const dirContent = await fs.readdir(url);
-
+    // TODO: filter files&folders by include and exclude?
     return Promise.all(
       dirContent.map(async (item) => {
-        const itemPath = fileURLToPath(new URL(item, url));
+        const itemUrl = new URL(item, url);
+        const itemPath = fileURLToPath(itemUrl);
 
         const parsedPath = path.parse(itemPath);
 
@@ -48,6 +52,7 @@ export class FileLoader {
         }
 
         return {
+          url: itemUrl,
           path: itemPath,
           ...parsedPath,
           type: itemType
@@ -56,19 +61,23 @@ export class FileLoader {
     );
   }
 
-  static async readFiles(dirPath: URL, deep: number = 1): Promise<IFileInfo[]> {
-    if (deep <= 0) {
+  /**
+   * Get a list of all files within a directory and all of it's subdirectories
+   * down to a specified depth
+   */
+  static async getFilesList(dirUrl: URL, depth: number = 1, include: string[], exclude: string[]) {
+    if (depth <= 0) {
       return [];
     }
 
     let content: IFileInfo[] = [];
-    const dirContent = await FileLoader.readDir(dirPath);
+    const dirContent = await FileLoader.getDirFilesList(dirUrl, include, exclude);
 
     content = content.concat(
       ...await Promise.all(
         dirContent.map(async (file) => {
           if (file.type === FileType.Directory) {
-            return [file, ...await FileLoader.readFiles(file.path, deep - 1)];
+            return [file, ...await FileLoader.getFilesList(file.url, depth - 1, include, exclude)];
           }
           else {
             return [file];
@@ -102,42 +111,7 @@ export class FileLoader {
     });
   }
 
-  // static async findUp(fileName: string, searchDir?: URL): Promise<string | undefined> {
-  //   searchDir = searchDir || new URL(process.cwd());
-  //   let foundDir = null;
-  //   let isSearch = true;
-
-  //   while (isSearch) {
-  //     const result = await FileLoader.access( path.join(searchDir, fileName));
-  //     const parentDir = path.join(searchDir, '..');
-  //     if (!result && parentDir !== searchDir) {
-  //       searchDir = parentDir;
-  //     }
-  //     else if (!result && parentDir === searchDir) {
-  //       // not found.
-  //       isSearch = false;
-  //     }
-  //     else {
-  //       // found.
-  //       foundDir = searchDir;
-  //       isSearch = false;
-  //     }
-  //   }
-
-  //   return foundDir ? path.join(foundDir, fileName) : undefined;
-  // }
-
-  static async access(url: URL) {
-    return fs.access(url, fs.constants.F_OK)
-      .then(() => {
-        return true;
-      })
-      .catch(() => {
-        return false;
-      });
-  }
-
-  static async importFile(url: URL) {
+  static async importModule(url: URL) {
     return await import(fileURLToPath(url));
   }
 

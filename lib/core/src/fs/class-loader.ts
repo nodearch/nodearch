@@ -1,20 +1,19 @@
 import { ClassConstructor } from '../utils/types.js';
 import { FileLoader } from './file-loader.js';
 import { IClassLoaderOptions, IFile } from './interfaces.js';
-import { fileURLToPath } from 'node:url';
 
 
 export class ClassLoader {
   classes: ClassConstructor[];
 
-  private path?: URL;
+  private url?: URL;
   private depth: number;
   private include: string[];
   private exclude: string[];
 
   constructor(options: IClassLoaderOptions) {
     this.classes = options.classes || [];
-    this.path =  options.path;
+    this.url =  options.url;
 
     this.include = ['*.js', '*.ts'];
     this.exclude = ['*.d.ts', '*.spec.ts', '*.e2e-spec.ts', '*.spec.js', '*.e2e-spec.ts'];
@@ -28,8 +27,8 @@ export class ClassLoader {
   }
 
   async load() {
-    if (this.path) {
-      const filesInfo = await FileLoader.readFiles(this.path, this.depth);
+    if (this.url) {
+      const filesInfo = await FileLoader.readFiles(this.url, this.depth);
 
       const filteredFilesInfo = FileLoader.filterFiles(filesInfo, this.include, this.exclude);
       
