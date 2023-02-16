@@ -8,27 +8,20 @@ export class ClassLoader {
 
   private url?: URL;
   private depth: number;
-  private include: string[];
-  private exclude: string[];
+  private include: (RegExp | string)[];
+  private exclude: (RegExp | string)[];
 
   constructor(options: IClassLoaderOptions) {
     this.classes = options.classes || [];
     this.url =  options.url;
-
-    this.include = ['*.js', '*.ts'];
-    this.exclude = ['*.d.ts', '*.spec.ts', '*.e2e-spec.ts', '*.spec.js', '*.e2e-spec.ts'];
+    this.include = options.include || ['*.js', '*.ts'];
+    this.exclude = options.exclude || ['*.d.ts', '*.spec.ts', '*.e2e-spec.ts', '*.spec.js', '*.e2e-spec.ts', '*.map'];
     this.depth = options.depth || 10;
-
-
-    // TODO: remove this after validation it won't be needed
-    // if (!this.classpath && (!options.classes || !options.classes.length)) {
-    //   throw new Error('Requires either classpath or classes configurations to be present');
-    // }
   }
 
   async load() {
     if (this.url) {
-      const filesInfo = await FileLoader.readFiles(this.url, this.depth);
+      const filesInfo = await FileLoader.getFilesList(this.url, this.depth);
 
       const filteredFilesInfo = FileLoader.filterFiles(filesInfo, this.include, this.exclude);
       

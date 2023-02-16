@@ -9,7 +9,7 @@ export class FileLoader {
   static async loadFiles(filesInfo: IFileInfo[]) {
     return Promise.all(
       filesInfo.map(async fileInfo => {
-        const fileContent = await FileLoader.importModule(fileInfo.path);
+        const fileContent = await FileLoader.importModule(fileInfo.url);
 
         (<IFile>fileInfo).content = fileContent;
 
@@ -18,7 +18,7 @@ export class FileLoader {
     );
   }
 
-  static filterFiles(filesInfo: IFileInfo[], include: string[], exclude: string[]) {
+  static filterFiles(filesInfo: IFileInfo[], include: (RegExp | string)[], exclude: (RegExp | string)[]) {
     return filesInfo.filter(item => {
       return FileLoader.isFileNameMatching(item.base, include, exclude);
     });
@@ -27,9 +27,9 @@ export class FileLoader {
   /**
    * Get a list of all files within a directory
    */
-  static async getDirFilesList(url: URL, include: string[], exclude: string[]): Promise<IFileInfo[]> {
+  static async getDirContent(url: URL): Promise<IFileInfo[]> {
     const dirContent = await fs.readdir(url);
-    // TODO: filter files&folders by include and exclude?
+
     return Promise.all(
       dirContent.map(async (item) => {
         const itemUrl = new URL(item, url);
@@ -62,22 +62,22 @@ export class FileLoader {
   }
 
   /**
-   * Get a list of all files within a directory and all of it's subdirectories
+   * Get a list of all files and directories within a directory and all of it's subdirectories
    * down to a specified depth
    */
-  static async getFilesList(dirUrl: URL, depth: number = 1, include: string[], exclude: string[]) {
+  static async getFilesList(dirUrl: URL, depth: number = 1) {
     if (depth <= 0) {
       return [];
     }
 
     let content: IFileInfo[] = [];
-    const dirContent = await FileLoader.getDirFilesList(dirUrl, include, exclude);
+    const dirContent = await FileLoader.getDirContent(dirUrl);
 
     content = content.concat(
       ...await Promise.all(
         dirContent.map(async (file) => {
           if (file.type === FileType.Directory) {
-            return [file, ...await FileLoader.getFilesList(file.url, depth - 1, include, exclude)];
+            return [file, ...await FileLoader.getFilesList(file.url, depth - 1)];
           }
           else {
             return [file];
@@ -97,16 +97,16 @@ export class FileLoader {
     return new RegExp(`^${exp.replace(/[.+\-?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '[^\\n]+')}$`, 'g');
   }
 
-  static isFileNameMatching(fileName: string, include: string[], exclude: string[]) {
+  static isFileNameMatching(fileName: string, include: (RegExp | string)[], exclude: (RegExp | string)[]) {
     const isExcluded = exclude.some((exp) => {
-      const rgx = FileLoader.getFileNameMatcher(exp);
+      const rgx = exp instanceof RegExp ? exp : FileLoader.getFileNameMatcher(exp);
       return fileName.match(rgx);
     });
 
     if (isExcluded) return false;
 
     return include.some((exp) => {
-      const rgx = FileLoader.getFileNameMatcher(exp);
+      const rgx = exp instanceof RegExp ? exp : FileLoader.getFileNameMatcher(exp);
       return fileName.match(rgx);
     });
   }

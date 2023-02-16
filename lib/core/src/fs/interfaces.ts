@@ -18,4 +18,6 @@ export interface IClassLoaderOptions {
   classes?: ClassConstructor[];
   url?: URL;
   depth?: number;
+  include?: (RegExp | string)[];
+  exclude?: (RegExp | string)[];
 }

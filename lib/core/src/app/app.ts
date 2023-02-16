@@ -49,6 +49,7 @@ export class App {
       this.logger = new Logger(this.logOptions);
     }
 
+    // appContext is created only in the main app and passed to extensions
     if(!this.appContext) {
       this.appContext = new AppContext(this.componentRegistry, this.container, this.appInfo!);
     }
