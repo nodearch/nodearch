@@ -1,7 +1,7 @@
 {
-  "name": "@nodearch/command",
-  "version": "0.1.0",
-  "description": "NodeArch Command Toolkit",
+  "name": "@nodearch/cli",
+  "version": "1.2.4",
+  "description": "nodearch cli",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -12,9 +12,13 @@
   "engines": {
     "node": ">=14.16"
   },
+  "bin": {
+    "nodearch": "./dist/start.js"
+  },
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
-    "build:watch": "tsc"
+    "build:watch": "tsc",
+    "release": "npm run build && npm publish --tag beta --access public"
   },
   "repository": {
     "type": "git",
@@ -22,8 +26,7 @@
   },
   "keywords": [
     "nodearch",
-    "nodearch-command",
-    "command"
+    "nodearch-cli"
   ],
   "author": "https://github.com/AhmedAli7O1",
   "license": "MIT",
@@ -31,20 +34,14 @@
     "url": "https://github.com/nodearch/nodearch/issues",
     "email": "bluemax7o1@gmail.com"
   },
-  "devDependencies": {
-    "@nodearch/core": "workspace:^1.4.2",
-    "@types/node": "^16.18.0",
-    "rimraf": "~3.0.2",
-    "typescript": "^4.7.2",
-    "@types/yargs": "^17.0.22",
-    "@types/inquirer": "^9.0.3"
-  },
   "dependencies": {
-    "yargs": "^17.7.0",
-    "inquirer": "^9.1.4"
+    "@nodearch/core": "workspace:^1.4.2",
+    "@nodearch/command": "workspace:^0.1.0",
+    "typescript": "^4.7.2",
+    "ts-node": "^10.9.1"
   },
-  "peerDependencies": {
-    "@nodearch/core": "1.4.2",
-    "reflect-metadata": "0.x"
+  "devDependencies": {
+    "@types/node": "^16.18.0",
+    "rimraf": "~3.0.2"
   }
 }

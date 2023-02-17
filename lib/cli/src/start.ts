@@ -25,7 +25,7 @@ async function main() {
   const app = new CliApp();
   await app.init({
     mode: 'app',
-    appInfo: path.join(__dirname, '..', 'package.json')
+    cwd: new URL('..', import.meta.url)
   });
   await app.start();
 }

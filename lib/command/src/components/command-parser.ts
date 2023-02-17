@@ -45,10 +45,6 @@ export class CommandParser {
   
       const data = { ...args, ...answers };
   
-      // if (command.npmDependencies && command.npmDependencies.length) {
-      //   await this.npmService.resolveDependencies(command.npmDependencies.filter(dep => dep.when ? dep.when(data) : true));
-      // }
-  
       await command.handler.bind(command)(data);
     }
     catch(e: any) {

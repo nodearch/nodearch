@@ -1,5 +1,4 @@
 import { Container } from 'inversify';
-import path from 'node:path';
 import { ConfigManager } from '../components/config/config-manager.js';
 import { IHook } from '../components/hook/hook.interface.js';
 import { TestManager } from '../components/test/test-manager.js';
@@ -14,6 +13,7 @@ import { Logger } from '../log/logger.js';
 import { ClassConstructor } from '../utils/types.js';
 import { AppContext } from './app-context.js';
 import { IAppInfo, IAppOptions, IInitOptions, IPackageJSON } from './app.interfaces.js';
+import { UrlParser } from '../fs/url-parser.js';
 
 
 export class App {
@@ -125,9 +125,7 @@ export class App {
     // TODO: We can probably add performance insights here
     
     if (options.mode === 'app') {
-      this.appInfo = typeof options.appInfo === 'string' ? 
-        await App.getAppInfo(options.appInfo) : 
-        options.appInfo; // TODO: validate
+      this.appInfo = await this.getAppInfo(options.cwd);
     }
     else if (options.mode === 'ext') {
       this.logger = options.logger;
@@ -230,29 +228,26 @@ export class App {
     return this.constructor.name;
   }
 
-  static async getAppInfo(packagePath: string) {
-    const pkgInfo = await FileLoader.importJSON(packagePath) as IPackageJSON;
+  private async getAppInfo(cwd: URL, typescript?: boolean) {
+    const pkg = UrlParser.join(cwd, 'package.json');
+    const pkgInfo = await FileLoader.importJSON(pkg) as IPackageJSON;
 
-    const paths = FileLoader
-      .resolvePaths(pkgInfo.nodearch.paths, path.dirname(packagePath));
+    const appDir = UrlParser.join(cwd, typescript ? 'src' : 'dist');
+    const app = UrlParser.join(cwd, typescript ? 'src' : 'dist', typescript ? 'main.ts' : 'main.js');
+    const nodeModulesDir = UrlParser.join(cwd, 'node_modules');
 
     const appInfo: IAppInfo = {
       name: pkgInfo.name,
       version: pkgInfo.version,
+      typescript: !!typescript,
       paths: {
-        dirs: {
-          root: paths.root,
-          app: path.dirname(paths.app),
-          nodeModules: path.join(paths.root, 'node_modules')
-        },
-        files: {
-          app: paths.app,
-          package: path.join(paths.root, 'package.json')
-        }
+        rootDir: cwd,
+        appDir,
+        nodeModulesDir,
+        app,
+        pkg
       }
     };
-
-    // TODO: validate package.json
 
     return appInfo as IAppInfo;
   }

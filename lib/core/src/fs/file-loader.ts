@@ -1,8 +1,10 @@
 import path from 'node:path';
+import { Stats } from 'node:fs';
 import fs from 'node:fs/promises';
 import { IFile, IFileInfo } from './interfaces.js';
 import { FileType } from './enums.js';
 import { fileURLToPath } from 'node:url';
+import { UrlParser } from './url-parser.js';
 
 
 export class FileLoader {
@@ -32,14 +34,17 @@ export class FileLoader {
 
     return Promise.all(
       dirContent.map(async (item) => {
-        const itemUrl = new URL(item, url);
+        const itemUrl = UrlParser.join(url, item);
         const itemPath = fileURLToPath(itemUrl);
-
         const parsedPath = path.parse(itemPath);
 
         let itemType;
 
-        const stat = await fs.lstat(itemPath);
+        const stat = await FileLoader.getPathInfo(itemUrl);
+
+        if (!stat) {
+          throw new Error(`Couldn't scan the file with path: ${itemPath}`);
+        }
 
         if (stat.isDirectory()) {
           itemType = FileType.Directory;
@@ -111,11 +116,27 @@ export class FileLoader {
     });
   }
 
-  static async importModule(url: URL) {
-    return await import(fileURLToPath(url));
+  static async importModule<T = any>(url: URL) {
+    return await import(url.href) as T;
   }
 
   static async importJSON(url: URL) {
     return JSON.parse(await fs.readFile(url, 'utf8'));
+  }
+
+  static async getPathInfo(url: URL) {
+    let stats: Stats | undefined;
+
+    try {
+      stats = await fs.lstat(fileURLToPath(url));
+    }
+    catch(e: any) {
+      // Only throw if the error is not a "file not found" error
+      if (e.code !== 'ENOENT') {
+        throw e;
+      }
+    }
+  
+    return stats;
   }
 }

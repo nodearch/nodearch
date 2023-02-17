@@ -157,16 +157,9 @@ export interface ICommand<T extends Record<string, any> = any> {
   builder?: CommandBuilder<T>;
 
   /**
-   * inquirer questions
+   * Inquirer questions
    */
   questions?: CommandQuestion[];
-
-  /**
-   * NPM dependencies required by the Cli command
-   * the Cli will make sure that all dependencies listed 
-   * are installed, and if not, it will install them automatically 
-   */
-  npmDependencies?: INpmDependency[];
 
   /** 
    * a function which will be passed the data.

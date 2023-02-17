@@ -410,7 +410,7 @@
     },
     {
       "packageName": "@nodearch/cli",
-      "projectFolder": "lib/cli",
+      "projectFolder": "lib/cli2",
       "reviewCategory": "production",
       "versionPolicyName": "packages"
     },

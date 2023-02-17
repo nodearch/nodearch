@@ -1,0 +1,184 @@
+{
+  "name": "@nodearch/cli",
+  "entries": [
+    {
+      "version": "1.2.4",
+      "tag": "@nodearch/cli_v1.2.4",
+      "date": "Sun, 29 May 2022 15:25:53 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade typescript version",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "574dc6ff13ca0879ca808d08c2e5891e27b82897"
+          },
+          {
+            "comment": "Upgrade ts-node version",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "b749d61faead02171e8bffa0d0875c7c810303bb"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^1.4.1` to `^1.4.2`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.2.3",
+      "tag": "@nodearch/cli_v1.2.3",
+      "date": "Tue, 21 Sep 2021 14:18:24 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix clis start command starting the app multiple times",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "40274b243ebe0f9b6f4e0cab192a7cf00a37e5e4"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.2.2",
+      "tag": "@nodearch/cli_v1.2.2",
+      "date": "Sun, 18 Apr 2021 15:09:16 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add workers options to jest testing",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "2150cc1c79519dc066f8ce1018df64817178a070"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.2.1",
+      "tag": "@nodearch/cli_v1.2.1",
+      "date": "Thu, 01 Apr 2021 14:28:22 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "force process to exit after jest finish",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "f17dd14aa226556296092974a44117ff0d6f4a80"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.2.0",
+      "tag": "@nodearch/cli_v1.2.0",
+      "date": "Thu, 01 Apr 2021 13:23:37 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "add filter options to testing from cli",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "cd5d6e0bf3a89f1393f60d3d0856aeda4239390d"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.1.5",
+      "tag": "@nodearch/cli_v1.1.5",
+      "date": "Tue, 16 Mar 2021 03:51:41 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix nodemon call by adding default to the import",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "00a5e6428290cc0c9ae5f3b5e4d9b214afd98d39"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.1.4",
+      "tag": "@nodearch/cli_v1.1.4",
+      "date": "Mon, 11 Jan 2021 11:10:58 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add types path to package.json",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "3eaec179a92f54be60897b3e12686e6e7da81d23"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^1.1.2` to `^1.1.3`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.1.3",
+      "tag": "@nodearch/cli_v1.1.3",
+      "date": "Thu, 24 Dec 2020 13:16:53 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix nodemon not found",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "aff85d56c36036f187ed28d5c83200574f087e9b"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.1.2",
+      "tag": "@nodearch/cli_v1.1.2",
+      "date": "Sun, 20 Dec 2020 10:25:53 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "rename template to templates",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "5e17d19a5b57477610fbbc6bea5f74f850d2f804"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.1.1",
+      "tag": "@nodearch/cli_v1.1.1",
+      "date": "Sat, 19 Dec 2020 03:10:12 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add support to download templates using CLI",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "3d9f005452677fc8017bdef6b26ee0c1ba003613"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^1.1.0` to `^1.1.1`"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.1.0",
+      "tag": "@nodearch/cli_v1.1.0",
+      "date": "Fri, 18 Dec 2020 18:46:32 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "bump version",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "2c8e7883711d0b3633b94c62944f5fb3ec4516d3"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^1.0.0` to `^1.1.0`"
+          }
+        ]
+      }
+    }
+  ]
+}

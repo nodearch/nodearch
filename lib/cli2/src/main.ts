@@ -1,7 +1,6 @@
 import { App, LogLevel } from '@nodearch/core';
 import { CommandApp } from '@nodearch/command';
 
-
 export class Cli extends App {
   constructor() {
     super({

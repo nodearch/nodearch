@@ -1,11 +1,10 @@
-import path from 'path';
 import { App, LogLevel } from '@nodearch/core';
 
 export default class Standalone extends App {
   constructor() {
     super({
       components: {
-        path: path.join(__dirname, 'components')
+        url: new URL('components', import.meta.url)
       },
       logs: {
         logLevel: LogLevel.Debug

@@ -1,5 +1,6 @@
 import { Hook, IHook } from '@nodearch/core';
-import yargs, { Arguments, CommandModule } from 'yargs';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 import { CommandParser } from './command-parser.js';
 import { CommandConfig } from './command.config.js';
 
@@ -15,18 +16,17 @@ export class CommandHook implements IHook {
   async onStart() {
     if (!this.commandConfig.enable) return;
 
-    yargs
+    const args = yargs(hideBin(process.argv))
       .scriptName(this.commandConfig.name)
       .usage(this.commandConfig.usage)
       .demandCommand();
 
     this.commandParser.getCommands()
-      .forEach(cmd => yargs.command(cmd));
+      .forEach(cmd => args.command(cmd));
 
-    yargs.alias('h', 'help')
+    args.alias('h', 'help')
       .alias('v', 'version');
 
-    yargs.argv;
-
+    args.argv;
   }
 }
