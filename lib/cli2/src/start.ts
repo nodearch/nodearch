@@ -1,21 +1,28 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
 import { App } from '@nodearch/core';
+import { CommandAnnotation } from '@nodearch/command';
 import { AppFinder, ClassConstructor } from '@nodearch/core/utils';
 import path from 'path';
-import { register } from 'ts-node';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
-
-register({ cwd: fileURLToPath(new URL(import.meta.url)), compilerOptions: { esModuleInterop: true }, transpileOnly: true, esm: true, experimentalSpecifierResolution: 'node' });
 
 async function main() {
-  const LocalAppPath = await AppFinder.find(true);
-  console.log('LocalAppPath', LocalAppPath);
-  const LocalApp = await import(LocalAppPath!.href);
-  // console.log('LocalApp', LocalApp);
+  const LocalApp = await AppFinder.loadApp(true)
 
-  // let CliApp: ClassConstructor<App> | undefined;
+  if (LocalApp) {
+    // TODO: move this to inside the app so we can control the flow
+    // First, we load the local app and get the commands
+    // Second, we trigger the command module and pass the local command to it
+    // That requires a change in the command module. So, instead of starting the 
+    // interactive cli from the hook automatically, we'll add it to a service 
+    // so we can trigger it manually, but also maybe provide a flag to trigger it automatically
+    const localApp = new LocalApp();
+    await localApp.init({ mode: 'app', cwd: pathToFileURL(process.cwd()) });
+    console.log(localApp.getAll(CommandAnnotation.Command));
+  }
+
+  // let CliApp: ClassConstructor<App> | undefined; 
 
   // // Try to load a local copy of the Cli
   // try {

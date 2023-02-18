@@ -1,6 +1,8 @@
 import { FileLoader } from '../fs/file-loader.js';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { App } from '../index.js';
+import { ClassConstructor } from './types.js';
 
 
 export class AppFinder {
@@ -23,10 +25,12 @@ export class AppFinder {
 
     const loadedModule = await FileLoader.importModule(appUrl);
 
-    return Object.keys(loadedModule).find(key => {
+    const appKey = Object.keys(loadedModule).find(key => {
       if (loadedModule[key].nodearch) {
         return loadedModule[key];
       }
     });
+
+    return appKey ? loadedModule[appKey] as ClassConstructor<App> : undefined;
   }
 }

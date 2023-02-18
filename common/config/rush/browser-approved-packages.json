@@ -47,6 +47,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@swc/core",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@types/chai",
       "allowedCategories": [ "prototypes" ]
     },
