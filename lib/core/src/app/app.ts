@@ -50,7 +50,7 @@ export class App {
     }
 
     // appContext is created only in the main app and passed to extensions
-    if(!this.appContext) {
+    if (!this.appContext) {
       this.appContext = new AppContext(this.componentRegistry, this.container, this.appInfo!);
     }
 
@@ -59,7 +59,7 @@ export class App {
     this.container.bind(ConfigManager).toConstantValue(new ConfigManager(this.configOptions));
   }
 
-  private async loadExtensions () {
+  private async loadExtensions() {
     if (this.extensions) {
       for (const extension of this.extensions) {
         try {
@@ -74,9 +74,9 @@ export class App {
         }
       }
     }
-  } 
+  }
 
-  
+
   private async loadComponents() {
     await this.classLoader.load();
     this.componentRegistry.register(this.classLoader.classes);
@@ -96,7 +96,7 @@ export class App {
 
   async start() {
     const hooks = this.getAll<IHook>(CoreAnnotation.Hook);
-      
+
     if (!hooks) return;
 
     for (const hook of hooks) {
@@ -123,9 +123,9 @@ export class App {
 
   async init(options: IInitOptions) {
     // TODO: We can probably add performance insights here
-    
+
     if (options.mode === 'app') {
-      this.appInfo = await this.getAppInfo(options.cwd);
+      this.appInfo = await this.getAppInfo(options.cwd, options.typescript);
     }
     else if (options.mode === 'ext') {
       this.logger = options.logger;
@@ -152,7 +152,7 @@ export class App {
 
   clearCache() {
     const compsMap = (<Map<any, any[]>>(<any>this.container)._bindingDictionary._map);
-    
+
     compsMap.forEach(comps => {
       comps.forEach(comp => {
         if (comp.type === 'Instance') {
@@ -167,7 +167,7 @@ export class App {
     try {
       return this.container.get<T>(id);
     }
-    catch(e: any) {
+    catch (e: any) {
       if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
         throw new DependencyException(e.message);
       }
@@ -176,11 +176,11 @@ export class App {
 
   getAll<T>(id: string) {
     let instances: T[] = [];
-    
+
     try {
       instances = this.container.getAll<T>(id);
     }
-    catch(e: any) {
+    catch (e: any) {
       if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
         throw new DependencyException(e.message);
       }
@@ -221,13 +221,6 @@ export class App {
     }
   }
 
-  /**
-   * Returns the Constructor name
-   */
-  get appName () {
-    return this.constructor.name;
-  }
-
   private async getAppInfo(cwd: URL, typescript?: boolean) {
     const pkg = UrlParser.join(cwd, 'package.json');
     const pkgInfo = await FileLoader.importJSON(pkg) as IPackageJSON;
@@ -250,5 +243,16 @@ export class App {
     };
 
     return appInfo as IAppInfo;
+  }
+
+  /**
+   * Returns the Constructor name
+   */
+  get name() {
+    return this.constructor.name;
+  }
+
+  get info() {
+    return this.appInfo;
   }
 }

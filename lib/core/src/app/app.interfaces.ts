@@ -21,6 +21,7 @@ export type IAppOptions = {
 export type IInitOptions = {
   mode: 'app';
   cwd: URL;
+  typescript?: boolean;
 } | {
   mode: 'ext';
   logger: ILogger;

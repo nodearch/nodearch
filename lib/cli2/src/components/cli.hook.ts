@@ -1,24 +1,22 @@
 import { CommandAnnotation, ICommand, CommandService } from '@nodearch/command';
 import { Hook, IHook } from '@nodearch/core';
-import { AppFinder } from '@nodearch/core/utils';
-import { pathToFileURL } from 'url';
+import { LocalAppService } from './local-app.service.js';
 
 @Hook()
 export class CliHook implements IHook {
 
   constructor(
-    private readonly commandService: CommandService
+    private readonly commandService: CommandService,
+    private readonly localAppService: LocalAppService
   ) {}
 
   async onStart() {
-    const LocalApp = await AppFinder.loadApp(true);
+    const localApp = await this.localAppService.getApp();
     let localAppCommands: ICommand[] = [];
     const excludedCommands: string[] = [];
-
-    if (LocalApp) {
+    
+    if (localApp) {
       excludedCommands.push('new');
-      const localApp = new LocalApp();
-      await localApp.init({ mode: 'app', cwd: pathToFileURL(process.cwd()) });
       localAppCommands = localApp.getAll<ICommand>(CommandAnnotation.Command);
     }
     else {

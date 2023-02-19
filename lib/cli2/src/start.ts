@@ -22,7 +22,8 @@ async function main() {
   const app = new CliApp();
   await app.init({
     mode: 'app',
-    cwd: new URL('..', import.meta.url)
+    cwd: new URL('..', import.meta.url),
+    typescript: true
   });
   await app.start();
 }
