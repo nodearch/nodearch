@@ -129,7 +129,7 @@ export interface ICommand<T extends Record<string, any> = any> {
    * when given on the command line, 
    * first string may contain positional args 
    */
-  command: string | string[];
+  command: string;
   
   /** 
    * string used as the description for the command in help text, 

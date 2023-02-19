@@ -1,6 +1,5 @@
-import { AppContext, Logger, Service } from '@nodearch/core';
+import { Logger, Service } from '@nodearch/core';
 import { Arguments, CommandModule } from 'yargs';
-import { CommandAnnotation } from './annotation/enums.js';
 import { CommandQuestion, ICommand } from './annotation/interfaces.js';
 import inquirer from 'inquirer';
 
@@ -8,17 +7,10 @@ import inquirer from 'inquirer';
 @Service()
 export class CommandParser {
   constructor(
-    private readonly appContext: AppContext,
     private readonly logger: Logger
-
   ) {}
 
-  getCommands() {
-    const commands = this.appContext.getAll<ICommand>(CommandAnnotation.Command);
-    return this.getYargsCommands(commands);
-  }
-
-  private getYargsCommands(commands: ICommand[]): CommandModule[] {
+  getYargsCommands(commands: ICommand[]): CommandModule[] {
     return commands.map(cmd => {
       const { handler, questions, ...commandOptions } = cmd;
       const handlerFn = (args: Arguments) => this.handlerFactory(cmd, args);
