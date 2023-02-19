@@ -1,5 +1,5 @@
 export interface ICommandAppOptions {
-  enable?: boolean;
+  autoStart?: boolean;
   name: string;
   usage: string;
 }

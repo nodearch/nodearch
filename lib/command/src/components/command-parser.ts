@@ -20,7 +20,7 @@ export class CommandParser {
 
   private getYargsCommands(commands: ICommand[]): CommandModule[] {
     return commands.map(cmd => {
-      const { handler, questions, npmDependencies, ...commandOptions } = cmd;
+      const { handler, questions, ...commandOptions } = cmd;
       const handlerFn = (args: Arguments) => this.handlerFactory(cmd, args);
 
       return {
