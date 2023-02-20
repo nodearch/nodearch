@@ -40,25 +40,31 @@ export class StartCommand implements ICommand {
     if (!options.watch) {
       return await localApp.start();
     }
-    console.log('Watching ', fileURLToPath(localApp.info.paths.appDir));
+
+    const starterScriptPath = path.join(
+      fileURLToPath(this.appContext.appInfo.paths.appDir), 
+      'utils', 'app-starter.ts'
+    );
+
     // Watch Mode
     nodemon({
       watch: [fileURLToPath(localApp.info.paths.appDir)],
       ext: 'ts',
-      exec: 'ts-node ' + path.join(fileURLToPath(this.appContext.appInfo.paths.appDir), 'app-starter.ts') + ' path=' + localApp.info.paths.app,
-      // exec: 'ts-node ' + path.join(fileURLToPath(localApp.info.paths.appDir), 'start.ts'),
-      // script: fileURLToPath(localApp.info.paths.) path.join(appInfo.paths.dirs.app, 'start.ts'),
+      exec: `ts-node --transpileOnly --esm --swc ${starterScriptPath} rootDir=${localApp.info.paths.rootDir} appPath=${localApp.info.paths.app}`,
       legacyWatch: true
     });
 
-    nodemon.on('start', () => {
-      this.logger.info('App has started');
-    }).on('quit', () => {
-      this.logger.info('App has quit');
-      process.exit();
-    }).on('restart', (files) => {
-      this.logger.info('App restarted due to: ', files);
-    });
+    nodemon
+      .on('start', () => {
+        this.logger.info('App started in watch mode');
+      })
+      .on('quit', () => {
+        this.logger.info('App has quit');
+        process.exit();
+      })
+      .on('restart', (files) => {
+        this.logger.info('App restarted due to: ', files);
+      });
   }
 
 }
