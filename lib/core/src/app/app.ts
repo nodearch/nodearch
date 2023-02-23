@@ -12,7 +12,7 @@ import { ILogger, ILogOptions } from '../log/interfaces.js';
 import { Logger } from '../log/logger.js';
 import { ClassConstructor } from '../utils/types.js';
 import { AppContext } from './app-context.js';
-import { IAppInfo, IAppOptions, IInitOptions, IPackageJSON } from './app.interfaces.js';
+import { IAppInfo, IAppOptions, IInitOptions, IPackageJSON, ITsConfig } from './app.interfaces.js';
 import { UrlParser } from '../fs/url-parser.js';
 
 
@@ -125,7 +125,7 @@ export class App {
     // TODO: We can probably add performance insights here
 
     if (options.mode === 'app') {
-      this.appInfo = await this.getAppInfo(options.cwd, options.typescript);
+      this.appInfo = await this.getAppInfo(options.cwd);
     }
     else if (options.mode === 'ext') {
       this.logger = options.logger;
@@ -221,24 +221,39 @@ export class App {
     }
   }
 
-  private async getAppInfo(cwd: URL, typescript?: boolean) {
-    const pkg = UrlParser.join(cwd, 'package.json');
-    const pkgInfo = await FileLoader.importJSON(pkg) as IPackageJSON;
-
-    const appDir = UrlParser.join(cwd, typescript ? 'src' : 'dist');
-    const app = UrlParser.join(cwd, typescript ? 'src' : 'dist', typescript ? 'main.ts' : 'main.js');
+  private async getAppInfo(cwd: URL) {
+    const pkgUrl = UrlParser.join(cwd, 'package.json');
+    const tsConfigUrl = UrlParser.join(cwd, 'tsconfig.json');
     const nodeModulesDir = UrlParser.join(cwd, 'node_modules');
+
+    const pkgInfo = await FileLoader.importJSON(pkgUrl) as IPackageJSON;
+    const tsConfig = await FileLoader.importJSON(tsConfigUrl, true) as ITsConfig;
+
+    const tsAppDir = UrlParser.join(cwd, tsConfig.compilerOptions.rootDir || 'src');
+    const jsAppDir = UrlParser.join(cwd, tsConfig.compilerOptions.outDir || 'dist');
+    
+    const tsApp = UrlParser.join(tsAppDir, 'main.ts');
+    const jsApp = UrlParser.join(tsAppDir, 'main.ts');
+
 
     const appInfo: IAppInfo = {
       name: pkgInfo.name,
       version: pkgInfo.version,
-      typescript: !!typescript,
       paths: {
         rootDir: cwd,
-        appDir,
         nodeModulesDir,
-        app,
-        pkg
+        pkg: pkgUrl,
+        tsConfig: tsConfigUrl,
+        app: {
+          ts: {
+            dir: tsAppDir,
+            file: tsApp
+          },
+          js: {
+            dir: jsAppDir,
+            file: jsApp
+          }
+        }
       }
     };
 

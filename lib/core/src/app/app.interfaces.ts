@@ -31,25 +31,37 @@ export type IInitOptions = {
 export interface IAppInfo {
   name: string;
   version: string;
-  typescript?: boolean;
   paths: IAppPaths;
 }
 
 export interface IAppPaths {
   rootDir: URL;
-  appDir: URL;
   nodeModulesDir: URL;
-  app: URL;
   pkg: URL;
+  tsConfig: URL;
+  app: {
+    ts: {
+      dir: URL;
+      file: URL;
+    };
+    js: {
+      dir: URL;
+      file: URL;
+    };
+  };
 }
 
 export interface IPackageJSON {
   name: string;
   version: string;
-  nodearch: {
-    paths: {
-      root: string;
-      app: string;
-    };
+  [key: string]: any;
+}
+
+export interface ITsConfig {
+  compilerOptions: {
+    [key: string]: any;
+    rootDir: string;
+    outDir: string;
   };
+  [key: string]: any;
 }

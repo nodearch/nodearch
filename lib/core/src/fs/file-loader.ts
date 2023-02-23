@@ -120,8 +120,20 @@ export class FileLoader {
     return await import(url.href) as T;
   }
 
-  static async importJSON(url: URL) {
-    return JSON.parse(await fs.readFile(url, 'utf8'));
+  static async importJSON(url: URL, jsonComments = false) {
+    let jsonStr: string;
+
+    if (jsonComments) {
+      jsonStr = (await fs.readFile(url, { encoding: 'utf-8' })) // Read the file
+        .replace(/\/\/.*/g, '') // Remove single line comments
+        .replace(/\/\*.*?\*\//gs, '') // Remove multi line comments
+        .replace(/\s+/g, ''); // Remove whitespace
+    }
+    else {
+      jsonStr = JSON.parse(await fs.readFile(url, 'utf8'));
+    }
+
+    return JSON.parse(jsonStr);
   }
 
   static async getPathInfo(url: URL) {
