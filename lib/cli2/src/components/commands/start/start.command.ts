@@ -44,9 +44,9 @@ export class StartCommand implements ICommand {
 
     // Watch Mode
     nodemon({
-      watch: [fileURLToPath(localApp.info!.paths.appDir)],
+      watch: [fileURLToPath(this.localAppService.appInfo!.paths.appDir)],
       ext: 'ts',
-      exec: `ts-node --transpileOnly --esm --swc ${starterScriptPath} rootDir=${localApp.info!.paths.rootDir}`,
+      exec: `ts-node --transpileOnly --esm --swc ${starterScriptPath} rootDir=${this.localAppService.appInfo!.paths.rootDir}`,
       legacyWatch: true
     });
 

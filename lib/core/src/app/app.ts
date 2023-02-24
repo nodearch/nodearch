@@ -225,8 +225,4 @@ export class App {
   get name() {
     return this.constructor.name;
   }
-
-  get info() {
-    return this.appInfo;
-  }
 }

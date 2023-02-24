@@ -1,10 +1,12 @@
-import { App, Logger, Service } from '@nodearch/core';
+import { App, IAppInfo, Logger, Service } from '@nodearch/core';
 import { AppLoader, AppLoadMode } from '@nodearch/core/fs';
 import { pathToFileURL } from 'url';
 
 @Service()
 export class LocalAppService {
-  private localApp?: App;
+  
+  localApp?: App;
+  appInfo?: IAppInfo;
 
   constructor(
     private readonly logger: Logger
@@ -20,12 +22,9 @@ export class LocalAppService {
   
   private async load() {
     try {
-      this.localApp = await (
-        new AppLoader({ 
-          cwd: pathToFileURL(process.cwd()), 
-          appLoadMode: AppLoadMode.TS 
-        })
-      ).load();
+      const appLoader = new AppLoader({ cwd: pathToFileURL(process.cwd()), appLoadMode: AppLoadMode.TS });
+      this.localApp = await appLoader.load();
+      this.appInfo = appLoader.appInfo;
     
       if (!this.localApp)
         throw new Error('No local app found');

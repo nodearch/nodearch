@@ -7,6 +7,8 @@ import { UrlParser } from './url-parser.js';
 
 export class AppLoader {
 
+  public app?: App;
+  public appInfo?: IAppInfo;
   private cwd: URL;
   private tsConfigName: string;
   private pkgUrl: URL;
@@ -26,20 +28,20 @@ export class AppLoader {
   }
 
   async load() {
-    const appInfo = await this.getAppInfo();
-    const loadedModule = await FileLoader.importModule(appInfo.paths.app);
+    this.appInfo = await this.getAppInfo();
+    const loadedModule = await FileLoader.importModule(this.appInfo.paths.app);
     const AppClass = this.getAppObject(loadedModule);
     
     if (AppClass) {
-      const app = new AppClass(appInfo) as App;
+      const app = new AppClass(this.appInfo) as App;
       await app.init({
         mode: 'app',
-        appInfo
+        appInfo: this.appInfo
       });
       return app;
     }
     else {
-      throw new Error(`No App class found in module: ${appInfo.paths.app}`);
+      throw new Error(`No App class found in module: ${this.appInfo.paths.app}`);
     }
   }
 
