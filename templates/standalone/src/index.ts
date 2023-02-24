@@ -13,3 +13,8 @@
 //     report(): Promise<void>;
 //   }
 // }
+
+// import { AppLoader, AppLoadMode } from '@nodearch/core/fs';
+
+// const app = await (new AppLoader()).load();
+// await app?.start();

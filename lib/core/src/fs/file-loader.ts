@@ -124,13 +124,13 @@ export class FileLoader {
     let jsonStr: string;
 
     if (jsonComments) {
-      jsonStr = (await fs.readFile(url, { encoding: 'utf-8' })) // Read the file
+      jsonStr = (await fs.readFile(url, 'utf8')) // Read the file
         .replace(/\/\/.*/g, '') // Remove single line comments
         .replace(/\/\*.*?\*\//gs, '') // Remove multi line comments
         .replace(/\s+/g, ''); // Remove whitespace
     }
     else {
-      jsonStr = JSON.parse(await fs.readFile(url, 'utf8'));
+      jsonStr = await fs.readFile(url, 'utf8');
     }
 
     return JSON.parse(jsonStr);

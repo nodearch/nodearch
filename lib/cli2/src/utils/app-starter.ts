@@ -1,13 +1,11 @@
+import { AppLoader, AppLoadMode } from '@nodearch/core/fs';
+import { pathToFileURL } from 'node:url';
+
 let rootDir = process.argv.find(x => x.startsWith('rootDir='));
-let appPath = process.argv.find(x => x.startsWith('appPath='));
 
-if (rootDir && appPath) {
+if (rootDir) {
   rootDir = rootDir.replace('rootDir=', '');
-  appPath = appPath.replace('appPath=', '');
 
-  const App = (await import(appPath)).default;
-  const app = new App();
-
-  await app.init({ mode: 'app', cwd: rootDir, typescript: true });
-  await app.start();
+  const app = await (new AppLoader({ appLoadMode: AppLoadMode.TS, cwd: new URL(rootDir) })).load();
+  await app?.start();
 }

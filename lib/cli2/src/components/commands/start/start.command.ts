@@ -1,5 +1,6 @@
 import { Command, ICommand } from '@nodearch/command';
 import { AppContext, Logger } from '@nodearch/core';
+import { AppLoader } from '@nodearch/core/fs';
 import nodemon from 'nodemon';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -10,9 +11,9 @@ import { LocalAppService } from '../../local-app.service.js';
 export class StartCommand implements ICommand {
 
   constructor(
-    private readonly localAppService: LocalAppService,
     private readonly appContext: AppContext,
-    private readonly logger: Logger
+    private readonly logger: Logger,
+    private readonly localAppService: LocalAppService
   ) {}
 
   command = 'start';
@@ -29,13 +30,8 @@ export class StartCommand implements ICommand {
   async handler(options: any) {
     const localApp = await this.localAppService.getApp();
 
-    /**
-     * a local app should always exist since the command will 
-     * be excluded if the app didn't exist.
-     * 
-     * This is just a safety check
-     */
-    if (!localApp || !localApp.info) return;
+    // Safety check
+    if (!localApp) return;
 
     if (!options.watch) {
       return await localApp.start();
@@ -48,9 +44,9 @@ export class StartCommand implements ICommand {
 
     // Watch Mode
     nodemon({
-      watch: [fileURLToPath(localApp.info.paths.appDir)],
+      watch: [fileURLToPath(localApp.info!.paths.appDir)],
       ext: 'ts',
-      exec: `ts-node --transpileOnly --esm --swc ${starterScriptPath} rootDir=${localApp.info.paths.rootDir} appPath=${localApp.info.paths.app}`,
+      exec: `ts-node --transpileOnly --esm --swc ${starterScriptPath} rootDir=${localApp.info!.paths.rootDir}`,
       legacyWatch: true
     });
 

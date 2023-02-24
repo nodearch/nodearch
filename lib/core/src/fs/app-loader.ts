@@ -1,13 +1,8 @@
-/*
- * Scan and load the app
- * 1. Load package.json and tsconfig.json
- * 2. Construct the app info object
- * 3. Load the app
- */
-
 import { pathToFileURL } from 'node:url';
-import { IAppInfo, IPackageJSON, ITsConfig } from '../index.js';
+import { App, IAppInfo, IPackageJSON, ITsConfig } from '../index.js';
+import { AppLoadMode } from './enums.js';
 import { FileLoader } from './file-loader.js';
+import { IAppLoaderOptions } from './interfaces.js';
 import { UrlParser } from './url-parser.js';
 
 export class AppLoader {
@@ -17,31 +12,51 @@ export class AppLoader {
   private pkgUrl: URL;
   private tsConfigUrl: URL;
   private nodeModulesDir: URL;
+  private appLoadMode: AppLoadMode;
+  private appEntry: string;
 
-  constructor(options?: { cwd?: URL, tsConfigName?: string, appFileName?: string }) {
+  constructor(options?: IAppLoaderOptions) {
     this.cwd = options?.cwd || pathToFileURL(process.cwd());
-    this.tsConfigName = options?.tsConfigName || 'tsconfig.json';
+    this.tsConfigName = options?.tsConfig || 'tsconfig.json';
     this.pkgUrl = UrlParser.join(this.cwd, 'package.json');
     this.tsConfigUrl = UrlParser.join(this.cwd, this.tsConfigName);
     this.nodeModulesDir = UrlParser.join(this.cwd, 'node_modules');
+    this.appLoadMode = options?.appLoadMode || AppLoadMode.JS;
+    this.appEntry = options?.appEntry || 'main';
   }
 
-  // load the APP and run the init function ???
   async load() {
-    const pkg = await this.getPkg();
-    const tsConfig = await this.getTsConfig();
+    const appInfo = await this.getAppInfo();
+    const loadedModule = await FileLoader.importModule(appInfo.paths.app);
+    const AppClass = this.getAppObject(loadedModule);
+    
+    if (AppClass) {
+      const app = new AppClass(appInfo) as App;
+      await app.init({
+        mode: 'app',
+        appInfo
+      });
+      return app;
+    }
+    else {
+      throw new Error(`No App class found in module: ${appInfo.paths.app}`);
+    }
   }
 
   private async getAppInfo() {
     const pkgInfo = await FileLoader.importJSON(this.pkgUrl) as IPackageJSON;
     const tsConfig = await FileLoader.importJSON(this.tsConfigUrl, true) as ITsConfig;
-
-    const tsAppDir = UrlParser.join(this.cwd, tsConfig.compilerOptions.rootDir || 'src');
-    const jsAppDir = UrlParser.join(this.cwd, tsConfig.compilerOptions.outDir || 'dist');
     
-    const tsApp = UrlParser.join(tsAppDir, 'main.ts');
-    const jsApp = UrlParser.join(tsAppDir, 'main.ts');
+    let appDir: URL;
 
+    if (this.appLoadMode === AppLoadMode.TS) {
+      appDir = UrlParser.join(this.cwd, tsConfig.compilerOptions.rootDir || 'src');
+    }
+    else {
+      appDir = UrlParser.join(this.cwd, tsConfig.compilerOptions.outDir || 'dist');
+    }
+
+    const app = UrlParser.join(appDir, this.appEntry + '.' + this.appLoadMode);
 
     const appInfo: IAppInfo = {
       name: pkgInfo.name,
@@ -51,29 +66,23 @@ export class AppLoader {
         nodeModulesDir: this.nodeModulesDir,
         pkg: this.pkgUrl,
         tsConfig: this.tsConfigUrl,
-        app: {
-          ts: {
-            dir: tsAppDir,
-            file: tsApp
-          },
-          js: {
-            dir: jsAppDir,
-            file: jsApp
-          }
-        }
+        appDir,
+        app
       }
     };
 
     return appInfo;
   }
 
-  private async getPkg() {
-    const pkgUrl = UrlParser.join(this.cwd, 'package.json');
-    return await FileLoader.importJSON(pkgUrl) as IPackageJSON;
-  }
+  private getAppObject(moduleObj: Record<string, any>) {
+    if (moduleObj.nodearch) return moduleObj;
+  
+    if (moduleObj.default?.nodearch) return moduleObj.default;
+  
+    const key = Object.keys(moduleObj).find(key => {
+      if (moduleObj[key].nodearch) return true;
+    });
 
-  private async getTsConfig() {
-    const tsConfigUrl = UrlParser.join(this.cwd, this.tsConfigName);
-    return await FileLoader.importJSON(tsConfigUrl, true) as ITsConfig;
+    if (key) return moduleObj[key];
   }
 }

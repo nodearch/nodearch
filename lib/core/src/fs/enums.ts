@@ -3,3 +3,8 @@ export enum FileType {
   Directory = 'dir',
   Other = '*'
 }
+
+export enum AppLoadMode {
+  TS = 'ts',
+  JS = 'js'
+}

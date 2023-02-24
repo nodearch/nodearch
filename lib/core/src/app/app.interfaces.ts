@@ -20,8 +20,7 @@ export type IAppOptions = {
 
 export type IInitOptions = {
   mode: 'app';
-  cwd: URL;
-  typescript?: boolean;
+  appInfo: IAppInfo;
 } | {
   mode: 'ext';
   logger: ILogger;
@@ -39,16 +38,8 @@ export interface IAppPaths {
   nodeModulesDir: URL;
   pkg: URL;
   tsConfig: URL;
-  app: {
-    ts: {
-      dir: URL;
-      file: URL;
-    };
-    js: {
-      dir: URL;
-      file: URL;
-    };
-  };
+  appDir: URL;
+  app: URL;
 }
 
 export interface IPackageJSON {

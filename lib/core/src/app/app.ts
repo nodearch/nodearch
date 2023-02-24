@@ -7,13 +7,11 @@ import { ComponentScope, CoreAnnotation } from '../registry/enums.js';
 import { ComponentRegistry } from '../registry/registry.js';
 import { DependencyException } from '../errors.js';
 import { ClassLoader } from '../fs/class-loader.js';
-import { FileLoader } from '../fs/file-loader.js';
 import { ILogger, ILogOptions } from '../log/interfaces.js';
 import { Logger } from '../log/logger.js';
 import { ClassConstructor } from '../utils/types.js';
 import { AppContext } from './app-context.js';
-import { IAppInfo, IAppOptions, IInitOptions, IPackageJSON, ITsConfig } from './app.interfaces.js';
-import { UrlParser } from '../fs/url-parser.js';
+import { IAppInfo, IAppOptions, IInitOptions } from './app.interfaces.js';
 
 
 export class App {
@@ -125,7 +123,7 @@ export class App {
     // TODO: We can probably add performance insights here
 
     if (options.mode === 'app') {
-      this.appInfo = await this.getAppInfo(options.cwd);
+      this.appInfo = options.appInfo;
     }
     else if (options.mode === 'ext') {
       this.logger = options.logger;
@@ -219,45 +217,6 @@ export class App {
     if (testComponents) {
       return this.testManager.getTestSuitesInfo(testModes, testComponents, mockComponents)
     }
-  }
-
-  private async getAppInfo(cwd: URL) {
-    const pkgUrl = UrlParser.join(cwd, 'package.json');
-    const tsConfigUrl = UrlParser.join(cwd, 'tsconfig.json');
-    const nodeModulesDir = UrlParser.join(cwd, 'node_modules');
-
-    const pkgInfo = await FileLoader.importJSON(pkgUrl) as IPackageJSON;
-    const tsConfig = await FileLoader.importJSON(tsConfigUrl, true) as ITsConfig;
-
-    const tsAppDir = UrlParser.join(cwd, tsConfig.compilerOptions.rootDir || 'src');
-    const jsAppDir = UrlParser.join(cwd, tsConfig.compilerOptions.outDir || 'dist');
-    
-    const tsApp = UrlParser.join(tsAppDir, 'main.ts');
-    const jsApp = UrlParser.join(tsAppDir, 'main.ts');
-
-
-    const appInfo: IAppInfo = {
-      name: pkgInfo.name,
-      version: pkgInfo.version,
-      paths: {
-        rootDir: cwd,
-        nodeModulesDir,
-        pkg: pkgUrl,
-        tsConfig: tsConfigUrl,
-        app: {
-          ts: {
-            dir: tsAppDir,
-            file: tsApp
-          },
-          js: {
-            dir: jsAppDir,
-            file: jsApp
-          }
-        }
-      }
-    };
-
-    return appInfo as IAppInfo;
   }
 
   /**
