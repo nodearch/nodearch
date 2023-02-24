@@ -31,7 +31,7 @@ export class StartCommand implements ICommand {
     const localApp = await this.localAppService.getApp();
 
     // Safety check
-    if (!localApp) return;
+    if (!localApp || !this.localAppService.appInfo) return;
 
     if (!options.watch) {
       return await localApp.start();
@@ -44,9 +44,9 @@ export class StartCommand implements ICommand {
 
     // Watch Mode
     nodemon({
-      watch: [fileURLToPath(this.localAppService.appInfo!.paths.appDir)],
+      watch: [fileURLToPath(this.localAppService.appInfo.paths.appDir)],
       ext: 'ts',
-      exec: `ts-node --transpileOnly --esm --swc ${starterScriptPath} rootDir=${this.localAppService.appInfo!.paths.rootDir}`,
+      exec: `ts-node --transpileOnly --esm --swc ${starterScriptPath} rootDir=${this.localAppService.appInfo.paths.rootDir}`,
       legacyWatch: true
     });
 

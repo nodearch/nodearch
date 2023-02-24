@@ -22,7 +22,7 @@ async function main() {
     app = await appLoader.load();
   }
 
-  await app.start();
+  await app!.start();
 }
  
 main().catch(e => {

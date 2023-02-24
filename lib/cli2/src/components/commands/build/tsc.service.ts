@@ -9,6 +9,20 @@ export class TscService {
 
       const childProcess = spawn('node', ['node_modules/typescript/bin/tsc', ...args], { stdio: 'inherit', cwd });
     
+      // childProcess.on('error', (error) => {
+      //   reject(error);
+      // });
+  
+      // childProcess.on('close', (code) => {
+      //   if (code === 0) {
+      //     resolve();
+      //   }
+      // });
+
+      childProcess.on('message', (msg) => {
+        console.log(msg);
+      });
+
       childProcess.on('error', (error) => {
         reject(error);
       });

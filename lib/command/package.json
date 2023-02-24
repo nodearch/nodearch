@@ -46,5 +46,6 @@
   "peerDependencies": {
     "@nodearch/core": "1.4.2",
     "reflect-metadata": "0.x"
-  }
+  },
+  "nodearch": {}
 }

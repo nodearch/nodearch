@@ -27,13 +27,14 @@ export class LocalAppService {
       this.appInfo = appLoader.appInfo;
     
       if (!this.localApp)
-        throw new Error('No local app found');
+        this.logger.debug('No local app found');
       else 
         this.logger.debug('Local app loaded');
     }
     catch(e: any) {
-      this.logger.debug('Failed to load local app');
-      this.logger.debug(e.message);
+      // this.logger.error(`Error loading NodeArch local app: ${e.message}`);
+      // this.logger.error(e);
+      process.exit(1);
     }
   }
 }

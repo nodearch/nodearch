@@ -45,6 +45,7 @@ export interface IAppPaths {
 export interface IPackageJSON {
   name: string;
   version: string;
+  nodearch: {};
   [key: string]: any;
 }
 

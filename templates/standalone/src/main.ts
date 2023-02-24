@@ -9,7 +9,9 @@ export default class Standalone extends App {
       logs: {
         logLevel: LogLevel.Debug
       },
-      extensions: []
+      extensions: '[]'
     });
   }
 }
+
+xxx

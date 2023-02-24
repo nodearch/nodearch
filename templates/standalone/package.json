@@ -30,5 +30,6 @@
     "@nodearch/core": "workspace:^1.4.2",
     "@nodearch/command": "workspace:^0.1.0",
     "reflect-metadata": "^0.1.13"
-  }
+  },
+  "nodearch": {}
 }

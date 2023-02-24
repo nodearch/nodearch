@@ -7,8 +7,10 @@ import { UrlParser } from './url-parser.js';
 
 export class AppLoader {
 
-  public app?: App;
+  public isAppDir: boolean;
   public appInfo?: IAppInfo;
+  public app?: App;
+
   private cwd: URL;
   private tsConfigName: string;
   private pkgUrl: URL;
@@ -18,6 +20,7 @@ export class AppLoader {
   private appEntry: string;
 
   constructor(options?: IAppLoaderOptions) {
+    this.isAppDir = false;
     this.cwd = options?.cwd || pathToFileURL(process.cwd());
     this.tsConfigName = options?.tsConfig || 'tsconfig.json';
     this.pkgUrl = UrlParser.join(this.cwd, 'package.json');
@@ -28,8 +31,19 @@ export class AppLoader {
   }
 
   async load() {
-    this.appInfo = await this.getAppInfo();
+    // Load package.json from current directory
+    const pkgInfo = await this.getPkg();
+
+    if (!pkgInfo) return;
+
+    // If the package.json file exists, it means we are in an app directory
+    this.isAppDir = true;
+
+    // Get the app info object
+    this.appInfo = await this.getAppInfo(pkgInfo);
+
     const loadedModule = await FileLoader.importModule(this.appInfo.paths.app);
+
     const AppClass = this.getAppObject(loadedModule);
     
     if (AppClass) {
@@ -40,13 +54,16 @@ export class AppLoader {
       });
       return app;
     }
-    else {
-      throw new Error(`No App class found in module: ${this.appInfo.paths.app}`);
-    }
   }
 
-  private async getAppInfo() {
+  // Returns the package.json file if it exists and has a nodearch property
+  private async getPkg() {
     const pkgInfo = await FileLoader.importJSON(this.pkgUrl) as IPackageJSON;
+    return pkgInfo && pkgInfo.nodearch ? pkgInfo : undefined;
+  }
+
+  // Returns the app info object with the paths to the app files and directories
+  private async getAppInfo(pkgInfo: IPackageJSON) {
     const tsConfig = await FileLoader.importJSON(this.tsConfigUrl, true) as ITsConfig;
     
     let appDir: URL;
