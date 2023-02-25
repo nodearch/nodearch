@@ -1,34 +1,49 @@
-import { Container } from 'inversify';
-import { ClassConstructor } from '../../utils/types.js';
-import { ComponentInfo } from '../../registry/info.js';
-import { TestBox } from './test-box.js';
-import { MochaAnnotation, TestMode } from './test.enums.js';
-import { ITestCaseOptions, ITestSuiteOptions, TestHook } from './test.interfaces.js';
+import { App, AppContext, ComponentInfo, Container, Service } from '@nodearch/core';
+import { ClassConstructor } from '@nodearch/core/utils';
+import { TestBox } from '../test-box.js';
+import { MochaAnnotation, TestMode } from '../annotation/test.enums.js';
+import { ITestCaseOptions, ITestSuiteOptions, TestHook } from '../annotation/test.interfaces.js';
+import { FileLoader } from '@nodearch/core/fs';
 
 
-
-export class TestManager {
+@Service()
+export class TestService {
   
-  private container: Container;
-
-  constructor(container: Container) {
-    this.container = container;
-  }
+  constructor(
+    private readonly appContext: AppContext
+  ) {}
   
-  getTestSuitesInfo(testModes: TestMode[], testComponents: ComponentInfo<ITestSuiteOptions>[], mockComponents?: ComponentInfo[]) {
-    return testComponents
-      .filter((componentInfo) => testModes.includes(componentInfo.data!.mode as TestMode))
+  async getTestSuitesInfo(testModes: TestMode[]) {
+    // TODO: use AppLoader instead
+    const MainApp: any = (await FileLoader.importModule(this.appContext.appInfo.paths.app)).default;
+
+    const app: App = new MainApp();
+    await app.init({
+      mode: 'app',
+      appInfo: this.appContext.appInfo
+    });
+    
+    if (testModes.includes(TestMode.E2E)) {
+      // TODO: move this after the test suite setup
+      await app.start();
+    }
+
+    const testComponents = app.components.getComponents<ITestSuiteOptions>(MochaAnnotation.Test);
+    const mockComponents = app.components.getComponents(MochaAnnotation.Mock);
+
+    const suiteInfo = testComponents
+      .filter((componentInfo) => {
+        return testModes.includes(componentInfo.data!.mode as TestMode);
+      })
       .map(componentInfo => {
 
         // Create a clone from the original container
-        const cloneContainer = Container.merge(this.container, new Container()) as Container;
+        const cloneContainer = app.container.clone();
 
         // Bind an instance of the TestBox to the cloned container
-        cloneContainer.bind(TestBox).toConstantValue(new TestBox(cloneContainer));
+        cloneContainer.bindToConstant(TestBox, new TestBox(cloneContainer));
 
-        if (mockComponents) {
-          this.applyMocks(componentInfo, mockComponents, cloneContainer);
-        }
+        this.applyMocks(componentInfo, mockComponents, cloneContainer);
 
         const compInstance = cloneContainer.get(componentInfo.getClass());
 
@@ -45,6 +60,8 @@ export class TestManager {
         };
 
       });
+
+    return suiteInfo;
   }
 
   private applyMocks(testComponentInfo: ComponentInfo, mockComponents: ComponentInfo[], container: Container) {
@@ -58,7 +75,7 @@ export class TestManager {
 
         const mockInstance = container.get(mockComp.getClass());
 
-        container.rebind(mockComp.data!.component).toConstantValue(mockInstance);
+        container.override(mockComp.data!.component, mockInstance);
 
       });
   }

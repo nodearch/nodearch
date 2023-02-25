@@ -10,7 +10,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=14.16"
+    "node": ">=16"
   },
   "scripts": {
     "build": "rimraf ./dist/ && tsc",

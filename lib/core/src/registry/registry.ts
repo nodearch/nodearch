@@ -1,4 +1,4 @@
-import { Container } from 'inversify';
+import { Container } from '../app/container.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentHandler } from './handler.js';
 import { ComponentInfo } from './info.js';
@@ -23,16 +23,35 @@ export class ComponentRegistry {
     this.hooks = [];
   }
 
+  /**
+   * Returns a list of ComponentInfo, which includes all 
+   * information about the component class, instance, 
+   * methods, decorators, etc. The returned list contains
+   * only the components that this app exports
+   * @returns ComponentInfo[]
+   */
   getExported() {
     return this.exported;
   }
 
-  getComponents(id: string) {
+  /**
+   * Returns a list of ComponentInfo, which includes all 
+   * information about the component class, instance, 
+   * methods, decorators, etc. The returned list is 
+   * flittered by the id parameter.
+   * @param id Component ID, you can also pass a CoreAnnotation value 
+   * @returns ComponentInfo[]
+   */
+  getComponents<T = any>(id: string) {
+    let components: ComponentInfo<T>[] = []; 
+    
     const registry = this.registryMap.get(id);
     
     if (registry && registry.components.length) {
-      return registry.components;
+      components = registry.components as ComponentInfo<T>[];
     }
+
+    return components;
   }
 
   /**

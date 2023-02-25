@@ -1,4 +1,4 @@
-import { Container, interfaces } from "inversify";
+import { Container } from '../app/container.js';
 import { ComponentScope } from './enums.js';
 import { ComponentInfo } from './info.js';
 
@@ -6,48 +6,42 @@ export class ComponentHandler {
   constructor(private readonly container: Container) {}
 
   register(componentInfo: ComponentInfo) {
-    let binding: interfaces.BindingWhenOnSyntax<any>;
-
     switch (componentInfo.options?.scope) {
       case ComponentScope.Singleton:
-        binding = this.container.bind(componentInfo.getClass()).toSelf().inSingletonScope();
+        this.container.bindToSelf(componentInfo.getClass(), ComponentScope.Singleton);
         break;
       case ComponentScope.Transient:
-        binding = this.container.bind(componentInfo.getClass()).toSelf().inTransientScope();
+        this.container.bindToSelf(componentInfo.getClass(), ComponentScope.Transient);
         break;
       case ComponentScope.Request:
-        binding = this.container.bind(componentInfo.getClass()).toSelf().inRequestScope();
+        this.container.bindToSelf(componentInfo.getClass(), ComponentScope.Request);
         break;
       default: // will use the container default scope
-        binding = this.container.bind(componentInfo.getClass()).toSelf();
+        this.container.bindToSelf(componentInfo.getClass());
     }
 
     if (componentInfo.id) {
-      this.container.bind(componentInfo.id).toService(componentInfo.getClass());
+      this.container.addToComponentGroup(componentInfo.getClass(), componentInfo.id);
     }
 
     if (componentInfo.options?.namespace && componentInfo.options.namespace !== componentInfo.id) {
-      this.container.bind(componentInfo.options.namespace).toService(componentInfo.getClass());
+      this.container.addToNamespace(componentInfo.getClass(), componentInfo.options.namespace);
     }
-
-    return binding;
   }
 
   registerExtension(componentInfo: ComponentInfo) {
     // Bind extension component instance into the app DI container
-    const binding = this.container.bind(componentInfo.getClass()).toDynamicValue(() => {
+    this.container.bindToDynamic(componentInfo.getClass(), () => {
       // This will return an instance from the extension DI container 
       return componentInfo.getInstance();
     });
 
     if (componentInfo.id) {
-      this.container.bind(componentInfo.id).toService(componentInfo.getClass());
+      this.container.addToComponentGroup(componentInfo.getClass(), componentInfo.id);
     }
 
     if (componentInfo.options?.namespace && componentInfo.options.namespace !== componentInfo.id) {
-      this.container.bind(componentInfo.options.namespace).toService(componentInfo.getClass());
+      this.container.addToNamespace(componentInfo.getClass(), componentInfo.options.namespace);
     }
-
-    return binding;
   }
 }

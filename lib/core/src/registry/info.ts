@@ -1,4 +1,4 @@
-import { Container } from 'inversify';
+import { Container } from '../app/container.js';
 import { ClassInfo } from '../utils/class-info.js';
 import { ClassConstructor } from '../utils/types.js';
 import { CoreAnnotation } from './enums.js';

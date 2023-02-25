@@ -40,7 +40,7 @@ export class CliHook implements IHook {
        * need to check if the app is loaded correctly
        */
       if (localApp) {
-        localAppCommands = localApp.getAll<ICommand>(CommandAnnotation.Command);
+        localAppCommands = localApp.container.getComponentGroup<ICommand>(CommandAnnotation.Command);
       }
       else {
         excludedCommands.push('start');

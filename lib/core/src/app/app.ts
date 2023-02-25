@@ -1,42 +1,39 @@
-import { Container } from 'inversify';
+import inversify from 'inversify';
+import { Container } from './container.js';
 import { ConfigManager } from '../components/config/config-manager.js';
 import { IHook } from '../components/hook/hook.interface.js';
-import { TestManager } from '../components/test/test-manager.js';
-import { MochaAnnotation, TestMode } from '../components/test/test.enums.js';
 import { ComponentScope, CoreAnnotation } from '../registry/enums.js';
 import { ComponentRegistry } from '../registry/registry.js';
-import { DependencyException } from '../errors.js';
 import { ClassLoader } from '../fs/class-loader.js';
 import { ILogger, ILogOptions } from '../log/interfaces.js';
 import { Logger } from '../log/logger.js';
-import { ClassConstructor } from '../utils/types.js';
 import { AppContext } from './app-context.js';
 import { IAppInfo, IAppOptions, IInitOptions } from './app.interfaces.js';
 
 
 export class App {
 
-  // This is used to easily identifies NodeArch Apps when we auto-load classes
   public static nodearch = true;
+  public components: ComponentRegistry;
+  public container: Container;
+  
   private extensions?: App[];
   private logOptions?: ILogOptions;
-  private configOptions?: Record<string, any>;;
+  private configOptions?: Record<string, any>;
   private classLoader: ClassLoader;
   private logger!: ILogger;
   private appContext!: AppContext;
-  private container: Container;
-  private componentRegistry: ComponentRegistry;
-  private testManager: TestManager;
+  private inversifyContainer: inversify.Container;
   private appInfo?: IAppInfo;
 
 
   constructor(options: IAppOptions) {
     this.classLoader = new ClassLoader(options.components);
-    this.container = new Container({
+    this.inversifyContainer = new inversify.Container({
       defaultScope: options.components.scope || ComponentScope.Singleton
     });
-    this.componentRegistry = new ComponentRegistry(this.container);
-    this.testManager = new TestManager(this.container);
+    this.container = new Container(this.inversifyContainer);
+    this.components = new ComponentRegistry(this.container);
     this.extensions = options.extensions;
     this.logOptions = options.logs;
     this.configOptions = options.config;
@@ -49,12 +46,12 @@ export class App {
 
     // appContext is created only in the main app and passed to extensions
     if (!this.appContext) {
-      this.appContext = new AppContext(this.componentRegistry, this.container, this.appInfo!);
+      this.appContext = new AppContext(this.components, this.container, this.appInfo!);
     }
 
-    this.container.bind(Logger).toConstantValue(this.logger as Logger);
-    this.container.bind(AppContext).toConstantValue(this.appContext);
-    this.container.bind(ConfigManager).toConstantValue(new ConfigManager(this.configOptions));
+    this.container.bindToConstant(Logger, this.logger);
+    this.container.bindToConstant(AppContext, this.appContext);
+    this.container.bindToConstant(ConfigManager, new ConfigManager(this.configOptions));
   }
 
   private async loadExtensions() {
@@ -77,7 +74,7 @@ export class App {
 
   private async loadComponents() {
     await this.classLoader.load();
-    this.componentRegistry.register(this.classLoader.classes);
+    this.components.register(this.classLoader.classes);
 
     // this.logger.debug(`${registered} Components Loaded`);
     // this.logger.debug(`${hooks} Hooks registered`);
@@ -87,13 +84,13 @@ export class App {
   private registerExtensions() {
     if (this.extensions) {
       this.extensions.forEach(ext => {
-        this.componentRegistry.registerExtensions(ext.getExportedComponents());
+        this.components.registerExtensions(ext.components.getExported());
       });
     }
   }
 
   async start() {
-    const hooks = this.getAll<IHook>(CoreAnnotation.Hook);
+    const hooks = this.container.getComponentGroup<IHook>(CoreAnnotation.Hook);
 
     if (!hooks) return;
 
@@ -105,17 +102,10 @@ export class App {
   }
 
   async stop() {
-    try {
-      const hooks = this.getAll<IHook>(CoreAnnotation.Hook);
+    const hooks = this.container.getComponentGroup<IHook>(CoreAnnotation.Hook);
 
-      if (hooks) {
-        await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)()));
-      }
-    }
-    catch (e: any) {
-      if (e.message !== 'No matching bindings found for serviceIdentifier: hook') {
-        throw e;
-      }
+    if (hooks) {
+      await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)()));
     }
   }
 
@@ -134,89 +124,6 @@ export class App {
     await this.loadExtensions();
     this.registerExtensions();
     await this.loadComponents();
-  }
-
-  snapshot() {
-    this.container.snapshot();
-  }
-
-  restore() {
-    this.container.restore();
-  }
-
-  override(component: ClassConstructor, value: any) {
-    this.container.rebind(component).toConstantValue(value);
-  }
-
-  clearCache() {
-    const compsMap = (<Map<any, any[]>>(<any>this.container)._bindingDictionary._map);
-
-    compsMap.forEach(comps => {
-      comps.forEach(comp => {
-        if (comp.type === 'Instance') {
-          comp.cache = null;
-          comp.activated = false;
-        }
-      });
-    });
-  }
-
-  get<T>(id: ClassConstructor): T | undefined {
-    try {
-      return this.container.get<T>(id);
-    }
-    catch (e: any) {
-      if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
-        throw new DependencyException(e.message);
-      }
-    }
-  }
-
-  getAll<T>(id: string) {
-    let instances: T[] = [];
-
-    try {
-      instances = this.container.getAll<T>(id);
-    }
-    catch (e: any) {
-      if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
-        throw new DependencyException(e.message);
-      }
-    }
-
-    return instances;
-  }
-
-  /**
-   * Returns a list of ComponentInfo, which includes all 
-   * information about the component class, instance, 
-   * methods, decorators, etc. The returned list is 
-   * flittered by the id parameter.
-   * @param id Component ID, you can also pass a CoreAnnotation value 
-   * @returns ComponentInfo[]
-   */
-  getComponents(id: string) {
-    return this.componentRegistry.getComponents(id);
-  }
-
-  /**
-   * Returns a list of ComponentInfo, which includes all 
-   * information about the component class, instance, 
-   * methods, decorators, etc. The returned list contains
-   * only the components that this app exports
-   * @returns ComponentInfo[]
-   */
-  getExportedComponents() {
-    return this.componentRegistry.getExported();
-  }
-
-  getTestSuites(testModes: TestMode[]) {
-    const testComponents = this.getComponents(MochaAnnotation.Test);
-    const mockComponents = this.getComponents(MochaAnnotation.Mock);
-
-    if (testComponents) {
-      return this.testManager.getTestSuitesInfo(testModes, testComponents, mockComponents)
-    }
   }
 
   /**

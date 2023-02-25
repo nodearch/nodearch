@@ -21,14 +21,12 @@
     "typescript": "^4.7.2",
     "rimraf": "~3.0.2",
     "chai": "^4.3.6",
-    "@types/chai": "^4.3.3",
-    "mocha": "^10.1.0",
-    "nyc": "^15.1.0",
-    "@types/mocha": "^10.0.0"
+    "@types/chai": "^4.3.3"
   },
   "dependencies": {
     "@nodearch/core": "workspace:^1.4.2",
     "@nodearch/command": "workspace:^0.1.0",
+    "@nodearch/mocha": "workspace:^0.1.0",
     "reflect-metadata": "^0.1.13"
   },
   "nodearch": {}

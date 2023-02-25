@@ -52,7 +52,7 @@ export interface IComponentHandler {
 
 export interface IComponentOptions {
   scope?: ComponentScope;
-  namespace?: string | symbol;
+  namespace?: string;
   export?: boolean;
 }
 

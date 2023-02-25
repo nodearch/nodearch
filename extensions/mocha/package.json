@@ -1,7 +1,7 @@
 {
-  "name": "@nodearch/cli",
-  "version": "1.2.4",
-  "description": "nodearch cli",
+  "name": "@nodearch/mocha",
+  "version": "0.1.0",
+  "description": "nodearch mocha extension",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -11,9 +11,6 @@
   "type": "module",
   "engines": {
     "node": ">=16"
-  },
-  "bin": {
-    "nodearch": "./dist/start.js"
   },
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
@@ -26,7 +23,7 @@
   },
   "keywords": [
     "nodearch",
-    "nodearch-cli"
+    "nodearch-mocha"
   ],
   "author": "https://github.com/AhmedAli7O1",
   "license": "MIT",
@@ -38,15 +35,13 @@
     "@nodearch/core": "workspace:^1.4.2",
     "@nodearch/command": "workspace:^0.1.0",
     "typescript": "^4.7.2",
-    "ts-node": "^10.9.1",
-    "@swc/core": "^1.3.35",
-    "axios": "^1.3.3",
-    "nodemon": "^2.0.20"
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0"
   },
   "devDependencies": {
     "@types/node": "^16.18.0",
     "rimraf": "~3.0.2",
-    "@types/nodemon": "^1.19.2"
+    "@types/mocha": "^10.0.1"
   },
   "nodearch": {}
 }

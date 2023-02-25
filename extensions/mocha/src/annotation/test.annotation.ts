@@ -1,7 +1,5 @@
-import { ClassConstructor } from '../../utils/types.js';
-import * as utils from '../../utils/utils.js';
-import { ComponentScope } from '../../registry/enums.js';
-import { ComponentFactory } from '../../registry/factory.js';
+import { ComponentFactory, ComponentScope } from '@nodearch/core';
+import { camelToTitle, ClassConstructor } from '@nodearch/core/utils';
 import { MochaAnnotation, TestMode } from './test.enums.js';
 import { ITestCaseOptions, ITestSuiteMetadata, ITestSuiteOptions } from './test.interfaces.js';
 
@@ -22,7 +20,7 @@ export function Test(...args: (string | ITestSuiteOptions | Omit<ITestSuiteOptio
       
       let options: ITestSuiteMetadata = {
         mode: TestMode.UNIT,
-        title: utils.camelToTitle(<string>target.name),
+        title: camelToTitle(<string>target.name),
         timeout: 2000
       };
   
@@ -103,7 +101,7 @@ export function Case(...args: (string | ITestCaseOptions | Omit<ITestCaseOptions
     id: MochaAnnotation.Case,
     fn(target, propKey) {
       let options: Required<ITestCaseOptions> = {
-        title: utils.camelToTitle(<string>propKey),
+        title: camelToTitle(<string>propKey),
         active: true,
         params: {}
       };

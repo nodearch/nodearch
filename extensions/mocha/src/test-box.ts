@@ -1,7 +1,6 @@
-import { Container } from 'inversify';
-import { ClassConstructor } from '../../utils/types.js';
-import { IComponentOverride } from './test.interfaces.js';
-
+import { Container } from '@nodearch/core';
+import { ClassConstructor } from '@nodearch/core/utils';
+import { IComponentOverride } from './annotation/test.interfaces.js';
 
 
 export class TestBox {
@@ -14,12 +13,12 @@ export class TestBox {
   mock(override: IComponentOverride): TestBox;
   mock(overrides: IComponentOverride[]): TestBox;
   mock(overrides: IComponentOverride | IComponentOverride[]): TestBox {
-    this.clearCache();
+    this.container.clearCache();
 
     overrides = Array.isArray(overrides) ? overrides : [overrides];
 
     overrides.forEach(override => {
-      this.container.rebind(override.component).toConstantValue(override.use);
+      this.container.override(override.component, override.use);
     });
     return this;
   }
@@ -32,18 +31,5 @@ export class TestBox {
   restore() {
     this.container.restore();
     return this;
-  }
-
-  private clearCache() {
-    const compsMap = (<Map<any, any[]>>(<any>this.container)._bindingDictionary._map);
-    
-    compsMap.forEach(comps => {
-      comps.forEach(comp => {
-        if (comp.type === 'Instance') {
-          comp.cache = null;
-          comp.activated = false;
-        }
-      });
-    });
   }
 }
