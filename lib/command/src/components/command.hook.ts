@@ -1,28 +1,19 @@
 import { Hook, IHook } from '@nodearch/core';
-import yargs, { Arguments, CommandModule } from 'yargs';
-import { CommandConfig } from './command.config';
+import { CommandConfig } from './command.config.js';
+import { CommandService } from './command.service.js';
 
 
 @Hook({ export: true })
 export class CommandHook implements IHook {
 
   constructor(
-    private readonly commandConfig: CommandConfig
+    private readonly commandConfig: CommandConfig,
+    private readonly commandService: CommandService
   ) {}
 
   async onStart() {
-    if (!this.commandConfig.enable) return;
-
-    yargs
-      .scriptName(this.commandConfig.name)
-      .usage(this.commandConfig.usage)
-      .demandCommand()
-
-
-      .alias('h', 'help')
-      .alias('v', 'version');
-
-    yargs.argv;
-
+    if (this.commandConfig.autoStart) {
+      await this.commandService.start();
+    }
   }
 }

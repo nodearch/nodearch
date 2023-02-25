@@ -1,14 +1,19 @@
 import { App, LogLevel } from '@nodearch/core';
-import path from 'path';
-
+import { CommandApp } from '@nodearch/command';
 
 export class Cli extends App {
   constructor() {
     super({
       components: {
-        path: path.join(__dirname, 'components')
+        url: new URL('components', import.meta.url)
       },
-      logs: { logLevel: LogLevel.Info }
+      logs: { logLevel: LogLevel.Info },
+      extensions: [
+        new CommandApp({
+          name: 'nodearch',
+          usage: 'Usage: nodearch <command> [options]'
+        })
+      ]
     });
   }
 }

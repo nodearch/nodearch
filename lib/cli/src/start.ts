@@ -1,32 +1,28 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
-import { App, ClassConstructor } from '@nodearch/core';
-import path from 'path';
-import { register } from 'ts-node';
+import { App } from '@nodearch/core';
+import { AppLoader, AppLoadMode } from '@nodearch/core/fs';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
-
-register({ transpileOnly: true });
 
 async function main() {
-  let CliApp: ClassConstructor<App> | undefined;
+  let app: App | undefined; 
 
   // Try to load a local copy of the Cli
   try {
     const localCliPath = path.join(process.cwd(), 'node_modules', '@nodearch', 'cli');
-    CliApp = (await import(localCliPath))?.Cli;
+    const appLoader = new AppLoader({ cwd: pathToFileURL(localCliPath), appLoadMode: AppLoadMode.JS });
+    app = await appLoader.load();
   }
   catch(e: any) {}
 
-  if (!CliApp) {
-    CliApp = (await import('./main')).Cli;
+  if (!app) {
+    const appLoader = new AppLoader({ cwd: new URL('..', import.meta.url), appLoadMode: AppLoadMode.TS });
+    app = await appLoader.load();
   }
 
-  const app = new CliApp();
-  await app.init({
-    mode: 'app',
-    appInfo: path.join(__dirname, '..', 'package.json')
-  });
-  await app.start();
+  await app!.start();
 }
  
 main().catch(e => {

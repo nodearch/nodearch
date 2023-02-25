@@ -1,10 +1,10 @@
 import { Container } from 'inversify';
-import { ComponentRegistry } from '../components';
-import { DependencyException } from '../errors';
-import { ClassConstructor } from '../utils';
-import { IAppInfo } from './app.interfaces';
+import { ComponentRegistry } from '../registry/registry.js';
+import { DependencyException } from '../errors.js';
+import { ClassConstructor } from '../utils/types.js';
+import { IAppInfo } from './app.interfaces.js';
 
-
+  
 export class AppContext {
   constructor(
     private components: ComponentRegistry,

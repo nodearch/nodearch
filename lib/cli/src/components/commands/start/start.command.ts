@@ -1,16 +1,23 @@
-import { Command, IAppInfo, ICommand } from '@nodearch/core';
+import { Command, ICommand } from '@nodearch/command';
+import { AppContext, Logger } from '@nodearch/core';
 import nodemon from 'nodemon';
 import path from 'path';
-import { AppService } from '../../app/app.service';
-import { CommandMode } from '../../cli/enum';
-import { ExecService } from '../../utils/exec.service';
-import { fork } from 'child_process';
+import { fileURLToPath } from 'url';
+import { LocalAppService } from '../../local-app.service.js';
+
 
 @Command()
 export class StartCommand implements ICommand {
+
+  constructor(
+    private readonly appContext: AppContext,
+    private readonly logger: Logger,
+    private readonly localAppService: LocalAppService
+  ) {}
+
   command = 'start';
-  describe = 'Start your App';
-  aliases = ['s'];
+  describe = 'Starts the application';
+  aliases = 's';
   builder = {
     watch: {
       alias: 'w',
@@ -18,28 +25,43 @@ export class StartCommand implements ICommand {
       describe: 'Start in watch mode [nodemon]'
     }
   };
-  mode = [CommandMode.App]; 
 
-  constructor(
-    private readonly appService: AppService
-  ) {}
+  async handler(options: any) {
+    const localApp = await this.localAppService.app;
+    const localAppInfo = await this.localAppService.info;
 
-  async handler(options: Record<string, any>) {
-    if (options.watch) {
-      this.startWatch(this.appService.appInfo!);
+    // Safety check
+    if (!localApp || !localAppInfo) return;
+
+    if (!options.watch) {
+      this.logger.info('Starting app...');
+      return await localApp.start();
     }
-    else {
-      await this.appService.app?.start();
-    }
-  }
 
-  private startWatch(appInfo: IAppInfo) {
+    const starterScriptPath = path.join(
+      fileURLToPath(this.appContext.appInfo.paths.appDir), 
+      'utils', 'app-starter.ts'
+    );
+
+    // Watch Mode
     nodemon({
-      watch: [appInfo.paths.dirs.app],
+      watch: [fileURLToPath(localAppInfo.paths.appDir)],
       ext: 'ts',
-      script: path.join(appInfo.paths.dirs.app, 'start.ts'),
+      exec: `ts-node --transpileOnly --esm --swc ${starterScriptPath} rootDir=${localAppInfo.paths.rootDir}`,
       legacyWatch: true
     });
+
+    nodemon
+      .on('start', () => {
+        this.logger.info('App started in watch mode');
+      })
+      .on('quit', () => {
+        this.logger.info('App has quit');
+        process.exit();
+      })
+      .on('restart', (files) => {
+        this.logger.info('App restarted due to: ', files);
+      });
   }
 
-} 
+}

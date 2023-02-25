@@ -1,3 +1,3 @@
-export * from './app';
-export * from './app-context';
-export * from './app.interfaces';
+export * from './app.js';
+export * from './app.interfaces.js';
+export * from './app-context.js';

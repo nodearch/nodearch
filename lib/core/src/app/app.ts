@@ -1,16 +1,18 @@
-import { ClassLoader, FileSystem } from '../loader';
-import { 
-  CoreAnnotation, IHook, ConfigManager, 
-  ComponentScope, ComponentRegistry, 
-  TestManager, TestMode, MochaAnnotation,
-} from '../components';
-import { IAppOptions, IAppPaths, IInitOptions, IAppInfo, IPackageJSON } from './app.interfaces';
-import { ILogger, ILogOptions, Logger } from '../log';
 import { Container } from 'inversify';
-import { ClassConstructor } from '../utils';
-import { DependencyException } from '../errors';
-import { AppContext } from './app-context';
-import path from 'path';
+import { ConfigManager } from '../components/config/config-manager.js';
+import { IHook } from '../components/hook/hook.interface.js';
+import { TestManager } from '../components/test/test-manager.js';
+import { MochaAnnotation, TestMode } from '../components/test/test.enums.js';
+import { ComponentScope, CoreAnnotation } from '../registry/enums.js';
+import { ComponentRegistry } from '../registry/registry.js';
+import { DependencyException } from '../errors.js';
+import { ClassLoader } from '../fs/class-loader.js';
+import { ILogger, ILogOptions } from '../log/interfaces.js';
+import { Logger } from '../log/logger.js';
+import { ClassConstructor } from '../utils/types.js';
+import { AppContext } from './app-context.js';
+import { IAppInfo, IAppOptions, IInitOptions } from './app.interfaces.js';
+
 
 export class App {
 
@@ -45,7 +47,8 @@ export class App {
       this.logger = new Logger(this.logOptions);
     }
 
-    if(!this.appContext) {
+    // appContext is created only in the main app and passed to extensions
+    if (!this.appContext) {
       this.appContext = new AppContext(this.componentRegistry, this.container, this.appInfo!);
     }
 
@@ -54,7 +57,7 @@ export class App {
     this.container.bind(ConfigManager).toConstantValue(new ConfigManager(this.configOptions));
   }
 
-  private async loadExtensions () {
+  private async loadExtensions() {
     if (this.extensions) {
       for (const extension of this.extensions) {
         try {
@@ -69,9 +72,9 @@ export class App {
         }
       }
     }
-  } 
+  }
 
-  
+
   private async loadComponents() {
     await this.classLoader.load();
     this.componentRegistry.register(this.classLoader.classes);
@@ -91,7 +94,7 @@ export class App {
 
   async start() {
     const hooks = this.getAll<IHook>(CoreAnnotation.Hook);
-      
+
     if (!hooks) return;
 
     for (const hook of hooks) {
@@ -120,9 +123,7 @@ export class App {
     // TODO: We can probably add performance insights here
 
     if (options.mode === 'app') {
-      this.appInfo = typeof options.appInfo === 'string' ? 
-        await App.getAppInfo(options.appInfo) : 
-        options.appInfo; // TODO: validate
+      this.appInfo = options.appInfo;
     }
     else if (options.mode === 'ext') {
       this.logger = options.logger;
@@ -149,7 +150,7 @@ export class App {
 
   clearCache() {
     const compsMap = (<Map<any, any[]>>(<any>this.container)._bindingDictionary._map);
-    
+
     compsMap.forEach(comps => {
       comps.forEach(comp => {
         if (comp.type === 'Instance') {
@@ -164,7 +165,7 @@ export class App {
     try {
       return this.container.get<T>(id);
     }
-    catch(e: any) {
+    catch (e: any) {
       if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
         throw new DependencyException(e.message);
       }
@@ -173,11 +174,11 @@ export class App {
 
   getAll<T>(id: string) {
     let instances: T[] = [];
-    
+
     try {
       instances = this.container.getAll<T>(id);
     }
-    catch(e: any) {
+    catch (e: any) {
       if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
         throw new DependencyException(e.message);
       }
@@ -221,34 +222,7 @@ export class App {
   /**
    * Returns the Constructor name
    */
-  get appName () {
+  get name() {
     return this.constructor.name;
-  }
-
-  static async getAppInfo(packagePath: string) {
-    const pkgInfo = await FileSystem.importFile(packagePath) as IPackageJSON;
-
-    const paths = FileSystem
-      .resolvePaths(pkgInfo.nodearch.paths, path.dirname(packagePath));
-
-    const appInfo: IAppInfo = {
-      name: pkgInfo.name,
-      version: pkgInfo.version,
-      paths: {
-        dirs: {
-          root: paths.root,
-          app: path.dirname(paths.app),
-          nodeModules: path.join(paths.root, 'node_modules')
-        },
-        files: {
-          app: paths.app,
-          package: path.join(paths.root, 'package.json')
-        }
-      }
-    };
-
-    // TODO: validate package.json
-
-    return appInfo as IAppInfo;
   }
 }

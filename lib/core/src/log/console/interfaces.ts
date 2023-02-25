@@ -1,5 +1,6 @@
-import { LogLevel } from '../enums';
-import { Color } from './enums';
+import { LogLevel } from '../enums.js';
+import { Color } from './enums.js';
+
 
 export interface IConsoleLoggerOptions {
   disableColors: boolean;

@@ -1,5 +1,5 @@
 import { inject } from 'inversify';
-import { ClassConstructor } from './types';
+import { ClassConstructor } from './types.js';
 
 export abstract class ClassInfo {
   static getMethods(target: Function): string[] {

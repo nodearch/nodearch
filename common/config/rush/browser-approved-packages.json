@@ -12,7 +12,7 @@
     },
     {
       "name": "@nodearch/command",
-      "allowedCategories": [ "prototypes" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@nodearch/core",
@@ -44,6 +44,10 @@
     },
     {
       "name": "@socket.io/redis-adapter",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@swc/core",
       "allowedCategories": [ "production" ]
     },
     {

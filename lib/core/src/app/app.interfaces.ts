@@ -1,8 +1,9 @@
-import { ComponentScope } from '../components';
-import { App } from "./app";
-import { ILogger, ILogOptions } from '../log';
-import { IClassLoaderOptions } from '../loader';
-import { AppContext } from './app-context';
+import { ComponentScope } from '../registry/enums.js';
+import { IClassLoaderOptions } from '../fs/interfaces.js';
+import { ILogger, ILogOptions } from '../log/interfaces.js';
+import { AppContext } from './app-context.js';
+import { App } from './app.js';
+import { AppLoadMode } from '../fs/enums.js';
 
 
 export interface IAppConstructor {
@@ -20,7 +21,7 @@ export type IAppOptions = {
 
 export type IInitOptions = {
   mode: 'app';
-  appInfo: IAppInfo | string;
+  appInfo: IAppInfo;
 } | {
   mode: 'ext';
   logger: ILogger;
@@ -31,27 +32,30 @@ export interface IAppInfo {
   name: string;
   version: string;
   paths: IAppPaths;
+  loadMode: AppLoadMode;
 }
 
 export interface IAppPaths {
-  dirs: {
-    root: string;
-    app: string;
-    nodeModules: string;
-  };
-  files: {
-    app: string;
-    package: string;
-  };
+  rootDir: URL;
+  nodeModulesDir: URL;
+  pkg: URL;
+  tsConfig: URL;
+  appDir: URL;
+  app: URL;
 }
 
 export interface IPackageJSON {
   name: string;
   version: string;
-  nodearch: {
-    paths: {
-      root: string;
-      app: string;
-    };
+  nodearch: {};
+  [key: string]: any;
+}
+
+export interface ITsConfig {
+  compilerOptions: {
+    [key: string]: any;
+    rootDir: string;
+    outDir: string;
   };
+  [key: string]: any;
 }

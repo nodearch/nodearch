@@ -2,13 +2,13 @@ import { Config, ConfigManager, ConfigType } from '@nodearch/core';
 
 @Config()
 export class CommandConfig {
-  enable?: boolean;
+  autoStart?: boolean;
   name: string;
   usage: string;
 
   constructor(config: ConfigManager) {
-    this.enable = config.env({
-      external: 'enable',
+    this.autoStart = config.env({
+      external: 'autoStart',
       dataType: ConfigType.BOOLEAN,
       required: false
     });

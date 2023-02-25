@@ -2,7 +2,7 @@ import { Hook, IHook } from '@nodearch/core';
 
 @Hook()
 export class FirstHook implements IHook {
-  async onInit() {
-    // console.log('FirstHook onInit');
+  async onStart() {
+    console.log('Standalone APP - FirstHook.onStart');
   }
 }

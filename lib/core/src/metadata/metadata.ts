@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 export abstract class MetadataInfo {
 
   static readonly PREFIX = '@nodearch/core/';

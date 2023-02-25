@@ -1,6 +1,7 @@
-import { ConsoleLogger } from './console';
-import { LogLevel } from './enums';
-import { ILoggerHandler, ILogOptions } from './interfaces';
+import { ConsoleLogger } from './console/console-logger.js';
+import { LogLevel } from './enums.js';
+import { ILoggerHandler, ILogOptions } from './interfaces.js';
+
 
 export class Logger {
   
@@ -37,7 +38,7 @@ export class Logger {
   }
 
   private defaultGetTimestamp() {
-    return new Date().toDateString();
+    return new Date().toISOString();
   }
 
   private writeLogs(logLevel: LogLevel, tag: string, args: any[]) {

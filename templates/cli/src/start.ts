@@ -1,5 +1,5 @@
-import path from 'path';
-import CliTemplate from './main';
+import CliTemplate from './main.js';
+import { fileURLToPath } from 'node:url';
 
 
 async function main() {
@@ -7,7 +7,7 @@ async function main() {
 
   await app.init({
     mode: 'app',
-    appInfo: path.join(__dirname, '..', 'package.json')
+    appInfo: fileURLToPath(new URL('../package.json', import.meta.url))
   });
 
   await app.start();

@@ -1,8 +1,4 @@
-export * from './app';
-export * from './components';
-export * from './loader';
-export * from './log';
-export * from './metadata';
-export * from './utils';
-export * from './errors';
-export { Container } from 'inversify';
+export * from './app/index.js';
+export * from './components/index.js';
+export * from './log/index.js';
+export * from './registry/index.js';

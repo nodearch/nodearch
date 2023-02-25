@@ -1,68 +1,53 @@
-import { 
-  Command, CommandBuilder, 
-  CommandQuestion, CommandQuestionType, 
-  ICommand, Logger 
-} from '@nodearch/core';
-import path from 'path';
-import { CommandMode } from '../../cli/enum';
-import { GitHubService } from '../../utils/github.service';
-import { NpmService } from '../../utils/npm.service';
+import path from 'node:path';
+import { Command, CommandQuestionType, ICommand } from '@nodearch/command';
+import { GitHubService } from './github.service.js';
+import { Logger } from '@nodearch/core';
+import { NpmService } from './npm.service.js';
 
 
 @Command()
 export class NewCommand implements ICommand {
-  private readonly currentDirectory: string;
-
-  command: string;
-  describe: string;
-  aliases: string[];
-  builder: CommandBuilder<any>;
-  questions: CommandQuestion[];
-  mode: CommandMode[];
 
   constructor(
-    private readonly logger: Logger, 
-    private readonly npmService: NpmService, 
-    private readonly githubService: GitHubService
-  ) {
-    this.command = 'new';
-    this.describe = 'Generate new NodeArch app';
-    this.aliases = ['n'];
-    this.builder = {
-      name: {
-        alias: ['n'],
-        describe: 'Your project name'
-      },
-      template: {
-        alias: ['t'],
-        describe: 'Template to download'
-      }
-    };
-    this.questions = [
-      {
-        type: CommandQuestionType.Input,
-        name: 'name',
-        message: 'Your project name?'
-      },
-      {
-        type: CommandQuestionType.List,
-        name: 'template',
-        message: 'Select an app template',
-        choices: async () => {
-          return await this.githubService.listTemplates();
-        }
-      }
-    ];
-    this.mode = [CommandMode.NoApp];
+    private readonly githubService: GitHubService,
+    private readonly npmService: NpmService,
+    private readonly logger: Logger
+  ) {}
 
-    this.currentDirectory = process.cwd();
-  }
+  command = 'new';
+  describe = 'Generate new NodeArch app';
+  aliases = 'n';
+  builder = {
+    name: {
+      alias: 'n',
+      describe: 'Your project name'
+    },
+    template: {
+      alias: 't',
+      describe: 'Template to download'
+    }
+  };
+  questions = [
+    {
+      type: CommandQuestionType.Input,
+      name: 'name',
+      message: 'Your project name?'
+    },
+    {
+      type: CommandQuestionType.List,
+      name: 'template',
+      message: 'Select an app template',
+      choices: async () => {
+        return await this.githubService.listTemplates();
+      }
+    }
+  ];
 
   async handler(options: Record<string, any>) {
     try {
-      const appName = this.formatName(options.name);
+      const appName = options.name.toLowerCase().replace(/\s+/g, '-');
 
-      const distPath = path.join(this.currentDirectory, appName);
+      const distPath = path.join(process.cwd(), appName);
 
       this.logger.info(`Generating a new app [${appName}] from the template [${options.template}]`);
 
@@ -79,9 +64,5 @@ export class NewCommand implements ICommand {
     catch(e: any) {
       this.logger.error('Couldn\'t create your app', e.message);
     }
-  }
-
-  private formatName(name: string) {
-    return name.toLowerCase().replace(/\s+/g, '-');
   }
 }
