@@ -2,7 +2,12 @@ import { Service } from '@nodearch/core';
 import axios from 'axios';
 import path from 'path';
 import fs from 'fs';
-import { ITemplateFile } from './interfaces.js';
+
+interface ITemplateFile {
+  name: string;
+  path: string;
+  download_url: string;
+}
 
 
 @Service()

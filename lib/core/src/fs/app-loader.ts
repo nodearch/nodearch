@@ -47,12 +47,12 @@ export class AppLoader {
     const AppClass = this.getAppObject(loadedModule);
     
     if (AppClass) {
-      const app = new AppClass(this.appInfo) as App;
-      await app.init({
+      this.app = new AppClass(this.appInfo) as App;
+      await this.app.init({
         mode: 'app',
         appInfo: this.appInfo
       });
-      return app;
+      return this.app;
     }
   }
 
@@ -80,6 +80,7 @@ export class AppLoader {
     const appInfo: IAppInfo = {
       name: pkgInfo.name,
       version: pkgInfo.version,
+      loadMode: this.appLoadMode,
       paths: {
         rootDir: this.cwd,
         nodeModulesDir: this.nodeModulesDir,

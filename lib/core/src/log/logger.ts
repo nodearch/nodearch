@@ -38,7 +38,7 @@ export class Logger {
   }
 
   private defaultGetTimestamp() {
-    return new Date().toDateString();
+    return new Date().toISOString();
   }
 
   private writeLogs(logLevel: LogLevel, tag: string, args: any[]) {

@@ -3,6 +3,7 @@ import { IClassLoaderOptions } from '../fs/interfaces.js';
 import { ILogger, ILogOptions } from '../log/interfaces.js';
 import { AppContext } from './app-context.js';
 import { App } from './app.js';
+import { AppLoadMode } from '../fs/enums.js';
 
 
 export interface IAppConstructor {
@@ -31,6 +32,7 @@ export interface IAppInfo {
   name: string;
   version: string;
   paths: IAppPaths;
+  loadMode: AppLoadMode;
 }
 
 export interface IAppPaths {
