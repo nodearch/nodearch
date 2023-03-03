@@ -1,13 +1,13 @@
 import path from 'path';
 import { App } from '@nodearch/core';
-import { IOpenAPIAppOptions } from './interfaces';
+import { IOpenAPIAppOptions } from './interfaces.js';
 
 
 export class OpenAPIApp extends App {
   constructor(config?: IOpenAPIAppOptions) {
     super({
       components: {
-        path: path.join(__dirname, 'components')
+        url: new URL('components', import.meta.url)
       },
       config
     });

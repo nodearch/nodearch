@@ -1,5 +1,5 @@
 import { Hook, IHook } from '@nodearch/core';
-import { ExpressServer } from './express-server';
+import { ExpressServer } from './express-server.js';
 
 
 @Hook({ export: true })

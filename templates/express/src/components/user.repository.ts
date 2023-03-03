@@ -1,5 +1,5 @@
 import { Repository } from '@nodearch/core';
-import { IUser } from './user.interface';
+import { IUser } from './user.interface.js';
 
 @Repository()
 export class UserRepository {

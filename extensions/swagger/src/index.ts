@@ -1,2 +1,2 @@
-export * from './main';
-export { getAbsoluteFSPath } from 'swagger-ui-dist'
+export * from './main.js';
+export { getAbsoluteFSPath } from 'swagger-ui-dist';

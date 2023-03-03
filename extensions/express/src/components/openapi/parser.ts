@@ -1,8 +1,9 @@
-import { Service, utils } from '@nodearch/core';
+import { Service } from '@nodearch/core';
+import { camelToTitle } from '@nodearch/core/utils';
 import { OpenAPIObject, PathsObject, OperationObject, ParameterObject, IOpenAPIAppMapItem } from '@nodearch/openapi';
-import { HttpMethod } from '../express/enums';
-import { ExpressParser } from '../express/express-parser';
-import { ExpressConfig } from '../express/express.config';
+import { HttpMethod } from '../express/enums.js';
+import { ExpressParser } from '../express/express-parser.js';
+import { ExpressConfig } from '../express/express.config.js';
 
 
 @Service()
@@ -55,7 +56,7 @@ export class OpenAPIParser {
   private getOperationObject(params: string[], controllerMethod: string, httpMethod: HttpMethod): Partial<OperationObject> {
     const opObj: Partial<OperationObject> = {
       summary: controllerMethod,
-      description: utils.camelToTitle(controllerMethod),
+      description: camelToTitle(controllerMethod),
       parameters: this.getPathParams(params),
       responses: {
         200: { description: 'OK' },

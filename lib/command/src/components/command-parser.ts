@@ -40,7 +40,7 @@ export class CommandParser {
       await command.handler.bind(command)(data);
     }
     catch(e: any) {
-      this.logger.error(e.message);
+      this.logger.error(e);
       process.exit(1);
     }
   }

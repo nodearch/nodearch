@@ -1,6 +1,6 @@
 import { Service } from '@nodearch/core';
-import { IUser } from './user.interface';
-import { UserRepository } from './user.repository';
+import { IUser } from './user.interface.js';
+import { UserRepository } from './user.repository.js';
 
 @Service()
 export class UserService {

@@ -1,6 +1,7 @@
-import { ClassConstructor, ILogger } from '@nodearch/core';
+import { ILogger } from '@nodearch/core';
+import { ClassConstructor } from '@nodearch/core/utils';
 import express from 'express';
-import { HttpError } from './http-errors';
+import { HttpError } from './http-errors.js';
 
 
 export interface IHttpErrorsOptions {

@@ -2,8 +2,16 @@
   "name": "@nodearch/swagger",
   "version": "0.0.1",
   "description": "Swagger",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc"

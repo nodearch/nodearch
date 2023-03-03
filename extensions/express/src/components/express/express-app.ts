@@ -1,11 +1,12 @@
 import express from 'express';
-import { Service } from '@nodearch/core';
-import { IExpressInfo, IExpressRoute, IExpressRouter } from './interfaces';
-import { RouteHandler } from './route-handler';
-import { MiddlewareFactory } from '../middleware/middleware-factory';
-import { ExpressParser } from './express-parser';
-import { ExpressConfig } from './express.config';
-import path from 'path';
+import { AppContext, Service } from '@nodearch/core';
+import { IExpressInfo, IExpressRoute, IExpressRouter } from './interfaces.js';
+import { RouteHandler } from './route-handler.js';
+import { MiddlewareFactory } from '../middleware/middleware-factory.js';
+import { ExpressParser } from './express-parser.js';
+import { ExpressConfig } from './express.config.js';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 
 /**
@@ -25,7 +26,8 @@ export class ExpressApp {
     private readonly routeHandler: RouteHandler,
     private readonly middlewareFactory: MiddlewareFactory,
     private readonly expressParser: ExpressParser,
-    private readonly expressConfig: ExpressConfig
+    private readonly expressConfig: ExpressConfig,
+    private readonly appContext: AppContext
   ) {}
 
   create(): express.Application {
@@ -40,13 +42,16 @@ export class ExpressApp {
 
   private registerStatic(app: express.Application) {
     if (this.expressConfig.static) {
-      this.expressConfig.static.forEach(staticDir => {
-        if (!path.isAbsolute(staticDir.root)) {
-          // TODO: use the app root directory instead of CWD, perhaps passing it via the AppContext
-          staticDir.root = path.join(process.cwd(), staticDir.root);
+      const rootDirPath = fileURLToPath(this.appContext.appInfo.paths.rootDir);
+      
+      this.expressConfig.static.forEach(staticItem => {
+        let filePath =  staticItem.filePath;
+        
+        if (!path.isAbsolute(filePath)) {
+          filePath = path.join(rootDirPath, filePath);
         }
 
-        app.use(staticDir.path, express.static(staticDir.root, staticDir.options));
+        app.use(staticItem.httpPath, express.static(filePath, staticItem.options));
       });
     }
   }

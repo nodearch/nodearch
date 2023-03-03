@@ -1,4 +1,4 @@
-import { ClassConstructor } from '@nodearch/core';
+import { ClassConstructor } from '@nodearch/core/utils';
 import { OpenAPIObject } from 'openapi3-ts';
 
 export interface IOpenAPIAppOptions {

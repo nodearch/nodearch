@@ -1,8 +1,8 @@
 import express from 'express';
 import { Logger, Service } from '@nodearch/core';
-import { HttpError, InternalServerError } from './http-errors';
-import { HttpErrorHandler, IHttpErrorsOptions } from './interfaces';
-import { ExpressConfig } from '../express/express.config';
+import { HttpError, InternalServerError } from './http-errors.js';
+import { HttpErrorHandler, IHttpErrorsOptions } from './interfaces.js';
+import { ExpressConfig } from '../express/express.config.js';
 
 
 @Service()
@@ -15,11 +15,21 @@ export class ErrorRegistry {
     this.logger = logger;
   }
 
-  private defaultHandler(error: HttpError, res: express.Response) {    
-    res.status(error.code).json({
-      error: error.message,
-      data: error.data
-    });
+  private defaultHandler(error: HttpError, res: express.Response) {
+
+    if (error instanceof InternalServerError) { 
+      this.logger.error(error);
+      
+      res.status(error.code).json({
+        error: 'Internal Server Error'
+      });
+    }
+    else {
+      res.status(error.code).json({
+        error: error.message,
+        data: error.data
+      });
+    }
   }
 
   handleError(error: HttpError | Error, res: express.Response) {
@@ -40,7 +50,7 @@ export class ErrorRegistry {
       handler = this.httpErrors.handler;
     }
     else {
-      handler = this.defaultHandler;
+      handler = this.defaultHandler.bind(this);
     }
     
     handler(httpError, res, this.logger);

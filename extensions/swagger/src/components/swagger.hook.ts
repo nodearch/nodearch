@@ -1,5 +1,5 @@
 import { Hook, IHook } from '@nodearch/core';
-import { SwaggerOptions } from './swagger-options';
+import { SwaggerOptions } from './swagger-options.js';
 
 
 @Hook({ export: true })

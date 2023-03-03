@@ -1,6 +1,6 @@
 import { ComponentFactory, IComponentOptions } from '@nodearch/core';
-import { ExpressAnnotationId, HttpMethod, RouteHandlerParam } from './enums';
-import { handlerParamFactory, httpMethodFactory } from './helpers';
+import { ExpressAnnotationId, HttpMethod, RouteHandlerParam } from './enums.js';
+import { handlerParamFactory, httpMethodFactory } from './helpers.js';
 
 
 export const HttpController = (options?: IComponentOptions): ClassDecorator =>

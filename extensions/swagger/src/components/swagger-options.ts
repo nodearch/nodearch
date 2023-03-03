@@ -1,8 +1,8 @@
 import { Service } from '@nodearch/core';
 import path from 'path';
 import fs from 'fs/promises';
-import { SwaggerConfig } from './swagger.config';
-import { SwaggerAppOptions } from '../interfaces';
+import { SwaggerConfig } from './swagger.config.js';
+import { SwaggerAppOptions } from '../interfaces.js';
 import { getAbsoluteFSPath } from 'swagger-ui-dist';
 
 

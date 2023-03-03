@@ -1,7 +1,7 @@
 import { HttpBody, HttpController, HttpGet, HttpPath, HttpPost, HttpQuery, Use } from "@nodearch/express";
-import { FirstMiddleware } from './middleware';
-import { IUser } from './user.interface';
-import { UserService } from './user.service';
+import { FirstMiddleware } from './middleware.js';
+import { IUser } from './user.interface.js';
+import { UserService } from './user.service.js';
 
  
 @Use(FirstMiddleware)

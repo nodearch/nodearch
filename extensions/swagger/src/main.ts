@@ -1,13 +1,12 @@
 import { App } from '@nodearch/core';
-import path from 'path';
-import { SwaggerAppOptions } from './interfaces';
+import { SwaggerAppOptions } from './interfaces.js';
 
 
 export class SwaggerApp extends App{
   constructor(config: SwaggerAppOptions) {
     super({
       components: {
-        path: path.join(__dirname, 'components')
+        url: new URL('components', import.meta.url)
       },
       config
     });

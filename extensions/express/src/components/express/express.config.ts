@@ -1,8 +1,8 @@
 import { Config, ConfigManager } from '@nodearch/core';
-import { IHttpErrorsOptions } from '../errors/interfaces';
-import http from 'http';
-import https from 'https';
-import { IExpressStatic } from './interfaces';
+import { IHttpErrorsOptions } from '../errors/interfaces.js';
+import http from 'node:http';
+import https from 'node:https';
+import { IExpressStatic } from './interfaces.js';
 
 
 @Config()

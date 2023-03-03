@@ -1,5 +1,5 @@
 import express from 'express';
-import { ClassConstructor } from '@nodearch/core';
+import { ClassConstructor } from '@nodearch/core/utils';
 
 
 export type ExpressMiddlewareHandler = (req: express.Request, res: express.Response, next: express.NextFunction) => void;

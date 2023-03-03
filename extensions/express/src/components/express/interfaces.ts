@@ -1,11 +1,11 @@
-import { HttpMethod, RouteHandlerParam } from './enums';
-import { IMiddlewareInfo } from '../middleware/interfaces';
+import { HttpMethod, RouteHandlerParam } from './enums.js';
+import { IMiddlewareInfo } from '../middleware/interfaces.js';
 import { ComponentInfo } from '@nodearch/core';
-import { IHttpErrorsOptions } from '../errors/interfaces';
-import http from 'http';
-import https from 'https';
+import { IHttpErrorsOptions } from '../errors/interfaces.js';
+import http from 'node:http';
+import https from 'node:https';
 import express from 'express';
-import { Stats } from 'fs';
+import { Stats } from 'node:fs';
 
 
 export interface IExpressAppOptions {
@@ -21,8 +21,8 @@ export interface IExpressAppOptions {
 }
 
 export interface IExpressStatic {
-  path: string;
-  root: string;
+  httpPath: string;
+  filePath: string;
   options?: {
     dotfiles?: string;
     etag?: boolean;

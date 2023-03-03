@@ -1,13 +1,12 @@
 import { App } from '@nodearch/core';
-import path from 'path';
-import { IExpressAppOptions } from './components/express/interfaces';
+import { IExpressAppOptions } from './components/express/interfaces.js';
 
 
 export class ExpressApp extends App {
   constructor(options?: IExpressAppOptions) {
     super({
       components: {
-        path: path.join(__dirname, 'components')
+        url: new URL('components', import.meta.url)
       },
       config: options
     });

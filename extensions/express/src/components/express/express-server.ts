@@ -1,8 +1,8 @@
 import { Logger, Service } from '@nodearch/core';
-import { ExpressConfig } from './express.config';
-import http from 'http';
-import https from 'https';
-import { ExpressApp } from './express-app';
+import { ExpressConfig } from './express.config.js';
+import http from 'node:http';
+import https from 'node:https';
+import { ExpressApp } from './express-app.js';
 
 
 @Service()

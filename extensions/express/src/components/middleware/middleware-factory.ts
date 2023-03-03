@@ -1,6 +1,6 @@
 import { ComponentInfo, Service } from '@nodearch/core';
-import { ErrorRegistry } from '../errors/error-registry';
-import { ExpressMiddlewareHandler, IMiddlewareInfo, MiddlewareProvider } from './interfaces';
+import { ErrorRegistry } from '../errors/error-registry.js';
+import { ExpressMiddlewareHandler, IMiddlewareInfo, MiddlewareProvider } from './interfaces.js';
 
 
 @Service()

@@ -1,9 +1,9 @@
 import express from 'express';
 import { Service } from '@nodearch/core';
-import { ErrorRegistry } from '../errors/error-registry';
-import { InternalServerError } from '../errors/http-errors';
-import { RouteHandlerParam } from './enums';
-import { IExpressRouteHandlerInput } from './interfaces';
+import { ErrorRegistry } from '../errors/error-registry.js';
+import { InternalServerError } from '../errors/http-errors.js';
+import { RouteHandlerParam } from './enums.js';
+import { IExpressRouteHandlerInput } from './interfaces.js';
 
 
 @Service()

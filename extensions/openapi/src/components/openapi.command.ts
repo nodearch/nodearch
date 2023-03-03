@@ -1,10 +1,13 @@
-import { AppContext, Command, ICommand, Logger } from '@nodearch/core';
-import { IOpenAPICommandOptions, OpenAPIFormat } from '../interfaces';
+import { AppContext, Logger } from '@nodearch/core';
+import { Command, ICommand } from '@nodearch/command';
+import { IOpenAPICommandOptions, OpenAPIFormat } from '../interfaces.js';
 import { OpenApiBuilder } from 'openapi3-ts';
-import { OpenAPI } from './openapi';
+import { OpenAPI } from './openapi.js';
 import path from 'path';
 import fs from 'fs/promises';
-import { OpenAPIConfig } from './openapi.config';
+import { OpenAPIConfig } from './openapi.config.js';
+import { fileURLToPath, pathToFileURL } from 'url';
+import { UrlParser } from '@nodearch/core/fs';
 
 
 @Command({ export: true })
@@ -30,11 +33,14 @@ export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
     private readonly logger: Logger,
     private readonly config: OpenAPIConfig,
     private readonly appContext: AppContext
-  ) {}
+  ) {} 
 
   async handler(options: IOpenAPICommandOptions) {
-    const format = this.config.format || options.format;
-    let filePath = this.config.path || options.path;
+    const format = options.format || this.config.format;
+    
+    let filePath = options.path || 
+      this.config.path || 
+      fileURLToPath(UrlParser.join(this.appContext.appInfo.paths.rootDir, 'openapi.' + format));
 
     const fileExtensions = Object.values(OpenAPIFormat).map(ft => '.' + ft);
     let specs: string = '';
@@ -49,17 +55,12 @@ export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
       specs = builder.getSpecAsYaml();
     }
 
-    if (!filePath) {
-      filePath = path.join(this.appContext.appInfo.paths.dirs.root, 'openapi.' + format);
-    }
-    else {
-      filePath = path.isAbsolute(filePath) ? filePath : path.join(process.cwd(), filePath);
+    filePath = path.isAbsolute(filePath) ? filePath : path.join(process.cwd(), filePath);
       
-      const fileExt = path.parse(filePath).ext as OpenAPIFormat;
+    const fileExt = path.parse(filePath).ext as OpenAPIFormat;
 
-      if (!fileExtensions.includes(fileExt)) {
-        filePath = path.join(filePath, 'openapi.' + format);
-      }
+    if (!fileExtensions.includes(fileExt)) {
+      filePath = path.join(filePath, 'openapi.' + format);
     }
 
 

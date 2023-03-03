@@ -1,4 +1,3 @@
-import path from 'path';
 import { App } from '@nodearch/core';
 import { ExpressApp, ExpressOAIProvider } from '@nodearch/express';
 import { OpenAPIApp, OpenAPIFormat } from '@nodearch/openapi';
@@ -9,13 +8,13 @@ export default class MyApp extends App {
   constructor() {
     super({
       components: {
-        path: path.join(__dirname, 'components')
+        url: new URL('components', import.meta.url)
       },
       extensions: [
         new ExpressApp({
           static: [
-            { path: '/docs', root: './public/docs' },
-            { path: '/docs', root: getAbsoluteFSPath() }
+            { httpPath: '/docs', filePath: '../public/docs' },
+            { httpPath: '/docs', filePath: getAbsoluteFSPath() }
           ]
         }),
         new OpenAPIApp({ 
@@ -27,7 +26,7 @@ export default class MyApp extends App {
             }
           },
           format: OpenAPIFormat.Json,
-          path: './public/docs/openapi.json'
+          path: '../public/docs/openapi.json'
         }),
         new SwaggerApp({
           url: '/docs/openapi.json'

@@ -1,5 +1,5 @@
 export * from 'openapi3-ts';
-export * from './main';
-export * from './components/openapi';
-export * from './interfaces';
+export * from './main.js';
+export * from './components/openapi.js';
+export * from './interfaces.js';
  

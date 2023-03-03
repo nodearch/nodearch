@@ -84,6 +84,7 @@ importers:
 
   ../../extensions/openapi:
     specifiers:
+      '@nodearch/command': workspace:^0.1.0
       '@nodearch/core': workspace:^1.4.2
       '@types/node': ^16.18.0
       openapi3-ts: ^3.1.2
@@ -92,6 +93,7 @@ importers:
     dependencies:
       openapi3-ts: 3.1.2
     devDependencies:
+      '@nodearch/command': link:../../lib/command
       '@nodearch/core': link:../../lib/core
       '@types/node': 16.18.3
       rimraf: 3.0.2

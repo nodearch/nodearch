@@ -1,6 +1,7 @@
-import { Config, ConfigManager } from '@nodearch/core';
+import { AppContext, Config, ConfigManager } from '@nodearch/core';
+import { UrlParser } from '@nodearch/core/fs';
 import { OpenAPIObject } from 'openapi3-ts';
-import { IOpenAPIProviderConstructor, OpenAPIFormat } from '../interfaces';
+import { IOpenAPIProviderConstructor, OpenAPIFormat } from '../interfaces.js';
 
 @Config()
 export class OpenAPIConfig {
@@ -10,7 +11,7 @@ export class OpenAPIConfig {
   format?: OpenAPIFormat;
   path?: string;
 
-  constructor(config: ConfigManager) {
+  constructor(config: ConfigManager, appContext: AppContext) {
     this.providers = config.env({
       external: 'providers',
       defaults: {
@@ -29,7 +30,7 @@ export class OpenAPIConfig {
     });
 
     this.path = config.env({
-      external: 'path',
+      external: 'filePath',
       required: false
     });
   }
