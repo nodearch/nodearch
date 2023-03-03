@@ -3,65 +3,65 @@ import { ClassConstructor } from '@nodearch/core/utils';
 import { TestBox } from '../test-box.js';
 import { MochaAnnotation, TestMode } from '../annotation/test.enums.js';
 import { ITestCaseOptions, ITestSuiteOptions, TestHook } from '../annotation/test.interfaces.js';
-import { FileLoader } from '@nodearch/core/fs';
+import { AppLoader, AppLoadMode } from '@nodearch/core/fs';
 
 
 @Service()
 export class TestService {
-  
+
   constructor(
     private readonly appContext: AppContext
-  ) {}
-  
+  ) { }
+
   async getTestSuitesInfo(testModes: TestMode[]) {
-    // TODO: use AppLoader instead
-    const MainApp: any = (await FileLoader.importModule(this.appContext.appInfo.paths.app)).default;
+    try {
+      const appLoader = new AppLoader({ appLoadMode: AppLoadMode.TS, cwd: this.appContext.appInfo.paths.rootDir });
+      const app = await appLoader.load() as App;
 
-    const app: App = new MainApp();
-    await app.init({
-      mode: 'app',
-      appInfo: this.appContext.appInfo
-    });
-    
-    if (testModes.includes(TestMode.E2E)) {
-      // TODO: move this after the test suite setup
-      await app.start();
+      if (testModes.includes(TestMode.E2E)) {
+        await app.start();
+      }
+
+      const testComponents = app.components.getComponents<ITestSuiteOptions>(MochaAnnotation.Test);
+      const mockComponents = app.components.getComponents(MochaAnnotation.Mock);
+
+      const suiteInfo = testComponents
+        .filter((componentInfo) => {
+          return testModes.includes(componentInfo.data!.mode as TestMode);
+        })
+        .map(componentInfo => {
+
+          // Create a clone from the original container
+          const cloneContainer = app.container.clone();
+
+          // Bind an instance of the TestBox to the cloned container
+          cloneContainer.bindToConstant(TestBox, new TestBox(cloneContainer));
+
+          this.applyMocks(componentInfo, mockComponents, cloneContainer);
+
+          const compInstance = cloneContainer.get(componentInfo.getClass());
+
+          const suiteOptions = componentInfo.data as ITestSuiteOptions;
+
+          return {
+            name: suiteOptions.title as string,
+            timeout: suiteOptions.timeout,
+            beforeEach: this.getBeforeEach(componentInfo, compInstance),
+            afterEach: this.getAfterEach(componentInfo, compInstance),
+            beforeAll: this.getBeforeAll(componentInfo, compInstance),
+            afterAll: this.getAfterAll(componentInfo, compInstance),
+            testCases: this.getCases(componentInfo, compInstance)
+          };
+
+        });
+
+      return suiteInfo;
+
     }
-
-    const testComponents = app.components.getComponents<ITestSuiteOptions>(MochaAnnotation.Test);
-    const mockComponents = app.components.getComponents(MochaAnnotation.Mock);
-
-    const suiteInfo = testComponents
-      .filter((componentInfo) => {
-        return testModes.includes(componentInfo.data!.mode as TestMode);
-      })
-      .map(componentInfo => {
-
-        // Create a clone from the original container
-        const cloneContainer = app.container.clone();
-
-        // Bind an instance of the TestBox to the cloned container
-        cloneContainer.bindToConstant(TestBox, new TestBox(cloneContainer));
-
-        this.applyMocks(componentInfo, mockComponents, cloneContainer);
-
-        const compInstance = cloneContainer.get(componentInfo.getClass());
-
-        const suiteOptions = componentInfo.data as ITestSuiteOptions;
-
-        return {
-          name: suiteOptions.title as string,
-          timeout: suiteOptions.timeout,
-          beforeEach: this.getBeforeEach(componentInfo, compInstance),
-          afterEach: this.getAfterEach(componentInfo, compInstance),
-          beforeAll: this.getBeforeAll(componentInfo, compInstance),
-          afterAll: this.getAfterAll(componentInfo, compInstance),
-          testCases: this.getCases(componentInfo, compInstance)
-        };
-
-      });
-
-    return suiteInfo;
+    catch (e: any) {
+      e.message = `Error while loading test suites: ${e.message}`;  
+      throw e;
+    }
   }
 
   private applyMocks(testComponentInfo: ComponentInfo, mockComponents: ComponentInfo[], container: Container) {
@@ -82,7 +82,7 @@ export class TestService {
 
   private getCases(componentInfo: ComponentInfo, compInstance: any) {
     return componentInfo.getDecoratorsById(MochaAnnotation.Case)
-      .map(({method, data}) => {
+      .map(({ method, data }) => {
         const { title, active, params } = data as Required<ITestCaseOptions>;
         return {
           title,
@@ -94,7 +94,7 @@ export class TestService {
 
   private getBeforeAll(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
     return componentInfo.getDecoratorsById(MochaAnnotation.BeforeAll)
-      .map(({method, data}) => {
+      .map(({ method, data }) => {
         const { title } = data as { title: string };
         return {
           title,
@@ -106,7 +106,7 @@ export class TestService {
 
   private getAfterAll(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
     return componentInfo.getDecoratorsById(MochaAnnotation.AfterAll)
-      .map(({method, data}) => {
+      .map(({ method, data }) => {
         const { title } = data as { title: string };
         return {
           title,
@@ -118,7 +118,7 @@ export class TestService {
 
   private getBeforeEach(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
     return componentInfo.getDecoratorsById(MochaAnnotation.BeforeEach)
-      .map(({method, data}) => {
+      .map(({ method, data }) => {
         const { title } = data as { title: string };
         return {
           title,
@@ -130,7 +130,7 @@ export class TestService {
 
   private getAfterEach(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
     return componentInfo.getDecoratorsById(MochaAnnotation.AfterEach)
-      .map(({method, data}) => {
+      .map(({ method, data }) => {
         const { title } = data as { title: string };
         return {
           title,

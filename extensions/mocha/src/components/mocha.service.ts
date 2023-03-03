@@ -7,6 +7,7 @@ import path from 'path';
 import { TestMode } from '../annotation/test.enums.js';
 import { FileLoader } from '@nodearch/core/fs';
 import { TestService } from './test.service.js';
+import { fileURLToPath } from 'url';
 
 
 @Service()
@@ -27,7 +28,7 @@ export class MochaService {
       nyc = new NYC(
         {
           ...options.nycOptions,
-          cwd: this.appContext.appInfo.paths.rootDir,
+          cwd: fileURLToPath(this.appContext.appInfo.paths.rootDir),
           extension: [ '.ts' ],
           // TODO: load src directory path based on appInfo.paths
           include: [ 'src/**/**.ts' ],
@@ -43,18 +44,6 @@ export class MochaService {
     // TODO: validate this step
     // delete require.cache[require.resolve(filePath)];
 
-    // TODO: use AppLoader instead 
-    // const MainApp: any = (await FileLoader.importModule(this.appContext.appInfo.paths.app)).default;
-
-    // const app: App = new MainApp();
-    // await app.init({
-    //   mode: 'app',
-    //   appInfo: this.appContext.appInfo
-    // });
-    
-    // if (options.generalOptions.mode.includes(TestMode.E2E)) {
-    //   await app.start();
-    // }
 
     const suites = await this.testService.getTestSuitesInfo(options.generalOptions.mode);
   
