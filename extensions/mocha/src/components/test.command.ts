@@ -21,30 +21,21 @@ export class TestCommand implements ICommand {
   }
 
   async handler(options: Record<string, any>) {
-    const mochaOptions = this.getCommandOptionsByPrefix(options, 'mocha-'); 
-    const nycOptions = this.getCommandOptionsByPrefix(options, 'nyc-'); 
-
     const code = await this.mochaService.run({
-      mochaOptions,
-      nycOptions,
-      generalOptions: {
-        mode: options.mode,
-        coverage: options.coverage,
-        openCoverage: options.openCoverage
-      }
+      mode: options.mode,
+      mochaOptions: { ...(this.getOptionsInCamelCase(options)) }
     });
 
     process.exit(code);
   }
 
-  private getCommandOptionsByPrefix(options: Record<string, any>, prefix: string) {
+  private getOptionsInCamelCase(options: Record<string, any>) {
     const commandOptions: any = {};
 
     Object
       .keys(options)
-      .filter(x => x.startsWith(prefix))
       .forEach(op => {
-        commandOptions[toCamelCase(op.replace(prefix, ''), '-')] = options[op];
+        commandOptions[toCamelCase(op, '-')] = options[op];
       });
 
     return commandOptions;

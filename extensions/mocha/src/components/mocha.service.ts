@@ -1,20 +1,13 @@
-import { App, AppContext, IAppInfo, Logger, Service } from '@nodearch/core';
+import { Logger, Service } from '@nodearch/core';
 import Mocha, {Test} from 'mocha';
-import NYC from 'nyc';
 import { ITestOptions } from './test.interfaces.js';
-// import open from 'open';
-import path from 'path';
-import { TestMode } from '../annotation/test.enums.js';
-import { FileLoader } from '@nodearch/core/fs';
 import { TestService } from './test.service.js';
-import { fileURLToPath } from 'url';
 
 
 @Service()
 export class MochaService {
 
   constructor(
-    private readonly appContext: AppContext,
     private readonly testService: TestService,
     private readonly logger: Logger
   ) {}
@@ -22,30 +15,7 @@ export class MochaService {
   async run(options: ITestOptions) {
     this.logger.info('Running test cases using Mocha');
 
-    let nyc: NYC | undefined = undefined;
-
-    if (options.generalOptions.coverage) {
-      nyc = new NYC(
-        {
-          ...options.nycOptions,
-          cwd: fileURLToPath(this.appContext.appInfo.paths.rootDir),
-          extension: [ '.ts' ],
-          // TODO: load src directory path based on appInfo.paths
-          include: [ 'src/**/**.ts' ],
-          exclude: [ 'node_modules', 'src/**/**.spec.ts', 'src/**/**.test.ts' ],
-          hookRequire: true
-        }
-      );
-      await nyc.reset();
-      await nyc.wrap();
-      await nyc.addAllFiles();
-    }
-
-    // TODO: validate this step
-    // delete require.cache[require.resolve(filePath)];
-
-
-    const suites = await this.testService.getTestSuitesInfo(options.generalOptions.mode);
+    const suites = await this.testService.getTestSuitesInfo(options.mode);
   
     const mochaInstance = new Mocha(options.mochaOptions);
 
@@ -93,30 +63,7 @@ export class MochaService {
         resolve(failures);
       });
     }));
-  
-    if (nyc) {
-      await nyc.writeCoverageFile();
-      await nyc.report();
-      
-      if (options.generalOptions.openCoverage) {
-        await this.openCoverageReport(this.appContext.appInfo, options.nycOptions);
-      }
-    }
 
     return code;
-  }
-
-  private async openCoverageReport(appInfo: IAppInfo, nycOptions: Record<string, any>) {
-    const reporters = nycOptions.reporter;
-    const htmlEnabled = reporters.includes('lcov') || reporters.includes('html');
-    
-    if (!htmlEnabled) return;
-
-    // const reportSpecificPath = reporters.includes('html') ? 'index.html' : path.join('lcov-report', 'index.html');
-
-    // const htmlPath = path.join(appInfo.paths.rootDir, nycOptions.reporterDir, reportSpecificPath);
-
-    // await open(htmlPath, { wait: true });
-
   }
 }
