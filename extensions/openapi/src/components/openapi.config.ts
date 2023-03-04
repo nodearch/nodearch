@@ -30,7 +30,7 @@ export class OpenAPIConfig {
     });
 
     this.path = config.env({
-      external: 'filePath',
+      external: 'path',
       required: false
     });
   }

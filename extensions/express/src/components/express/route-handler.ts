@@ -26,11 +26,15 @@ export class RouteHandler {
 
           if (result) return res.send(result); // TODO: we need to check that result is not number
 
-          const errorMsg = `A route handler was called, but no response was returned.
-            Controller: ${req.nodearch.controller.constructor.name}
-            Method: ${controllerMethodName}`;
-
-          this.errorRegistry.handleError(new InternalServerError(errorMsg), res);
+          this.errorRegistry.handleError(new InternalServerError(
+            'A route handler was called, but no response was returned.',
+            [
+              `Controller: ${req.nodearch.controller.constructor.name}`,
+              `Method: ${controllerMethodName}`,
+              `Endpoint: ${req.method} ${req.path}`
+            ]
+          ), res);
+ 
         })
         .catch((err: any) => {
           this.errorRegistry.handleError(err, res);

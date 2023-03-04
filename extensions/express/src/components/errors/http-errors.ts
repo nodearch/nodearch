@@ -1,11 +1,11 @@
 export class HttpError extends Error {
   code: number;
-  data?: any;
+  details?: string[];
 
-  constructor(code: number, message: string, data?: any) {
+  constructor(code: number, message: string, details?: string[]) {
     super(message);
     this.code = code;
-    this.data = data;
+    this.details = details;
   }
 }
 
@@ -15,8 +15,8 @@ export class HttpError extends Error {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
  */
 export class BadRequest extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(400, message || 'Bad Request', data);
+  constructor(message?: string, details?: string[]) {
+    super(400, message || 'Bad Request', details);
   }
 }
 
@@ -28,8 +28,8 @@ export class BadRequest extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
  */
 export class Unauthorized extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(401, message || 'Unauthorized', data);
+  constructor(message?: string, details?: string[]) {
+    super(401, message || 'Unauthorized', details);
   }
 }
 
@@ -41,8 +41,8 @@ export class Unauthorized extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
  */
 export class Forbidden extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(403, message || 'Forbidden', data);
+  constructor(message?: string, details?: string[]) {
+    super(403, message || 'Forbidden', details);
   }
 }
 
@@ -58,8 +58,8 @@ export class Forbidden extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
  */
 export class NotFound extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(404, message || 'Not Found', data);
+  constructor(message?: string, details?: string[]) {
+    super(404, message || 'Not Found', details);
   }
 }
 
@@ -72,8 +72,8 @@ export class NotFound extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/405
  */
 export class MethodNotAllowed extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(405, message || 'Method Not Allowed', data);
+  constructor(message?: string, details?: string[]) {
+    super(405, message || 'Method Not Allowed', details);
   }
 }
 
@@ -85,8 +85,8 @@ export class MethodNotAllowed extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
  */
 export class NotAcceptable extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(406, message || 'Not Acceptable', data);
+  constructor(message?: string, details?: string[]) {
+    super(406, message || 'Not Acceptable', details);
   }
 }
 
@@ -101,8 +101,8 @@ export class NotAcceptable extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408
  */
 export class RequestTimeout extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(408, message || 'Request Timeout', data);
+  constructor(message?: string, details?: string[]) {
+    super(408, message || 'Request Timeout', details);
   }
 }
 
@@ -112,8 +112,8 @@ export class RequestTimeout extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
  */
 export class InternalServerError extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(500, message || 'Internal Server Error', data);
+  constructor(message?: string, details?: string[]) {
+    super(500, message || 'Internal Server Error', details);
   }
 }
 
@@ -125,8 +125,8 @@ export class InternalServerError extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/501
  */
 export class NotImplemented extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(501, message || 'Not Implemented', data);
+  constructor(message?: string, details?: string[]) {
+    super(501, message || 'Not Implemented', details);
   }
 }
 
@@ -138,8 +138,8 @@ export class NotImplemented extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502
  */
 export class BadGateway extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(502, message || 'Bad Gateway', data);
+  constructor(message?: string, details?: string[]) {
+    super(502, message || 'Bad Gateway', details);
   }
 }
 
@@ -156,8 +156,8 @@ export class BadGateway extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
  */
 export class ServiceUnavailable extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(503, message || 'Service Unavailable', data);
+  constructor(message?: string, details?: string[]) {
+    super(503, message || 'Service Unavailable', details);
   }
 }
 
@@ -167,7 +167,7 @@ export class ServiceUnavailable extends HttpError {
  * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504
  */
 export class GatewayTimeout extends HttpError {
-  constructor(message?: string, data?: any) {
-    super(504, message || 'Gateway Timeout', data);
+  constructor(message?: string, details?: string[]) {
+    super(504, message || 'Gateway Timeout', details);
   }
 }

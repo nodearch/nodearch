@@ -27,7 +27,7 @@ export class ErrorRegistry {
     else {
       res.status(error.code).json({
         error: error.message,
-        data: error.data
+        details: error.details
       });
     }
   }

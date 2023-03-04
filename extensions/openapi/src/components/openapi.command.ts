@@ -18,8 +18,7 @@ export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
   builder = {
     format: {
       describe: 'Select in which format you\'d like to generate the OpenAPI document',
-      choices: ['json', 'yaml'],
-      default: 'json'
+      choices: ['json', 'yaml']
     },
     path: {
       describe: 'Absolute/relative path to where the generated OpenAPI will be saved',
@@ -36,8 +35,8 @@ export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
   ) {} 
 
   async handler(options: IOpenAPICommandOptions) {
-    const format = options.format || this.config.format;
-    
+    const format = options.format || this.config.format || OpenAPIFormat.Json;
+
     let filePath = options.path || 
       this.config.path || 
       fileURLToPath(UrlParser.join(this.appContext.appInfo.paths.rootDir, 'openapi.' + format));

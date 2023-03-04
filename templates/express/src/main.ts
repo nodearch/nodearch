@@ -13,7 +13,7 @@ export default class MyApp extends App {
       extensions: [
         new ExpressApp({
           static: [
-            { httpPath: '/docs', filePath: '../public/docs' },
+            { httpPath: '/docs', filePath: './public/docs' },
             { httpPath: '/docs', filePath: getAbsoluteFSPath() }
           ]
         }),
@@ -26,7 +26,7 @@ export default class MyApp extends App {
             }
           },
           format: OpenAPIFormat.Json,
-          path: '../public/docs/openapi.json'
+          path: './public/docs/openapi.json'
         }),
         new SwaggerApp({
           url: '/docs/openapi.json'
