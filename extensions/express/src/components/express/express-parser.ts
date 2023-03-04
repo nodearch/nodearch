@@ -12,7 +12,7 @@ export class ExpressParser {
   constructor(appContext: AppContext) {
     this.expressInfo = { routers: [] };
 
-    const componentsInfo = appContext.components.getComponents(ExpressAnnotationId.HttpController);
+    const componentsInfo = appContext.components.get(ExpressAnnotationId.HttpController);
 
     if (componentsInfo) {
       this.expressInfo = this.parse(componentsInfo);

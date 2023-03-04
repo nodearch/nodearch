@@ -12,10 +12,28 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error"
+          },
+          "default": {
+            "description": "Default response"
           }
         },
         "tags": [
@@ -71,7 +89,9 @@
           }
         },
         "tags": [
-          "default"
+          "default",
+          "Dev",
+          "Bus"
         ]
       }
     }
@@ -80,6 +100,14 @@
     {
       "url": "http://localhost:3000",
       "description": "Express Server URL"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    },
+    {
+      "url": "http://localhost:3001",
+      "description": "Local server"
     }
   ]
 }

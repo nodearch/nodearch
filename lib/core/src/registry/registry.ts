@@ -9,10 +9,10 @@ import { ComponentMetadata } from './metadata.js';
 export class ComponentRegistry {
   // Dependency injection container that holds all the app components 
   private container: Container;
-  // A map of registries for all components types within the app
-  private registryMap: Map<string, { components: ComponentInfo[], handler: ComponentHandler }>;
-  // A map of annotations for all components within the app
-  private annotationMap: Map<string, ComponentInfo[]>;
+  // A map for the handlers of all components types within the app
+  private HandlerMap: Map<string, ComponentHandler>;
+  // A map componentInfo sets, each set is flittered by a decorator id
+  private componentInfoMap: Map<string, Set<ComponentInfo>>;
   // Keeps track of all the exported components from the app
   private exported: ComponentInfo[];
   // Keeps track of all hooks within the app
@@ -20,10 +20,28 @@ export class ComponentRegistry {
 
   constructor(container: Container) {
     this.container = container;
-    this.registryMap = new Map();
-    this.annotationMap = new Map();
+    this.HandlerMap = new Map();
+    this.componentInfoMap = new Map();
     this.exported = [];
     this.hooks = [];
+  }
+
+  /**
+   * Returns a list of ComponentInfo, which includes all 
+   * information about the component class, instance, 
+   * methods, decorators, etc. The returned list is 
+   * flittered by the passed decorator id.
+   * @param id Decorator ID, if not passed, returns all components
+   * @returns ComponentInfo[]
+   */
+  get<T = any>(id?: string): ComponentInfo<T>[] {
+    if (id) {
+      const set = this.componentInfoMap.get(id);
+      return set ? Array.from(set) : [];
+    }
+    else {
+      return this.getAll();
+    }
   }
 
   /**
@@ -38,27 +56,22 @@ export class ComponentRegistry {
   }
 
   /**
-   * Returns a list of ComponentInfo, which includes all 
-   * information about the component class, instance, 
-   * methods, decorators, etc. The returned list is 
-   * flittered by the id parameter.
-   * @param id Component ID, you can also pass a CoreAnnotation value 
-   * @returns ComponentInfo[]
+   * Returns a list of decorators info for a given decorator id
+   * @param id Decorator ID
    */
-  getComponents<T = any>(id: string) {
-    return this.annotationMap.get(id) as ComponentInfo<T>[];
+  getDecoratorsById(id: string) {
+    return this.get(id)
+      .map(comp => {
+        return comp.getDecoratorsById(id)
+          .map(decoInfo => {
+            return {
+              ...decoInfo,
+              componentInfo: comp
+            };
+          })
+      })
+      .flat(1);
   }
-  // getComponents<T = any>(id: string) {
-  //   let components: ComponentInfo<T>[] = []; 
-    
-  //   const registry = this.registryMap.get(id);
-    
-  //   if (registry && registry.components.length) {
-  //     components = registry.components as ComponentInfo<T>[];
-  //   }
-
-  //   return components;
-  // }
 
   /**
    * Register app components from a given classes list
@@ -71,23 +84,13 @@ export class ComponentRegistry {
 
       const componentInfo = new ComponentInfo(classConstructor, registration, this.container);
 
-      componentInfo.getDecoratorsIds().forEach(deco => {
-        let annotations = this.annotationMap.get(deco);
+      // Add to the decorators map
+      componentInfo.getDecoratorsIds().forEach(
+        decoId => this.getComponentInfoSet(decoId).add(componentInfo)
+      );
 
-        if (!annotations) {
-          annotations = [];
-          this.annotationMap.set(deco, annotations);
-        }
-
-        // TODO: avoid duplicates
-        annotations.push(componentInfo);
-      });
-
-      const registry = this.getComponentRegistry(registration);
-
-      registry.components.push(componentInfo);
-
-      registry.handler.register(componentInfo);
+      this.getHandler(registration)
+        .register(componentInfo);
 
       if (componentInfo.isExported) {
         this.exported.push(componentInfo);
@@ -105,39 +108,54 @@ export class ComponentRegistry {
   registerExtensions(components: ComponentInfo[]) {
     components.forEach(componentInfo => {
 
-      componentInfo.getDecoratorsIds().forEach(deco => {
-        let annotations = this.annotationMap.get(deco);
+      // Add to the decorators map
+      componentInfo.getDecoratorsIds().forEach(deco =>
+        this.getComponentInfoSet(deco).add(componentInfo)
+      );
 
-        if (!annotations) {
-          annotations = [];
-          this.annotationMap.set(deco, annotations);
-        }
-
-        annotations.push(componentInfo);
-      });
-
-      const registry = this.getComponentRegistry(componentInfo.getRegistration());
-      registry.components.push(componentInfo);
-      registry.handler.registerExtension?.(componentInfo);
+      this.getHandler(componentInfo.getRegistration())
+        .registerExtension?.(componentInfo);
     });
   }
 
   /**
-   * Returns the Registry for a given component type by it's registration id.
-   * It'll also create and then return the registry if not found.
+   * Returns all available ComponentInfo
+   * @returns ComponentInfo[]
    */
-  private getComponentRegistry(registration: IComponentRegistration) {
-    let registry = this.registryMap.get(registration.id);
+  private getAll<T = any>() {
+    const set = new Set<ComponentInfo<T>>();
+    this.componentInfoMap.forEach(comps => comps.forEach(comp => set.add(comp)));
+    return Array.from(set);
+  }
 
-    if (!registry) {
-      registry = {
-        components: [],
-        handler: new (registration.handler || ComponentHandler)(this.container)
-      };
-      this.registryMap.set(registration.id, registry);
+  /**
+   * Returns the componentInfo set for a given decorator id
+   * It'll also create and then return the set if not found.
+   */
+  private getComponentInfoSet(decoId: string) {
+    let componentInfoSet = this.componentInfoMap.get(decoId);
+
+    if (!componentInfoSet) {
+      componentInfoSet = new Set<ComponentInfo>;
+      this.componentInfoMap.set(decoId, componentInfoSet);
     }
 
-    return registry;
+    return componentInfoSet;
+  }
+
+  /**
+   * Returns the handler for a given component type by the component registration info.
+   * It'll also create and then return the handler if not found.
+   */
+  private getHandler(registration: IComponentRegistration) {
+    let handler = this.HandlerMap.get(registration.id);
+
+    if (!handler) {
+      handler = new (registration.handler || ComponentHandler)(this.container);
+      this.HandlerMap.set(registration.id, handler);
+    }
+
+    return handler;
   }
 
 }

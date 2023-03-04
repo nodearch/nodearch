@@ -3,9 +3,26 @@ import OAISchema from 'openapi3-ts';
 import { OpenApiAnnotation } from './enums.js';
 
 
-export const ResponseObject = (options?: OAISchema.ResponseObject): MethodDecorator =>
+export const Responses = (options: OAISchema.ResponsesObject): MethodDecorator =>
   ComponentFactory.methodDecorator({ 
-    id: OpenApiAnnotation.ResponseObject, 
+    id: OpenApiAnnotation.Responses, 
+    fn: () => {
+      return options;
+    }
+  });
+
+
+export const Servers = (options: OAISchema.ServerObject[]): ClassDecorator =>
+  ComponentFactory.classDecorator({ 
+    id: OpenApiAnnotation.Servers, 
+    fn: () => {
+      return options;
+    }
+  });
+
+export const Tags = (options: string[]): MethodDecorator =>
+  ComponentFactory.methodDecorator({ 
+    id: OpenApiAnnotation.Tags, 
     fn: () => {
       return options;
     }

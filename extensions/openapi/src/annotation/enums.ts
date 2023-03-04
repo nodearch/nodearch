@@ -1,3 +1,5 @@
 export enum OpenApiAnnotation {
-  ResponseObject = '@nodearch/openapi/annotations/response-object',
+  Responses = '@nodearch/openapi/annotations/responses',
+  Servers = '@nodearch/openapi/annotations/servers',
+  Tags = '@nodearch/openapi/annotations/tags'
 }

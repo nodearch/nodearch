@@ -23,7 +23,13 @@ export default class MyApp extends App {
             info: {
               title: 'NodeArch Express Template',
               version: '0.1.0'
-            }
+            },
+            servers: [
+              {
+                url: 'http://localhost:6000',
+                description: 'Local server O'
+              }
+            ]
           },
           format: OpenAPIFormat.Json,
           path: './public/docs/openapi.json'

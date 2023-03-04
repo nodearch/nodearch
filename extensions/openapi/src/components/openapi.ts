@@ -1,4 +1,5 @@
 import { AppContext, Service } from '@nodearch/core';
+import * as utils from '@nodearch/core/utils';
 import OAISchema from 'openapi3-ts';
 import { OpenApiAnnotation } from '../index.js';
 import { IOpenAPIAppMapItem, IOpenAPIProvider } from '../interfaces.js';
@@ -31,13 +32,35 @@ export class OpenAPI {
 
     this.providers.forEach(provider => {
       openAPIObj = Object.assign(openAPIObj, provider.getOpenAPI());
-
+      console.log(openAPIObj);
       if (provider.getAppMap) {
         this.setAppMapItems(provider.getAppMap());
       }
     });
 
-    this.getDecoratorsDefinitions();
+    this.setDecoratorsData(
+      openAPIObj, 
+      OpenApiAnnotation.Responses, 
+      (mapItem?: IOpenAPIAppMapItem) => {
+        return mapItem && `paths.${mapItem!.httpPath}.${mapItem!.httpMethod}.responses`;
+      }
+    );
+
+    this.setDecoratorsData(
+      openAPIObj, 
+      OpenApiAnnotation.Tags, 
+      (mapItem?: IOpenAPIAppMapItem) => {
+        return mapItem && `paths.${mapItem!.httpPath}.${mapItem!.httpMethod}.tags`;
+      }
+    );
+
+    this.setDecoratorsData(
+      openAPIObj, 
+      OpenApiAnnotation.Servers, 
+      () => {
+        return `servers`;
+      }
+    );
 
     return openAPIObj;
   }
@@ -54,19 +77,43 @@ export class OpenAPI {
     }, this.openAPIConfig.openAPI);
   }
 
-  private getDecoratorsDefinitions() {
-    // this.appMap.map(x => {
-    //   this.appContext.components.getComponents(OpenApiAnnotation.ResponseObject);
-    //   x.
-    // });
+  private setDecoratorsData(openAPIObj: OAISchema.OpenAPIObject, decoId: string, getPath: (mapItem?: IOpenAPIAppMapItem) => string | undefined) {
+    this.getDecoratorsDefinitions(decoId)
+      .forEach(decoData => {
+        let mapItem: IOpenAPIAppMapItem | undefined;
 
-    const x = this.appContext.components.getComponents(OpenApiAnnotation.ResponseObject); 
-    console.log('xxxxxxxxxx', x);
+        if (decoData.method) {
+          mapItem = this.appMap
+            .find(
+              mapItem => mapItem.component === decoData.component && 
+                mapItem.method === decoData.method
+            );
+        }
+        
+        const objPath = getPath(mapItem);
+          
+        if (objPath) {
+          utils.set(openAPIObj, objPath, decoData.data);
+        }
+
+      });
+  }
+
+  private getDecoratorsDefinitions(id: string) {
+    return this.appContext
+      .components
+      .getDecoratorsById(id)
+      .map(decoInfo => {
+        return {
+          component: decoInfo.componentInfo.getClass(),
+          method: decoInfo.method,
+          data: decoInfo.data
+        };
+      }); 
   }
 
   private setAppMapItems(appMap: IOpenAPIAppMapItem[]) {
     appMap.forEach(appMapItem => {
-      
       const mapItemExist = this.appMap
         .find(
           currMapItem => currMapItem.component === appMapItem.component && 
