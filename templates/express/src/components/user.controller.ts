@@ -1,4 +1,5 @@
 import { HttpBody, HttpController, HttpGet, HttpPath, HttpPost, HttpQuery, Use } from "@nodearch/express";
+import { ResponseObject } from '@nodearch/openapi';
 import { FirstMiddleware } from './middleware.js';
 import { IUser } from './user.interface.js';
 import { UserService } from './user.service.js';
@@ -10,6 +11,24 @@ export class UserController {
 
   constructor(private readonly userService: UserService) {}
 
+  @ResponseObject({
+    description: 'User response',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'number'
+            },
+            name: {
+              type: 'string'
+            }
+          }
+        }
+      }
+    }
+  })
   @Use(FirstMiddleware)
   @HttpGet('/')
   async getUsers(@HttpQuery() user?: Partial<IUser>) {

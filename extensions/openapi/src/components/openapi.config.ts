@@ -1,13 +1,13 @@
 import { AppContext, Config, ConfigManager } from '@nodearch/core';
 import { UrlParser } from '@nodearch/core/fs';
-import { OpenAPIObject } from 'openapi3-ts';
+import OAISchema from 'openapi3-ts';
 import { IOpenAPIProviderConstructor, OpenAPIFormat } from '../interfaces.js';
 
 @Config()
 export class OpenAPIConfig {
   
   providers: IOpenAPIProviderConstructor[];
-  openAPI?: Partial<OpenAPIObject>;
+  openAPI?: Partial<OAISchema.OpenAPIObject>;
   format?: OpenAPIFormat;
   path?: string;
 

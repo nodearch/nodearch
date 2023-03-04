@@ -1,9 +1,9 @@
 import { ClassConstructor } from '@nodearch/core/utils';
-import { OpenAPIObject } from 'openapi3-ts';
+import OAISchema from 'openapi3-ts';
 
 export interface IOpenAPIAppOptions {
   providers?: IOpenAPIProviderConstructor[];
-  openAPI?: Partial<OpenAPIObject>;
+  openAPI?: Partial<OAISchema.OpenAPIObject>;
   format?: OpenAPIFormat;
   path?: string;
 }
@@ -16,7 +16,7 @@ export interface IOpenAPIAppMapItem {
 }
 
 export interface IOpenAPIProvider {
-  getOpenAPI(): Partial<OpenAPIObject>;
+  getOpenAPI(): Partial<OAISchema.OpenAPIObject>;
   getAppMap?(): IOpenAPIAppMapItem[];
 }
 

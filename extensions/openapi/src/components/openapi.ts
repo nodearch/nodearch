@@ -1,5 +1,6 @@
 import { AppContext, Service } from '@nodearch/core';
-import { OpenAPIObject } from 'openapi3-ts';
+import OAISchema from 'openapi3-ts';
+import { OpenApiAnnotation } from '../index.js';
 import { IOpenAPIAppMapItem, IOpenAPIProvider } from '../interfaces.js';
 import { OpenAPIConfig } from './openapi.config.js';
 
@@ -26,7 +27,7 @@ export class OpenAPI {
   }
 
   get() {
-    let openAPIObj: OpenAPIObject = this.getDefaults();
+    let openAPIObj: OAISchema.OpenAPIObject = this.getDefaults();
 
     this.providers.forEach(provider => {
       openAPIObj = Object.assign(openAPIObj, provider.getOpenAPI());
@@ -36,10 +37,12 @@ export class OpenAPI {
       }
     });
 
+    this.getDecoratorsDefinitions();
+
     return openAPIObj;
   }
 
-  private getDefaults(): OpenAPIObject {
+  private getDefaults(): OAISchema.OpenAPIObject {
     return Object.assign({
       openapi: '3.0.0',
       info: {
@@ -49,6 +52,16 @@ export class OpenAPI {
       },
       paths: {}
     }, this.openAPIConfig.openAPI);
+  }
+
+  private getDecoratorsDefinitions() {
+    // this.appMap.map(x => {
+    //   this.appContext.components.getComponents(OpenApiAnnotation.ResponseObject);
+    //   x.
+    // });
+
+    const x = this.appContext.components.getComponents(OpenApiAnnotation.ResponseObject); 
+    console.log('xxxxxxxxxx', x);
   }
 
   private setAppMapItems(appMap: IOpenAPIAppMapItem[]) {

@@ -33,7 +33,7 @@ export class ConsoleLogger implements ILoggerHandler {
 
         str += printArgs[i].message + '\n';
 
-        str += `${Color.fgBlue}Stack:${Color.reset}\n\t` + printArgs[i].stack
+        str += `${Color.fgRed}Stack:${Color.reset}\n\t` + printArgs[i].stack
           .split('\n')
           .slice(1)
           .map((x: string) => x.trim())
@@ -42,7 +42,7 @@ export class ConsoleLogger implements ILoggerHandler {
         const detailsList = printArgs[i].details;
 
         if (detailsList && detailsList.length) {
-          str += `\n${Color.fgBlue}Details:${Color.reset}\n\t` + detailsList.join('\n\t');
+          str += `\n${Color.fgRed}Details:${Color.reset}\n\t` + detailsList.join('\n\t');
         }
       }
       else if (typeof printArgs[i] === 'object') {

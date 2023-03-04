@@ -1,12 +1,12 @@
 import { AppContext, Logger } from '@nodearch/core';
 import { Command, ICommand } from '@nodearch/command';
 import { IOpenAPICommandOptions, OpenAPIFormat } from '../interfaces.js';
-import { OpenApiBuilder } from 'openapi3-ts';
+import OAISchema from 'openapi3-ts';
 import { OpenAPI } from './openapi.js';
 import path from 'path';
 import fs from 'fs/promises';
 import { OpenAPIConfig } from './openapi.config.js';
-import { fileURLToPath, pathToFileURL } from 'url';
+import { fileURLToPath } from 'url';
 import { UrlParser } from '@nodearch/core/fs';
 
 
@@ -44,7 +44,7 @@ export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
     const fileExtensions = Object.values(OpenAPIFormat).map(ft => '.' + ft);
     let specs: string = '';
 
-    const builder = OpenApiBuilder
+    const builder = OAISchema.OpenApiBuilder
       .create(this.openAPI.get());
 
     if (format === OpenAPIFormat.Json) {

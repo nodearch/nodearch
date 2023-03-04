@@ -11,6 +11,8 @@ export class ComponentRegistry {
   private container: Container;
   // A map of registries for all components types within the app
   private registryMap: Map<string, { components: ComponentInfo[], handler: ComponentHandler }>;
+  // A map of annotations for all components within the app
+  private annotationMap: Map<string, ComponentInfo[]>;
   // Keeps track of all the exported components from the app
   private exported: ComponentInfo[];
   // Keeps track of all hooks within the app
@@ -19,6 +21,7 @@ export class ComponentRegistry {
   constructor(container: Container) {
     this.container = container;
     this.registryMap = new Map();
+    this.annotationMap = new Map();
     this.exported = [];
     this.hooks = [];
   }
@@ -43,16 +46,19 @@ export class ComponentRegistry {
    * @returns ComponentInfo[]
    */
   getComponents<T = any>(id: string) {
-    let components: ComponentInfo<T>[] = []; 
-    
-    const registry = this.registryMap.get(id);
-    
-    if (registry && registry.components.length) {
-      components = registry.components as ComponentInfo<T>[];
-    }
-
-    return components;
+    return this.annotationMap.get(id) as ComponentInfo<T>[];
   }
+  // getComponents<T = any>(id: string) {
+  //   let components: ComponentInfo<T>[] = []; 
+    
+  //   const registry = this.registryMap.get(id);
+    
+  //   if (registry && registry.components.length) {
+  //     components = registry.components as ComponentInfo<T>[];
+  //   }
+
+  //   return components;
+  // }
 
   /**
    * Register app components from a given classes list
@@ -64,6 +70,17 @@ export class ComponentRegistry {
       if (!registration) return;
 
       const componentInfo = new ComponentInfo(classConstructor, registration, this.container);
+
+      componentInfo.getDecoratorsIds().forEach(deco => {
+        let annotations = this.annotationMap.get(deco);
+
+        if (!annotations) {
+          annotations = [];
+          this.annotationMap.set(deco, annotations);
+        }
+
+        annotations.push(componentInfo);
+      });
 
       const registry = this.getComponentRegistry(registration);
 
@@ -86,6 +103,18 @@ export class ComponentRegistry {
    */
   registerExtensions(components: ComponentInfo[]) {
     components.forEach(componentInfo => {
+
+      componentInfo.getDecoratorsIds().forEach(deco => {
+        let annotations = this.annotationMap.get(deco);
+
+        if (!annotations) {
+          annotations = [];
+          this.annotationMap.set(deco, annotations);
+        }
+
+        annotations.push(componentInfo);
+      });
+
       const registry = this.getComponentRegistry(componentInfo.getRegistration());
       registry.components.push(componentInfo);
       registry.handler.registerExtension?.(componentInfo);

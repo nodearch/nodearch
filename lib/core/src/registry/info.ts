@@ -55,6 +55,12 @@ export class ComponentInfo<T = any> {
     return this.registration;
   }
 
+  getDecoratorsIds() {
+    const annotations = this.decorators.map(deco => deco.id);
+    annotations.push(this.registration.id);
+    return annotations;
+  }
+
   get isExported () {
     return this.registration.options?.export;
   }

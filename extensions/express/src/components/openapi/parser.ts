@@ -1,6 +1,6 @@
 import { Service } from '@nodearch/core';
 import { camelToTitle } from '@nodearch/core/utils';
-import { OpenAPIObject, PathsObject, OperationObject, ParameterObject, IOpenAPIAppMapItem } from '@nodearch/openapi';
+import { OAISchema, IOpenAPIAppMapItem } from '@nodearch/openapi';
 import { HttpMethod } from '../express/enums.js';
 import { ExpressParser } from '../express/express-parser.js';
 import { ExpressConfig } from '../express/express.config.js';
@@ -16,8 +16,8 @@ export class OpenAPIParser {
     private readonly expressParser: ExpressParser
   ) {}
 
-  parse(): Partial<OpenAPIObject> {
-    const paths: PathsObject = {};
+  parse(): Partial<OAISchema.OpenAPIObject> {
+    const paths: OAISchema.PathsObject = {};
 
     const expressInfo = this.expressParser.getExpressInfo();
 
@@ -53,8 +53,8 @@ export class OpenAPIParser {
     }];
   }
 
-  private getOperationObject(params: string[], controllerMethod: string, httpMethod: HttpMethod): Partial<OperationObject> {
-    const opObj: Partial<OperationObject> = {
+  private getOperationObject(params: string[], controllerMethod: string, httpMethod: HttpMethod): Partial<OAISchema.OperationObject> {
+    const opObj: Partial<OAISchema.OperationObject> = {
       summary: controllerMethod,
       description: camelToTitle(controllerMethod),
       parameters: this.getPathParams(params),
@@ -72,7 +72,7 @@ export class OpenAPIParser {
     return opObj;
   }
 
-  private getPathParams(params: string[]): ParameterObject[] {
+  private getPathParams(params: string[]): OAISchema.ParameterObject[] {
     return params.map(param => {
       return {
         name: param,
