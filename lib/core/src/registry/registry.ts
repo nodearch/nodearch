@@ -79,6 +79,7 @@ export class ComponentRegistry {
           this.annotationMap.set(deco, annotations);
         }
 
+        // TODO: avoid duplicates
         annotations.push(componentInfo);
       });
 
