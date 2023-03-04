@@ -1,5 +1,5 @@
 import { Service } from '@nodearch/core';
-import { IOpenAPIAppMapItem, IOpenAPIProvider, OAISchema } from '@nodearch/openapi';
+import { IOpenAPIAppMapItem, IOpenAPIProvider, OAISchema, IOpenAPIProviderData } from '@nodearch/openapi';
 import { OpenAPIParser } from './parser.js';
 
 @Service({ export: true })
@@ -8,11 +8,7 @@ export class ExpressOAIProvider implements IOpenAPIProvider {
     private readonly openAPIParser: OpenAPIParser
   ) {}
 
-  getOpenAPI() {
+  getData() {
     return this.openAPIParser.parse();
-  }
-
-  getAppMap(): IOpenAPIAppMapItem[] {
-    return this.openAPIParser.appMap;
   }
 }

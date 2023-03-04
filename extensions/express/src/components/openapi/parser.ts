@@ -1,6 +1,6 @@
 import { Service } from '@nodearch/core';
 import { camelToTitle } from '@nodearch/core/utils';
-import { OAISchema, IOpenAPIAppMapItem } from '@nodearch/openapi';
+import { OAISchema, IOpenAPIAppMapItem, IOpenAPIProviderData, IOpenAPIAppRouteMap } from '@nodearch/openapi';
 import { HttpMethod } from '../express/enums.js';
 import { ExpressParser } from '../express/express-parser.js';
 import { ExpressConfig } from '../express/express.config.js';
@@ -16,8 +16,17 @@ export class OpenAPIParser {
     private readonly expressParser: ExpressParser
   ) {}
 
-  parse(): Partial<OAISchema.OpenAPIObject> {
-    const paths: OAISchema.PathsObject = {};
+  parse() {
+    const providerData: IOpenAPIProviderData = {
+      servers: this.getServers(),
+      routes: this.getRoutes()
+    };
+
+    return providerData;
+  }
+
+  private getRoutes() {
+    const routes: IOpenAPIAppRouteMap[] = []
 
     const expressInfo = this.expressParser.getExpressInfo();
 
@@ -27,23 +36,22 @@ export class OpenAPIParser {
         const urlPath = this.mergePaths(router.path, route.path);
         const pathInfo = this.getPathInfo(urlPath);
 
-        paths[pathInfo.path] = paths[pathInfo.path] || {};
-        paths[pathInfo.path][route.method] = this.getOperationObject(pathInfo.params, route.controllerMethod, route.method);
-
-        this.appMap.push({
-          component: router.controllerInfo.getClass(),
-          method: route.controllerMethod,
-          httpMethod: route.method,
-          httpPath: pathInfo.path
+        routes.push({
+          app: {
+            component: router.controllerInfo.getClass(),
+            method: route.controllerMethod
+          },
+          schema: {
+            path: pathInfo.path,
+            method: route.method,
+            data: this.getOperationObject(pathInfo.params, route.controllerMethod, route.method)
+          }
         });
       });
 
     });
 
-    return {
-      servers: this.getServers(),
-      paths
-    };
+    return routes;
   }
 
   private getServers() {
