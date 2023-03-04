@@ -2,9 +2,9 @@ import { AppContext, Service } from '@nodearch/core';
 import * as utils from '@nodearch/core/utils';
 import { ClassConstructor } from '@nodearch/core/utils';
 import OAISchema from 'openapi3-ts';
-import { OpenApiAnnotation } from '../index.js';
 import { IOpenAPIAppMapItem, IOpenAPIProvider, IOpenAPIProviderData } from '../interfaces.js';
 import { OpenAPIConfig } from './openapi.config.js';
+import { OAIBuiltInProvider } from './openapi.provider.js';
 
 
 @Service({ export: true })
@@ -15,9 +15,12 @@ export class OpenAPI {
 
   constructor(
     private readonly openAPIConfig: OpenAPIConfig,
-    private readonly appContext: AppContext
+    private readonly appContext: AppContext,
+    private readonly oaiBuiltInProvider: OAIBuiltInProvider
   ) {
-    this.providers = [];
+    this.providers = [
+      this.oaiBuiltInProvider
+    ];
 
     this.openAPIConfig.providers.forEach(provider => {
       const oaiProvider = this.appContext.container.get<IOpenAPIProvider>(provider);
@@ -35,31 +38,7 @@ export class OpenAPI {
       .map(provider => provider.getData());
 
     this.populateAppMap(providersData);
-
-    // this.providers.forEach(provider => {
-    //   const providerData = provider.getData();
-
-    //   if (providerData.routes) {
-    //     // 
-    //     providerData
-    //       .routes
-    //       .filter(route => route.schema.path && route.schema.method)
-    //       .forEach(route => {
-          
-    //         this.appMap.push({
-    //           component: route.app.component,
-    //           method: route.app.method,
-    //           httpMethod: route.schema.method!,
-    //           httpPath: route.schema.path!
-    //         })
-
-    //       });
-    //   }
-
-    //   // openAPIObj = Object.assign(openAPIObj, );
-
-
-    // });
+    this.populateProvidersData(openAPIObj, providersData);
 
     // this.setDecoratorsData(
     //   openAPIObj, 
@@ -105,6 +84,25 @@ export class OpenAPI {
       });
   }
 
+  private populateProvidersData(openAPIObj: OAISchema.OpenAPIObject, providersData: IOpenAPIProviderData[]) {
+    providersData.forEach(providerData => {
+      const { routes, webhooks, ...data } = providerData;
+      
+      for (const [key, value] of Object.entries(data)) {
+        utils.set(openAPIObj, key, value);
+      }
+
+      if (routes) {
+        routes.forEach(route => {
+          const routeInfo = this.getRouteInfoByAppInfo(route.app.component, route.app.method);
+
+          if (routeInfo) {
+            utils.set(openAPIObj, `paths.${routeInfo.httpPath}.${routeInfo.httpMethod}`, route.schema.data);
+          }
+        });
+      }
+    });
+  }
 
 
   private getRouteInfoByAppInfo(component: ClassConstructor, method: string) {
@@ -123,52 +121,52 @@ export class OpenAPI {
     }, this.openAPIConfig.openAPI);
   }
 
-  private setDecoratorsData(openAPIObj: OAISchema.OpenAPIObject, decoId: string, getPath: (mapItem?: IOpenAPIAppMapItem) => string | undefined) {
-    this.getDecoratorsDefinitions(decoId)
-      .forEach(decoData => {
-        let mapItem: IOpenAPIAppMapItem | undefined;
+  // private setDecoratorsData(openAPIObj: OAISchema.OpenAPIObject, decoId: string, getPath: (mapItem?: IOpenAPIAppMapItem) => string | undefined) {
+  //   this.getDecoratorsDefinitions(decoId)
+  //     .forEach(decoData => {
+  //       let mapItem: IOpenAPIAppMapItem | undefined;
 
-        if (decoData.method) {
-          mapItem = this.appMap
-            .find(
-              mapItem => mapItem.component === decoData.component && 
-                mapItem.method === decoData.method
-            );
-        }
+  //       if (decoData.method) {
+  //         mapItem = this.appMap
+  //           .find(
+  //             mapItem => mapItem.component === decoData.component && 
+  //               mapItem.method === decoData.method
+  //           );
+  //       }
         
-        const objPath = getPath(mapItem);
+  //       const objPath = getPath(mapItem);
           
-        if (objPath) {
-          utils.set(openAPIObj, objPath, decoData.data);
-        }
+  //       if (objPath) {
+  //         utils.set(openAPIObj, objPath, decoData.data);
+  //       }
 
-      });
-  }
+  //     });
+  // }
 
-  private getDecoratorsDefinitions(id: string) {
-    return this.appContext
-      .components
-      .getDecoratorsById(id)
-      .map(decoInfo => {
-        return {
-          component: decoInfo.componentInfo.getClass(),
-          method: decoInfo.method,
-          data: decoInfo.data
-        };
-      }); 
-  }
+  // private getDecoratorsDefinitions(id: string) {
+  //   return this.appContext
+  //     .components
+  //     .getDecoratorsById(id)
+  //     .map(decoInfo => {
+  //       return {
+  //         component: decoInfo.componentInfo.getClass(),
+  //         method: decoInfo.method,
+  //         data: decoInfo.data
+  //       };
+  //     }); 
+  // }
 
-  private setAppMapItems(appMap: IOpenAPIAppMapItem[]) {
-    appMap.forEach(appMapItem => {
-      const mapItemExist = this.appMap
-        .find(
-          currMapItem => currMapItem.component === appMapItem.component && 
-          currMapItem.method === appMapItem.method
-        );
+  // private setAppMapItems(appMap: IOpenAPIAppMapItem[]) {
+  //   appMap.forEach(appMapItem => {
+  //     const mapItemExist = this.appMap
+  //       .find(
+  //         currMapItem => currMapItem.component === appMapItem.component && 
+  //         currMapItem.method === appMapItem.method
+  //       );
 
-      if (!mapItemExist) {
-        this.appMap.push(appMapItem);
-      }
-    });
-  }
+  //     if (!mapItemExist) {
+  //       this.appMap.push(appMapItem);
+  //     }
+  //   });
+  // }
 }
