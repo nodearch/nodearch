@@ -5,33 +5,6 @@
     "version": "0.1.0"
   },
   "paths": {
-    "/{id}": {
-      "get": {
-        "tags": [
-          "default"
-        ],
-        "summary": "getUserById",
-        "description": "Get User By Id",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/": {
       "get": {
         "summary": "getUsers",
@@ -39,14 +12,33 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error"
+          },
+          "default": {
+            "description": "Default response"
           }
         },
         "tags": [
-          "default"
+          "User Management",
+          "Special Tag"
         ]
       },
       "post": {
@@ -61,14 +53,80 @@
             "description": "Internal Server Error"
           }
         },
-        "tags": [
-          "default"
-        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "object"
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "User name",
+                    "example": "John Doe"
+                  }
+                }
+              }
+            }
+          },
+          "description": "User request body"
+        },
+        "tags": [
+          "User Management",
+          "Special Tag"
+        ]
+      }
+    },
+    "/{id}": {
+      "get": {
+        "summary": "getUserById",
+        "description": "Get User By Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "something": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "tags": [
+          "User Management",
+          "Special Tag"
+        ],
+        "requestBody": {
+          "description": "User request body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "User name",
+                    "example": "John Doe"
+                  }
+                }
               }
             }
           }
@@ -83,15 +141,15 @@
     },
     {
       "url": "http://localhost:3000",
+      "description": "Express Server URL"
+    },
+    {
+      "url": "http://localhost:3000",
       "description": "Local server"
     },
     {
       "url": "http://localhost:3001",
       "description": "Local server"
-    },
-    {
-      "url": "http://localhost:3000",
-      "description": "Express Server URL"
     }
   ]
 }

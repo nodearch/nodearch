@@ -1,5 +1,5 @@
 import { Service } from '@nodearch/core';
-import { camelToTitle } from '@nodearch/core/utils';
+import { camelToTitle, ClassConstructor } from '@nodearch/core/utils';
 import { OAISchema, IOpenAPIAppMapItem, IOpenAPIProviderData, IOpenAPIAppRouteMap } from '@nodearch/openapi';
 import { HttpMethod } from '../express/enums.js';
 import { ExpressParser } from '../express/express-parser.js';
@@ -69,8 +69,7 @@ export class OpenAPIParser {
       responses: {
         200: { description: 'OK' },
         500: { description: 'Internal Server Error' }
-      },
-      tags: ['default']
+      }
     };
 
     if ([HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH].includes(httpMethod)) {

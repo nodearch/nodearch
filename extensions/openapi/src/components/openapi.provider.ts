@@ -5,13 +5,17 @@ import { IOpenAPIAppMapItem, IOpenAPIProvider, OAISchema, OpenApiAnnotation, IOp
 export class OAIBuiltInProvider implements IOpenAPIProvider {
   constructor(
     private readonly appContext: AppContext
-  ) {}
+  ) { }
 
   getData(): IOpenAPIProviderData {
-    console.log('this.getTags()', this.getTags()[0].schema);
     return {
       servers: this.getServers(),
-      routes: this.getTags()
+      routes: [
+        ...this.getTags(),
+        ...this.getResponses(),
+        ...this.getRequestBody(),
+        ...this.getRouteInfo()
+      ]
     };
   }
 
@@ -21,8 +25,7 @@ export class OAIBuiltInProvider implements IOpenAPIProvider {
       .flat(1);
   }
 
-  // TODO: we need deep merge
-  private getTags(): any {
+  private getTags() {
     return this.getDecoratorsDefinitions(OpenApiAnnotation.Tags)
       .map(tagsInfo => {
         /**
@@ -41,7 +44,7 @@ export class OAIBuiltInProvider implements IOpenAPIProvider {
                   method
                 },
                 schema: {
-                  data: tagsInfo.data
+                  data: { tags: tagsInfo.data }
                 }
               };
             });
@@ -50,20 +53,76 @@ export class OAIBuiltInProvider implements IOpenAPIProvider {
           return {
             app: {
               component: tagsInfo.componentInfo.getClass(),
-              method: tagsInfo.method
+              method: tagsInfo.method as string
             },
             schema: {
-              data: tagsInfo.data
+              data: { tags: tagsInfo.data }
             }
           };
         }
       })
-      .flat(1)
-      // TODO: remove this and add it to the above map
-      .map(tagsInfo => {
-        tagsInfo.schema.data = { tags: tagsInfo.schema.data }; 
-        return tagsInfo;
+      .flat(1);
+  }
+
+  private getResponses() {
+    return this.getDecoratorsDefinitions(OpenApiAnnotation.Responses)
+      .map(responses => {
+
+        return {
+          app: {
+            component: responses.componentInfo.getClass(),
+            method: responses.method as string
+          },
+          schema: {
+            data: { responses: responses.data }
+          }
+        };
+
       });
+  }
+
+  private getRequestBody() {
+    return this.getDecoratorsDefinitions(OpenApiAnnotation.RequestBody)
+      .map(responses => {
+
+        return {
+          app: {
+            component: responses.componentInfo.getClass(),
+            method: responses.method as string
+          },
+          schema: {
+            data: { requestBody: responses.data }
+          }
+        };
+
+      });
+  }
+
+  private getRouteInfo() {
+    return this.getDecoratorsDefinitions(OpenApiAnnotation.RouteInfo)
+    .map(routeInfo => {
+
+      const entries: any = [];
+
+      for (const [key, value] of Object.entries(routeInfo.data)) {
+        const data: any = {};
+        data[key] = value;
+
+        entries.push({
+          app: {
+            component: routeInfo.componentInfo.getClass(),
+            method: routeInfo.method as string
+          },
+          schema: {
+            data
+          }
+        });
+      }
+
+      return entries;
+
+    })
+    .flat(1);
   }
 
   private getDecoratorsDefinitions(id: string) {
@@ -76,6 +135,6 @@ export class OAIBuiltInProvider implements IOpenAPIProvider {
           method: decoInfo.method,
           data: decoInfo.data
         };
-      }); 
+      });
   }
 }

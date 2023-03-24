@@ -1,9 +1,10 @@
 import { HttpBody, HttpController, HttpGet, HttpPath, HttpPost, HttpQuery, Use } from "@nodearch/express";
-import { Responses, Servers, Tags } from '@nodearch/openapi';
+import { RequestBody, Responses, RouteInfo, Servers, Tags } from '@nodearch/openapi';
 import { FirstMiddleware } from './middleware.js';
 import { IUser } from './user.interface.js';
 import { UserService } from './user.service.js';
 
+@Tags(['User Management'])
 @Servers([
   {
     url: 'http://localhost:3000',
@@ -49,15 +50,66 @@ export class UserController {
     return this.userService.getUsers(user);
   }
 
-  @Tags([
-    'Dev',
-    "Bus"
-  ])
+
+  @RouteInfo({
+    tags: ['Special Tag'],
+    requestBody: {
+      description: 'User request body',
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            properties: {
+              name: {
+                type: 'string',
+                description: 'User name',
+                example: 'John Doe'
+              }
+            }
+          }
+        }
+      }
+    },
+    responses: {
+      '200': {
+        description: 'User response',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                something: {
+                  type: 'string'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  })
   @HttpGet('/:id')
   async getUserById(@HttpPath('id') id: string) {
     return this.userService.getUsers({ id: parseInt(id) })[0];
   }
 
+  @RequestBody({
+    description: 'User request body',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+              description: 'User name',
+              example: 'John Doe'
+            }
+          }
+        }
+      }
+    }
+  })
   @HttpPost('/')
   async addUser(@HttpBody() user: Omit<IUser, 'id'>) {
     this.userService.addUser(user);
