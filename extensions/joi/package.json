@@ -2,8 +2,16 @@
   "name": "@nodearch/joi",
   "version": "0.0.1",
   "description": "NodeArch Joi Wrapper",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc"
@@ -27,10 +35,11 @@
     "@nodearch/core": "workspace:^1.4.2",
     "@types/node": "^16.18.0",
     "rimraf": "~3.0.2",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.2",
+    "reflect-metadata": "^0.1.13"
   },
   "dependencies": {
-    "openapi3-ts": "^3.1.2"
+    "joi": "^17.9.1"
   },
   "peerDependencies": {
     "@nodearch/core": "1.4.2",

@@ -506,6 +506,13 @@
       "reviewCategory": "production",
       "versionPolicyName": "packages",
       "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/joi",
+      "projectFolder": "extensions/joi",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
     }
     // {
     //   /**

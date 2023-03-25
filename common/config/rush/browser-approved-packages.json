@@ -23,6 +23,10 @@
       "allowedCategories": [ "prototypes" ]
     },
     {
+      "name": "@nodearch/joi",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "@nodearch/mocha",
       "allowedCategories": [ "prototypes" ]
     },

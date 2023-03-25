@@ -1,7 +1,7 @@
 import { ComponentFactory } from '@nodearch/core';
 import { ClassMethodDecorator } from '@nodearch/core/utils';
 import OAISchema from 'openapi3-ts';
-import { OpenApiAnnotation } from './enums.js';
+import { OpenApiAnnotation } from '../enums.js';
 
 
 export const Servers = (options: OAISchema.ServerObject[]): ClassDecorator =>
@@ -43,3 +43,11 @@ export const RouteInfo = (options: Partial<OAISchema.OperationObject>): MethodDe
       return options;
     }
   });
+
+// export const OpenAPISchema = (options: Partial<OAISchema.OpenAPIObject>): ClassMethodDecorator =>
+//   ComponentFactory.classMethodDecorator({ 
+//     id: OpenApiAnnotation.RouteInfo, 
+//     fn: () => {
+//       return options;
+//     }
+//   });

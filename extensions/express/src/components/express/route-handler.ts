@@ -21,7 +21,6 @@ export class RouteHandler {
 
       handler(...params)
         .then((result: any) => {
-
           if (res.headersSent) return;
 
           if (result) return res.send(result); // TODO: we need to check that result is not number

@@ -1,5 +1,6 @@
 import { App } from '@nodearch/core';
 import { ExpressApp, ExpressOAIProvider } from '@nodearch/express';
+import { JoiApp, JoiBuilder } from '@nodearch/joi';
 import { OpenAPIApp, OpenAPIFormat } from '@nodearch/openapi';
 import { SwaggerApp, getAbsoluteFSPath } from '@nodearch/swagger';
 
@@ -15,7 +16,17 @@ export default class MyApp extends App {
           static: [
             { httpPath: '/docs', filePath: './public/docs' },
             { httpPath: '/docs', filePath: getAbsoluteFSPath() }
-          ]
+          ],
+          httpErrors: {
+            customErrors: [
+              {
+                error: JoiBuilder.ValidationError,
+                handler: (error, res) => {
+                  res.status(400).json({ message: error.message, details: error.details });
+                }
+              }
+            ]
+          }
         }),
         new OpenAPIApp({ 
           providers: [ExpressOAIProvider],
@@ -36,7 +47,8 @@ export default class MyApp extends App {
         }),
         new SwaggerApp({
           url: '/docs/openapi.json'
-        })
+        }),
+        new JoiApp()
       ]
     });
   }

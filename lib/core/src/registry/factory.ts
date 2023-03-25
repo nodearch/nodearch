@@ -70,14 +70,14 @@ export abstract class ComponentFactory {
   static methodDecorator(
     options: {
       id: string;
-      fn?(target: any, propKey: string | symbol): object | void;
+      fn?(target: any, propKey: string | symbol, descriptor: PropertyDescriptor): object | void;
       dependencies?: ClassConstructor[];
     }
   ): MethodDecorator {
-    return function (target: any, propKey: string | symbol) {
+    return function (target: any, propKey: string | symbol, descriptor: PropertyDescriptor) {
       const decoratorTarget = target.constructor;
 
-      const data = options.fn?.(target, propKey);
+      const data = options.fn?.(target, propKey, descriptor);
 
       ComponentMetadata.setComponentDecorator(decoratorTarget, {
         id: options.id,
@@ -166,6 +166,10 @@ export abstract class ComponentFactory {
       const key = ComponentFactory.addComponentDependency(component, dep, prefix);
       return { key, component: dep };
     });
+  }
+
+  static getDecoratorInfo(classConstructor: ClassConstructor, id: string) {
+    return ComponentMetadata.getComponentDecorators(classConstructor).filter(x => x.id === id);
   }
 
   private static getComponentDependencies(options: {
