@@ -6,6 +6,8 @@ import http from 'node:http';
 import https from 'node:https';
 import express from 'express';
 import { Stats } from 'node:fs';
+import { ClassConstructor } from '@nodearch/core/utils';
+import { IValidationProvider } from '../validation/interfaces.js';
 
 
 export interface IExpressAppOptions {
@@ -18,6 +20,8 @@ export interface IExpressAppOptions {
   httpErrors?: IHttpErrorsOptions;
 
   static?: IExpressStatic[];
+
+  validation?: IValidationOptions;
 }
 
 export interface IExpressStatic {
@@ -63,3 +67,7 @@ export interface IExpressRouteHandlerInput {
 }
 
 export type IHttpControllerOptions = string;
+
+export interface IValidationOptions {
+  provider: ClassConstructor<IValidationProvider>;
+}
