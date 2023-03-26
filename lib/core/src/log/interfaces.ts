@@ -6,6 +6,7 @@ export interface ILogger {
   info(...args: any[]): void;
   debug(...args: any[]): void;
   setLogLevel(logLevel: LogLevel): void;
+  getLogLevel(): LogLevel;
 }
 
 export interface ILoggerHandler {

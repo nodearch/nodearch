@@ -9,6 +9,7 @@ import { ILogger, ILogOptions } from '../log/interfaces.js';
 import { Logger } from '../log/logger.js';
 import { AppContext } from './app-context.js';
 import { IAppInfo, IAppOptions, IInitOptions } from './app.interfaces.js';
+import { LogLevel } from '../index.js';
 
 
 export class App {
@@ -46,7 +47,7 @@ export class App {
 
     // appContext is created only in the main app and passed to extensions
     if (!this.appContext) {
-      this.appContext = new AppContext(this.components, this.container, this.appInfo!);
+      this.appContext = new AppContext(this.components, this.container, this.appInfo!, this.logger.getLogLevel());
     }
 
     this.container.bindToConstant(Logger, this.logger);

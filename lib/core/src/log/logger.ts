@@ -37,6 +37,10 @@ export class Logger {
     this.logLevel = logLevel;
   }
 
+  getLogLevel() {
+    return this.logLevel;
+  }
+
   private defaultGetTimestamp() {
     return new Date().toISOString();
   }
