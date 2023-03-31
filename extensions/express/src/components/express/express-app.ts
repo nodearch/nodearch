@@ -1,5 +1,5 @@
 import express from 'express';
-import { AppContext, ComponentInfo, Service } from '@nodearch/core';
+import { AppContext, ComponentInfo, Logger, Service } from '@nodearch/core';
 import { IExpressInfo, IExpressRoute, IExpressRouter } from './interfaces.js';
 import { RouteHandler } from './route-handler.js';
 import { MiddlewareFactory } from '../middleware/middleware-factory.js';
@@ -29,7 +29,8 @@ export class ExpressApp {
     private readonly expressParser: ExpressParser,
     private readonly expressConfig: ExpressConfig,
     private readonly appContext: AppContext,
-    private readonly validationHandler: ValidationHandler
+    private readonly validationHandler: ValidationHandler,
+    private readonly logger: Logger
   ) {}
 
   create(): express.Application {
@@ -98,6 +99,8 @@ export class ExpressApp {
     routeParams.push(this.routeHandler.create(routeInfo.controllerMethod, routeInfo.inputs));
 
     router[routeInfo.method](routeInfo.path, ...routeParams);
+  
+    this.logger.info(`[Express] Route registered: [${routeInfo.method.toUpperCase()}]\t${routeInfo.path}\t(${controllerClass.name}.${routeInfo.controllerMethod})`);
   }
 
 }

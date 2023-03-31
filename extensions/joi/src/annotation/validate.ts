@@ -32,8 +32,6 @@ export const Validate = (schema: IValidateOptions): MethodDecorator => {
 
         return method.apply(this, arguments);
       }
-
-      // return schema;
     }
   });
 }

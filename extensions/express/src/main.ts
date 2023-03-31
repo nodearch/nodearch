@@ -8,7 +8,10 @@ export class ExpressApp extends App {
       components: {
         url: new URL('components', import.meta.url)
       },
-      config: options
+      config: options,
+      logs: {
+        prefix: 'Express'
+      }
     });
   }
 }

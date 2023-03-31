@@ -155,21 +155,21 @@ export abstract class ComponentFactory {
     return true;
   }
 
-  static addComponentDependency(component: ClassConstructor, dependency: ClassConstructor, prefix: string) {
+  static getDecoratorInfo(classConstructor: ClassConstructor, id: string) {
+    return ComponentMetadata.getComponentDecorators(classConstructor).filter(x => x.id === id);
+  }
+
+  private static addComponentDependency(component: ClassConstructor, dependency: ClassConstructor, prefix: string) {
     const key = `${prefix}-${dependency.name}`;
     ClassInfo.propertyInject(component, dependency, key)
     return key;
   }
 
-  static addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[], prefix: string): IComponentDecoratorDependency[] {
+  private static addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[], prefix: string): IComponentDecoratorDependency[] {
     return dependencies.map(dep => {
       const key = ComponentFactory.addComponentDependency(component, dep, prefix);
       return { key, component: dep };
     });
-  }
-
-  static getDecoratorInfo(classConstructor: ClassConstructor, id: string) {
-    return ComponentMetadata.getComponentDecorators(classConstructor).filter(x => x.id === id);
   }
 
   private static getComponentDependencies(options: {

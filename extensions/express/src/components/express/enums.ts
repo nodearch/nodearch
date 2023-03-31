@@ -22,5 +22,4 @@ export enum ExpressAnnotationId {
   HttpParam = '@nodearch/express/annotations/http-param',
   Middleware = '@nodearch/express/annotations/middleware',
   Use = '@nodearch/express/annotations/use',
-  HttpController = '@nodearch/express/annotations/http-controller'
 }

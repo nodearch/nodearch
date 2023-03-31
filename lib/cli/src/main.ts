@@ -7,7 +7,7 @@ export class Cli extends App {
       components: {
         url: new URL('components', import.meta.url)
       },
-      logs: { logLevel: LogLevel.Info },
+      logs: { logLevel: LogLevel.Info, prefix: 'CLI' },
       extensions: [
         new CommandApp({
           name: 'nodearch',

@@ -10,7 +10,14 @@ export interface ILogger {
 }
 
 export interface ILoggerHandler {
-  log(logLevel: LogLevel, timestamp: string, tag: string, args: any[]): void;
+  log(options: ILoggerHandlerOptions): void;
+}
+
+export interface ILoggerHandlerOptions {
+  logLevel: LogLevel; 
+  timestamp: string; 
+  args: any[];
+  prefix?: string; 
 }
 
 export interface ILoggerHandlerConstructor {
@@ -22,4 +29,5 @@ export interface ILogOptions {
   logLevel?: LogLevel;
   getTimestamp?(): string;
   disable?: boolean;
+  prefix?: string;
 }

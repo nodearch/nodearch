@@ -24,7 +24,7 @@ export type IInitOptions = {
   appInfo: IAppInfo;
 } | {
   mode: 'ext';
-  logger: ILogger;
+  logs: ILogOptions;
   appContext: AppContext;
 };
 

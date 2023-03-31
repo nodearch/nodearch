@@ -152,7 +152,7 @@
     },
     {
       "name": "joi",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "joi-to-swagger",

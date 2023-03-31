@@ -1,5 +1,5 @@
 import { LogLevel } from '../enums.js';
-import { ILoggerHandler } from '../interfaces.js';
+import { ILoggerHandler, ILoggerHandlerOptions } from '../interfaces.js';
 import { Color } from './enums.js';
 import { IConsoleLoggerOptions, ILogColorMap } from './interfaces.js';
 
@@ -18,12 +18,17 @@ export class ConsoleLogger implements ILoggerHandler {
     };
   }
 
-  log(logLevel: LogLevel, timestamp: string, tag: string, args: any[]) {
+  log(options: ILoggerHandlerOptions) {
     const printArgs: any[] = [
-        this.bracketWrap(this.colorWrap(timestamp, logLevel)),
-        this.bracketWrap(this.colorWrap(tag, logLevel)),
-        ...args
+        this.bracketWrap(this.colorWrap(options.timestamp, options.logLevel)),
+        this.bracketWrap(this.colorWrap(options.logLevel.toUpperCase(), options.logLevel))
       ];
+
+    if (options.prefix) {
+      printArgs.push(this.bracketWrap(this.colorWrap(options.prefix, options.logLevel)));
+    }
+
+    printArgs.push(...options.args);
 
     let str = '';
 

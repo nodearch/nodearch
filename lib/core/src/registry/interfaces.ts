@@ -68,3 +68,11 @@ export interface IComponentRegistration<T = any> {
    */
   dependencies?: IComponentDecoratorDependency[];
 }
+
+export interface IGetComponentsOptions {
+  // Filter by component id
+  id?: string;
+  
+  // Filter by decorator id for a decorator that is placed on the component
+  decoratorIds?: string[];
+}

@@ -19,7 +19,7 @@ export class App {
   public container: Container;
   
   private extensions?: App[];
-  private logOptions?: ILogOptions;
+  private logOptions: ILogOptions;
   private configOptions?: Record<string, any>;
   private classLoader: ClassLoader;
   private logger!: ILogger;
@@ -36,14 +36,12 @@ export class App {
     this.container = new Container(this.inversifyContainer);
     this.components = new ComponentRegistry(this.container);
     this.extensions = options.extensions;
-    this.logOptions = options.logs;
+    this.logOptions = options.logs || {};
     this.configOptions = options.config;
   }
 
   private loadCoreComponents() {
-    if (!this.logger) {
-      this.logger = new Logger(this.logOptions);
-    }
+    this.logger = new Logger(this.logOptions);
 
     // appContext is created only in the main app and passed to extensions
     if (!this.appContext) {
@@ -61,7 +59,7 @@ export class App {
         try {
           await extension.init({
             mode: 'ext',
-            logger: this.logger,
+            logs: this.logOptions,
             appContext: this.appContext
           });
         }
@@ -117,7 +115,7 @@ export class App {
       this.appInfo = options.appInfo;
     }
     else if (options.mode === 'ext') {
-      this.logger = options.logger;
+      this.logOptions = { ...options.logs, prefix: this.logOptions.prefix || 'EXT' };
       this.appContext = options.appContext;
     }
 

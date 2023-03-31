@@ -1,9 +1,11 @@
-import { HttpBody, HttpController, HttpGet, HttpPath, HttpPost, HttpQuery, Use } from "@nodearch/express";
-import { Validate, JoiBuilder, JoiSchema } from '@nodearch/joi';
+import { Controller } from '@nodearch/core';
+import { HttpBody, HttpGet, HttpPath, HttpPost, HttpQuery, Use } from "@nodearch/express";
+import { Validate } from '@nodearch/joi';
 import { RequestBody, Responses, RouteInfo, Servers, Tags } from '@nodearch/openapi';
 import { FirstMiddleware } from './middleware.js';
 import { IUser } from './user.interface.js';
 import { UserService } from './user.service.js';
+import Joi from 'joi';
 
 
 @Tags(['User Management'])
@@ -18,14 +20,14 @@ import { UserService } from './user.service.js';
   }
 ])
 @Use(FirstMiddleware)
-@HttpController()
+@Controller()
 export class UserController {
 
   private one = 1;
 
   constructor(private readonly userService: UserService) {}
 
-  @Validate({ input: { username: JoiBuilder.string().required().min(10) } })
+  @Validate({ input: { username: Joi.string().required().min(10) } })
   @HttpGet('/test')
   async test(@HttpQuery('username') username: string) {
     console.log('Test Called', username);
@@ -55,7 +57,6 @@ export class UserController {
   @Use(FirstMiddleware)
   @HttpGet('/')
   async getUsers(@HttpQuery() user?: Partial<IUser>) {
-    
     return this.userService.getUsers(user);
   }
 

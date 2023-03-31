@@ -2,7 +2,7 @@ import { Container } from '../app/container.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentHandler } from './handler.js';
 import { ComponentInfo } from './info.js';
-import { IComponentRegistration } from './interfaces.js';
+import { IComponentRegistration, IGetComponentsOptions } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 
 
@@ -31,17 +31,36 @@ export class ComponentRegistry {
    * information about the component class, instance, 
    * methods, decorators, etc. The returned list is 
    * flittered by the passed decorator id.
-   * @param id Decorator ID, if not passed, returns all components
+   * @param options Options to filter the returned list
    * @returns ComponentInfo[]
    */
-  get<T = any>(id?: string): ComponentInfo<T>[] {
-    if (id) {
-      const set = this.componentInfoMap.get(id);
-      return set ? Array.from(set) : [];
+  get<T = any>(options?: IGetComponentsOptions): ComponentInfo<T>[] {
+
+    let components = this.getComponents(options?.id);
+
+    if (options?.decoratorIds) {
+      components = this.filterComponentsByDecoratorIds(components, options.decoratorIds);
     }
-    else {
-      return this.getAll();
-    }
+
+    return components;
+  }
+
+  /**
+   * Returns a list of decorators info for a given decorator id
+   * @param id Decorator ID
+   */
+  getDecoratorsById(id: string) {
+    return this.getComponents(id)
+      .map(comp => {
+        return comp.getDecoratorsById(id)
+          .map(decoInfo => {
+            return {
+              ...decoInfo,
+              componentInfo: comp
+            };
+          })
+      })
+      .flat(1);
   }
 
   /**
@@ -53,24 +72,6 @@ export class ComponentRegistry {
    */
   getExported() {
     return this.exported;
-  }
-
-  /**
-   * Returns a list of decorators info for a given decorator id
-   * @param id Decorator ID
-   */
-  getDecoratorsById(id: string) {
-    return this.get(id)
-      .map(comp => {
-        return comp.getDecoratorsById(id)
-          .map(decoInfo => {
-            return {
-              ...decoInfo,
-              componentInfo: comp
-            };
-          })
-      })
-      .flat(1);
   }
 
   /**
@@ -156,6 +157,31 @@ export class ComponentRegistry {
     }
 
     return handler;
+  }
+
+  /**
+   * Returns a list of ComponentInfo, which includes all
+   * information about the component class, instance,
+   * methods, decorators, etc. The returned list is
+   * flittered by the passed decorator id.
+   * @param id Component ID
+   */ 
+  private getComponents(id?: string) {
+    if (id) {
+      const set = this.componentInfoMap.get(id);
+      return set ? Array.from(set) : [];
+    }
+    else {
+      return this.getAll();
+    }
+  }
+
+  private filterComponentsByDecoratorIds(components: ComponentInfo[], decoratorIds: string[]) {
+    return components.filter(comp => {
+      return comp.getDecoratorsIds().some(
+        decoId => decoratorIds.includes(decoId)
+      );
+    });
   }
 
 }
