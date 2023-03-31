@@ -32,6 +32,7 @@
     "@nodearch/openapi": "workspace:^0.0.1",
     "@nodearch/swagger": "workspace:^0.0.1",
     "@nodearch/joi": "workspace:^0.0.1",
+    "@nodearch/joi-express": "workspace:^0.0.1",
     "joi": "^17.9.1",
     "express": "^4.18.2",
     "reflect-metadata": "^0.1.13"

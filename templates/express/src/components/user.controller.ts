@@ -1,6 +1,6 @@
 import { Controller } from '@nodearch/core';
 import { HttpBody, HttpGet, HttpPath, HttpPost, HttpQuery, Use } from "@nodearch/express";
-import { Validate } from '@nodearch/joi';
+import { Validate } from '@nodearch/joi-express';
 import { RequestBody, Responses, RouteInfo, Servers, Tags } from '@nodearch/openapi';
 import { FirstMiddleware } from './middleware.js';
 import { IUser } from './user.interface.js';
@@ -27,7 +27,15 @@ export class UserController {
 
   constructor(private readonly userService: UserService) {}
 
-  @Validate({ input: { username: Joi.string().required().min(10) } })
+  @Use((req, res, next) => {
+    console.log('Middleware 1');
+    next();
+  })
+  @Validate(Joi.object({ username: Joi.string().required().min(10) }))
+  @Use((req, res, next) => {
+    console.log('Middleware 2');
+    next();
+  })
   @HttpGet('/test')
   async test(@HttpQuery('username') username: string) {
     console.log('Test Called', username);

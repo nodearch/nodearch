@@ -513,6 +513,13 @@
       "reviewCategory": "production",
       "versionPolicyName": "packages",
       "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/joi-express",
+      "projectFolder": "extensions/joi-express",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
     }
     // {
     //   /**

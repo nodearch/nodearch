@@ -38,7 +38,7 @@ export abstract class ComponentFactory {
         decoratorId: options.id, 
         depsInfo: options.dependencies
       }) : [];
-      
+
       ComponentMetadata.setComponentRegistration(decoratorTarget, compInfo);
       injectable()(decoratorTarget);
     }
@@ -148,7 +148,7 @@ export abstract class ComponentFactory {
 
   static isComponent(component: any, id?: string) {
     const registry = ComponentMetadata.getComponentRegistration(component);
-    
+
     if (!registry) return false;
     if (id && registry.id !== id) return false;
     

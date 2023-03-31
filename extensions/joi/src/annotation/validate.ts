@@ -11,9 +11,8 @@ export const Validate = (schema: IValidateOptions): MethodDecorator => {
       const method = descriptor.value;
 
       descriptor.value = async function (...args: any) {
-        console.log('Validate called in Value', args);
-
         if (schema.input) {
+
           const inputData: any = {};
 
           Object.keys(schema.input).forEach((key, index) => {
@@ -21,8 +20,8 @@ export const Validate = (schema: IValidateOptions): MethodDecorator => {
           });
 
           const result = Joi.object({
-              ...schema.input
-            })
+            ...schema.input
+          })
             .validate(inputData);
 
           if (result.error) {
@@ -30,17 +29,11 @@ export const Validate = (schema: IValidateOptions): MethodDecorator => {
           }
         }
 
-        return method.apply(this, arguments);
-      }
-    }
-  });
-}
+        // TODO: Add output validation
 
-export const JoiSchema = (schema: Joi.Schema): ParameterDecorator => {
-  return ComponentFactory.parameterDecorator({
-    id: JoiAnnotation.Schema,
-    fn(target, propKey, paramIndex) {
-      return schema;
+        return method.apply(this, arguments);
+
+      }
     }
   });
 }

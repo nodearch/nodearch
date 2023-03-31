@@ -1,6 +1,7 @@
 import { App } from '@nodearch/core';
 import { ExpressApp, ExpressOAIProvider } from '@nodearch/express';
 import { JoiApp } from '@nodearch/joi';
+import { JoiExpressApp } from '@nodearch/joi-express';
 import Joi from 'joi';
 import { OpenAPIApp, OpenAPIFormat } from '@nodearch/openapi';
 import { SwaggerApp, getAbsoluteFSPath } from '@nodearch/swagger';
@@ -49,7 +50,8 @@ export default class MyApp extends App {
         new SwaggerApp({
           url: '/docs/openapi.json'
         }),
-        new JoiApp()
+        new JoiApp(),
+        new JoiExpressApp()
       ],
       logs: {
         prefix: 'MyApp'

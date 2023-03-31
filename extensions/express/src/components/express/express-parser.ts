@@ -38,7 +38,8 @@ export class ExpressParser {
         .map(deco => {
           const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
           return { ...deco.data, dependencyKey };
-        });
+        })
+        .reverse();
 
       const ctrlPath = this.formatPath(comp.data);
 
@@ -47,7 +48,7 @@ export class ExpressParser {
           return this.getRouteInfo(comp, method);
         });
 
-      expressInfo.routers.push({
+        expressInfo.routers.push({
         controllerInfo: comp,
         path: ctrlPath,
         middleware,
@@ -70,7 +71,8 @@ export class ExpressParser {
         const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
 
         return { ...deco.data, dependencyKey };
-      });
+      })
+      .reverse();
     
     const inputs: IExpressRouteHandlerInput[] = decorators
       .filter(deco => deco.id === ExpressAnnotationId.HttpParam)

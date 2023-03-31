@@ -20,10 +20,14 @@
     },
     {
       "name": "@nodearch/express",
-      "allowedCategories": [ "prototypes" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@nodearch/joi",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@nodearch/joi-express",
       "allowedCategories": [ "prototypes" ]
     },
     {
