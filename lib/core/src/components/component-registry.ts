@@ -2,6 +2,9 @@ import { Container } from '../app/container.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentHandler } from './component-handler.js';
 import { ComponentInfo } from './component-info.js';
+import { IUseDecoratorOptions } from './component/interfaces.js';
+import { isComponent } from './decorator-factory.js';
+import { CoreDecorator } from './enums.js';
 import { IComponentRegistration, IGetComponentsOptions } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 
@@ -49,10 +52,10 @@ export class ComponentRegistry {
    * Returns a list of decorators info for a given decorator id
    * @param id Decorator ID
    */
-  getDecoratorsById(id: string) {
+  getDecoratorsById<T = any>(id: string) {
     return this.getComponents(id)
       .map(comp => {
-        return comp.getDecoratorsById(id)
+        return comp.getDecoratorsById<T>(id)
           .map(decoInfo => {
             return {
               ...decoInfo,
@@ -61,6 +64,15 @@ export class ComponentRegistry {
           })
       })
       .flat(1);
+  }
+
+  /**
+   * Get a list of decorators info of type @Use()
+   * @param id id of the component passed to @Use()
+   */
+  getUseDecorators<T>(id: string) {
+    return this.getDecoratorsById<IUseDecoratorOptions<T>>(CoreDecorator.USE)
+      .filter(decoInfo => isComponent(decoInfo.data.component, id));
   }
 
   /**

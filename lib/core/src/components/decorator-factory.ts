@@ -12,12 +12,12 @@ import { ComponentMetadata } from './metadata.js';
  * as a compatible component type that will be loaded by nodearch
  * automatically and made available to all extensions and apps.
  */
-export function componentDecorator(
+export function componentDecorator<T>(
   options: {
     id: string;
     handler?: ClassConstructor<ComponentHandler>;
     options?: IComponentOptions;
-    fn?(target: any): object | void;
+    fn?(target: any): T | void;
     dependencies?: ClassConstructor[];
   }
 ): ClassDecorator {
@@ -42,10 +42,10 @@ export function componentDecorator(
   }
 }
 
-export function classDecorator(
+export function classDecorator<T>(
   options: {
     id: string;
-    fn?(target: any): object | void;
+    fn?(target: any): T | void;
     dependencies?: ClassConstructor[];
   }
 ): ClassDecorator {
@@ -65,10 +65,10 @@ export function classDecorator(
   }
 }
 
-export function methodDecorator(
+export function methodDecorator<T>(
   options: {
     id: string;
-    fn?(target: any, propKey: string | symbol, descriptor: PropertyDescriptor): object | void;
+    fn?(target: any, propKey: string | symbol, descriptor: PropertyDescriptor): T | void;
     dependencies?: ClassConstructor[];
   }
 ): MethodDecorator {
@@ -91,10 +91,10 @@ export function methodDecorator(
   }
 }
 
-export function parameterDecorator(
+export function parameterDecorator<T>(
   options: {
     id: string;
-    fn?(target: any, propKey: string | symbol, paramIndex: number): object | void;
+    fn?(target: any, propKey: string | symbol, paramIndex: number): T | void;
     dependencies?: ClassConstructor[];
   }
 ): ParameterDecorator {
@@ -118,10 +118,10 @@ export function parameterDecorator(
   }
 }
 
-export function classMethodDecorator(
+export function classMethodDecorator<T>(
   options: {
     id: string;
-    fn?(target: any, propKey?: string | symbol): object | void;
+    fn?(target: any, propKey?: string | symbol): T | void;
     dependencies?: ClassConstructor[];
   }
 ) {

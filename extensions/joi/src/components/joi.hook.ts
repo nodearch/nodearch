@@ -8,7 +8,7 @@ export class JoiHook implements IHook {
   ) {}
 
   async onStart() {
-    console.log('JoiHook');
+    // console.log('JoiHook');
 
     const deco = this.appContext.components.getDecoratorsById(JoiDecorator.VALIDATE)[0];
 

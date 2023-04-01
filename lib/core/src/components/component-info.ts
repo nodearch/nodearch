@@ -1,6 +1,8 @@
 import { Container } from '../app/container.js';
 import { ClassInfo } from '../utils/class-info.js';
 import { ClassConstructor } from '../utils/types.js';
+import { IUseDecoratorOptions } from './component/interfaces.js';
+import { isComponent } from './decorator-factory.js';
 import { CoreDecorator } from './enums.js';
 import { IComponentDecorator } from './interfaces.js';
 import { IComponentRegistration } from './interfaces.js';
@@ -35,21 +37,47 @@ export class ComponentInfo<T = any> {
     return this.methods;
   }
 
-  getDecorators<T = any>(): IComponentDecorator<T>[] {
-    return this.decorators;
+  getDecorators<T = any>(options?: { id?: string; method?: string; useId?: string; }): IComponentDecorator<T>[] {
+    if (!options) return this.decorators;
+
+    let decorators = [...this.decorators];
+
+    if (options.method) {
+      decorators = decorators.filter(deco => {
+        return deco.method === options.method;
+      });
+    }
+
+    if (options.id) {
+      decorators = decorators.filter(deco => {
+        return deco.id === options.id;
+      });
+    }
+
+    if (options.useId) {
+      decorators = decorators.filter(deco => {
+        return deco.id === CoreDecorator.USE && isComponent(deco.data.component, options.useId);
+      });
+    }
+    
+    return decorators;
   }
 
-  getDecoratorsByMethod<T = any>(method: string): IComponentDecorator<T>[] {
-    return this.decorators.filter(deco => {
-      return deco.method === method;
-    });
-  }
+  // getDecoratorsByMethod<T = any>(method: string): IComponentDecorator<T>[] {
+  //   return this.getDecorators<T>({ method });
+  // }
 
-  getDecoratorsById<T = any>(id: string): IComponentDecorator<T>[] {
-    return this.decorators.filter(deco => {
-      return deco.id === id;
-    });
-  }
+  // getDecoratorsById<T = any>(id: string): IComponentDecorator<T>[] {
+  //   return this.getDecorators<T>({ id });
+  // }
+
+  // /**
+  //  * Get a list of decorators info of type @Use()
+  //  * @param id id of the component passed to @Use()
+  //  */
+  // getUseDecorators<T>(id: string) {
+  //   return this.getDecorators<IUseDecoratorOptions<T>>({ useId: id });
+  // }
 
   getRegistration() {
     return this.registration;

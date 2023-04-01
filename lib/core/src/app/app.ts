@@ -63,7 +63,7 @@ export class App {
           });
         }
         catch (e: any) {
-          throw new Error(`While trying to register Extension - ${e.message}`);
+          throw new Error(`While trying to register Extension ${extension.name} - ${e.message}`);
         }
       }
     }

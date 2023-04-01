@@ -1,6 +1,17 @@
-import { methodDecorator, parameterDecorator } from '@nodearch/core/decorators';
+import { classDecorator, methodDecorator, parameterDecorator } from '@nodearch/core/decorators';
 import { ExpressDecorator, HttpMethod, RouteHandlerParam } from './enums.js';
 
+
+export function httpPathFactory(path: string) {
+  return classDecorator({
+    id: ExpressDecorator.HTTP_PATH,
+    fn: (target: any) => {
+      return {
+        httpPath: getPath(path)
+      };
+    }
+  });
+}
 
 export function httpMethodFactory(httpMethod: HttpMethod, path?: string) {
   return methodDecorator({

@@ -1,5 +1,5 @@
 import { Controller } from '@nodearch/core';
-import { HttpBody, HttpGet, HttpPath, HttpPost, HttpQuery, Use } from "@nodearch/express";
+import { HttpBody, HttpGet, HttpParam, HttpPost, HttpQuery, Use } from "@nodearch/express";
 import { Validate } from '@nodearch/joi-express';
 import { RequestBody, Responses, RouteInfo, Servers, Tags } from '@nodearch/openapi';
 import { FirstMiddleware } from './middleware.js';
@@ -107,7 +107,7 @@ export class UserController {
     }
   })
   @HttpGet('/:id')
-  async getUserById(@HttpPath('id') id: string) {
+  async getUserById(@HttpParam('id') id: string) {
     return this.userService.getUsers({ id: parseInt(id) })[0];
   }
 

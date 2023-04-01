@@ -76,13 +76,13 @@ export class ExpressApp {
     const controllerClass = routerInfo.controllerInfo.getClass();
 
     routerInfo.routes.forEach(routeInfo => {
-      this.registerRoute(router, routeInfo, controllerClass);
+      this.registerRoute(router, routerInfo, routeInfo, controllerClass);
     });
 
     return router;
   }
 
-  private registerRoute(router: express.Router, routeInfo: IExpressRoute, controllerClass: ClassConstructor) {
+  private registerRoute(router: express.Router, routerInfo: IExpressRouter, routeInfo: IExpressRoute, controllerClass: ClassConstructor) {
     const routeMiddleware = this.middlewareFactory.createExpressMiddleware(routeInfo.middleware);
     
     const routeParams = [
@@ -91,8 +91,15 @@ export class ExpressApp {
     ];
 
     router[routeInfo.method](routeInfo.path, ...routeParams);
-  
-    this.logger.info(`[Express] Route registered: [${routeInfo.method.toUpperCase()}]\t${routeInfo.path}\t(${controllerClass.name}.${routeInfo.controllerMethod})`);
+
+    this.logger.info(this.createRouteRegisterMsg(routerInfo, routeInfo, controllerClass));
+  }
+
+  private createRouteRegisterMsg(routerInfo: IExpressRouter, routeInfo: IExpressRoute, controllerClass: ClassConstructor) {
+    const routeMethod = `[${routeInfo.method.toUpperCase()}]`; 
+    const routePath = `${routerInfo.path}${routeInfo.path}`;
+    const controllerMethod = `(${controllerClass.name}.${routeInfo.controllerMethod})`;
+    return `[Express] Route registered: ${routeMethod} ${routePath} ${controllerMethod}`;
   }
 
 }

@@ -34,7 +34,7 @@ export class ExpressParser {
 
     componentsInfo.forEach(comp => {
       const middleware: IMiddlewareInfo[] = comp
-        .getDecoratorsById(ExpressDecorator.USE)
+        .getUseDecorators(ExpressDecorator.MIDDLEWARE)
         .filter(deco => !deco.method)
         .map(deco => {
           const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
@@ -42,7 +42,12 @@ export class ExpressParser {
         })
         .reverse();
 
-      const ctrlPath = this.formatPath(comp.data);
+      const ctrlPathDecorator = comp.getDecoratorsById(ExpressDecorator.HTTP_PATH)[0];
+      let ctrlPath = '';
+
+      if (ctrlPathDecorator) {
+        ctrlPath = this.formatPath(ctrlPathDecorator.data.httpPath);
+      }
 
       const routes = comp.getMethods()
         .map(method => {
@@ -61,13 +66,13 @@ export class ExpressParser {
   }
 
   private getRouteInfo(componentInfo: ComponentInfo, method: string): IExpressRoute {
-    const decorators = componentInfo.getDecoratorsByMethod(method);
+    const decorators = componentInfo.getDecorators({ method, useId: ExpressDecorator.MIDDLEWARE });
 
     const { httpPath, httpMethod } = decorators
       .find(deco => deco.id === ExpressDecorator.HTTP_METHOD)?.data;
     
     const middleware: IMiddlewareInfo[] = decorators
-      .filter(deco => deco.id === ExpressDecorator.USE)
+      .filter(deco => deco.id === CoreDecorator.USE)
       .map(deco => {
         const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
 

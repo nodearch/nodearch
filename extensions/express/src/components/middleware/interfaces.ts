@@ -9,8 +9,7 @@ export type MiddlewareProvider<T> = { handler: (req: express.Request, res: expre
 export type MiddlewareHandler<T = undefined> = ClassConstructor<MiddlewareProvider<T>>;
 
 export interface IMiddlewareInfo {
-  isExpressMiddleware: boolean;
-  handler: ExpressMiddlewareHandler | MiddlewareHandler;
+  component: MiddlewareHandler;
   options?: any;
-  dependencyKey?: symbol;
+  dependencyKey?: string;
 }

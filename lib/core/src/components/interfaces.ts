@@ -30,7 +30,7 @@ export interface IComponentDecorator<T = any> {
   /**
    * Data passed by the decorator implementation
    */
-  data?: T;
+  data: T;
   
   /**
    * Information about all registered dependencies (components)

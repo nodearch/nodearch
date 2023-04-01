@@ -1,7 +1,20 @@
 import { HttpMethod, RouteHandlerParam } from './enums.js';
-import { handlerParamFactory, httpMethodFactory } from './helpers.js';
+import { handlerParamFactory, httpMethodFactory, httpPathFactory } from './helpers.js';
 
-  
+
+/**
+ * Class Decorator to prefix all HTTP methods in a Controller with express compatible HTTP path.
+ * @param path
+ *  The path can be any of:
+ *    - A string representing a path.
+ *    - A path pattern.
+ *    - A regular expression pattern to match paths.
+ *    - An array of combinations of any of the above.
+ *    - examples: https://expressjs.com/en/4x/api.html#path-examples.
+ */
+export const HttpPath = (path: string): ClassDecorator => httpPathFactory(path);
+
+
 /**
  * Method Decorator to route HTTP GET requests to the specified path.
  * @param path
@@ -103,7 +116,7 @@ export const HttpBody = (path?: string): ParameterDecorator => handlerParamFacto
 * provide the param name.
 * @param name parameter name  
 */
-export const HttpPath = (name?: string): ParameterDecorator => handlerParamFactory(RouteHandlerParam.PARAMS, name);
+export const HttpParam = (name?: string): ParameterDecorator => handlerParamFactory(RouteHandlerParam.PARAMS, name);
 
 /**
 * Get all the request headers or provide the header name.
