@@ -1,6 +1,6 @@
 import { Service } from '@nodearch/core';
 
-@Service()
+@Service({ export: true })
 export class JoiService {
   constructor() {
     console.log('JoiService');

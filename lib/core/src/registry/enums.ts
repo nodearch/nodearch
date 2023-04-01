@@ -5,14 +5,12 @@ export enum ComponentScope {
 }
 
 export enum CoreAnnotation {
-  Component = '@nodearch/core/component-id/component',
-  Command = '@nodearch/core/component-id/command',
-  Hook = '@nodearch/core/component-id/hook',
-  Config = '@nodearch/core/component-id/config',
-  Service = '@nodearch/core/component-id/service',
-  Repository = '@nodearch/core/component-id/repository',
-  Test = '@nodearch/core/component-id/test',
-  Interceptor = '@nodearch/core/component-id/interceptor',
-  Controller = '@nodearch/core/component-id/controller',
-  Mock = '@nodearch/core/component-id/mock'
+  Component = '@nodearch/core/annotation/component',
+  Command = '@nodearch/core/annotation/command',
+  Hook = '@nodearch/core/annotation/hook',
+  Config = '@nodearch/core/annotation/config',
+  Service = '@nodearch/core/annotation/service',
+  Repository = '@nodearch/core/annotation/repository',
+  Interceptor = '@nodearch/core/annotation/interceptor',
+  Controller = '@nodearch/core/annotation/controller',
 }

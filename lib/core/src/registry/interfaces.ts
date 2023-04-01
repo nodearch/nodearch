@@ -26,7 +26,7 @@ export interface IComponentDecorator<T = any> {
    * Available only for parameter decorator 
    */
   paramIndex?: number;
-  
+
   /**
    * Data passed by the decorator implementation
    */

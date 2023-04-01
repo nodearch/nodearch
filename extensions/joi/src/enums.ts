@@ -1,4 +1,4 @@
 export enum JoiAnnotation {
-  Validate = '@nodearch/joi/annotations/validate',
-  Schema = '@nodearch/joi/annotations/schema',
+  Validate = '@nodearch/joi/annotation/validate',
+  Schema = '@nodearch/joi/annotation/schema',
 }

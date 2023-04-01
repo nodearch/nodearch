@@ -18,8 +18,8 @@ export enum RouteHandlerParam {
 }
 
 export enum ExpressAnnotationId {
-  HttpMethod = '@nodearch/express/annotations/http-method',
-  HttpParam = '@nodearch/express/annotations/http-param',
-  Middleware = '@nodearch/express/annotations/middleware',
-  Use = '@nodearch/express/annotations/use',
+  HttpMethod = '@nodearch/express/annotation/http-method',
+  HttpParam = '@nodearch/express/annotation/http-param',
+  Middleware = '@nodearch/express/annotation/middleware',
+  Use = '@nodearch/express/annotation/use',
 }

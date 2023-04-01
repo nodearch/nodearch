@@ -7,5 +7,5 @@ import express from 'express';
 export class ValidationMiddleware implements MiddlewareProvider<Joi.Schema> {
   async handler(req: express.Request, res: express.Response, options: Joi.Schema) {
     console.log('Validate middleware X');
-  };
+  }
 }
