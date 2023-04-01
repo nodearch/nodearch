@@ -5,7 +5,7 @@ import { ComponentInfo } from './component-info.js';
 import { IUseDecoratorOptions } from './component/interfaces.js';
 import { isComponent } from './decorator-factory.js';
 import { CoreDecorator } from './enums.js';
-import { IComponentRegistration, IGetComponentsOptions } from './interfaces.js';
+import { IComponentRegistration, IGetComponentsOptions, IGetDecoratorsOptions } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 
 
@@ -49,33 +49,6 @@ export class ComponentRegistry {
   }
 
   /**
-   * Returns a list of decorators info for a given decorator id
-   * @param id Decorator ID
-   */
-  getDecoratorsById<T = any>(id: string) {
-    return this.getComponents(id)
-      .map(comp => {
-        return comp.getDecoratorsById<T>(id)
-          .map(decoInfo => {
-            return {
-              ...decoInfo,
-              componentInfo: comp
-            };
-          })
-      })
-      .flat(1);
-  }
-
-  /**
-   * Get a list of decorators info of type @Use()
-   * @param id id of the component passed to @Use()
-   */
-  getUseDecorators<T>(id: string) {
-    return this.getDecoratorsById<IUseDecoratorOptions<T>>(CoreDecorator.USE)
-      .filter(decoInfo => isComponent(decoInfo.data.component, id));
-  }
-
-  /**
    * Returns a list of ComponentInfo, which includes all 
    * information about the component class, instance, 
    * methods, decorators, etc. The returned list contains
@@ -84,6 +57,24 @@ export class ComponentRegistry {
    */
   getExported() {
     return this.exported;
+  }
+
+  /**
+   * Returns decorators info from all components filtered by the passed options
+   * @param id Decorator ID
+   */
+  getDecorators<T = any>(options: IGetDecoratorsOptions = {}) {
+    return this.getComponents()
+      .map(comp => {
+        return comp.getDecorators<T>(options)
+          .map(decoInfo => {
+            return {
+              ...decoInfo,
+              componentInfo: comp
+            };
+          })
+      })
+      .flat(1);
   }
 
   /**

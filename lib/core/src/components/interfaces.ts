@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
 import { ClassConstructor } from '../utils/types.js';
-import { ComponentScope } from './enums.js';
+import { ComponentScope, DecoratorType } from './enums.js';
 import { ComponentHandler } from './component-handler.js';
 import { ComponentInfo } from './component-info.js';
 
@@ -10,37 +10,54 @@ export interface IComponentsOptions {
   defaultScope?: ComponentScope;
 }
 
-export interface IComponentDecorator<T = any> {
+export type IComponentDecorator<T = any> = ({
+  type: DecoratorType.CLASS;
+} | {
+  type: DecoratorType.METHOD;
+
+  /**
+   * Available only for method decorator
+   */  
+  method: string;
+} | {
+  type: DecoratorType.CLASS_METHOD;
+
+  /**
+   * Available only for method decorator
+   */  
+  method?: string;
+} | {
+  type: DecoratorType.PARAMETER;
   
+  /**
+   * Available only for method decorator
+   */  
+  method: string;
+
+  /**
+   * Available only for parameter decorator 
+   */
+  paramIndex: number;  
+}) & {
   /**
    * The id used to register and identify this decorator
    */
   id: string;
-
-  /**
-   * Available only for method decorator
-   */
-  method?: string | symbol; 
   
-  /**
-   * Available only for parameter decorator 
-   */
-  paramIndex?: number;
-
   /**
    * Data passed by the decorator implementation
    */
   data: T;
-  
+
   /**
    * Information about all registered dependencies (components)
    * added by this decorator instance. Use the key to find the instance 
    * of your dependency on the target (the component this decorator is placed on)
    */
-  dependencies?: IComponentDecoratorDependency[];
-}
+  dependencies: IDecoratorDependency[];
+};
 
-export interface IComponentDecoratorDependency {
+export interface IDecoratorDependency {
   key: string;
   component: ClassConstructor;
 }
@@ -60,7 +77,7 @@ export interface IComponentRegistration<T = any> {
    * added by this decorator instance. Use the key to find the instance 
    * of your dependency on the target (the component this decorator is placed on)
    */
-  dependencies?: IComponentDecoratorDependency[];
+  dependencies?: IDecoratorDependency[];
 }
 
 export interface IGetComponentsOptions {
@@ -75,4 +92,15 @@ export interface IComponentOptions {
   scope?: ComponentScope;
   namespace?: string;
   export?: boolean;
+}
+
+export interface IGetDecoratorsOptions { 
+  // Get all decorators that have this id
+  id?: string;
+
+  // Get all decorators that are placed on this method
+  method?: string;
+
+  // Get all @Use() decorators where the passed component id matches this id 
+  useId?: string; 
 }

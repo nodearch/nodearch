@@ -15,3 +15,10 @@ export enum CoreDecorator {
   CONTROLLER = '@nodearch/core/decorators/controller',
   USE = '@nodearch/core/decorators/use',
 }
+
+export enum DecoratorType {
+  CLASS = 'class',
+  CLASS_METHOD = 'classMethod',
+  METHOD = 'method',
+  PARAMETER = 'parameter'
+}

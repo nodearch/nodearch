@@ -1,10 +1,9 @@
 import { Container } from '../app/container.js';
 import { ClassInfo } from '../utils/class-info.js';
 import { ClassConstructor } from '../utils/types.js';
-import { IUseDecoratorOptions } from './component/interfaces.js';
 import { isComponent } from './decorator-factory.js';
-import { CoreDecorator } from './enums.js';
-import { IComponentDecorator } from './interfaces.js';
+import { CoreDecorator, DecoratorType } from './enums.js';
+import { IComponentDecorator, IGetDecoratorsOptions } from './interfaces.js';
 import { IComponentRegistration } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 
@@ -37,14 +36,12 @@ export class ComponentInfo<T = any> {
     return this.methods;
   }
 
-  getDecorators<T = any>(options?: { id?: string; method?: string; useId?: string; }): IComponentDecorator<T>[] {
-    if (!options) return this.decorators;
-
+  getDecorators<T = any>(options: IGetDecoratorsOptions = {}): IComponentDecorator<T>[] {
     let decorators = [...this.decorators];
 
     if (options.method) {
       decorators = decorators.filter(deco => {
-        return deco.method === options.method;
+        return deco.type !== DecoratorType.CLASS && deco.method === options.method;
       });
     }
 
@@ -63,38 +60,18 @@ export class ComponentInfo<T = any> {
     return decorators;
   }
 
-  // getDecoratorsByMethod<T = any>(method: string): IComponentDecorator<T>[] {
-  //   return this.getDecorators<T>({ method });
-  // }
-
-  // getDecoratorsById<T = any>(id: string): IComponentDecorator<T>[] {
-  //   return this.getDecorators<T>({ id });
-  // }
-
-  // /**
-  //  * Get a list of decorators info of type @Use()
-  //  * @param id id of the component passed to @Use()
-  //  */
-  // getUseDecorators<T>(id: string) {
-  //   return this.getDecorators<IUseDecoratorOptions<T>>({ useId: id });
-  // }
-
-  getRegistration() {
-    return this.registration;
-  }
-
   getDecoratorsIds() {
     const decorators = this.decorators.map(deco => deco.id);
     decorators.push(this.registration.id);
     return decorators;
   }
 
-  get isExported () {
-    return this.registration.options?.export;
+  getRegistration() {
+    return this.registration;
   }
 
-  get isHook () {
-    return this.registration.id === CoreDecorator.HOOK;
+  get isExported () {
+    return this.registration.options?.export;
   }
 
   get id () {
@@ -111,5 +88,25 @@ export class ComponentInfo<T = any> {
 
   get dependencies () {
     return this.registration.dependencies;
+  }
+
+  get isHook () {
+    return this.registration.id === CoreDecorator.HOOK;
+  }
+
+  get isController () {
+    return this.registration.id === CoreDecorator.CONTROLLER;
+  }
+
+  get isService () {
+    return this.registration.id === CoreDecorator.SERVICE;
+  }
+
+  get isRepository () {
+    return this.registration.id === CoreDecorator.REPOSITORY;
+  }
+
+  get name () {
+    return this.classConstructor.name;
   }
 }
