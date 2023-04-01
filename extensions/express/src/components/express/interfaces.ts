@@ -1,13 +1,11 @@
 import { HttpMethod, RouteHandlerParam } from './enums.js';
 import { IMiddlewareInfo } from '../middleware/interfaces.js';
-import { ComponentInfo } from '@nodearch/core';
 import { IHttpErrorsOptions } from '../errors/interfaces.js';
 import http from 'node:http';
 import https from 'node:https';
 import express from 'express';
 import { Stats } from 'node:fs';
-import { ClassConstructor } from '@nodearch/core/utils';
-import { IValidationProvider } from '../validation/interfaces.js';
+import { ComponentInfo } from '@nodearch/core/decorators';
 
 
 export interface IExpressAppOptions {
@@ -20,8 +18,6 @@ export interface IExpressAppOptions {
   httpErrors?: IHttpErrorsOptions;
 
   static?: IExpressStatic[];
-
-  validation?: IValidationOptions;
 }
 
 export interface IExpressStatic {
@@ -67,7 +63,3 @@ export interface IExpressRouteHandlerInput {
 }
 
 export type IHttpControllerOptions = string;
-
-export interface IValidationOptions {
-  provider: ClassConstructor<IValidationProvider>;
-}

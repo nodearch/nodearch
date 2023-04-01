@@ -15,6 +15,7 @@ export abstract class ProxyFactory {
           // TODO: move to the Metadata classes
           const paramTypes = (<string[]>Reflect.getMetadata('design:paramtypes', target, propKey)) || [];
 
+          // TODO: will it always be a promise?
           return async function (...args: any) {
             let result, state = true;
 

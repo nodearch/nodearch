@@ -1,9 +1,11 @@
 import { pathToFileURL } from 'node:url';
-import { App, IAppInfo, IPackageJSON, ITsConfig } from '../index.js';
 import { AppLoadMode } from './enums.js';
 import { FileLoader } from './file-loader.js';
 import { IAppLoaderOptions } from './interfaces.js';
 import { UrlParser } from './url-parser.js';
+import { IAppInfo, IPackageJSON, ITsConfig } from '../app/app.interfaces.js';
+import { App } from '../app/app.js';
+
 
 export class AppLoader {
 

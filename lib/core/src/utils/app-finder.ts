@@ -1,8 +1,8 @@
 import { FileLoader } from '../fs/file-loader.js';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { App } from '../index.js';
 import { ClassConstructor } from './types.js';
+import { App } from '../app/app.js';
 
 
 export class AppFinder {

@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { Command, CommandQuestionType, ICommand } from '@nodearch/command';
+import { Command, QuestionType, ICommand } from '@nodearch/command';
 import { GitHubService } from './github.service.js';
 import { Logger } from '@nodearch/core';
 import { NpmService } from './npm.service.js';
@@ -29,12 +29,12 @@ export class NewCommand implements ICommand {
   };
   questions = [
     {
-      type: CommandQuestionType.Input,
+      type: QuestionType.INPUT,
       name: 'name',
       message: 'Your project name?'
     },
     {
-      type: CommandQuestionType.List,
+      type: QuestionType.LIST,
       name: 'template',
       message: 'Select an app template',
       choices: async () => {

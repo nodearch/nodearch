@@ -1,3 +1,3 @@
-export enum JoiAnnotation {
-  Validate = '@nodearch/joi-express/annotation/validate'
+export enum JoiDecorator {
+  VALIDATE = '@nodearch/joi-express/decorators/validate'
 }

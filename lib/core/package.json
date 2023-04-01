@@ -7,13 +7,17 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./decorators": {
+      "import": "./dist/decorators.index.js",
+      "types": "./dist/decorators.index.d.ts"
+    },
     "./fs": {
-      "import": "./dist/fs/index.js",
-      "types": "./dist/fs/index.d.ts"
+      "import": "./dist/fs.index.js",
+      "types": "./dist/fs.index.d.ts"
     },
     "./utils": {
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts"
+      "import": "./dist/utils.index.js",
+      "types": "./dist/utils.index.d.ts"
     }
   },
   "type": "module",

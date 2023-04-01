@@ -1,4 +1,4 @@
-import { CommandAnnotation, ICommand, CommandService } from '@nodearch/command';
+import { CommandDecorator, ICommand, CommandService } from '@nodearch/command';
 import { AppContext, Hook, IHook, Logger } from '@nodearch/core';
 import { LocalAppService } from './local-app.service.js';
 
@@ -41,7 +41,7 @@ export class CliHook implements IHook {
        * need to check if the app is loaded correctly
        */
       if (localApp) {
-        localAppCommands = localApp.container.getComponentGroup<ICommand>(CommandAnnotation.Command);
+        localAppCommands = localApp.container.getComponentGroup<ICommand>(CommandDecorator.COMMAND);
       }
       else {
         excludedCommands.push('start');

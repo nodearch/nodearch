@@ -1,2 +1,2 @@
 export * from './main.js';
-export * from './annotation/validate.js';
+export * from './decorators/validate.js';

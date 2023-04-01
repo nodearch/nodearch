@@ -1,5 +1,5 @@
 import express from 'express';
-import { AppContext, ComponentInfo, Logger, Service } from '@nodearch/core';
+import { AppContext, Logger, Service } from '@nodearch/core';
 import { IExpressInfo, IExpressRoute, IExpressRouter } from './interfaces.js';
 import { RouteHandler } from './route-handler.js';
 import { MiddlewareFactory } from '../middleware/middleware-factory.js';
@@ -7,7 +7,6 @@ import { ExpressParser } from './express-parser.js';
 import { ExpressConfig } from './express.config.js';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ValidationHandler } from '../validation/validation-handler.js';
 import { ClassConstructor } from '@nodearch/core/utils';
 
 
@@ -29,7 +28,6 @@ export class ExpressApp {
     private readonly expressParser: ExpressParser,
     private readonly expressConfig: ExpressConfig,
     private readonly appContext: AppContext,
-    private readonly validationHandler: ValidationHandler,
     private readonly logger: Logger
   ) {}
 
@@ -86,17 +84,11 @@ export class ExpressApp {
 
   private registerRoute(router: express.Router, routeInfo: IExpressRoute, controllerClass: ClassConstructor) {
     const routeMiddleware = this.middlewareFactory.createExpressMiddleware(routeInfo.middleware);
-    const validationHandler = this.validationHandler.getHandler(controllerClass, routeInfo.controllerMethod);
     
     const routeParams = [
-      ...routeMiddleware
+      ...routeMiddleware,
+      this.routeHandler.create(routeInfo.controllerMethod, routeInfo.inputs)
     ];
-
-    if (validationHandler) {
-      routeParams.push(validationHandler);
-    }
-
-    routeParams.push(this.routeHandler.create(routeInfo.controllerMethod, routeInfo.inputs));
 
     router[routeInfo.method](routeInfo.path, ...routeParams);
   

@@ -1,4 +1,4 @@
-import { App, IAppInfo, Logger, Service } from '@nodearch/core';
+import { Logger, Service } from '@nodearch/core';
 import { AppLoader, AppLoadMode } from '@nodearch/core/fs';
 import { pathToFileURL } from 'url';
 

@@ -2,7 +2,7 @@ import { Config, ConfigManager } from '@nodearch/core';
 import { IHttpErrorsOptions } from '../errors/interfaces.js';
 import http from 'node:http';
 import https from 'node:https';
-import { IExpressStatic, IValidationOptions } from './interfaces.js';
+import { IExpressStatic } from './interfaces.js';
 
 
 @Config()
@@ -13,7 +13,6 @@ export class ExpressConfig {
   https?: https.ServerOptions;
   httpErrors?: IHttpErrorsOptions;
   static?: IExpressStatic[];
-  validation?: IValidationOptions;
 
   constructor(config: ConfigManager) {
     this.hostname = config.env({
@@ -44,10 +43,6 @@ export class ExpressConfig {
 
     this.static = config.env({
       external: 'static'
-    });
-
-    this.validation = config.env({
-      external: 'validation'
     });
 
   }

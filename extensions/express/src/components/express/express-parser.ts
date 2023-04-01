@@ -1,7 +1,8 @@
-import { AppContext, ComponentInfo, CoreAnnotation, Service } from '@nodearch/core';
-import { ExpressAnnotationId } from './enums.js';
+import { AppContext, Service } from '@nodearch/core';
 import { IExpressInfo, IExpressRoute, IExpressRouteHandlerInput, IHttpControllerOptions } from './interfaces.js';
 import { IMiddlewareInfo } from '../middleware/interfaces.js';
+import { ComponentInfo, CoreDecorator } from '@nodearch/core/decorators';
+import { ExpressDecorator } from './enums.js';
 
 
 @Service()
@@ -13,9 +14,9 @@ export class ExpressParser {
     this.expressInfo = { routers: [] };
 
     const componentsInfo = appContext.components.get({
-      id: CoreAnnotation.Controller,
+      id: CoreDecorator.CONTROLLER,
       decoratorIds: [
-        ExpressAnnotationId.HttpMethod
+        ExpressDecorator.HTTP_METHOD
       ] 
     });
 
@@ -33,7 +34,7 @@ export class ExpressParser {
 
     componentsInfo.forEach(comp => {
       const middleware: IMiddlewareInfo[] = comp
-        .getDecoratorsById(ExpressAnnotationId.Use)
+        .getDecoratorsById(ExpressDecorator.USE)
         .filter(deco => !deco.method)
         .map(deco => {
           const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
@@ -63,10 +64,10 @@ export class ExpressParser {
     const decorators = componentInfo.getDecoratorsByMethod(method);
 
     const { httpPath, httpMethod } = decorators
-      .find(deco => deco.id === ExpressAnnotationId.HttpMethod)?.data;
+      .find(deco => deco.id === ExpressDecorator.HTTP_METHOD)?.data;
     
     const middleware: IMiddlewareInfo[] = decorators
-      .filter(deco => deco.id === ExpressAnnotationId.Use)
+      .filter(deco => deco.id === ExpressDecorator.USE)
       .map(deco => {
         const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
 
@@ -75,7 +76,7 @@ export class ExpressParser {
       .reverse();
     
     const inputs: IExpressRouteHandlerInput[] = decorators
-      .filter(deco => deco.id === ExpressAnnotationId.HttpParam)
+      .filter(deco => deco.id === ExpressDecorator.HTTP_PARAM)
       .map(deco => deco.data);
 
     return {

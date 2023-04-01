@@ -17,9 +17,9 @@ export enum RouteHandlerParam {
   RES = 'res'
 }
 
-export enum ExpressAnnotationId {
-  HttpMethod = '@nodearch/express/annotation/http-method',
-  HttpParam = '@nodearch/express/annotation/http-param',
-  Middleware = '@nodearch/express/annotation/middleware',
-  Use = '@nodearch/express/annotation/use',
+export enum ExpressDecorator {
+  HTTP_METHOD = '@nodearch/express/decorators/http-method',
+  HTTP_PARAM = '@nodearch/express/decorators/http-param',
+  MIDDLEWARE = '@nodearch/express/decorators/middleware',
+  USE = '@nodearch/express/decorators/use',
 }

@@ -1,5 +1,5 @@
 import { Service } from '@nodearch/core';
-import { camelToTitle, ClassConstructor } from '@nodearch/core/utils';
+import { camelToTitle } from '@nodearch/core/utils';
 import { OAISchema, IOpenAPIAppMapItem, IOpenAPIProviderData, IOpenAPIAppRouteMap } from '@nodearch/openapi';
 import { HttpMethod } from '../express/enums.js';
 import { ExpressParser } from '../express/express-parser.js';

@@ -1,5 +1,5 @@
 import { Service } from '@nodearch/core';
-import { IOpenAPIAppMapItem, IOpenAPIProvider, OAISchema, IOpenAPIProviderData } from '@nodearch/openapi';
+import { IOpenAPIProvider } from '@nodearch/openapi';
 import { OpenAPIParser } from './parser.js';
 
 @Service({ export: true })

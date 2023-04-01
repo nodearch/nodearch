@@ -1,9 +1,9 @@
-import { ComponentScope } from '../registry/enums.js';
 import { IClassLoaderOptions } from '../fs/interfaces.js';
-import { ILogger, ILogOptions } from '../log/interfaces.js';
+import { ILogOptions } from '../log/interfaces.js';
 import { AppContext } from './app-context.js';
 import { App } from './app.js';
 import { AppLoadMode } from '../fs/enums.js';
+import { ComponentScope } from '../components/enums.js';
 
 
 export interface IAppConstructor {

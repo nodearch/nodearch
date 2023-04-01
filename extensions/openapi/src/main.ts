@@ -1,4 +1,3 @@
-import path from 'path';
 import { App } from '@nodearch/core';
 import { IOpenAPIAppOptions } from './interfaces.js';
 

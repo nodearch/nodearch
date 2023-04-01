@@ -1,5 +1,4 @@
-import { AppContext, Config, ConfigManager } from '@nodearch/core';
-import { UrlParser } from '@nodearch/core/fs';
+import { Config, ConfigManager } from '@nodearch/core';
 import OAISchema from 'openapi3-ts';
 import { IOpenAPIProviderConstructor, OpenAPIFormat } from '../interfaces.js';
 
@@ -11,7 +10,7 @@ export class OpenAPIConfig {
   format?: OpenAPIFormat;
   path?: string;
 
-  constructor(config: ConfigManager, appContext: AppContext) {
+  constructor(config: ConfigManager) {
     this.providers = config.env({
       external: 'providers',
       defaults: {

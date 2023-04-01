@@ -1,7 +1,7 @@
 import inversify from 'inversify';
 import { DependencyException } from '../errors.js';
-import { ComponentScope } from '../index.js';
 import { ClassConstructor } from '../utils/types.js';
+import { ComponentScope } from '../components/enums.js';
 
 
 export class Container {
@@ -24,13 +24,13 @@ export class Container {
 
   // Bind a component to itself (the component class) with a scope
   bindToSelf<T>(component: ClassConstructor<T>, scope?: ComponentScope) {
-    if (scope === ComponentScope.Singleton) {
+    if (scope === ComponentScope.SINGLETON) {
       this.inversifyContainer.bind(component).toSelf().inSingletonScope();
     }
-    else if (scope === ComponentScope.Transient) {
+    else if (scope === ComponentScope.TRANSIENT) {
       this.inversifyContainer.bind(component).toSelf().inTransientScope();
     }
-    else if (scope === ComponentScope.Request) {
+    else if (scope === ComponentScope.REQUEST) {
       this.inversifyContainer.bind(component).toSelf().inRequestScope();
     }
     else {

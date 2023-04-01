@@ -1,10 +1,10 @@
-import { ComponentFactory } from '@nodearch/core';
-import { ExpressAnnotationId, HttpMethod, RouteHandlerParam } from './enums.js';
+import { methodDecorator, parameterDecorator } from '@nodearch/core/decorators';
+import { ExpressDecorator, HttpMethod, RouteHandlerParam } from './enums.js';
 
 
 export function httpMethodFactory(httpMethod: HttpMethod, path?: string) {
-  return ComponentFactory.methodDecorator({
-    id: ExpressAnnotationId.HttpMethod,
+  return methodDecorator({
+    id: ExpressDecorator.HTTP_METHOD,
     fn: (target: any, propKey: string | symbol) => {
       return {
         name: <string>propKey,
@@ -16,8 +16,8 @@ export function httpMethodFactory(httpMethod: HttpMethod, path?: string) {
 }
 
 export function handlerParamFactory (paramType: RouteHandlerParam, key?: string) {
-  return ComponentFactory.parameterDecorator({
-    id: ExpressAnnotationId.HttpParam,
+  return parameterDecorator({
+    id: ExpressDecorator.HTTP_PARAM,
     fn: (target, propKey, paramIndex) => {
       return {
         index: paramIndex,

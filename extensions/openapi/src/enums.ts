@@ -1,7 +1,7 @@
-export enum OpenApiAnnotation {
-  Responses = '@nodearch/openapi/annotation/responses',
-  RequestBody = '@nodearch/openapi/annotation/request-body',
-  RouteInfo = '@nodearch/openapi/annotation/route-info',
-  Servers = '@nodearch/openapi/annotation/servers',
-  Tags = '@nodearch/openapi/annotation/tags'
+export enum OpenApiDecorator {
+  RESPONSES = '@nodearch/openapi/decorators/responses',
+  REQUEST_BODY = '@nodearch/openapi/decorators/request-body',
+  ROUTE_INFO = '@nodearch/openapi/decorators/route-info',
+  SERVERS = '@nodearch/openapi/decorators/servers',
+  TAGS = '@nodearch/openapi/decorators/tags'
 }

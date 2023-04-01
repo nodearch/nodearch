@@ -1,5 +1,5 @@
 import { AppContext, Hook, IHook } from '@nodearch/core';
-import { JoiAnnotation } from '../enums.js';
+import { JoiDecorator } from '../enums.js';
 
 @Hook({ export: true })
 export class JoiHook implements IHook {
@@ -10,7 +10,7 @@ export class JoiHook implements IHook {
   async onStart() {
     console.log('JoiHook');
 
-    const deco = this.appContext.components.getDecoratorsById(JoiAnnotation.Validate)[0];
+    const deco = this.appContext.components.getDecoratorsById(JoiDecorator.VALIDATE)[0];
 
     deco.data!.fn = () => {
       console.log('Validate from hook works!!!!!!!!!!!!');

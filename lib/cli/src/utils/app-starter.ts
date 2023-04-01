@@ -1,5 +1,4 @@
 import { AppLoader, AppLoadMode } from '@nodearch/core/fs';
-import { pathToFileURL } from 'node:url';
 
 let rootDir = process.argv.find(x => x.startsWith('rootDir='));
 

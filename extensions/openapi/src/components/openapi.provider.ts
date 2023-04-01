@@ -1,5 +1,5 @@
 import { AppContext, Service } from '@nodearch/core';
-import { IOpenAPIAppMapItem, IOpenAPIProvider, OAISchema, OpenApiAnnotation, IOpenAPIProviderData, IOpenAPIAppRouteMap } from '../index.js';
+import { IOpenAPIProvider, IOpenAPIProviderData, OpenApiDecorator } from '../index.js';
 
 @Service({ export: true })
 export class OAIBuiltInProvider implements IOpenAPIProvider {
@@ -20,13 +20,13 @@ export class OAIBuiltInProvider implements IOpenAPIProvider {
   }
 
   private getServers() {
-    return this.getDecoratorsDefinitions(OpenApiAnnotation.Servers)
+    return this.getDecoratorsDefinitions(OpenApiDecorator.SERVERS)
       .map(server => server.data)
       .flat(1);
   }
 
   private getTags() {
-    return this.getDecoratorsDefinitions(OpenApiAnnotation.Tags)
+    return this.getDecoratorsDefinitions(OpenApiDecorator.TAGS)
       .map(tagsInfo => {
         /**
          * If method is not defined, then it means that the decorator
@@ -65,7 +65,7 @@ export class OAIBuiltInProvider implements IOpenAPIProvider {
   }
 
   private getResponses() {
-    return this.getDecoratorsDefinitions(OpenApiAnnotation.Responses)
+    return this.getDecoratorsDefinitions(OpenApiDecorator.RESPONSES)
       .map(responses => {
 
         return {
@@ -82,7 +82,7 @@ export class OAIBuiltInProvider implements IOpenAPIProvider {
   }
 
   private getRequestBody() {
-    return this.getDecoratorsDefinitions(OpenApiAnnotation.RequestBody)
+    return this.getDecoratorsDefinitions(OpenApiDecorator.REQUEST_BODY)
       .map(responses => {
 
         return {
@@ -99,7 +99,7 @@ export class OAIBuiltInProvider implements IOpenAPIProvider {
   }
 
   private getRouteInfo() {
-    return this.getDecoratorsDefinitions(OpenApiAnnotation.RouteInfo)
+    return this.getDecoratorsDefinitions(OpenApiDecorator.ROUTE_INFO)
     .map(routeInfo => {
 
       const entries: any = [];

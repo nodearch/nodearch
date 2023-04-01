@@ -3,7 +3,7 @@ import { hideBin } from 'yargs/helpers';
 import { AppContext, Service } from '@nodearch/core';
 import { CommandParser } from './command-parser.js';
 import { CommandConfig } from './command.config.js';
-import { CommandAnnotation, ICommand } from '../index.js';
+import { CommandDecorator, ICommand } from '../index.js';
 
 
 @Service({ export: true })
@@ -16,7 +16,7 @@ export class CommandService {
 
   async start(options?: { commands?: ICommand[], exclude?: (RegExp | string)[] }) {    
     // Get all commands from app context (Parent's app commands)
-    const commands: ICommand[] = this.appContext.container.getComponentGroup<ICommand>(CommandAnnotation.Command);
+    const commands: ICommand[] = this.appContext.container.getComponentGroup<ICommand>(CommandDecorator.COMMAND);
 
     // Add local app commands if any
     if (options?.commands) commands.push(...options.commands);

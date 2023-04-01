@@ -1,5 +1,5 @@
-import { LogLevel } from '../index.js';
-import { ComponentRegistry } from '../registry/registry.js';
+import { ComponentRegistry } from '../components/component-registry.js';
+import { LogLevel } from '../log/enums.js';
 import { IAppInfo } from './app.interfaces.js';
 import { Container } from './container.js';
 

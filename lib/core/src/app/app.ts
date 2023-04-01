@@ -2,14 +2,13 @@ import inversify from 'inversify';
 import { Container } from './container.js';
 import { ConfigManager } from '../components/config/config-manager.js';
 import { IHook } from '../components/hook/hook.interface.js';
-import { ComponentScope, CoreAnnotation } from '../registry/enums.js';
-import { ComponentRegistry } from '../registry/registry.js';
 import { ClassLoader } from '../fs/class-loader.js';
 import { ILogger, ILogOptions } from '../log/interfaces.js';
 import { Logger } from '../log/logger.js';
 import { AppContext } from './app-context.js';
 import { IAppInfo, IAppOptions, IInitOptions } from './app.interfaces.js';
-import { LogLevel } from '../index.js';
+import { ComponentRegistry } from '../components/component-registry.js';
+import { ComponentScope, CoreDecorator } from '../components/enums.js';
 
 
 export class App {
@@ -31,7 +30,7 @@ export class App {
   constructor(options: IAppOptions) {
     this.classLoader = new ClassLoader(options.components);
     this.inversifyContainer = new inversify.Container({
-      defaultScope: options.components.scope || ComponentScope.Singleton
+      defaultScope: options.components.scope || ComponentScope.SINGLETON
     });
     this.container = new Container(this.inversifyContainer);
     this.components = new ComponentRegistry(this.container);
@@ -89,7 +88,7 @@ export class App {
   }
 
   async start() {
-    const hooks = this.container.getComponentGroup<IHook>(CoreAnnotation.Hook);
+    const hooks = this.container.getComponentGroup<IHook>(CoreDecorator.HOOK);
 
     if (!hooks) return;
 
@@ -101,7 +100,7 @@ export class App {
   }
 
   async stop() {
-    const hooks = this.container.getComponentGroup<IHook>(CoreAnnotation.Hook);
+    const hooks = this.container.getComponentGroup<IHook>(CoreDecorator.HOOK);
 
     if (hooks) {
       await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)()));
