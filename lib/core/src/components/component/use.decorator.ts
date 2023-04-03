@@ -20,6 +20,7 @@ export function Use(component: ClassConstructor, options?: any): ClassMethodDeco
         component, 
         options,
       };
-    }
+    },
+    dependencies: [component]
   });
 }

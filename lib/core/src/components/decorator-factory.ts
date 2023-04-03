@@ -2,9 +2,10 @@ import { injectable } from 'inversify';
 import { ClassInfo } from '../utils/class-info.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentHandler } from './component-handler.js';
-import { IComponentDecoratorDependency, IComponentOptions } from './interfaces.js';
+import { IDecoratorDependency, IComponentOptions } from './interfaces.js';
 import { IComponentRegistration } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
+import { DecoratorType } from './enums.js';
 
 
 /**
@@ -54,6 +55,7 @@ export function classDecorator<T>(
     const data = options.fn?.(decoratorTarget);
 
     ComponentMetadata.setComponentDecorator(decoratorTarget, {
+      type: DecoratorType.CLASS,
       id: options.id,
       data,
       dependencies: options.dependencies ? getComponentDependencies({ 
@@ -78,8 +80,9 @@ export function methodDecorator<T>(
     const data = options.fn?.(target, propKey, descriptor);
 
     ComponentMetadata.setComponentDecorator(decoratorTarget, {
+      type: DecoratorType.METHOD,
       id: options.id,
-      method: propKey,
+      method: propKey as string,
       data,
       dependencies: options.dependencies ? getComponentDependencies({ 
         target: decoratorTarget, 
@@ -104,8 +107,9 @@ export function parameterDecorator<T>(
     const data = options.fn?.(target, propKey, paramIndex);
 
     ComponentMetadata.setComponentDecorator(decoratorTarget, {
+      type: DecoratorType.PARAMETER,
       id: options.id,
-      method: propKey,
+      method: propKey as string,
       paramIndex: paramIndex,
       data,
       dependencies: options.dependencies ? getComponentDependencies({ 
@@ -131,8 +135,9 @@ export function classMethodDecorator<T>(
     const data = options.fn?.(target, propKey);
 
     ComponentMetadata.setComponentDecorator(decoratorTarget, {
+      type: DecoratorType.CLASS_METHOD,
       id: options.id,
-      method: propKey,
+      method: propKey as string,
       data,
       dependencies: options.dependencies ? getComponentDependencies({ 
         target: decoratorTarget, 
@@ -165,7 +170,7 @@ function getComponentDependencies(options: {
   propKey?: string;
   target: any;
 }) {
-  let dependencies: IComponentDecoratorDependency[] | undefined;
+  let dependencies: IDecoratorDependency[] = [];
     
   if (options.depsInfo) {
     const prefix = `${options.decoratorId}/dependency/${options.target.name}${options.propKey? '-' + options.propKey as string : ''}`;
@@ -175,7 +180,7 @@ function getComponentDependencies(options: {
   return dependencies;
 }
 
-function addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[], prefix: string): IComponentDecoratorDependency[] {
+function addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[], prefix: string): IDecoratorDependency[] {
   return dependencies.map(dep => {
     const key = addComponentDependency(component, dep, prefix);
     return { key, component: dep };

@@ -5,7 +5,6 @@ import { HttpGet, HttpPath } from '@nodearch/express';
 @Controller()
 export class ProductController {
 
-  @Use(class One{})
   @HttpGet()
   async getProducts() {
     return [

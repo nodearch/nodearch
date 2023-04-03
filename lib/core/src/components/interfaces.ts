@@ -10,40 +10,27 @@ export interface IComponentsOptions {
   defaultScope?: ComponentScope;
 }
 
-export type IComponentDecorator<T = any> = ({
-  type: DecoratorType.CLASS;
-} | {
-  type: DecoratorType.METHOD;
-
-  /**
-   * Available only for method decorator
-   */  
-  method: string;
-} | {
-  type: DecoratorType.CLASS_METHOD;
-
-  /**
-   * Available only for method decorator
-   */  
-  method?: string;
-} | {
-  type: DecoratorType.PARAMETER;
-  
-  /**
-   * Available only for method decorator
-   */  
-  method: string;
-
-  /**
-   * Available only for parameter decorator 
-   */
-  paramIndex: number;  
-}) & {
+export type IComponentDecorator<T = any> = {
   /**
    * The id used to register and identify this decorator
    */
   id: string;
-  
+
+  /**
+   * The type of the decorator (class, method or parameter)
+   */
+  type: DecoratorType;
+
+  /**
+   * Available only for method decorator
+   */
+  method?: string;
+
+  /**
+   * Available only for parameter decorator 
+   */
+  paramIndex?: number;
+
   /**
    * Data passed by the decorator implementation
    */
@@ -83,7 +70,7 @@ export interface IComponentRegistration<T = any> {
 export interface IGetComponentsOptions {
   // Filter by component id
   id?: string;
-  
+
   // Filter by decorator id for a decorator that is placed on the component
   decoratorIds?: string[];
 }
@@ -94,7 +81,7 @@ export interface IComponentOptions {
   export?: boolean;
 }
 
-export interface IGetDecoratorsOptions { 
+export interface IGetDecoratorsOptions {
   // Get all decorators that have this id
   id?: string;
 
@@ -102,5 +89,8 @@ export interface IGetDecoratorsOptions {
   method?: string;
 
   // Get all @Use() decorators where the passed component id matches this id 
-  useId?: string; 
+  useId?: string;
+
+  // Get all decorators based on their placement on the component
+  placement?: DecoratorType[];
 }

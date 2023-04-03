@@ -62,4 +62,9 @@ export interface IExpressRouteHandlerInput {
   key?: string;
 }
 
-export type IHttpControllerOptions = string;
+
+export interface IHttpMethodInfo {
+  name: string;
+  httpMethod: HttpMethod;
+  httpPath: string;
+}

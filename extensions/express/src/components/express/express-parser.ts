@@ -1,7 +1,7 @@
 import { AppContext, Service } from '@nodearch/core';
-import { IExpressInfo, IExpressRoute, IExpressRouteHandlerInput, IHttpControllerOptions } from './interfaces.js';
+import { IExpressInfo, IExpressRoute, IExpressRouteHandlerInput, IHttpMethodInfo } from './interfaces.js';
 import { IMiddlewareInfo } from '../middleware/interfaces.js';
-import { ComponentInfo, CoreDecorator } from '@nodearch/core/decorators';
+import { ComponentInfo, CoreDecorator, DecoratorType, IComponentDecorator } from '@nodearch/core/decorators';
 import { ExpressDecorator } from './enums.js';
 
 
@@ -17,7 +17,7 @@ export class ExpressParser {
       id: CoreDecorator.CONTROLLER,
       decoratorIds: [
         ExpressDecorator.HTTP_METHOD
-      ] 
+      ]
     });
 
     if (componentsInfo) {
@@ -29,63 +29,70 @@ export class ExpressParser {
     return this.expressInfo;
   }
 
-  private parse(componentsInfo: ComponentInfo<IHttpControllerOptions>[]) {
+  private parse(componentsInfo: ComponentInfo[]) {
     const expressInfo: IExpressInfo = { routers: [] };
 
     componentsInfo.forEach(comp => {
-      const middleware: IMiddlewareInfo[] = comp
-        .getUseDecorators(ExpressDecorator.MIDDLEWARE)
-        .filter(deco => !deco.method)
+      // Get Component/Class level @Use() decorators that contains middleware
+      const ctrlMiddleware: IMiddlewareInfo[] = comp
+        .getDecorators({
+          useId: ExpressDecorator.MIDDLEWARE,
+          placement: [DecoratorType.CLASS]
+        })
         .map(deco => {
           const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
           return { ...deco.data, dependencyKey };
         })
         .reverse();
 
-      const ctrlPathDecorator = comp.getDecoratorsById(ExpressDecorator.HTTP_PATH)[0];
-      let ctrlPath = '';
-
-      if (ctrlPathDecorator) {
-        ctrlPath = this.formatPath(ctrlPathDecorator.data.httpPath);
-      }
-
-      const routes = comp.getMethods()
-        .map(method => {
-          return this.getRouteInfo(comp, method);
+      // Parse route information for this controller
+      const routes = comp
+        .getDecorators({
+          // Decorators like @Get(), @Post(), etc
+          id: ExpressDecorator.HTTP_METHOD 
+        })
+        .map(deco => {
+          return this.getRouteInfo(comp, deco);
         });
 
-        expressInfo.routers.push({
+      expressInfo.routers.push({
         controllerInfo: comp,
-        path: ctrlPath,
-        middleware,
-        routes
+        path: this.getControllerPath(comp),
+        routes,
+        middleware: ctrlMiddleware
       });
     });
 
     return expressInfo;
   }
 
-  private getRouteInfo(componentInfo: ComponentInfo, method: string): IExpressRoute {
-    const decorators = componentInfo.getDecorators({ method, useId: ExpressDecorator.MIDDLEWARE });
+  private getRouteInfo(componentInfo: ComponentInfo, decoratorInfo: IComponentDecorator<IHttpMethodInfo>): IExpressRoute {
 
-    const { httpPath, httpMethod } = decorators
-      .find(deco => deco.id === ExpressDecorator.HTTP_METHOD)?.data;
-    
-    const middleware: IMiddlewareInfo[] = decorators
-      .filter(deco => deco.id === CoreDecorator.USE)
+    const { httpPath, httpMethod } = decoratorInfo.data;
+
+    // Get middleware on the method level
+    const middleware: IMiddlewareInfo[] = componentInfo
+      .getDecorators({ 
+        useId: ExpressDecorator.MIDDLEWARE,
+        method: decoratorInfo.method 
+      })
       .map(deco => {
         const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
 
         return { ...deco.data, dependencyKey };
       })
       .reverse();
-    
-    const inputs: IExpressRouteHandlerInput[] = decorators
-      .filter(deco => deco.id === ExpressDecorator.HTTP_PARAM)
+
+    // Get required inputs on this method e.g. @Body(), @Param(), etc
+    const inputs: IExpressRouteHandlerInput[] = componentInfo
+      .getDecorators({
+        id: ExpressDecorator.HTTP_PARAM,
+        method: decoratorInfo.method
+      })
       .map(deco => deco.data);
 
     return {
-      controllerMethod: method,
+      controllerMethod: decoratorInfo.method!, // Method will always be there since this is an HttpMethod decorator
       method: httpMethod,
       path: this.formatPath(httpPath),
       middleware,
@@ -93,17 +100,29 @@ export class ExpressParser {
     };
   }
 
+  private getControllerPath(comp: ComponentInfo) {
+    let ctrlPath = '';
+
+    const ctrlPathDecorator = comp.getDecorators({ id: ExpressDecorator.HTTP_PATH })[0];
+
+    if (ctrlPathDecorator) {
+      ctrlPath = this.formatPath(ctrlPathDecorator.data.httpPath);
+    }
+
+    return ctrlPath;
+  }
+
   private formatPath(urlPath?: string) {
     let newPath = urlPath || '';
-    
+
     if (!newPath.startsWith('/')) {
       newPath = '/' + newPath;
     }
-    
+
     if (newPath.length > 1 && newPath.endsWith('/')) {
       newPath = newPath.slice(0, newPath.length - 1);
     }
-    
+
     return newPath;
   }
 }

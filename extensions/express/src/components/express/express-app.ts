@@ -34,7 +34,7 @@ export class ExpressApp {
   create(): express.Application {
     const app = express();
     const expressInfo = this.expressParser.getExpressInfo();
-    
+
     this.registerStatic(app);
     this.registerRouter(expressInfo, app);
 
@@ -92,14 +92,14 @@ export class ExpressApp {
 
     router[routeInfo.method](routeInfo.path, ...routeParams);
 
-    this.logger.info(this.createRouteRegisterMsg(routerInfo, routeInfo, controllerClass));
+    this.logger.info(this.createRouteRegisterMsg(routerInfo, routeInfo, controllerClass, routeParams.length - 1));
   }
 
-  private createRouteRegisterMsg(routerInfo: IExpressRouter, routeInfo: IExpressRoute, controllerClass: ClassConstructor) {
+  private createRouteRegisterMsg(routerInfo: IExpressRouter, routeInfo: IExpressRoute, controllerClass: ClassConstructor, middlewareCount: number) {
     const routeMethod = `[${routeInfo.method.toUpperCase()}]`; 
     const routePath = `${routerInfo.path}${routeInfo.path}`;
     const controllerMethod = `(${controllerClass.name}.${routeInfo.controllerMethod})`;
-    return `[Express] Route registered: ${routeMethod} ${routePath} ${controllerMethod}`;
+    return `Route: ${routeMethod} ${routePath} ${controllerMethod} - Middleware: ${middlewareCount}`;
   }
 
 }

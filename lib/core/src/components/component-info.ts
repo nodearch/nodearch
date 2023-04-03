@@ -39,6 +39,14 @@ export class ComponentInfo<T = any> {
   getDecorators<T = any>(options: IGetDecoratorsOptions = {}): IComponentDecorator<T>[] {
     let decorators = [...this.decorators];
 
+    if (options.placement && options.placement.length) {
+      const placement = options.placement;
+      
+      decorators = decorators.filter(deco => {
+        return placement.includes(this.getDecoratorPlacement(deco));
+      });
+    }
+
     if (options.method) {
       decorators = decorators.filter(deco => {
         return deco.type !== DecoratorType.CLASS && deco.method === options.method;
@@ -108,5 +116,14 @@ export class ComponentInfo<T = any> {
 
   get name () {
     return this.classConstructor.name;
+  }
+
+  private getDecoratorPlacement(deco: IComponentDecorator) {
+    if (deco.type === DecoratorType.CLASS_METHOD) {
+      return deco.method ? DecoratorType.METHOD : DecoratorType.CLASS;
+    }
+    else {
+      return deco.type;
+    }
   }
 }

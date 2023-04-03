@@ -13,17 +13,7 @@ export class MiddlewareFactory {
 
   createExpressMiddleware(middlewareInfo: IMiddlewareInfo[]) {
     return middlewareInfo.map(mw => {
-
-      let middlewareHandler;
-
-      if (mw.isExpressMiddleware) {
-        middlewareHandler = mw.handler as ExpressMiddlewareHandler;
-      }
-      else {
-        middlewareHandler = this.createMiddlewareHandler(mw);
-      }
-
-      return middlewareHandler;
+      return this.createMiddlewareHandler(mw);
     });
   }
 

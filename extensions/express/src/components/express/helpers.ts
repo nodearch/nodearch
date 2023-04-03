@@ -1,5 +1,6 @@
 import { classDecorator, methodDecorator, parameterDecorator } from '@nodearch/core/decorators';
 import { ExpressDecorator, HttpMethod, RouteHandlerParam } from './enums.js';
+import { IHttpMethodInfo } from './interfaces.js';
 
 
 export function httpPathFactory(path: string) {
@@ -14,7 +15,7 @@ export function httpPathFactory(path: string) {
 }
 
 export function httpMethodFactory(httpMethod: HttpMethod, path?: string) {
-  return methodDecorator({
+  return methodDecorator<IHttpMethodInfo>({
     id: ExpressDecorator.HTTP_METHOD,
     fn: (target: any, propKey: string | symbol) => {
       return {
