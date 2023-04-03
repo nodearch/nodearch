@@ -40,8 +40,7 @@ export class ExpressParser {
           placement: [DecoratorType.CLASS]
         })
         .map(deco => {
-          const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
-          return { ...deco.data, dependencyKey };
+          return { ...deco.data, dependencyKey: deco.dependencies[0].key };
         })
         .reverse();
 
@@ -77,9 +76,7 @@ export class ExpressParser {
         method: decoratorInfo.method 
       })
       .map(deco => {
-        const dependencyKey = deco.dependencies && deco.dependencies.length ? deco.dependencies[0].key : undefined;
-
-        return { ...deco.data, dependencyKey };
+        return { ...deco.data, dependencyKey: deco.dependencies[0].key };
       })
       .reverse();
 
