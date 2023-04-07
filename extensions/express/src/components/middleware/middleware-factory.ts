@@ -1,6 +1,6 @@
 import { Service } from '@nodearch/core';
 import { ErrorRegistry } from '../errors/error-registry.js';
-import { ExpressMiddlewareHandler, IMiddlewareInfo, MiddlewareProvider } from './interfaces.js';
+import { IExpressMiddlewareHandler, IMiddlewareInfo, IMiddlewareProvider } from './interfaces.js';
 import { ComponentInfo } from '@nodearch/core/decorators';
 
 
@@ -17,7 +17,7 @@ export class MiddlewareFactory {
     });
   }
 
-  defaultRouterMiddleware(componentInfo: ComponentInfo): ExpressMiddlewareHandler {
+  defaultRouterMiddleware(componentInfo: ComponentInfo): IExpressMiddlewareHandler {
     return (req, res, next) => {
       req.nodearch = {
         controller: componentInfo.getInstance()
@@ -26,13 +26,16 @@ export class MiddlewareFactory {
     };
   }
 
-  private createMiddlewareHandler(middlewareInfo: IMiddlewareInfo): ExpressMiddlewareHandler {
+  private createMiddlewareHandler(middlewareInfo: IMiddlewareInfo): IExpressMiddlewareHandler {
     return (req, res, next) => {
 
-      const middlewareHandler = req.nodearch.controller[middlewareInfo.dependencyKey!] as MiddlewareProvider<any>;
+      const middlewareHandler = req.nodearch.controller[middlewareInfo.dependencyKey!] as IMiddlewareProvider;
 
       middlewareHandler
-        .handler(req, res, middlewareInfo.options)
+        .handler({
+          args: {req, res},
+          options: middlewareInfo.options
+        })
         .then(() => next())
         .catch((err: any) => {
           this.errorRegistry.handleError(err, res);

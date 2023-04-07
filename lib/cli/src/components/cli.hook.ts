@@ -41,7 +41,7 @@ export class CliHook implements IHook {
        * that the app exists or loaded correctly, so we still
        * need to check if the app is loaded correctly
        */
-      if (localApp) {
+      if (localApp && !this.localAppService.hasLoadError) {
         localAppCommands = localApp.container.getComponentGroup<ICommand>(CommandDecorator.COMMAND);
       }
       else {
@@ -51,7 +51,6 @@ export class CliHook implements IHook {
       excludedCommands.push('new');
     }
     else {
-      this.logger.info('No local app found');
       excludedCommands.push('start');
       excludedCommands.push('build');
     }

@@ -170,13 +170,20 @@ export class ComponentRegistry {
    * @param id Component ID
    */ 
   private getComponents(id?: string) {
+    let components: ComponentInfo[] = [];
+
     if (id) {
       const set = this.componentInfoMap.get(id);
-      return set ? Array.from(set) : [];
+      
+      if (set) {
+        components = Array.from(set);
+      }
     }
     else {
-      return this.getAll();
+      components = this.getAll();
     }
+
+    return components;
   }
 
   private filterComponentsByDecoratorIds(components: ComponentInfo[], decoratorIds: string[]) {

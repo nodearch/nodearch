@@ -1,4 +1,4 @@
-import { Use } from '@nodearch/express';
+import { Use } from '@nodearch/core';
 import { JoiDecorator } from '../enums.js';
 import Joi from 'joi';
 import { ValidationMiddleware } from '../components/validation.middleware.js';

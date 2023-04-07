@@ -4,11 +4,14 @@ import { pathToFileURL } from 'url';
 
 @Service()
 export class LocalAppService {
-  
+
+  hasLoadError: boolean;
+
   private logger: Logger;
   private appLoader: AppLoader;
 
   constructor(logger: Logger) {
+    this.hasLoadError = false;
     this.logger = logger;
     this.appLoader = new AppLoader({ cwd: pathToFileURL(process.cwd()), appLoadMode: AppLoadMode.TS });
   }
@@ -30,6 +33,7 @@ export class LocalAppService {
       if (this.appLoader.isAppDir) {
         this.logger.error('Error when trying to load a NodeArch app from the local directory\n', e.message, '\n');
       }
+      this.hasLoadError = true;
     }
   }
 

@@ -1,5 +1,5 @@
 import { Controller, Use } from '@nodearch/core';
-import { HttpBody, HttpGet, HttpParam, HttpPost, HttpQuery } from "@nodearch/express";
+import { HttpBody, HttpGet, HttpParam, HttpPost, HttpQuery, ExpressMiddleware } from "@nodearch/express";
 import { Validate } from '@nodearch/joi-express';
 import { RequestBody, Responses, RouteInfo, Servers, Tags } from '@nodearch/openapi';
 import { FirstMiddleware } from './middleware.js';
@@ -27,15 +27,15 @@ export class UserController {
 
   constructor(private readonly userService: UserService) {}
 
-  // @Use((req, res, next) => {
-  //   console.log('Middleware 1');
-  //   next();
-  // })
+  @Use(ExpressMiddleware, (req, res, next) => {
+    console.log('Middleware 1');
+    next();
+  })
   @Validate(Joi.object({ username: Joi.string().required().min(10) }))
-  // @Use((req, res, next) => {
-  //   console.log('Middleware 2');
-  //   next();
-  // })
+  @Use(ExpressMiddleware, (req, res, next) => {
+    console.log('Middleware 2');
+    next();
+  })
   @Use(FirstMiddleware)
   @HttpGet('/test')
   async test(@HttpQuery('username') username: string) {

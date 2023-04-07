@@ -6,5 +6,6 @@ export * from './components/express/interfaces.js';
 
 export * from './components/middleware/decorators.js';
 export * from './components/middleware/interfaces.js';
+export * from './components/middleware/express-middleware.js';
 
 export * from './components/openapi/provider.js';

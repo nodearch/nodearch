@@ -6,6 +6,7 @@ import { IDecoratorDependency, IComponentOptions } from './interfaces.js';
 import { IComponentRegistration } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 import { DecoratorType } from './enums.js';
+import { generateResourceId } from '../utils/crypto.js';
 
 
 /**
@@ -173,22 +174,18 @@ function getComponentDependencies(options: {
   let dependencies: IDecoratorDependency[] = [];
     
   if (options.depsInfo) {
-    const prefix = `${options.decoratorId}/dependency/${options.target.name}${options.propKey? '-' + options.propKey as string : ''}`;
-    dependencies = addComponentDependencies(options.target, options.depsInfo, prefix);
+    dependencies = addComponentDependencies(options.target, options.depsInfo);
   }
 
   return dependencies;
 }
 
-function addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[], prefix: string): IDecoratorDependency[] {
+function addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[]): IDecoratorDependency[] {
   return dependencies.map(dep => {
-    const key = addComponentDependency(component, dep, prefix);
+    const key = generateResourceId();
+    
+    ClassInfo.propertyInject(component, dep, key);
+
     return { key, component: dep };
   });
-}
-
-function addComponentDependency(component: ClassConstructor, dependency: ClassConstructor, prefix: string) {
-  const key = `${prefix}-${dependency.name}`;
-  ClassInfo.propertyInject(component, dependency, key)
-  return key;
 }
