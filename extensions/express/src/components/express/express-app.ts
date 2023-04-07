@@ -91,8 +91,9 @@ export class ExpressApp {
     ];
 
     router[routeInfo.method](routeInfo.path, ...routeParams);
-
-    this.logger.info(this.createRouteRegisterMsg(routerInfo, routeInfo, controllerClass, routeParams.length - 1));
+    
+    const middlewareCount = routerInfo.middleware.length + routeMiddleware.length;
+    this.logger.info(this.createRouteRegisterMsg(routerInfo, routeInfo, controllerClass, middlewareCount));
   }
 
   private createRouteRegisterMsg(routerInfo: IExpressRouter, routeInfo: IExpressRoute, controllerClass: ClassConstructor, middlewareCount: number) {
