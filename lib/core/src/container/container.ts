@@ -3,6 +3,8 @@ import { DependencyException } from '../errors.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentScope } from '../components/enums.js';
 import { IBindActivationHandler, IBindComponentOptions } from './interfaces.js';
+import { BindingHooks } from './binding-hooks.js';
+import { ContainerBinder } from './component-binder.js';
 
 
 
@@ -10,9 +12,11 @@ import { IBindActivationHandler, IBindComponentOptions } from './interfaces.js';
 export class Container {
   
   private inversifyContainer: inversify.Container;
+  private containerBinder: ContainerBinder;
 
   constructor(inversifyContainer: inversify.Container) {
     this.inversifyContainer = inversifyContainer;
+    this.containerBinder = new ContainerBinder(inversifyContainer);
   }
 
   // Bind a component to an object
@@ -27,36 +31,28 @@ export class Container {
 
   // Bind a component to itself (the component class) with a scope
   bindComponent<T>(options: IBindComponentOptions<T>) {
-    let binding: inversify.interfaces.BindingWhenOnSyntax<any>;
 
-    const { id, componentClass, scope, namespace } = options;
-
-    if (scope === ComponentScope.SINGLETON) {
-      binding = this.inversifyContainer.bind(componentClass).toSelf().inSingletonScope();
-    }
-    else if (scope === ComponentScope.TRANSIENT) {
-      binding = this.inversifyContainer.bind(componentClass).toSelf().inTransientScope();
-    }
-    else if (scope === ComponentScope.REQUEST) {
-      binding = this.inversifyContainer.bind(componentClass).toSelf().inRequestScope();
-    }
-    else {
-      binding = this.inversifyContainer.bind(componentClass).toSelf();
-    }
+    const binding = this.containerBinder
+      .bindComponent(
+        options.componentClass, 
+        options.scope
+      );
 
     if (options.onActivation) {
-      options.onActivation.forEach(handler => {
-        binding.onActivation(this.activationHandlerWrap(handler));
-      });
+      BindingHooks.activation(binding, options.onActivation);
     }
 
-    let namespaces = namespace ? (Array.isArray(namespace) ? namespace : [namespace]) : [];
+    if (options.onDeactivation) {
+      BindingHooks.deactivation(binding, options.onDeactivation);
+    }
+
+    let namespaces = options.namespace ? (Array.isArray(options.namespace) ? options.namespace : [options.namespace]) : [];
 
     namespaces.forEach(ns => {
-      this.inversifyContainer.bind(this.getNamespaceId(ns)).toService(componentClass);
+      this.inversifyContainer.bind(this.getNamespaceId(ns)).toService(options.componentClass);
     });
 
-    this.inversifyContainer.bind(this.getComponentGroupId(id)).toService(componentClass);
+    this.inversifyContainer.bind(this.getComponentGroupId(options.id)).toService(options.componentClass);
   }
 
   // Get all components' instances in a container namespace
@@ -141,11 +137,5 @@ export class Container {
 
   private getComponentGroupId(componentId: string) {
     return 'component-group:' + componentId;
-  }
-
-  private activationHandlerWrap<T>(handler: IBindActivationHandler<T>) {
-    return (context: inversify.interfaces.Context, instance: T) => {
-      return handler({}, instance);
-    };
   }
 }
