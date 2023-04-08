@@ -1,4 +1,4 @@
-import { Container } from '../app/container.js';
+import { Container } from '../container/container.js';
 import { ClassInfo } from '../utils/class-info.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentBinder } from './component-binding.js';

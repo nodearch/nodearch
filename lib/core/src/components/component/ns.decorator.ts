@@ -1,6 +1,6 @@
 import { multiInject } from 'inversify';
 
-export function InjectNs(namespace: string): ParameterDecorator {
+export function Ns(namespace: string): ParameterDecorator {
   return function (target: any, key: string | symbol, index: number) {
     multiInject(namespace)(target, <string>key, index);
   }

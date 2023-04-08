@@ -1,4 +1,4 @@
-import { Container } from '../app/container.js';
+import { Container } from '../container/container.js';
 import { ComponentScope } from './enums.js';
 import { ComponentInfo } from './component-info.js';
 

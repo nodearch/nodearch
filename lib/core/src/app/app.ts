@@ -1,5 +1,5 @@
 import inversify from 'inversify';
-import { Container } from './container.js';
+import { Container } from '../container/container.js';
 import { ConfigManager } from '../components/config/config-manager.js';
 import { IHook } from '../components/hook/hook.interface.js';
 import { ClassLoader } from '../fs/class-loader.js';

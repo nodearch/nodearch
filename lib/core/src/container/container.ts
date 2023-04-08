@@ -2,8 +2,9 @@ import inversify from 'inversify';
 import { DependencyException } from '../errors.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentScope } from '../components/enums.js';
-import { ComponentInfo } from '../components/component-info.js';
-import { ProxyFactory } from '../utils/proxy-factory.js';
+import { IBindActivationHandler, IBindComponentOptions } from './interfaces.js';
+
+
 
 
 export class Container {
@@ -25,8 +26,10 @@ export class Container {
   }
 
   // Bind a component to itself (the component class) with a scope
-  bindComponent(componentClass: ClassConstructor, scope?: ComponentScope) {
+  bindComponent<T>(options: IBindComponentOptions<T>) {
     let binding: inversify.interfaces.BindingWhenOnSyntax<any>;
+
+    const { id, componentClass, scope, namespace } = options;
 
     if (scope === ComponentScope.SINGLETON) {
       binding = this.inversifyContainer.bind(componentClass).toSelf().inSingletonScope();
@@ -41,29 +44,29 @@ export class Container {
       binding = this.inversifyContainer.bind(componentClass).toSelf();
     }
 
-    return {
-      proxy: this.proxyComponent(binding)
-    };
-  }
+    if (options.onActivation) {
+      options.onActivation.forEach(handler => {
+        binding.onActivation(this.activationHandlerWrap(handler));
+      });
+    }
 
-  // Add a bound component to a container namespace
-  addToNamespace(component: ClassConstructor, namespace: string) {
-    this.addToGroup('namespace', namespace, component);
+    let namespaces = namespace ? (Array.isArray(namespace) ? namespace : [namespace]) : [];
+
+    namespaces.forEach(ns => {
+      this.inversifyContainer.bind(this.getNamespaceId(ns)).toService(componentClass);
+    });
+
+    this.inversifyContainer.bind(this.getComponentGroupId(id)).toService(componentClass);
   }
 
   // Get all components' instances in a container namespace
-  getNamespace<T>(namespace: string) {
-    return this.getGroup<T>('namespace', namespace);
-  }
-
-  // Add a bound component to a component group
-  addToComponentGroup(component: ClassConstructor, group: string) {
-    this.addToGroup('component-group', group, component);
+  getByNamespace<T>(namespace: string) {
+    return this.getAll<T>(this.getNamespaceId(namespace));
   }
 
   // Get all components' instances in a component group
-  getComponentGroup<T>(group: string) {
-    return this.getGroup<T>('component-group', group);
+  getById<T>(id: string) {
+    return this.getAll<T>(this.getComponentGroupId(id));
   }
 
   // Get a component instance from the container
@@ -117,35 +120,32 @@ export class Container {
     return new Container(inversifyContainer);
   }
 
-  private proxyComponent(binding: inversify.interfaces.BindingWhenOnSyntax<any>) {
-    /**
-     * Proxy a component instance
-     */
-    return (proxyHandler: ProxyHandler<any>) => {
-      binding.onActivation((context, instance) => {
-        return new Proxy(instance, proxyHandler);
-      });
-    };
-  }
-
-  private addToGroup(groupPrefix: string, group: string, component: ClassConstructor) {
-    this.inversifyContainer.bind(groupPrefix + ':' + group).toService(component);
-  }
-
-  private getGroup<T>(groupPrefix: string, group: string) {
-    const groupName = groupPrefix + ':' + group;
-
+  private getAll<T>(id: string) {
     let instances: T[] = [];
 
     try {
-      instances = this.inversifyContainer.getAll<T>(groupName);
+      instances = this.inversifyContainer.getAll<T>(id);
     }
     catch (e: any) {
-      if (e.message !== `No matching bindings found for serviceIdentifier: ${groupName}`) {
+      if (e.message !== `No matching bindings found for serviceIdentifier: ${id}`) {
         throw new DependencyException(e.message);
       }
     }
 
     return instances;
+  }
+
+  private getNamespaceId(namespace: string) {
+    return 'namespace:' + namespace;
+  }
+
+  private getComponentGroupId(componentId: string) {
+    return 'component-group:' + componentId;
+  }
+
+  private activationHandlerWrap<T>(handler: IBindActivationHandler<T>) {
+    return (context: inversify.interfaces.Context, instance: T) => {
+      return handler({}, instance);
+    };
   }
 }
