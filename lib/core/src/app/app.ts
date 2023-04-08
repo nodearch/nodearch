@@ -47,9 +47,9 @@ export class App {
       this.appContext = new AppContext(this.components, this.container, this.appInfo!, this.logger.getLogLevel());
     }
 
-    this.container.bindToConstant(Logger, this.logger);
-    this.container.bindToConstant(AppContext, this.appContext);
-    this.container.bindToConstant(ConfigManager, new ConfigManager(this.configOptions));
+    this.container.bindConstant(Logger, this.logger);
+    this.container.bindConstant(AppContext, this.appContext);
+    this.container.bindConstant(ConfigManager, new ConfigManager(this.configOptions));
   }
 
   private async loadExtensions() {

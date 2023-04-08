@@ -1,4 +1,4 @@
-import { Container } from 'inversify';
+import { Container } from '../app/container.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentScope, DecoratorType } from './enums.js';
 import { ComponentHandler } from './component-handler.js';
@@ -93,4 +93,12 @@ export interface IGetDecoratorsOptions {
 
   // Get all decorators based on their placement on the component
   placement?: DecoratorType[];
+}
+
+export interface IBinderBindOptions {
+  container: Container;
+  componentClass: ClassConstructor;
+  id: string;
+  scope?: ComponentScope;
+  namespace?: string;
 }

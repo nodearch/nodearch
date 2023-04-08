@@ -1,6 +1,7 @@
 import { Container } from '../app/container.js';
 import { ClassInfo } from '../utils/class-info.js';
 import { ClassConstructor } from '../utils/types.js';
+import { ComponentBinder } from './component-binding.js';
 import { isComponent } from './decorator-factory.js';
 import { CoreDecorator, DecoratorType } from './enums.js';
 import { IComponentDecorator, IGetDecoratorsOptions } from './interfaces.js';
@@ -8,6 +9,7 @@ import { IComponentRegistration } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 
 
+// Do binding here for the component and remove component handler
 export class ComponentInfo<T = any> {
   private classConstructor: ClassConstructor;
   private registration: IComponentRegistration<T>;
@@ -22,6 +24,13 @@ export class ComponentInfo<T = any> {
     this.decorators = ComponentMetadata.getComponentDecorators(classConstructor);
     this.container = container;
     this.methods = ClassInfo.getMethods(classConstructor);
+    ComponentBinder.bindComponent({
+      container,
+      componentClass: classConstructor,
+      id: registration.id,
+      namespace: registration.options?.namespace,
+      scope: registration.options?.scope
+    });
   }
 
   getClass() {

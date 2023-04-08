@@ -93,9 +93,6 @@ export class ComponentRegistry {
         decoId => this.getComponentInfoSet(decoId).add(componentInfo)
       );
 
-      this.getHandler(registration)
-        .register(componentInfo);
-
       if (componentInfo.isExported) {
         this.exported.push(componentInfo);
       }
@@ -140,7 +137,7 @@ export class ComponentRegistry {
     let componentInfoSet = this.componentInfoMap.get(decoId);
 
     if (!componentInfoSet) {
-      componentInfoSet = new Set<ComponentInfo>;
+      componentInfoSet = new Set<ComponentInfo>();
       this.componentInfoMap.set(decoId, componentInfoSet);
     }
 

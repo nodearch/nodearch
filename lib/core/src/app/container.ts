@@ -2,6 +2,8 @@ import inversify from 'inversify';
 import { DependencyException } from '../errors.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentScope } from '../components/enums.js';
+import { ComponentInfo } from '../components/component-info.js';
+import { ProxyFactory } from '../utils/proxy-factory.js';
 
 
 export class Container {
@@ -13,29 +15,35 @@ export class Container {
   }
 
   // Bind a component to an object
-  bindToConstant<T>(component: ClassConstructor<T>, value: T) {
-    this.inversifyContainer.bind(component).toConstantValue(value);
+  bindConstant<T>(componentClass: ClassConstructor<T>, value: T) {
+    this.inversifyContainer.bind(componentClass).toConstantValue(value);
   }
 
   // Bind a component to a dynamic value that can changed with every call to the function
-  bindToDynamic<T>(component: ClassConstructor<T>, value: () => T) {
-    this.inversifyContainer.bind(component).toDynamicValue(value);
+  bindDynamic<T>(componentClass: ClassConstructor<T>, value: () => T) {
+    this.inversifyContainer.bind(componentClass).toDynamicValue(value);
   }
 
   // Bind a component to itself (the component class) with a scope
-  bindToSelf<T>(component: ClassConstructor<T>, scope?: ComponentScope) {
+  bindComponent(componentClass: ClassConstructor, scope?: ComponentScope) {
+    let binding: inversify.interfaces.BindingWhenOnSyntax<any>;
+
     if (scope === ComponentScope.SINGLETON) {
-      this.inversifyContainer.bind(component).toSelf().inSingletonScope();
+      binding = this.inversifyContainer.bind(componentClass).toSelf().inSingletonScope();
     }
     else if (scope === ComponentScope.TRANSIENT) {
-      this.inversifyContainer.bind(component).toSelf().inTransientScope();
+      binding = this.inversifyContainer.bind(componentClass).toSelf().inTransientScope();
     }
     else if (scope === ComponentScope.REQUEST) {
-      this.inversifyContainer.bind(component).toSelf().inRequestScope();
+      binding = this.inversifyContainer.bind(componentClass).toSelf().inRequestScope();
     }
     else {
-      this.inversifyContainer.bind(component).toSelf();
+      binding = this.inversifyContainer.bind(componentClass).toSelf();
     }
+
+    return {
+      proxy: this.proxyComponent(binding)
+    };
   }
 
   // Add a bound component to a container namespace
@@ -107,6 +115,17 @@ export class Container {
     ) as inversify.Container;
 
     return new Container(inversifyContainer);
+  }
+
+  private proxyComponent(binding: inversify.interfaces.BindingWhenOnSyntax<any>) {
+    /**
+     * Proxy a component instance
+     */
+    return (proxyHandler: ProxyHandler<any>) => {
+      binding.onActivation((context, instance) => {
+        return new Proxy(instance, proxyHandler);
+      });
+    };
   }
 
   private addToGroup(groupPrefix: string, group: string, component: ClassConstructor) {
