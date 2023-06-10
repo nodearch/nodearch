@@ -17,6 +17,7 @@ export * from './components/hook/hook.decorator.js';
 export * from './components/hook/hook.interface.js';
 
 export * from './components/interceptor/interceptor.decorator.js';
+export * from './components/interceptor/interceptor.interfaces.js';
 
 export * from './components/repository/repository.decorator.js';
 

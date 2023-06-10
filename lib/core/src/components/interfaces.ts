@@ -85,7 +85,7 @@ export interface IGetDecoratorsOptions {
   /** Get all decorators that are placed on this method */
   method?: string;
 
-  /** Get all @Use() decorators where the passed component id matches this id */ 
+  /** Get all `Use` decorators where the passed component id matches this id */ 
   useId?: string;
 
   /** Get all decorators based on their placement on the component */
