@@ -1,22 +1,22 @@
-import inversify from 'inversify';
+import inversify, { interfaces } from 'inversify';
 import { DependencyException } from '../errors.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentScope } from '../components/enums.js';
-import { IBindActivationHandler, IBindComponentOptions } from './interfaces.js';
-import { BindingHooks } from './binding-hooks.js';
-import { ContainerBinder } from './component-binder.js';
+import { IBindActivationHandler, IBindComponentOptions, IBindDeactivationHandler } from './interfaces.js';
 
 
+/**
+ * DI Container.
+ * An abstraction over the inversify container.
+ */
 
 
 export class Container {
   
   private inversifyContainer: inversify.Container;
-  private containerBinder: ContainerBinder;
 
   constructor(inversifyContainer: inversify.Container) {
     this.inversifyContainer = inversifyContainer;
-    this.containerBinder = new ContainerBinder(inversifyContainer);
   }
 
   // Bind a component to an object
@@ -31,27 +31,34 @@ export class Container {
 
   // Bind a component to itself (the component class) with a scope
   bindComponent<T>(options: IBindComponentOptions<T>) {
-
-    const binding = this.containerBinder
-      .bindComponent(
+    // Bind the component to the inversify container
+    const binding = this.bindClass(
         options.componentClass, 
         options.scope
       );
 
+    // Register the activation hooks.
+
     if (options.onActivation) {
-      BindingHooks.activation(binding, options.onActivation);
+      options.onActivation.forEach(handler => {
+        binding.onActivation(this.activationHandlerWrap(handler));
+      });
     }
 
     if (options.onDeactivation) {
-      BindingHooks.deactivation(binding, options.onDeactivation);
+      options.onDeactivation.forEach(handler => {
+        binding.onDeactivation(this.deactivationHandlerWrap(handler));
+      });
     }
 
     let namespaces = options.namespace ? (Array.isArray(options.namespace) ? options.namespace : [options.namespace]) : [];
 
+    // Bind the component to all requested namespaces
     namespaces.forEach(ns => {
       this.inversifyContainer.bind(this.getNamespaceId(ns)).toService(options.componentClass);
     });
 
+    // Bind the component to the container by it's id
     this.inversifyContainer.bind(this.getComponentGroupId(options.id)).toService(options.componentClass);
   }
 
@@ -114,6 +121,40 @@ export class Container {
     ) as inversify.Container;
 
     return new Container(inversifyContainer);
+  }
+
+  private bindClass(componentClass: ClassConstructor, scope?: ComponentScope) {
+    let binding: inversify.interfaces.BindingWhenOnSyntax<any>;
+
+    if (scope === ComponentScope.SINGLETON) {
+      binding = this.inversifyContainer.bind(componentClass).toSelf().inSingletonScope();
+    }
+    else if (scope === ComponentScope.TRANSIENT) {
+      binding = this.inversifyContainer.bind(componentClass).toSelf().inTransientScope();
+    }
+    else if (scope === ComponentScope.REQUEST) {
+      binding = this.inversifyContainer.bind(componentClass).toSelf().inRequestScope();
+    }
+    else {
+      binding = this.inversifyContainer.bind(componentClass).toSelf();
+    }
+
+    return binding;
+  }
+
+  // We'll need to pass a custom context to the activation handler.
+  private activationHandlerWrap<T>(handler: IBindActivationHandler<T>) {
+    return (context: interfaces.Context, instance: T) => {
+      // TODO: pass custom context
+      return handler({}, instance);
+    };
+  }
+
+  // It doesn't do much, but it's here just in case inversify API changes.
+  private deactivationHandlerWrap<T>(handler: IBindDeactivationHandler<T>) {
+    return (instance: T) => {
+      handler(instance);
+    };
   }
 
   private getAll<T>(id: string) {
