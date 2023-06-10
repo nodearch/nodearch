@@ -6,7 +6,7 @@ import { IBindActivationHandler, IBindComponentOptions, IBindDeactivationHandler
 
 
 /**
- * DI Container.
+ * Components' DI Container.
  * An abstraction over the inversify container.
  */
 
@@ -51,15 +51,24 @@ export class Container {
       });
     }
 
-    let namespaces = options.namespace ? (Array.isArray(options.namespace) ? options.namespace : [options.namespace]) : [];
+    this.bindIdToComponent(options.componentClass, options.id);
 
-    // Bind the component to all requested namespaces
-    namespaces.forEach(ns => {
-      this.inversifyContainer.bind(this.getNamespaceId(ns)).toService(options.componentClass);
+    if (options.namespace) {
+      this.bindNamespacesToComponent(options.componentClass, options.namespace);
+    }
+  }
+
+  // Bind exported component from an extension to the parent container
+  bindExtensionComponent<T>(options: IBindComponentOptions<T>, extContainer: Container) {
+    this.bindDynamic(options.componentClass, () => {
+      return extContainer.get(options.componentClass);
     });
 
-    // Bind the component to the container by it's id
-    this.inversifyContainer.bind(this.getComponentGroupId(options.id)).toService(options.componentClass);
+    this.bindIdToComponent(options.componentClass, options.id);
+
+    if (options.namespace) {
+      this.bindNamespacesToComponent(options.componentClass, options.namespace);
+    }
   }
 
   // Get all components' instances in a container namespace
@@ -140,6 +149,18 @@ export class Container {
     }
 
     return binding;
+  }
+
+  private bindIdToComponent(componentClass: ClassConstructor, id: string) {
+    this.inversifyContainer.bind(this.getComponentGroupId(id)).toService(componentClass);
+  }
+
+  private bindNamespacesToComponent(componentClass: ClassConstructor, namespaces: string | string[]) {
+    namespaces = namespaces ? (Array.isArray(namespaces) ? namespaces : [namespaces]) : [];
+
+    namespaces.forEach(ns => {
+      this.inversifyContainer.bind(this.getNamespaceId(ns)).toService(componentClass);
+    });
   }
 
   // We'll need to pass a custom context to the activation handler.

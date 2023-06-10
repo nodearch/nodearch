@@ -14,9 +14,8 @@ import { ComponentScope, CoreDecorator } from '../components/enums.js';
 export class App {
 
   public static nodearch = true;
-  public components: ComponentRegistry;
-  public container: Container;
-  
+  private componentRegistry: ComponentRegistry;
+  private container: Container;
   private extensions?: App[];
   private logOptions: ILogOptions;
   private configOptions?: Record<string, any>;
@@ -33,58 +32,10 @@ export class App {
       defaultScope: options.components.scope || ComponentScope.SINGLETON
     });
     this.container = new Container(this.inversifyContainer);
-    this.components = new ComponentRegistry(this.container);
+    this.componentRegistry = new ComponentRegistry(this.container);
     this.extensions = options.extensions;
     this.logOptions = options.logs || {};
     this.configOptions = options.config;
-  }
-
-  private loadCoreComponents() {
-    this.logger = new Logger(this.logOptions);
-
-    // appContext is created only in the main app and passed to extensions
-    if (!this.appContext) {
-      this.appContext = new AppContext(this.components, this.container, this.appInfo!, this.logger.getLogLevel());
-    }
-
-    this.container.bindConstant(Logger, this.logger);
-    this.container.bindConstant(AppContext, this.appContext);
-    this.container.bindConstant(ConfigManager, new ConfigManager(this.configOptions));
-  }
-
-  private async loadExtensions() {
-    if (this.extensions) {
-      for (const extension of this.extensions) {
-        try {
-          await extension.init({
-            mode: 'ext',
-            logs: this.logOptions,
-            appContext: this.appContext
-          });
-        }
-        catch (e: any) {
-          throw new Error(`While trying to register Extension ${extension.name} - ${e.message}`);
-        }
-      }
-    }
-  }
-
-
-  private async loadComponents() {
-    await this.classLoader.load();
-    this.components.register(this.classLoader.classes);
-
-    // this.logger.debug(`${registered} Components Loaded`);
-    // this.logger.debug(`${hooks} Hooks registered`);
-    // this.logger.debug(`${exported} Components exported`);
-  }
-
-  private registerExtensions() {
-    if (this.extensions) {
-      this.extensions.forEach(ext => {
-        this.components.registerExtensions(ext.components.getExported());
-      });
-    }
   }
 
   async start() {
@@ -125,9 +76,70 @@ export class App {
   }
 
   /**
+   * Return the DI container
+   */
+  getContainer() {
+    return this.container;
+  }
+
+  /**
+   * Returns the components registered in the app
+   */
+  getComponentRegistry() {
+    return this.componentRegistry;
+  }
+
+  /**
    * Returns the Constructor name
    */
   get name() {
     return this.constructor.name;
+  }
+
+  private loadCoreComponents() {
+    this.logger = new Logger(this.logOptions);
+
+    // appContext is created only in the main app and passed to extensions
+    if (!this.appContext) {
+      this.appContext = new AppContext(this.components, this.container, this.appInfo!, this.logger.getLogLevel());
+    }
+
+    this.container.bindConstant(Logger, this.logger);
+    this.container.bindConstant(AppContext, this.appContext);
+    this.container.bindConstant(ConfigManager, new ConfigManager(this.configOptions));
+  }
+
+  private async loadExtensions() {
+    if (this.extensions) {
+      for (const extension of this.extensions) {
+        try {
+          await extension.init({
+            mode: 'ext',
+            logs: this.logOptions,
+            appContext: this.appContext
+          });
+        }
+        catch (e: any) {
+          throw new Error(`While trying to register Extension ${extension.name} - ${e.message}`);
+        }
+      }
+    }
+  }
+
+  private async loadComponents() {
+    await this.classLoader.load();
+    this.components.register(this.classLoader.classes);
+
+    // this.logger.debug(`${registered} Components Loaded`);
+    // this.logger.debug(`${hooks} Hooks registered`);
+    // this.logger.debug(`${exported} Components exported`);
+  }
+
+  private registerExtensions() {
+    if (this.extensions) {
+      this.extensions.forEach(ext => {
+        this.componentRegistry.registerExtension(ext.getComponentRegistry(), ext.getContainer());
+      });
+    }
   }
 } 

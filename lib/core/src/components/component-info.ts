@@ -1,15 +1,19 @@
 import { Container } from '../container/container.js';
 import { ClassInfo } from '../utils/class-info.js';
 import { ClassConstructor } from '../utils/types.js';
-import { ComponentBinder } from './component-binding.js';
-import { isComponent } from './decorator-factory.js';
+import { ComponentFactory } from './decorator-factory.js';
 import { CoreDecorator, DecoratorType } from './enums.js';
 import { IComponentDecorator, IGetDecoratorsOptions } from './interfaces.js';
 import { IComponentRegistration } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 
 
-// Do binding here for the component and remove component handler
+/**
+ * The `ComponentInfo` class represents information about a component in the dependency injection framework.
+ * It provides methods to retrieve decorators, registration details, and other information related to the component.
+ * This class is typically used by the framework internally to manage components and their metadata as well as
+ * any extension that requires information about the app components.
+ */
 export class ComponentInfo<T = any> {
   private classConstructor: ClassConstructor;
   private registration: IComponentRegistration<T>;
@@ -24,27 +28,14 @@ export class ComponentInfo<T = any> {
     this.decorators = ComponentMetadata.getComponentDecorators(classConstructor);
     this.container = container;
     this.methods = ClassInfo.getMethods(classConstructor);
-    ComponentBinder.bindComponent({
-      container,
-      componentClass: classConstructor,
-      id: registration.id,
-      namespace: registration.options?.namespace,
-      scope: registration.options?.scope
-    });
   }
 
-  getClass() {
-    return this.classConstructor;
-  }
-
-  getInstance() {
-    return this.container.get(this.classConstructor);
-  }
-
-  getMethods() {
-    return this.methods;
-  }
-
+  /**
+   * Retrieves the decorators of the component based on the provided options.
+   *
+   * @param options - Options for retrieving decorators.
+   * @returns An array of component decorators.
+   */
   getDecorators<T = any>(options: IGetDecoratorsOptions = {}): IComponentDecorator<T>[] {
     let decorators = [...this.decorators];
 
@@ -70,62 +61,146 @@ export class ComponentInfo<T = any> {
 
     if (options.useId) {
       decorators = decorators.filter(deco => {
-        return deco.id === CoreDecorator.USE && isComponent(deco.data.component, options.useId);
+        return deco.id === CoreDecorator.USE && ComponentFactory.isComponent(deco.data.component, options.useId);
       });
     }
     
     return decorators;
   }
 
+  /**
+   * Retrieves the IDs of the decorators applied to the component.
+   *
+   * @returns An array of decorator IDs.
+   */
   getDecoratorsIds() {
-    const decorators = this.decorators.map(deco => deco.id);
-    // TODO: remove this
-    decorators.push(this.registration.id);
-    return decorators;
+    return this.decorators.map(deco => deco.id);
   }
 
+  /**
+   * Retrieves the registration information of the component.
+   *
+   * @returns The component registration information.
+   */
   getRegistration() {
     return this.registration;
   }
 
-  get isExported () {
-    return this.registration.options?.export;
+  /**
+   * Retrieves the class constructor of the component.
+   *
+   * @returns The class constructor.
+   */
+  getClass () {
+    return this.classConstructor;
   }
 
-  get id () {
+  /**
+   * Retrieves an instance of the component from the DI container.
+   *
+   * @returns An instance of the component.
+   */
+  getInstance() {
+    return this.container.get(this.classConstructor);
+  }
+
+  /**
+   * Retrieves the methods of the component.
+   *
+   * @returns An array of method names.
+   */
+  getMethods() {
+    return this.methods;
+  }
+
+  /**
+   * Retrieves the ID of the component.
+   *
+   * @returns The component ID.
+   */
+  getId () {
     return this.registration.id;
   }
 
-  get options () {
+  /**
+   * Retrieves the options passed to the component decorator.
+   *
+   * @returns The component options.
+   */
+  getOptions () {
     return this.registration.options;
   }
 
-  get data () {
+  /**
+   * Retrieves the data object passed to the component decorator.
+   *
+   * @returns The component data.
+   */
+  getData () {
     return this.registration.data;
   }
 
-  get dependencies () {
+  /**
+   * Retrieves the dependencies of the component.
+   *
+   * @returns An array of dependency classes.
+   */
+  getDependencies () {
     return this.registration.dependencies;
   }
 
-  get isHook () {
+  /**
+   * Retrieves the name of the component class.
+   *
+   * @returns The name of the component class.
+   */
+  getName () {
+    return this.classConstructor.name;
+  }
+
+  /**
+   * Checks if the component is exported.
+   *
+   * @returns A boolean indicating if the component is exported.
+   */
+  isExported () {
+    return this.registration.options?.export;
+  }
+
+  /**
+   * Checks if the component is a hook.
+   *
+   * @returns A boolean indicating if the component is a hook.
+   */
+  isHook () {
     return this.registration.id === CoreDecorator.HOOK;
   }
 
-  get isController () {
+  /**
+   * Checks if the component is a controller.
+   *
+   * @returns A boolean indicating if the component is a controller.
+   */
+  isController () {
     return this.registration.id === CoreDecorator.CONTROLLER;
   }
 
-  get isService () {
+  /**
+   * Checks if the component is a service.
+   *
+   * @returns A boolean indicating if the component is a service.
+   */
+  isService () {
     return this.registration.id === CoreDecorator.SERVICE;
   }
 
-  get isRepository () {
+  /**
+   * Checks if the component is a repository.
+   *
+   * @returns A boolean indicating if the component is a repository.
+   */
+  isRepository () {
     return this.registration.id === CoreDecorator.REPOSITORY;
-  }
-
-  get name () {
-    return this.classConstructor.name;
   }
 
   private getDecoratorPlacement(deco: IComponentDecorator) {

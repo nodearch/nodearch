@@ -68,10 +68,9 @@ export interface IComponentRegistration<T = any> {
 }
 
 export interface IGetComponentsOptions {
-  // Filter by component id
+  /** The ID of the decorator used to filter the list. */
   id?: string;
-
-  // Filter by decorator id for a decorator that is placed on the component
+  /** An array of decorator IDs to filter the list by. */
   decoratorIds?: string[];
 }
 
@@ -82,16 +81,16 @@ export interface IComponentOptions {
 }
 
 export interface IGetDecoratorsOptions {
-  // Get all decorators that have this id
+  /** Get all decorators that have this id */
   id?: string;
 
-  // Get all decorators that are placed on this method
+  /** Get all decorators that are placed on this method */
   method?: string;
 
-  // Get all @Use() decorators where the passed component id matches this id 
+  /** Get all @Use() decorators where the passed component id matches this id */ 
   useId?: string;
 
-  // Get all decorators based on their placement on the component
+  /** Get all decorators based on their placement on the component */
   placement?: DecoratorType[];
 }
 
