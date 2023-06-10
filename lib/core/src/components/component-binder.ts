@@ -14,6 +14,7 @@ export class ComponentBinder {
     this.container = container;
   }
 
+  // TODO: move most of the code to interceptor folder. This will only be registering the activation handler if interceptors were found.
   bindComponent(componentInfo: ComponentInfo) {
 
     const activationHandlers: IBindActivationHandler<IInterceptor>[] = [];
