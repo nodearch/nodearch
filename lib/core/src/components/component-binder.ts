@@ -15,9 +15,9 @@ export class ComponentBinder {
 
     this.container.bindComponent({
       componentClass: componentInfo.getClass(),
-      id: componentInfo.id,
-      namespace: componentInfo.options?.namespace,
-      scope: componentInfo.options?.scope
+      id: componentInfo.getId(),
+      namespace: componentInfo.getOptions().namespace,
+      scope: componentInfo.getOptions().scope
     })
 
     // .proxy({
@@ -60,9 +60,9 @@ export class ComponentBinder {
     this.container.bindExtensionComponent(
       {
         componentClass: componentInfo.getClass(),
-        id: componentInfo.id,
-        namespace: componentInfo.options?.namespace,
-        scope: componentInfo.options?.scope
+        id: componentInfo.getId(),
+        namespace: componentInfo.getOptions().namespace,
+        scope: componentInfo.getOptions().scope
       },
       extContainer
     );

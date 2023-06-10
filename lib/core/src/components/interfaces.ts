@@ -1,7 +1,6 @@
 import { Container } from '../container/container.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentScope, DecoratorType } from './enums.js';
-import { ComponentHandler } from './component-handler.js';
 import { ComponentInfo } from './component-info.js';
 
 
@@ -56,7 +55,6 @@ export interface IComponentHandler {
 
 export interface IComponentRegistration<T = any> {
   id: string;
-  handler?: ClassConstructor<ComponentHandler>;
   options?: IComponentOptions;
   data?: T;
   /**

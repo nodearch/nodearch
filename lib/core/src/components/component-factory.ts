@@ -1,7 +1,6 @@
 import { injectable } from 'inversify';
 import { ClassInfo } from '../utils/class-info.js';
 import { ClassConstructor } from '../utils/types.js';
-import { ComponentHandler } from './component-handler.js';
 import { IDecoratorDependency, IComponentOptions } from './interfaces.js';
 import { IComponentRegistration } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
@@ -24,7 +23,6 @@ export class ComponentFactory {
   static componentDecorator<T>(
     options: {
       id: string;
-      handler?: ClassConstructor<ComponentHandler>;
       options?: IComponentOptions;
       fn?(target: any): T | void;
       dependencies?: ClassConstructor[];
@@ -33,7 +31,6 @@ export class ComponentFactory {
 
     const compInfo: IComponentRegistration = {
       id: options.id,
-      handler: options.handler,
       options: options.options
     };
 

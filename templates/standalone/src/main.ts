@@ -1,5 +1,5 @@
 import { App, LogLevel } from '@nodearch/core';
-import { MochaApp } from '@nodearch/mocha';
+// import { MochaApp } from '@nodearch/mocha';
 
 export default class Standalone extends App {
   constructor() {
@@ -11,7 +11,7 @@ export default class Standalone extends App {
         logLevel: LogLevel.Debug
       },
       extensions: [
-        new MochaApp()
+        // new MochaApp()
       ]
     });
   }

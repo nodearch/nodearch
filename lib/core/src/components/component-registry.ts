@@ -97,7 +97,7 @@ export class ComponentRegistry {
     let components: ComponentInfo[] = [];
 
     if (id) {
-      components = [...this.registeredComponents.filter(comp => comp.id === id)];
+      components = [...this.registeredComponents.filter(comp => comp.getId() === id)];
     }
     else {
       components = [...this.registeredComponents];

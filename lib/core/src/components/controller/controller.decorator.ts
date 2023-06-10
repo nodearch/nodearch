@@ -1,7 +1,7 @@
 
-import { componentDecorator } from '../decorator-factory.js';
+import { ComponentFactory } from '../component-factory.js';
 import { CoreDecorator } from '../enums.js';
 import { IComponentOptions } from '../interfaces.js';
 
 export const Controller = (options?: IComponentOptions): ClassDecorator => 
-  componentDecorator({ id: CoreDecorator.CONTROLLER, options});
+  ComponentFactory.componentDecorator({ id: CoreDecorator.CONTROLLER, options});

@@ -9,6 +9,7 @@ import { AppContext } from './app-context.js';
 import { IAppInfo, IAppOptions, IInitOptions } from './app.interfaces.js';
 import { ComponentRegistry } from '../components/component-registry.js';
 import { ComponentScope, CoreDecorator } from '../components/enums.js';
+import { ComponentInfo } from '../decorators.index.js';
 
 
 export class App {
@@ -24,6 +25,7 @@ export class App {
   private appContext!: AppContext;
   private inversifyContainer: inversify.Container;
   private appInfo?: IAppInfo;
+  private hooks: IHook[];
 
 
   constructor(options: IAppOptions) {
@@ -36,14 +38,11 @@ export class App {
     this.extensions = options.extensions;
     this.logOptions = options.logs || {};
     this.configOptions = options.config;
+    this.hooks = [];
   }
 
   async start() {
-    const hooks = this.container.getComponentGroup<IHook>(CoreDecorator.HOOK);
-
-    if (!hooks) return;
-
-    for (const hook of hooks) {
+    for (const hook of this.hooks) {
       if (hook.onStart) {
         await hook.onStart();
       }
@@ -51,10 +50,10 @@ export class App {
   }
 
   async stop() {
-    const hooks = this.container.getComponentGroup<IHook>(CoreDecorator.HOOK);
-
-    if (hooks) {
-      await Promise.all(hooks.filter(x => x.onStop).map(x => (<any>x.onStop)()));
+    for (const hook of this.hooks) {
+      if (hook.onStop) {
+        await hook.onStop();
+      }
     }
   }
 
@@ -70,9 +69,13 @@ export class App {
     }
 
     this.loadCoreComponents();
+
+    // TODO: add bootstrapping logs here
+
     await this.loadExtensions();
     this.registerExtensions();
     await this.loadComponents();
+    this.initHooks();
   }
 
   /**
@@ -101,7 +104,7 @@ export class App {
 
     // appContext is created only in the main app and passed to extensions
     if (!this.appContext) {
-      this.appContext = new AppContext(this.components, this.container, this.appInfo!, this.logger.getLogLevel());
+      this.appContext = new AppContext(this.componentRegistry, this.container, this.appInfo!, this.logger.getLogLevel());
     }
 
     this.container.bindConstant(Logger, this.logger);
@@ -126,20 +129,26 @@ export class App {
     }
   }
 
-  private async loadComponents() {
-    await this.classLoader.load();
-    this.components.register(this.classLoader.classes);
-
-    // this.logger.debug(`${registered} Components Loaded`);
-    // this.logger.debug(`${hooks} Hooks registered`);
-    // this.logger.debug(`${exported} Components exported`);
-  }
-
   private registerExtensions() {
     if (this.extensions) {
       this.extensions.forEach(ext => {
         this.componentRegistry.registerExtension(ext.getComponentRegistry(), ext.getContainer());
       });
     }
+  }
+
+  private async loadComponents() {
+    await this.classLoader.load();
+    this.componentRegistry.register(this.classLoader.classes);
+
+    // this.logger.debug(`${registered} Components Loaded`);
+    // this.logger.debug(`${hooks} Hooks registered`);
+    // this.logger.debug(`${exported} Components exported`);
+  }
+
+  private initHooks() {
+    this.hooks = this.componentRegistry
+      .get<IHook>({ id: CoreDecorator.HOOK })
+      .map(compInfo => compInfo.getInstance());
   }
 } 
