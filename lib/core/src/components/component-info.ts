@@ -79,6 +79,7 @@ export class ComponentInfo<T = any> {
 
   getDecoratorsIds() {
     const decorators = this.decorators.map(deco => deco.id);
+    // TODO: remove this
     decorators.push(this.registration.id);
     return decorators;
   }

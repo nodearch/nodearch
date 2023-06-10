@@ -88,6 +88,8 @@ export class ComponentRegistry {
 
       const componentInfo = new ComponentInfo(classConstructor, registration, this.container);
 
+      // TODO: store componentInfo map instead of decorators map.  
+
       // Add to the decorators map
       componentInfo.getDecoratorsIds().forEach(
         decoId => this.getComponentInfoSet(decoId).add(componentInfo)
