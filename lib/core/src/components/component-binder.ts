@@ -1,20 +1,19 @@
 import { isAsyncFunction } from 'node:util/types';
-import { IBinderBindOptions, IComponentDecorator } from './interfaces.js';
+import { IComponentDecorator } from './interfaces.js';
 import { ComponentInfo } from './component-info.js';
 import { Container } from '../container/container.js';
 import { IBindActivationContext, IBindActivationHandler } from '../container/interfaces.js';
-import { CoreDecorator, DecoratorType } from './enums.js';
+import { CoreDecorator } from './enums.js';
 import { IInterceptor } from '../index.js';
 
 export class ComponentBinder {
-  
+
   private container: Container;
 
   constructor(container: Container) {
     this.container = container;
   }
 
-  // TODO: move most of the code to interceptor folder. This will only be registering the activation handler if interceptors were found.
   bindComponent(componentInfo: ComponentInfo) {
 
     const activationHandlers: IBindActivationHandler<IInterceptor>[] = [];
@@ -23,72 +22,8 @@ export class ComponentBinder {
       useId: CoreDecorator.INTERCEPTOR
     });
 
-    console.log('interceptorDecorators', interceptorDecorators);
-
     if (interceptorDecorators.length) {
-      const interceptorHandler = (context: IBindActivationContext, instance: IInterceptor) => {
-
-        const proxy = {
-          get: (target: any, propKey: string) => {
-            const originalMethod = target[propKey];
-
-            if (typeof originalMethod === 'function' && propKey !== 'constructor') {
-
-              const interceptors = this.getInterceptorInstanceByMethod(interceptorDecorators, propKey, instance);
-
-              if (isAsyncFunction(originalMethod)) {
-                return async function (...args: any) {
-                  let result, state = true;
-      
-
-                  if (propKey === interceptorDecorators[0].method) {
-                    // state = interceptorInstance.before();
-                  }
-
-                  if (state) {
-                    result = await originalMethod.apply(target, args);
-                  }
-      
-                  if (!state) {
-                    throw new Error('Interceptor error');
-                  }
-                  else {
-                    return result;
-                  }
-                }
-              }
-              else {
-                return function (...args: any) {
-                  let result, state = true;
-      
-                  if (propKey === interceptorDecorators[0].method) {
-                    state = interceptors.every(interceptorInstance => interceptorInstance.before ? interceptorInstance.before() : true);
-                  }
-
-                  if (state) {
-                    result = originalMethod.apply(target, args);
-                  }
-      
-                  if (!state) {
-                    // throw new Error(`Unhandled Interceptor Error - @${interceptorInstance.constructor.name} on ${componentInfo.getName()}.${propKey}`);
-                  }
-                  else {
-                    return result;
-                  }
-                }
-              }
-            }
-            else {
-              return originalMethod;
-            }
-          }
-        };
-        
-        
-        return new Proxy(instance, proxy);
-      };
-
-      activationHandlers.push(interceptorHandler);
+      activationHandlers.push(this.getInterceptorHandler(interceptorDecorators));
     }
 
     this.container.bindComponent({
@@ -112,13 +47,74 @@ export class ComponentBinder {
     );
   }
 
-  private getInterceptorInstanceByMethod(interceptorDecorators: IComponentDecorator<any>[], method: string, instance: IInterceptor) {
+  // Get a component proxy (interceptor handler)
+  private getInterceptorHandler(interceptorDecorators: IComponentDecorator[]) {
+    return (context: IBindActivationContext, instance: IInterceptor) => {
+      const proxy = {
+        get: (target: any, propKey: string) => {
+          // Keep a reference to the original method
+          const originalMethod = target[propKey];
+
+          // Make sure the method we'll proxy is a function and not the constructor
+          if (typeof originalMethod !== 'function' || propKey === 'constructor') return originalMethod;
+
+          // Get the interceptors' instances for the current method
+          const interceptors = this.getMethodInterceptors(interceptorDecorators, propKey, instance);
+
+          // If there are no interceptors, return the original method
+          if (!interceptors.length) return originalMethod;
+
+          // If the original method is async, return an async function
+          if (isAsyncFunction(originalMethod)) {
+            return async function (...args: any) {
+              let result;
+
+              for (const interceptorInstance of interceptors) {
+                interceptorInstance.before ? await interceptorInstance.before() : true;
+              }
+
+              result = await originalMethod.apply(target, args);
+
+              for (const interceptorInstance of interceptors) {
+                interceptorInstance.after ? await interceptorInstance.after() : true;
+              }
+
+              return result;
+            }
+          }
+          // If the original method is not async, return a sync function
+          else {
+            return function (...args: any) {
+              let result;
+
+              for (const interceptorInstance of interceptors) {
+                interceptorInstance.before ? interceptorInstance.before() : true;
+              }
+
+              result = originalMethod.apply(target, args);
+
+              for (const interceptorInstance of interceptors) {
+                interceptorInstance.after ? interceptorInstance.after() : true;
+              }
+
+              return result;
+            }
+          }
+        }
+      };
+
+      return new Proxy(instance, proxy);
+    };
+  }
+
+  // Return a list of interceptors' instances for a given method
+  private getMethodInterceptors(interceptorDecorators: IComponentDecorator<any>[], method: string, instance: IInterceptor) {
     const decorators = interceptorDecorators.filter(decorator => !decorator.method || decorator.method === method);
-  
+
     return decorators.map(decorator => {
       const key = decorator.dependencies[0].key;
       const interceptorInstance = (instance as any)[key];
-  
+
       return interceptorInstance as IInterceptor;
     })
   }

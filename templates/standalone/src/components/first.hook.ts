@@ -9,7 +9,14 @@ export class FirstHook implements IHook {
   ) {}
 
   async onStart() {
-    const result = this.simpleService.sum(Math.random() * 100, Math.random() * 100);
-    console.log('Standalone APP - FirstHook.onStart - result', Math.floor(result));
+    try {
+      const result = this.simpleService.sum(Math.random() * 100, Math.random() * 100);
+      const result2 = this.simpleService.sum2(Math.random() * 100, Math.random() * 100);
+      console.log('Standalone APP - FirstHook.onStart - result', Math.floor(result));
+    }
+    catch (error) {
+      console.log('Standalone APP - FirstHook.onStart - error', error);
+    }
+
   }
 }

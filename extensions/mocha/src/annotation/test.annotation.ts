@@ -1,4 +1,5 @@
-import { ComponentFactory, ComponentScope } from '@nodearch/core';
+import { ComponentScope } from '@nodearch/core';
+import { ComponentFactory } from '@nodearch/core/decorators';
 import { camelToTitle, ClassConstructor } from '@nodearch/core/utils';
 import { MochaAnnotation, TestMode } from './test.enums.js';
 import { ITestCaseOptions, ITestSuiteMetadata, ITestSuiteOptions } from './test.interfaces.js';
@@ -14,7 +15,7 @@ export function Test(...args: (string | ITestSuiteOptions | Omit<ITestSuiteOptio
     id: MochaAnnotation.Test,
     options: {
       export: false,
-      scope: ComponentScope.Singleton
+      scope: ComponentScope.SINGLETON
     },
     fn(target) {
       
@@ -39,7 +40,7 @@ export function Mock(component: ClassConstructor): ClassDecorator {
     id: MochaAnnotation.Mock,
     options: {
       export: false,
-      scope: ComponentScope.Transient
+      scope: ComponentScope.TRANSIENT
     },
     fn() {
       return { component };

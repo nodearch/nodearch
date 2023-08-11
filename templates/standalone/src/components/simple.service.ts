@@ -8,7 +8,19 @@ export class SimpleInterceptor implements IInterceptor {
 
   before() {
     console.log('SimpleInterceptor.before');
-    return true;
+    // throw new Error('SimpleInterceptor.before');
+    // return true;
+  }
+}
+
+@Interceptor()
+export class SimpleInterceptor2 implements IInterceptor {
+  async handler(data: {args: any[]}) {
+    console.log('SimpleInterceptor2.handler', data);
+  }
+
+  before() {
+    console.log('SimpleInterceptor2.before');
   }
 }
 
@@ -17,6 +29,11 @@ export class SimpleService {
   
   @Use(SimpleInterceptor)
   sum(x: number, y: number) {
+    return x + y;
+  }
+
+  @Use(SimpleInterceptor2)
+  sum2(x: number, y: number) {
     return x + y;
   }
 
