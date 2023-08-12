@@ -1,7 +1,7 @@
 import { AppContext, Service } from '@nodearch/core';
 import { IExpressInfo, IExpressRoute, IExpressRouteHandlerInput, IHttpMethodInfo } from './interfaces.js';
 import { IMiddlewareInfo } from '../middleware/interfaces.js';
-import { ComponentInfo, CoreDecorator, DecoratorType, IComponentDecorator } from '@nodearch/core/decorators';
+import { ComponentInfo, CoreDecorator, DecoratorType, IComponentDecorator } from '@nodearch/core/components';
 import { ExpressDecorator } from './enums.js';
 
 

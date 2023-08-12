@@ -9,7 +9,7 @@ import { AppContext } from './app-context.js';
 import { IAppInfo, IAppOptions, IInitOptions } from './app.interfaces.js';
 import { ComponentRegistry } from '../components/component-registry.js';
 import { ComponentScope, CoreDecorator } from '../components/enums.js';
-import { ComponentInfo } from '../decorators.index.js';
+import { ComponentInfo } from '../components.index.js';
 
 
 export class App {

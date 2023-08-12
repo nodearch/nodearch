@@ -7,9 +7,9 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./decorators": {
-      "import": "./dist/decorators.index.js",
-      "types": "./dist/decorators.index.d.ts"
+    "./components": {
+      "import": "./dist/components.index.js",
+      "types": "./dist/components.index.d.ts"
     },
     "./fs": {
       "import": "./dist/fs.index.js",

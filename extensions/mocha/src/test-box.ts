@@ -1,4 +1,4 @@
-import { Container } from '@nodearch/core';
+import { Container } from '@nodearch/core/components';
 import { ClassConstructor } from '@nodearch/core/utils';
 import { IComponentOverride } from './annotation/test.interfaces.js';
 

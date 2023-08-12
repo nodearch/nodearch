@@ -5,7 +5,7 @@ import http from 'node:http';
 import https from 'node:https';
 import express from 'express';
 import { Stats } from 'node:fs';
-import { ComponentInfo } from '@nodearch/core/decorators';
+import { ComponentInfo } from '@nodearch/core/components';
 
 
 export interface IExpressAppOptions {

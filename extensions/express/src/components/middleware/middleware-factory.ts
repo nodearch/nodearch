@@ -1,7 +1,7 @@
 import { Service } from '@nodearch/core';
 import { ErrorRegistry } from '../errors/error-registry.js';
 import { IExpressMiddlewareHandler, IMiddlewareInfo, IMiddlewareProvider } from './interfaces.js';
-import { ComponentInfo } from '@nodearch/core/decorators';
+import { ComponentInfo } from '@nodearch/core/components';
 
 
 @Service()

@@ -1,7 +1,7 @@
 import { ClassMethodDecorator } from '@nodearch/core/utils';
 import OAISchema from 'openapi3-ts';
 import { OpenApiDecorator } from '../enums.js';
-import { classDecorator, classMethodDecorator, methodDecorator } from '@nodearch/core/decorators';
+import { classDecorator, classMethodDecorator, methodDecorator } from '@nodearch/core/components';
 
 
 export const Servers = (options: OAISchema.ServerObject[]): ClassDecorator =>

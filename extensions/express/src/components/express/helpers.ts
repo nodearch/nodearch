@@ -1,4 +1,4 @@
-import { classDecorator, methodDecorator, parameterDecorator } from '@nodearch/core/decorators';
+import { classDecorator, methodDecorator, parameterDecorator } from '@nodearch/core/components';
 import { ExpressDecorator, HttpMethod, RouteHandlerParam } from './enums.js';
 import { IHttpMethodInfo } from './interfaces.js';
 

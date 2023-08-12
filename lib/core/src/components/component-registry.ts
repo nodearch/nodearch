@@ -28,7 +28,7 @@ export class ComponentRegistry {
    * @param options An object containing options for filtering the list of components.
    * @returns An array of ComponentInfo objects.
    */
-  get<T = any>(options?: IGetComponentsOptions): ComponentInfo<T>[] {
+  get<T = any, D = any>(options?: IGetComponentsOptions): ComponentInfo<T, D>[] {
 
     let components = this.getComponents(options?.id);
 

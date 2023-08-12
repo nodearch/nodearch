@@ -1,5 +1,5 @@
 import express from 'express';
-import { IUseProvider, IUseProviderClass } from '@nodearch/core/decorators';
+import { IUseProvider, IUseProviderClass } from '@nodearch/core/components';
 
 
 export type IExpressMiddlewareHandler = (req: express.Request, res: express.Response, next: express.NextFunction) => void;

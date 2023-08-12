@@ -1,5 +1,5 @@
-import { App, AppContext, ComponentInfo, Container, Service } from '@nodearch/core';
-import { ClassConstructor } from '@nodearch/core/utils';
+import { App, AppContext, Service } from '@nodearch/core';
+import { ComponentInfo, Container } from '@nodearch/core/components';
 import { TestBox } from '../test-box.js';
 import { MochaAnnotation, TestMode } from '../annotation/test.enums.js';
 import { ITestCaseOptions, ITestSuiteOptions, TestHook } from '../annotation/test.interfaces.js';
@@ -15,6 +15,7 @@ export class TestService {
 
   async getTestSuitesInfo(testModes: TestMode[]) {
     try {
+      // Can't we just use AppContext instead of loading the app again?
       const appLoader = new AppLoader({ appLoadMode: AppLoadMode.TS, cwd: this.appContext.appInfo.paths.rootDir });
       const app = await appLoader.load() as App;
 
@@ -22,26 +23,29 @@ export class TestService {
         await app.start();
       }
 
-      const testComponents = app.components.getComponents<ITestSuiteOptions>(MochaAnnotation.Test);
-      const mockComponents = app.components.getComponents(MochaAnnotation.Mock);
+      const testComponents = app.getComponentRegistry().get<any, ITestSuiteOptions>({ id: MochaAnnotation.Test });
+      const mockComponents = app.getComponentRegistry().get({ id: MochaAnnotation.Mock });
 
       const suiteInfo = testComponents
         .filter((componentInfo) => {
-          return testModes.includes(componentInfo.data!.mode as TestMode);
+          return testModes.includes(componentInfo.getData()?.mode || TestMode.UNIT);
         })
         .map(componentInfo => {
 
           // Create a clone from the original container
-          const cloneContainer = app.container.clone();
+          const cloneContainer = app.getContainer().clone();
 
           // Bind an instance of the TestBox to the cloned container
-          cloneContainer.bindToConstant(TestBox, new TestBox(cloneContainer));
+          cloneContainer.bindConstant(TestBox, new TestBox(cloneContainer));
 
           this.applyMocks(componentInfo, mockComponents, cloneContainer);
 
           const compInstance = cloneContainer.get(componentInfo.getClass());
 
-          const suiteOptions = componentInfo.data as ITestSuiteOptions;
+          const suiteOptions = componentInfo.getData() || {
+            title: componentInfo.getName(),
+            timeout: 2000
+          };
 
           return {
             name: suiteOptions.title as string,
@@ -65,23 +69,23 @@ export class TestService {
   }
 
   private applyMocks(testComponentInfo: ComponentInfo, mockComponents: ComponentInfo[], container: Container) {
-    testComponentInfo.getDecoratorsById<{ component: ClassConstructor }>(MochaAnnotation.UseMock)
+    testComponentInfo.getDecorators({ id: MochaAnnotation.UseMock })
       .forEach(({ data }) => {
 
         const mockComp = mockComponents
           .find(
             comp => comp.getClass() === data!.component
-          ) as ComponentInfo<{ component: ClassConstructor }>;
+          ) as ComponentInfo;
 
         const mockInstance = container.get(mockComp.getClass());
 
-        container.override(mockComp.data!.component, mockInstance);
+        container.override(mockComp.getData().component, mockInstance);
 
       });
   }
 
   private getCases(componentInfo: ComponentInfo, compInstance: any) {
-    return componentInfo.getDecoratorsById(MochaAnnotation.Case)
+    return componentInfo.getDecorators({ id: MochaAnnotation.Case })
       .map(({ method, data }) => {
         const { title, active, params } = data as Required<ITestCaseOptions>;
         return {
@@ -93,7 +97,7 @@ export class TestService {
   }
 
   private getBeforeAll(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
-    return componentInfo.getDecoratorsById(MochaAnnotation.BeforeAll)
+    return componentInfo.getDecorators({ id: MochaAnnotation.BeforeAll })
       .map(({ method, data }) => {
         const { title } = data as { title: string };
         return {
@@ -105,7 +109,7 @@ export class TestService {
   }
 
   private getAfterAll(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
-    return componentInfo.getDecoratorsById(MochaAnnotation.AfterAll)
+    return componentInfo.getDecorators({ id: MochaAnnotation.AfterAll })
       .map(({ method, data }) => {
         const { title } = data as { title: string };
         return {
@@ -117,7 +121,7 @@ export class TestService {
   }
 
   private getBeforeEach(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
-    return componentInfo.getDecoratorsById(MochaAnnotation.BeforeEach)
+    return componentInfo.getDecorators({ id: MochaAnnotation.BeforeEach })
       .map(({ method, data }) => {
         const { title } = data as { title: string };
         return {
@@ -129,7 +133,7 @@ export class TestService {
   }
 
   private getAfterEach(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
-    return componentInfo.getDecoratorsById(MochaAnnotation.AfterEach)
+    return componentInfo.getDecorators({ id: MochaAnnotation.AfterEach })
       .map(({ method, data }) => {
         const { title } = data as { title: string };
         return {

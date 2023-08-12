@@ -1,5 +1,5 @@
 import { ComponentScope } from '@nodearch/core';
-import { ComponentFactory } from '@nodearch/core/decorators';
+import { ComponentFactory } from '@nodearch/core/components';
 import { camelToTitle, ClassConstructor } from '@nodearch/core/utils';
 import { MochaAnnotation, TestMode } from './test.enums.js';
 import { ITestCaseOptions, ITestSuiteMetadata, ITestSuiteOptions } from './test.interfaces.js';
