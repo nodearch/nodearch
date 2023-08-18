@@ -16,15 +16,18 @@ export class TestService {
   async getTestSuitesInfo(testModes: TestMode[]) {
     try {
       // Can't we just use AppContext instead of loading the app again?
-      const appLoader = new AppLoader({ appLoadMode: AppLoadMode.TS, cwd: this.appContext.appInfo.paths.rootDir });
-      const app = await appLoader.load() as App;
+      // const appLoader = new AppLoader({ appLoadMode: AppLoadMode.TS, cwd: this.appContext.appInfo.paths.rootDir });
+      // const app = await appLoader.load() as App;
 
-      if (testModes.includes(TestMode.E2E)) {
-        await app.start();
-      }
+      // if (testModes.includes(TestMode.E2E)) {
+      //   await app.start();
+      // }
 
-      const testComponents = app.getComponentRegistry().get<any, ITestSuiteOptions>({ id: MochaAnnotation.Test });
-      const mockComponents = app.getComponentRegistry().get({ id: MochaAnnotation.Mock });
+      // const testComponents = app.getComponentRegistry().get<any, ITestSuiteOptions>({ id: MochaAnnotation.Test });
+      // const mockComponents = app.getComponentRegistry().get({ id: MochaAnnotation.Mock });
+
+      const testComponents = this.appContext.getComponentRegistry().get<any, ITestSuiteOptions>({ id: MochaAnnotation.Test });
+      const mockComponents = this.appContext.getComponentRegistry().get({ id: MochaAnnotation.Mock });
 
       const suiteInfo = testComponents
         .filter((componentInfo) => {
@@ -33,7 +36,7 @@ export class TestService {
         .map(componentInfo => {
 
           // Create a clone from the original container
-          const cloneContainer = app.getContainer().clone();
+          const cloneContainer = this.appContext.getContainer().clone();
 
           // Bind an instance of the TestBox to the cloned container
           cloneContainer.bindConstant(TestBox, new TestBox(cloneContainer));

@@ -95,8 +95,14 @@ export class App {
   /**
    * Returns the Constructor name
    */
-  get name() {
+  getName() {
     return this.constructor.name;
+  }
+
+  getAppInfo() {
+    if (!this.appInfo) throw new Error('AppInfo is not available before calling init() on the App');
+
+    return this.appInfo;
   }
 
   private loadCoreComponents() {
@@ -104,7 +110,8 @@ export class App {
 
     // appContext is created only in the main app and passed to extensions
     if (!this.appContext) {
-      this.appContext = new AppContext(this.componentRegistry, this.container, this.appInfo!, this.logger.getLogLevel());
+      // this.appContext = new AppContext(this.componentRegistry, this.container, this.appInfo!, this.logger.getLogLevel());
+      this.appContext = this;
     }
 
     this.container.bindConstant(Logger, this.logger);
@@ -123,7 +130,7 @@ export class App {
           });
         }
         catch (e: any) {
-          throw new Error(`While trying to register Extension ${extension.name} - ${e.message}`);
+          throw new Error(`While trying to register Extension ${extension.getName()} - ${e.message}`);
         }
       }
     }
