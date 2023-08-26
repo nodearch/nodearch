@@ -4,7 +4,8 @@
   "description": "nodearch socket.io server",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "rimraf ./dist/ && tsc"
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc"
   },
   "repository": {
     "type": "git",

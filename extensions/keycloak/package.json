@@ -6,6 +6,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc",
     "release": "npm run build && npm publish --tag beta --access public"
   },
   "repository": {

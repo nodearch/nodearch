@@ -1,2 +1,2 @@
-export * from './jwt';
-export * from './app-role';
+export * from './jwt.js';
+export * from './app-role.js';

@@ -127,6 +127,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "c8",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "chai",
       "allowedCategories": [ "prototypes" ]
     },

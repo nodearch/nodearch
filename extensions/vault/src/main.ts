@@ -1,21 +1,15 @@
 import path from 'path';
 import { App } from '@nodearch/core';
-import { IVaultOptions } from './interfaces';
+import { IVaultOptions } from './interfaces.js';
 const pkg = require('../package.json');
 
 export class Vault extends App {
   constructor(options?: IVaultOptions) {
     super({
-      appInfo: {
-        name: pkg.name,
-        version: pkg.version
+      components: {
+        url: new URL('components', import.meta.url)
       },
-      classLoader: {
-        classpath: path.join(__dirname, 'components')
-      },
-      config: {
-        externalConfig: options
-      }
+      config: options
     });
   }
 }

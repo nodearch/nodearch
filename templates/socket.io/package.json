@@ -5,6 +5,7 @@
   "main": "./dist/main.js",
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc",
     "start": "node dist/start.js"
   },
   "keywords": [],

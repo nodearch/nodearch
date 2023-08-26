@@ -1,4 +1,4 @@
-export * from './database';
-export * from './aws';
-export * from './kv';
+export * from './database.js';
+export * from './aws.js';
+export * from './kv.js';
 // export * from './kv2';

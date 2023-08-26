@@ -1,8 +1,8 @@
 import request from 'request-promise-native';
 import { Service } from '@nodearch/core';
-import { VaultConfig } from '../vault.config';
-import { IAWSGetCredsOptions, IAWSGetCredsResponse } from '../../interfaces';
-import { VaultError } from '../../vault.error';
+import { VaultConfig } from '../vault.config.js';
+import { IAWSGetCredsOptions, IAWSGetCredsResponse } from '../../interfaces.js';
+import { VaultError } from '../../vault.error.js';
 
 
 @Service()
