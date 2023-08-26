@@ -1,16 +1,18 @@
 import { pathToFileURL } from 'node:url';
 import { AppLoadMode } from './enums.js';
 import { FileLoader } from './file-loader.js';
-import { IAppLoaderOptions } from './interfaces.js';
+import { IAppLoaderOptions, IAppLoaderResult } from './interfaces.js';
 import { UrlParser } from './url-parser.js';
-import { IAppInfo, IPackageJSON, ITsConfig } from '../app/app.interfaces.js';
+import { IAppSettings, IPackageJSON, ITsConfig } from '../app/app.interfaces.js';
 import { App } from '../app/app.js';
+
+
 
 
 export class AppLoader {
 
   public isAppDir: boolean;
-  public appInfo?: IAppInfo;
+  public appSettings?: IAppSettings;
   public app?: App;
 
   private cwd: URL;
@@ -18,8 +20,10 @@ export class AppLoader {
   private pkgUrl: URL;
   private tsConfigUrl: URL;
   private nodeModulesDir: URL;
-  private appLoadMode: AppLoadMode;
+  private loadMode: AppLoadMode;
   private appEntry: string;
+  private args: any[];
+  private initMode: 'init' | 'start' | 'none';
 
   constructor(options?: IAppLoaderOptions) {
     this.isAppDir = false;
@@ -28,8 +32,10 @@ export class AppLoader {
     this.pkgUrl = UrlParser.join(this.cwd, 'package.json');
     this.tsConfigUrl = UrlParser.join(this.cwd, this.tsConfigName);
     this.nodeModulesDir = UrlParser.join(this.cwd, 'node_modules');
-    this.appLoadMode = options?.appLoadMode || AppLoadMode.JS;
+    this.loadMode = options?.loadMode || AppLoadMode.JS;
     this.appEntry = options?.appEntry || 'main';
+    this.args = options?.args || [];
+    this.initMode = options?.initMode || 'none';
   }
 
   async load() {
@@ -42,19 +48,31 @@ export class AppLoader {
     this.isAppDir = true;
 
     // Get the app info object
-    this.appInfo = await this.getAppInfo(pkgInfo);
+    this.appSettings = await this.getAppSettings(pkgInfo);
 
-    const loadedModule = await FileLoader.importModule(this.appInfo.paths.app);
+    const loadedModule = await FileLoader.importModule(this.appSettings.paths.app);
 
     const AppClass = this.getAppObject(loadedModule);
     
     if (AppClass) {
-      this.app = new AppClass(this.appInfo) as App;
-      await this.app.init({
-        mode: 'app',
-        appInfo: this.appInfo
-      });
-      return this.app;
+
+      const app = (new AppClass(...this.args)) as App;
+
+      if (this.initMode === 'init' || this.initMode === 'start') {
+        await app.init({
+          mode: 'app',
+          appSettings: this.appSettings
+        });
+      }
+
+      if (this.initMode === 'start') {
+        await app.start();
+      }
+
+      return {
+        app,
+        appSettings: this.appSettings
+      } as IAppLoaderResult;
     }
   }
 
@@ -65,24 +83,24 @@ export class AppLoader {
   }
 
   // Returns the app info object with the paths to the app files and directories
-  private async getAppInfo(pkgInfo: IPackageJSON) {
+  private async getAppSettings(pkgInfo: IPackageJSON) {
     const tsConfig = await FileLoader.importJSON(this.tsConfigUrl, true) as ITsConfig;
     
     let appDir: URL;
 
-    if (this.appLoadMode === AppLoadMode.TS) {
+    if (this.loadMode === AppLoadMode.TS) {
       appDir = UrlParser.join(this.cwd, tsConfig.compilerOptions.rootDir || 'src');
     }
     else {
       appDir = UrlParser.join(this.cwd, tsConfig.compilerOptions.outDir || 'dist');
     }
 
-    const app = UrlParser.join(appDir, this.appEntry + '.' + this.appLoadMode);
+    const app = UrlParser.join(appDir, this.appEntry + '.' + this.loadMode);
 
-    const appInfo: IAppInfo = {
+    const appInfo: IAppSettings = {
       name: pkgInfo.name,
       version: pkgInfo.version,
-      loadMode: this.appLoadMode,
+      loadMode: this.loadMode,
       paths: {
         rootDir: this.cwd,
         nodeModulesDir: this.nodeModulesDir,

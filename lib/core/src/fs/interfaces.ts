@@ -1,7 +1,8 @@
 import { ParsedPath } from 'path';
 import { ClassConstructor } from '../utils/types.js';
 import { AppLoadMode, FileType } from './enums.js';
-
+import { App } from '../app/app.js';
+import { IAppSettings } from '../app/app.interfaces.js';
 
 
 export interface IFileInfo extends ParsedPath {
@@ -33,5 +34,14 @@ export interface IAppLoaderOptions {
   appEntry?: string;
 
   // App load mode (e.g. 'ts' or 'js')
-  appLoadMode?: AppLoadMode;
+  loadMode?: AppLoadMode;
+
+  args?: any[];
+
+  initMode?: 'init' | 'start';
+}
+
+export interface IAppLoaderResult {
+  app: App;
+  appSettings: IAppSettings;
 }

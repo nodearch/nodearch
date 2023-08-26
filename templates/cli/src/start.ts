@@ -1,16 +1,12 @@
-import CliTemplate from './main.js';
-import { fileURLToPath } from 'node:url';
+import { AppLoadMode, AppLoader } from '@nodearch/core/fs';
 
 
 async function main() {
-  const app = new CliTemplate(true);
-
-  await app.init({
-    mode: 'app',
-    appInfo: fileURLToPath(new URL('../package.json', import.meta.url))
-  });
-
-  await app.start();
+  const appLoader = new AppLoader({ cwd: new URL('..', import.meta.url), loadMode: AppLoadMode.JS, initMode: 'start', args: [true] });
+  await appLoader.load();
 }
 
-main().catch(console.log);
+main().catch(e => {
+  console.log(e);
+  process.exit(1);
+});

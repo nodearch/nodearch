@@ -6,7 +6,7 @@ import { ClassLoader } from '../fs/class-loader.js';
 import { ILogger, ILogOptions } from '../log/interfaces.js';
 import { Logger } from '../log/logger.js';
 import { AppContext } from './app-context.js';
-import { IAppInfo, IAppOptions, IInitOptions } from './app.interfaces.js';
+import { IAppOptions, IAppSettings, IInitOptions } from './app.interfaces.js';
 import { ComponentRegistry } from '../components/component-registry.js';
 import { ComponentScope, CoreDecorator } from '../components/enums.js';
 import { ComponentInfo } from '../components.index.js';
@@ -24,7 +24,7 @@ export class App {
   private logger!: ILogger;
   private appContext!: AppContext;
   private inversifyContainer: inversify.Container;
-  private appInfo?: IAppInfo;
+  private appSettings?: IAppSettings;
   private hooks: IHook[];
 
 
@@ -61,7 +61,7 @@ export class App {
     // TODO: We can probably add performance insights here
 
     if (options.mode === 'app') {
-      this.appInfo = options.appInfo;
+      this.appSettings = options.appSettings;
     }
     else if (options.mode === 'ext') {
       this.logOptions = { ...options.logs, prefix: this.logOptions.prefix || 'EXT' };
@@ -99,10 +99,10 @@ export class App {
     return this.constructor.name;
   }
 
-  getAppInfo() {
-    if (!this.appInfo) throw new Error('AppInfo is not available before calling init() on the App');
+  getAppSettings() {
+    if (!this.appSettings) throw new Error('App Settings is not available before calling init() on the App');
 
-    return this.appInfo;
+    return this.appSettings;
   }
 
   private loadCoreComponents() {
@@ -110,7 +110,7 @@ export class App {
 
     // appContext is created only in the main app and passed to extensions
     if (!this.appContext) {
-      // this.appContext = new AppContext(this.componentRegistry, this.container, this.appInfo!, this.logger.getLogLevel());
+      // this.appContext = new AppContext(this.componentRegistry, this.container, this.appSettings!, this.logger.getLogLevel());
       this.appContext = this;
     }
 

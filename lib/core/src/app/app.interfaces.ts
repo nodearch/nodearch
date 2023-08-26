@@ -21,14 +21,14 @@ export type IAppOptions = {
 
 export type IInitOptions = {
   mode: 'app';
-  appInfo: IAppInfo;
+  appSettings: IAppSettings;
 } | {
   mode: 'ext';
   logs: ILogOptions;
   appContext: AppContext;
 };
 
-export interface IAppInfo {
+export interface IAppSettings {
   name: string;
   version: string;
   paths: IAppPaths;
