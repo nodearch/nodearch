@@ -2,11 +2,11 @@ import { Use } from '@nodearch/core';
 import { JoiDecorator } from '../enums.js';
 import Joi from 'joi';
 import { ValidationMiddleware } from '../components/validation.middleware.js';
-import { methodDecorator } from '@nodearch/core/components';
+import { ComponentFactory } from '@nodearch/core/components';
 
 
 export const Validate = (schema: Joi.Schema): MethodDecorator => {
-  return methodDecorator({
+  return ComponentFactory.methodDecorator({
     id: JoiDecorator.VALIDATE,
     fn(target, propKey, descriptor) {
 

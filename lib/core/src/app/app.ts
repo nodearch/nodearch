@@ -92,17 +92,17 @@ export class App {
     return this.componentRegistry;
   }
 
+  getSettings() {
+    if (!this.appSettings) throw new Error('App Settings is not available before calling init() on the App');
+
+    return this.appSettings;
+  }
+
   /**
    * Returns the Constructor name
    */
   getName() {
-    return this.constructor.name;
-  }
-
-  getAppSettings() {
-    if (!this.appSettings) throw new Error('App Settings is not available before calling init() on the App');
-
-    return this.appSettings;
+    return this.appSettings?.name || this.constructor.name;
   }
 
   private loadCoreComponents() {

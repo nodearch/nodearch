@@ -1,10 +1,10 @@
 import { JoiDecorator } from '../enums.js';
 import { IValidateOptions } from '../interfaces.js';
-import { methodDecorator } from '@nodearch/core/components';
+import { ComponentFactory } from '@nodearch/core/components';
 
 
 export const Validate = (schema: IValidateOptions): MethodDecorator => {
-  return methodDecorator({
+  return ComponentFactory.methodDecorator({
     id: JoiDecorator.VALIDATE,
     fn(target, propKey, descriptor) {
 

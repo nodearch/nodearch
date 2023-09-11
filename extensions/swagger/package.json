@@ -33,9 +33,9 @@
   },
   "devDependencies": {
     "@nodearch/core": "workspace:^1.4.2",
-    "@types/node": "^16.18.0",
+    "@types/node": "^18.11.9",
     "rimraf": "~3.0.2",
-    "typescript": "^4.7.2",
+    "typescript": "^5.2.2",
     "@types/swagger-ui-dist": "^3.30.1"
   },
   "dependencies": {

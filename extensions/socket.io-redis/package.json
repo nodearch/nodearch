@@ -24,9 +24,9 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@types/node": "^16.18.0",
+    "@types/node": "^18.11.9",
     "rimraf": "~3.0.2",
-    "typescript": "^4.7.2",
+    "typescript": "^5.2.2",
     "@nodearch/socket.io": "workspace:^0.5.2",
     "@nodearch/core": "workspace:^1.4.2"
   },

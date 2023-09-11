@@ -39,7 +39,7 @@ export class StartCommand implements ICommand {
     }
 
     const starterScriptPath = path.join(
-      fileURLToPath(this.appContext.appInfo.paths.appDir), 
+      fileURLToPath(this.appContext.getSettings().paths.appDir), 
       'utils', 'app-starter.ts'
     );
 
