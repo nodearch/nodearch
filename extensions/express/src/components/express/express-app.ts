@@ -43,7 +43,7 @@ export class ExpressApp {
 
   private registerStatic(app: express.Application) {
     if (this.expressConfig.static) {
-      const rootDirPath = fileURLToPath(this.appContext.appInfo.paths.rootDir);
+      const rootDirPath = fileURLToPath(this.appContext.getSettings().paths.rootDir);
       
       this.expressConfig.static.forEach(staticItem => {
         let filePath =  staticItem.filePath;

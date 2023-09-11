@@ -1,11 +1,11 @@
 import { ClassMethodDecorator } from '@nodearch/core/utils';
 import OAISchema from 'openapi3-ts';
 import { OpenApiDecorator } from '../enums.js';
-import { classDecorator, classMethodDecorator, methodDecorator } from '@nodearch/core/components';
+import { ComponentFactory } from '@nodearch/core/components';
 
 
 export const Servers = (options: OAISchema.ServerObject[]): ClassDecorator =>
-  classDecorator({ 
+ComponentFactory.classDecorator({ 
     id: OpenApiDecorator.SERVERS, 
     fn: () => {
       return options;
@@ -13,7 +13,7 @@ export const Servers = (options: OAISchema.ServerObject[]): ClassDecorator =>
   });
 
 export const Tags = (options: string[]): ClassMethodDecorator =>
-  classMethodDecorator({ 
+  ComponentFactory.classMethodDecorator({ 
     id: OpenApiDecorator.TAGS, 
     fn: () => {
       return options;
@@ -21,7 +21,7 @@ export const Tags = (options: string[]): ClassMethodDecorator =>
   });
 
 export const Responses = (options: OAISchema.ResponsesObject): MethodDecorator =>
-  methodDecorator({ 
+  ComponentFactory.methodDecorator({ 
     id: OpenApiDecorator.RESPONSES, 
     fn: () => {
       return options;
@@ -29,7 +29,7 @@ export const Responses = (options: OAISchema.ResponsesObject): MethodDecorator =
   });
 
 export const RequestBody = (options: OAISchema.RequestBodyObject): MethodDecorator =>
-  methodDecorator({ 
+  ComponentFactory.methodDecorator({ 
     id: OpenApiDecorator.REQUEST_BODY, 
     fn: () => {
       return options;
@@ -37,7 +37,7 @@ export const RequestBody = (options: OAISchema.RequestBodyObject): MethodDecorat
   });
 
 export const RouteInfo = (options: Partial<OAISchema.OperationObject>): MethodDecorator =>
-  methodDecorator({ 
+  ComponentFactory.methodDecorator({ 
     id: OpenApiDecorator.ROUTE_INFO, 
     fn: () => {
       return options;

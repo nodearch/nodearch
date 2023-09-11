@@ -13,7 +13,7 @@ export class ExpressParser {
   constructor(appContext: AppContext) {
     this.expressInfo = { routers: [] };
 
-    const componentsInfo = appContext.components.get({
+    const componentsInfo = appContext.getComponentRegistry().get({
       id: CoreDecorator.CONTROLLER,
       decoratorIds: [
         ExpressDecorator.HTTP_METHOD

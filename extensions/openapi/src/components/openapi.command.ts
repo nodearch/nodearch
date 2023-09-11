@@ -39,7 +39,7 @@ export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
 
     let filePath = options.path || 
       this.config.path || 
-      fileURLToPath(UrlParser.join(this.appContext.appInfo.paths.rootDir, 'openapi.' + format));
+      fileURLToPath(UrlParser.join(this.appContext.getSettings().paths.rootDir, 'openapi.' + format));
 
     const fileExtensions = Object.values(OpenAPIFormat).map(ft => '.' + ft);
     let specs: string = '';

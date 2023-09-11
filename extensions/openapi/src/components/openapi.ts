@@ -30,7 +30,7 @@ export class OpenAPI {
 
     // Add all custom providers
     this.openAPIConfig.providers.forEach(provider => {
-      const oaiProvider = this.appContext.container.get<IOpenAPIProvider>(provider);
+      const oaiProvider = this.appContext.getContainer().get<IOpenAPIProvider>(provider);
 
       if (oaiProvider) {
         providers.push(oaiProvider);

@@ -1,10 +1,10 @@
-import { classDecorator, methodDecorator, parameterDecorator } from '@nodearch/core/components';
+import { ComponentFactory } from '@nodearch/core/components';
 import { ExpressDecorator, HttpMethod, RouteHandlerParam } from './enums.js';
 import { IHttpMethodInfo } from './interfaces.js';
 
 
 export function httpPathFactory(path: string) {
-  return classDecorator({
+  return ComponentFactory.classDecorator({
     id: ExpressDecorator.HTTP_PATH,
     fn: (target: any) => {
       return {
@@ -15,7 +15,7 @@ export function httpPathFactory(path: string) {
 }
 
 export function httpMethodFactory(httpMethod: HttpMethod, path?: string) {
-  return methodDecorator<IHttpMethodInfo>({
+  return ComponentFactory.methodDecorator<IHttpMethodInfo>({
     id: ExpressDecorator.HTTP_METHOD,
     fn: (target: any, propKey: string | symbol) => {
       return {
@@ -28,7 +28,7 @@ export function httpMethodFactory(httpMethod: HttpMethod, path?: string) {
 }
 
 export function handlerParamFactory (paramType: RouteHandlerParam, key?: string) {
-  return parameterDecorator({
+  return ComponentFactory.parameterDecorator({
     id: ExpressDecorator.HTTP_PARAM,
     fn: (target, propKey, paramIndex) => {
       return {

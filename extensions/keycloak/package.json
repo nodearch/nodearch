@@ -2,8 +2,13 @@
   "name": "@nodearch/keycloak",
   "version": "1.2.1",
   "description": "keycloak extension for nodearch",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc",

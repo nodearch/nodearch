@@ -127,7 +127,7 @@ export class OAIBuiltInProvider implements IOpenAPIProvider {
 
   private getDecoratorsDefinitions(id: string) {
     return this.appContext
-      .components
+      .getComponentRegistry()
       .getDecorators({id})
       .map(decoInfo => {
         return {
