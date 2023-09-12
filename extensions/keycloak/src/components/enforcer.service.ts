@@ -1,7 +1,7 @@
-import { IAuthInfo } from '../interfaces';
-import { EnforcerResponseMode } from '../enums';
+import { IAuthInfo } from '../interfaces.js';
+import { EnforcerResponseMode } from '../enums.js';
 import request from 'request-promise-native';
-import { KeycloakConfig } from './keycloak.config';
+import { KeycloakConfig } from './keycloak.config.js';
 import queryString from 'query-string';
 import { Service } from '@nodearch/core';
 

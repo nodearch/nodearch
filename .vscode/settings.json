@@ -3,7 +3,10 @@
     "*.json": "jsonc"
   },
   "cSpell.words": [
+    "IJWT",
     "inversify",
+    "jwks",
+    "keycloak",
     "openapi"
   ]
 }

@@ -1,18 +1,12 @@
-import path from 'path';
 import { App } from '@nodearch/core';
-import { IKeycloakOptions } from './interfaces';
-const pkg = require('../package.json');
+import { IKeycloakOptions } from './interfaces.js';
 
 
 export class Keycloak extends App {
   constructor(options?: IKeycloakOptions) {
     super({
-      appInfo: {
-        name: pkg.name,
-        version: pkg.version
-      },
-      classLoader: {
-        classpath: path.join(__dirname, 'components')
+      components: {
+        url: new URL('components', import.meta.url)
       },
       config: {
         externalConfig: options

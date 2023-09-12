@@ -2,7 +2,13 @@
   "name": "@nodearch/socket.io",
   "version": "0.5.2",
   "description": "nodearch socket.io server",
-  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc"

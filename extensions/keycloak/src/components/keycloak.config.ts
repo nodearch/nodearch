@@ -1,6 +1,6 @@
 import { Config, ConfigManager } from '@nodearch/core';
 import { VerifyOptions } from 'jsonwebtoken';
-import { IJWT } from '../interfaces';
+import { IJWT } from '../interfaces.js';
 
 @Config()
 export class KeycloakConfig {

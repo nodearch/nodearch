@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import jwksClient from 'jwks-rsa';
 import { Service } from '@nodearch/core';
-import { IAuthInfo, IJWT } from '../interfaces';
-import { KeycloakConfig } from './keycloak.config';
+import { IAuthInfo, IJWT } from '../interfaces.js';
+import { KeycloakConfig } from './keycloak.config.js';
 
 @Service()
 export class KeycloakAuth {
