@@ -1,6 +1,6 @@
 import { Service } from '@nodearch/core';
-import { NamespaceService } from './namespace.service';
-import { SocketIOConfig } from './socketio.config';
+import { NamespaceService } from './namespace.service.js';
+import { SocketIOConfig } from './socketio.config.js';
 
 
 @Service()

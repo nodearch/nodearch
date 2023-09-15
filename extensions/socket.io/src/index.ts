@@ -1,6 +1,4 @@
-export * from './main';
-export * from './components/socketio.hook';
-export * from './components/socketio.server';
-export * from './annotation';
-export { INamespace, Adapter } from './interfaces';
-export { Socket } from 'socket.io';
+export * from './main.js';
+export * from './components/socketio.server.js';
+export * from './annotation.js';
+export { INamespace, Adapter } from './interfaces.js';
