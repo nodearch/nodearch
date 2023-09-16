@@ -1,10 +1,10 @@
 import { ComponentScope } from '@nodearch/core';
 import { Middleware } from './decorators.js';
-import { IExpressMiddlewareHandlerOptions, IMiddlewareProvider } from './interfaces.js';
+import { IExpressMiddlewareHandlerOptions, IMiddleware } from './interfaces.js';
 
 
 @Middleware({ export: true, scope: ComponentScope.SINGLETON })
-export class ExpressMiddleware implements IMiddlewareProvider {
+export class ExpressMiddleware implements IMiddleware {
   async handler(data: IExpressMiddlewareHandlerOptions) {
     const expressMiddleware = data.options;
     

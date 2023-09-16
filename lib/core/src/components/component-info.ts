@@ -53,7 +53,7 @@ export class ComponentInfo<T = any, D = any> {
 
     if (options.method) {
       decorators = decorators.filter(deco => {
-        return deco.type !== DecoratorType.CLASS && deco.method === options.method;
+        return deco.method === options.method || deco.method === undefined;
       });
     }
 

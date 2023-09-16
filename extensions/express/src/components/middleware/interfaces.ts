@@ -4,14 +4,14 @@ import { IUseProvider, IUseProviderClass } from '@nodearch/core/components';
 
 export type IExpressMiddlewareHandler = (req: express.Request, res: express.Response, next: express.NextFunction) => void;
 
-export type IMiddlewareProviderArgs = { req: express.Request; res: express.Response; };
+export type IMiddlewareArgs = { req: express.Request; res: express.Response; };
 
-export type IMiddlewareProvider = IUseProvider<IMiddlewareProviderArgs, any>;
+export type IMiddleware = IUseProvider<IMiddlewareArgs, any>;
 
-export type IMiddlewareProviderClass<T = undefined> = IUseProviderClass<T>;
+export type IMiddlewareClass<T = undefined> = IUseProviderClass<T>;
 
 export interface IMiddlewareInfo {
-  component: IMiddlewareProviderClass;
+  component: IMiddlewareClass;
   options?: any;
   dependencyKey?: string;
 }

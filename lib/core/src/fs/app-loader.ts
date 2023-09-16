@@ -51,13 +51,13 @@ export class AppLoader {
     this.appSettings = await this.getAppSettings(pkgInfo);
 
     const loadedModule = await FileLoader.importModule(this.appSettings.paths.app);
-
+    
     const AppClass = this.getAppObject(loadedModule);
     
     if (AppClass) {
 
       const app = (new AppClass(...this.args)) as App;
-
+      
       if (this.initMode === 'init' || this.initMode === 'start') {
         await app.init({
           mode: 'app',

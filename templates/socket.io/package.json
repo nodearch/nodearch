@@ -2,7 +2,6 @@
   "name": "@nodearch/template-socket.io",
   "version": "0.1.0",
   "description": "",
-  "exports": {},
   "type": "module",
   "engines": {
     "node": ">=18"
@@ -28,5 +27,6 @@
     "reflect-metadata": "^0.1.13",
     "@nodearch/socket.io": "workspace:^0.5.2",
     "socket.io": "^4.7.2"
-  }
+  },
+  "nodearch": {}
 }

@@ -9,7 +9,7 @@ import { AppContext } from './app-context.js';
 import { IAppOptions, IAppSettings, IInitOptions } from './app.interfaces.js';
 import { ComponentRegistry } from '../components/component-registry.js';
 import { ComponentScope, CoreDecorator } from '../components/enums.js';
-import { ComponentInfo } from '../components.index.js';
+import { ClassConstructor } from '../utils.index.js';
 
 
 export class App {
@@ -115,7 +115,7 @@ export class App {
     }
 
     this.container.bindConstant(Logger, this.logger);
-    this.container.bindConstant(AppContext, this.appContext);
+    this.container.bindConstant(AppContext as ClassConstructor, this.appContext);
     this.container.bindConstant(ConfigManager, new ConfigManager(this.configOptions));
   }
 
