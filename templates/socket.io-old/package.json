@@ -2,11 +2,7 @@
   "name": "@nodearch/template-socket.io",
   "version": "0.1.0",
   "description": "",
-  "exports": {},
-  "type": "module",
-  "engines": {
-    "node": ">=18"
-  },
+  "main": "./dist/main.js",
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc",

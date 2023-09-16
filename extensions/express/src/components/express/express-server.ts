@@ -10,28 +10,32 @@ export class ExpressServer {
   private expressConfig: ExpressConfig;
   private logger: Logger;
   private expressApp: ExpressApp;
+  private httpServer: http.Server | https.Server;
 
   constructor(expressConfig: ExpressConfig, expressApp: ExpressApp, logger: Logger) {
     this.expressConfig = expressConfig;
     this.expressApp = expressApp;
     this.logger  = logger;
+    this.httpServer = this.createServer();
   }
 
   async start() {
-    const httpServer = this.createServer();
-
     await new Promise((resolve, reject) => {
-      httpServer.listen(this.expressConfig.port, this.expressConfig.hostname);
+      this.httpServer.listen(this.expressConfig.port, this.expressConfig.hostname);
 
-      httpServer.on('error', err => {
+      this.httpServer.on('error', err => {
         reject(err);
       });
 
-      httpServer.on('listening', () => {
+      this.httpServer.on('listening', () => {
         this.logger.info(`Express: Server running at: ${this.expressConfig.hostname}:${this.expressConfig.port}`);
         resolve(0);
       });
     });
+  }
+
+  getServer() {
+    return this.httpServer;
   }
 
   private createServer() {

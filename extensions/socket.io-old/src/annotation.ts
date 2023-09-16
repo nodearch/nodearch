@@ -2,7 +2,6 @@ import { ComponentFactory } from '@nodearch/core/components';
 import { SocketIODecorator } from './enums.js';
 import { NamespaceName } from './interfaces.js';
 
-
 export function Subscribe(eventName: string): MethodDecorator {
   return ComponentFactory.methodDecorator({ id: SocketIODecorator.SUBSCRIBE, fn: () => ({ eventName }) });
 }

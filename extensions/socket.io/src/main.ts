@@ -1,20 +1,16 @@
 import { App } from '@nodearch/core';
-import path from 'path';
-import { ISocketIOOptions } from './interfaces';
+import { ISocketIOOptions } from './interfaces.js';
 
 
-export class SocketIO extends App {
-  constructor(options: ISocketIOOptions) {
+export class ExpressApp extends App {
+  constructor(options?: ISocketIOOptions) {
     super({
-      appInfo: {
-        name: 'socket.io',
-        version: '1.0.0'
+      components: {
+        url: new URL('components', import.meta.url)
       },
-      classLoader: {
-        classpath: path.join(__dirname, 'components')
-      },
-      config: {
-        externalConfig: options
+      config: options,
+      logs: {
+        prefix: 'Socket.IO'
       }
     });
   }
