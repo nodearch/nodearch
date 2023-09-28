@@ -9,6 +9,10 @@ export interface IComponentsOptions {
   defaultScope?: ComponentScope;
 }
 
+export interface IComponentDecoratorInfo<T = any> extends IComponentDecorator<T> {
+  componentInfo: ComponentInfo;
+}
+
 export type IComponentDecorator<T = any> = {
   /**
    * The id used to register and identify this decorator

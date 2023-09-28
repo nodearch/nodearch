@@ -47,8 +47,16 @@
       "allowedCategories": [ "production", "prototypes" ]
     },
     {
+      "name": "@nodearch/socket.io-admin-ui",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "@nodearch/swagger",
       "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@socket.io/admin-ui",
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "@socket.io/redis-adapter",

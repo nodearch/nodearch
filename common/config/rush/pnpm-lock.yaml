@@ -202,6 +202,34 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
 
+  ../../extensions/socket.io-admin-ui:
+    dependencies:
+      reflect-metadata:
+        specifier: 0.x
+        version: 0.1.13
+    devDependencies:
+      '@nodearch/core':
+        specifier: workspace:^1.4.2
+        version: link:../../lib/core
+      '@nodearch/socket.io':
+        specifier: workspace:^0.5.2
+        version: link:../socket.io
+      '@socket.io/admin-ui':
+        specifier: ~0.5.1
+        version: 0.5.1(socket.io@4.7.2)
+      '@types/node':
+        specifier: ^18.11.9
+        version: 18.17.15
+      rimraf:
+        specifier: ~3.0.2
+        version: 3.0.2
+      socket.io:
+        specifier: ^4.7.2
+        version: 4.7.2
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+
   ../../extensions/socket.io-redis:
     dependencies:
       '@socket.io/redis-adapter':
@@ -458,6 +486,9 @@ importers:
       '@nodearch/socket.io':
         specifier: workspace:^0.5.2
         version: link:../../extensions/socket.io
+      '@nodearch/socket.io-admin-ui':
+        specifier: workspace:^0.1.0
+        version: link:../../extensions/socket.io-admin-ui
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.13
@@ -778,6 +809,19 @@ packages:
   /@sideway/pinpoint@2.0.0:
     resolution: {integrity: sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==}
 
+  /@socket.io/admin-ui@0.5.1(socket.io@4.7.2):
+    resolution: {integrity: sha512-1dlGL2FGm6T+uL1e6iDvbo2eCINwvW7iVbjIblwh5kPPRM1SP8lmZrbFZf4QNJ/cqQ+JLcx49eXGM9WAB4TK7w==}
+    peerDependencies:
+      socket.io: '>=3.1.0'
+    dependencies:
+      '@types/bcryptjs': 2.4.4
+      bcryptjs: 2.4.3
+      debug: 4.3.4(supports-color@8.1.1)
+      socket.io: 4.7.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@socket.io/component-emitter@3.1.0:
     resolution: {integrity: sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==}
 
@@ -931,6 +975,10 @@ packages:
   /@tsconfig/node16@1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: false
+
+  /@types/bcryptjs@2.4.4:
+    resolution: {integrity: sha512-9wlJI7k5gRyJEC4yrV7DubzNQFTPiykYxUA6lBtsk5NlOfW9oWLJ1HdIA4YtE+6C3i3mTpDQQEosJ2rVZfBWnw==}
+    dev: true
 
   /@types/body-parser@1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
@@ -1265,6 +1313,10 @@ packages:
     dependencies:
       tweetnacl: 0.14.5
     dev: false
+
+  /bcryptjs@2.4.3:
+    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
+    dev: true
 
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}

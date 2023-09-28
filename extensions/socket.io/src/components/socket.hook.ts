@@ -1,42 +1,23 @@
-import { AppContext, Hook, Logger } from '@nodearch/core';
-import { SocketIODecorator } from '../enums.js';
+import { Hook, Logger } from '@nodearch/core';
+import { SocketService } from './socket.service.js';
+
 
 @Hook()
 export class SocketIOHook {
 
   constructor(
     private readonly logger: Logger,
-    private readonly appContext: AppContext
+    private readonly socketService: SocketService
   ) {}
 
   async onStart() {
-    this.logger.info('SocketIOHook onStart');
-    
-    const subscriptions: any[] = [];
+    try {
 
-    const subscribeDecorators = this.appContext.getComponentRegistry().getDecorators({
-      id: SocketIODecorator.SUBSCRIBE
-    });
-
-    subscribeDecorators.forEach((decorator) => {
-      const namespace = this.appContext.getComponentRegistry().getDecorators({
-        useId: SocketIODecorator.NAMESPACE,
-        method: decorator.method
-      });
-
-      const classNamespace = namespace.find((ns) => !ns.method);
-      const methodNamespace = namespace.find((ns) => ns.method);
-      const namespaceDecorator = methodNamespace || classNamespace;
-
-      if (namespaceDecorator) {
-        subscriptions.push({
-          eventName: decorator.data.eventName,
-          eventDecorator: decorator,
-          namespaceDecorator: namespaceDecorator
-        });
-      }
-    });
-
-    console.log(subscriptions);
+      await this.socketService.start();
+    }
+    catch(error: any) {
+      this.logger.error(error);
+    }
   }
+  
 }

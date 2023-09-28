@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO Example</title>
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+  </head>
+  <body>
+    <h1>Socket.IO Example</h1>
+    <script>
+      const socket = io('http://localhost:4000/user1');
+      socket.on('connect', () => {
+        console.log(`Connected with ID: ${socket.id}`);
+
+        setInterval(() => {
+          socket.emit('getUsers', 'Hello from client');
+        }, 1000);
+
+      });
+    </script>
+  </body>
+</html>

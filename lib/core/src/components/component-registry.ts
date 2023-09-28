@@ -2,7 +2,7 @@ import { Container } from '../container/container.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentBinder } from './component-binder.js';
 import { ComponentInfo } from './component-info.js';
-import { IGetComponentsOptions, IGetDecoratorsOptions } from './interfaces.js';
+import { IComponentDecoratorInfo, IGetComponentsOptions, IGetDecoratorsOptions } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 
 /**
@@ -40,18 +40,33 @@ export class ComponentRegistry {
   }
 
   /**
+   * Retrieves a ComponentInfo object that contains comprehensive information about a component class / instance.
+   * @param component The component class or instance.
+   * @returns A ComponentInfo object.
+   */
+  getInfo<T, D>(component: ClassConstructor | object) {
+    let classConstructor = component instanceof Function ? component : component.constructor;
+
+    return this.registeredComponents.find(comp => comp.getClass() === classConstructor) as ComponentInfo<T, D>;
+  }
+
+  /**
    * Returns decorators info from all components filtered by the passed options
    * @param id Decorator ID
    */
   getDecorators<T = any>(options: IGetDecoratorsOptions = {}) {
-    return this.getComponents()
+    return this
+      // Get all components
+      .getComponents()
       .map(comp => {
-        return comp.getDecorators<T>(options)
+        // Get decorators from each component
+        return comp
+          .getDecorators<T>(options)
           .map(decoInfo => {
             return {
               ...decoInfo,
               componentInfo: comp
-            };
+            } as IComponentDecoratorInfo<T>;
           })
       })
       .flat(1);
