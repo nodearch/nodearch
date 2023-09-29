@@ -6,7 +6,7 @@ import { DefaultNamespace } from './default-namespace.js';
 
 
 @Service()
-export class SubscriptionParserService {
+export class ParserService {
   
   constructor(
     private readonly logger: Logger,

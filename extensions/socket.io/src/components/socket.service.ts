@@ -3,7 +3,7 @@ import { SocketConfig } from './socket.config.js';
 import * as IO from 'socket.io';
 import http from 'http';
 import https from 'https';
-import { SubscriptionParserService } from './subscription-parser.service.js';
+import { ParserService } from './parser.service.js';
 
 
 @Service()
@@ -13,9 +13,9 @@ export class SocketService {
   private socketConfig: SocketConfig;
   private io: IO.Server;
   private server: http.Server | https.Server;
-  private parser: SubscriptionParserService; 
+  private parser: ParserService; 
 
-  constructor(logger: Logger, socketConfig: SocketConfig, parser: SubscriptionParserService) {
+  constructor(logger: Logger, socketConfig: SocketConfig, parser: ParserService) {
     this.logger = logger;
     this.socketConfig = socketConfig;
     this.parser = parser;
