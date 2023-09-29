@@ -45,7 +45,7 @@ export type INamespaceArgs = {};
 
 export type INamespace = IUseProvider<INamespaceArgs, any>;
 
-export type INamespaceComponentOptions = {
+export type INamespaceOptions = {
   name: NamespaceName;
 };
 

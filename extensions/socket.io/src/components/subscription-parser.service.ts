@@ -1,7 +1,7 @@
 import { AppContext, Logger, Service } from '@nodearch/core';
 import { SocketIODecorator } from '../enums.js';
 import { ClassConstructor } from '@nodearch/core/utils';
-import { INamespace, INamespaceComponentOptions, ISubscriptionInfo, ISubscriptionOptions, NamespaceName } from '../interfaces.js';
+import { INamespace, INamespaceOptions, ISubscriptionInfo, ISubscriptionOptions, NamespaceName } from '../interfaces.js';
 import { DefaultNamespace } from './default-namespace.js';
 
 
@@ -18,24 +18,31 @@ export class SubscriptionParserService {
 
     const subscriptions: ISubscriptionInfo[] = [];
   
+    // Get all socket events @Subscribe 
     const subscribeDecorators = registry.getDecorators<ISubscriptionOptions>({
       id: SocketIODecorator.SUBSCRIBE
     });
 
+    // Get events' namespaces
     subscribeDecorators.forEach((decorator) => {
-      const namespace = registry.getDecorators({
-        useId: SocketIODecorator.NAMESPACE,
+      const namespace = registry.getDecorators<INamespaceOptions>({
+        id: SocketIODecorator.NAMESPACE,
         method: decorator.method
       });
 
+      /**
+       * Try to get the namespace in that order:
+       * 1. Method namespace
+       * 2. Class namespace
+       * 3. Default namespace
+       */ 
       const classNamespace = namespace.find((ns) => !ns.method);
       const methodNamespace = namespace.find((ns) => ns.method);
       const namespaceDecorator = methodNamespace || classNamespace;
       let namespaceName: NamespaceName = '/';
 
       if (namespaceDecorator) {
-        const namespaceComponent = registry.getInfo<INamespace, INamespaceComponentOptions>(namespaceDecorator.data.component);
-        namespaceName = namespaceComponent.getData()!.name;
+        namespaceName = namespaceDecorator.data.name;
       }
 
       subscriptions.push({

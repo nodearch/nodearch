@@ -1,14 +1,10 @@
 import { Controller, Use } from '@nodearch/core';
-import { Subscribe, Namespace, INamespace, INamespaceArgs } from '@nodearch/socket.io';
+import { Subscribe, Namespace, INamespaceArgs } from '@nodearch/socket.io';
 
-
-@Namespace('/user1')
-export class UserNamespace implements INamespace {
-  async handler(data: { args: INamespaceArgs; options: any; }) {}
-}
 
 @Controller()
-@Use(UserNamespace)
+@Namespace('/user1')
+// @Use(UserNamespace)
 export class UserController {
   
   private users: any[];
