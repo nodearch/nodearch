@@ -1,15 +1,14 @@
-import { ComponentFactory } from '@nodearch/core/components';
+import { ComponentFactory, IComponentOptions } from '@nodearch/core/components';
 import { SocketIODecorator } from './enums.js';
 import { NamespaceName } from './interfaces.js';
-import { ClassMethodDecorator } from '@nodearch/core/utils';
 
 
-export function Subscribe(eventName: string): MethodDecorator {
+export function Subscribe(eventName: string) {
   return ComponentFactory.methodDecorator({ id: SocketIODecorator.SUBSCRIBE, fn: () => ({ eventName }) });
 }
 
-export function Namespace(name: NamespaceName): ClassMethodDecorator {
-  return ComponentFactory.classMethodDecorator({ id: SocketIODecorator.NAMESPACE, fn: () => ({ name }) });
+export function Namespace(name: NamespaceName, options?: IComponentOptions) {
+  return ComponentFactory.componentDecorator({ id: SocketIODecorator.NAMESPACE, options, fn: () => ({ name }) });
 }
 
 export function SocketInfo() {

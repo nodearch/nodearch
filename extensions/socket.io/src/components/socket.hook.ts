@@ -2,7 +2,7 @@ import { Hook, Logger } from '@nodearch/core';
 import { SocketService } from './socket.service.js';
 
 
-@Hook()
+@Hook({ export: true })
 export class SocketIOHook {
 
   constructor(

@@ -3,7 +3,8 @@ import { ClassConstructor } from '@nodearch/core/utils';
 import http from 'node:http';
 import https from 'node:https';
 import { ServerOptions } from 'socket.io';
-import { SocketIOServerProvider } from './index.js';
+import { SocketIOServerProvider } from './components/server.provider.js';
+import * as IO from 'socket.io';
 
 
 export interface ISocketIOOptions {
@@ -53,11 +54,19 @@ export type ISubscriptionOptions = {
   eventName: string;
 }; 
 
+export interface INamespaceInfo {
+  name: NamespaceName; 
+  events: ISubscriptionInfo[];
+}
+
 export interface ISubscriptionInfo {
-  namespace: NamespaceName;
   eventName: string;
-  eventComponent: ComponentInfo;
   eventMethod: string;
+  eventComponent: ComponentInfo;
 }
 
 export type ISocketIOServerProvider = ClassConstructor<SocketIOServerProvider>;
+
+export type INamespaceMap = Map<ComponentInfo, INamespaceInfo>;
+
+export type IMiddlewareFunction = Parameters<IO.Server['use']>[0];

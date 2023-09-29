@@ -77,7 +77,7 @@ export class ComponentRegistry {
    * @returns An array of ComponentInfo objects.
    */
   getExported() {
-    return this.registeredComponents.filter(comp => comp.isExported);
+    return this.registeredComponents.filter(comp => comp.isExported());
   }
 
   /**
