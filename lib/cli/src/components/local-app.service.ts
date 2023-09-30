@@ -1,6 +1,8 @@
-import { Logger, Service } from '@nodearch/core';
+import { AppContext, Logger, Service } from '@nodearch/core';
 import { AppLoader, AppLoadMode } from '@nodearch/core/fs';
 import { cwd } from 'node:process';
+import { pathToFileURL } from 'node:url';
+
 
 @Service()
 export class LocalAppService {
@@ -13,7 +15,7 @@ export class LocalAppService {
   constructor(logger: Logger) {
     this.hasLoadError = false;
     this.logger = logger;
-    this.appLoader = new AppLoader({ cwd: new URL(cwd()), loadMode: AppLoadMode.TS });
+    this.appLoader = new AppLoader({ cwd: pathToFileURL(cwd()), loadMode: AppLoadMode.TS, initMode: 'init' });
   }
 
   async init() {

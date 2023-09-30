@@ -42,6 +42,7 @@ export class App {
   }
 
   async start() {
+    this.initHooks();
     for (const hook of this.hooks) {
       if (hook.onStart) {
         await hook.onStart();
@@ -75,7 +76,6 @@ export class App {
     await this.loadExtensions();
     this.registerExtensions();
     await this.loadComponents();
-    this.initHooks();
   }
 
   /**

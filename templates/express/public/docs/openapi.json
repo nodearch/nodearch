@@ -5,6 +5,64 @@
     "version": "0.1.0"
   },
   "paths": {
+    "/product": {
+      "get": {
+        "summary": "getProducts",
+        "description": "Get Products",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "summary": "getProductById",
+        "description": "Get Product By Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/test": {
+      "get": {
+        "summary": "test",
+        "description": "Test",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "tags": [
+          "User Management",
+          "Special Tag"
+        ]
+      }
+    },
     "/": {
       "get": {
         "summary": "getUsers",
@@ -31,9 +89,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          },
-          "default": {
-            "description": "Default response"
           }
         },
         "tags": [

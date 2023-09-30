@@ -54,7 +54,7 @@ export class ExpressParser {
           return this.getRouteInfo(comp, deco);
         });
 
-      expressInfo.routers.push({
+        expressInfo.routers.push({
         controllerInfo: comp,
         path: this.getControllerPath(comp),
         routes,

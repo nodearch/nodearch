@@ -29,7 +29,6 @@ export class ComponentRegistry {
    * @returns An array of ComponentInfo objects.
    */
   get<T = any, D = any>(options?: IGetComponentsOptions): ComponentInfo<T, D>[] {
-
     let components = this.getComponents(options?.id);
 
     if (options?.decoratorIds) {

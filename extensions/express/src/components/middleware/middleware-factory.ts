@@ -1,6 +1,6 @@
 import { Service } from '@nodearch/core';
 import { ErrorRegistry } from '../errors/error-registry.js';
-import { IExpressMiddlewareHandler, IMiddlewareInfo, IMiddlewareProvider } from './interfaces.js';
+import { IExpressMiddlewareHandler, IMiddlewareInfo, IMiddleware } from './interfaces.js';
 import { ComponentInfo } from '@nodearch/core/components';
 
 
@@ -29,7 +29,7 @@ export class MiddlewareFactory {
   private createMiddlewareHandler(middlewareInfo: IMiddlewareInfo): IExpressMiddlewareHandler {
     return (req, res, next) => {
 
-      const middlewareHandler = req.nodearch.controller[middlewareInfo.dependencyKey!] as IMiddlewareProvider;
+      const middlewareHandler = req.nodearch.controller[middlewareInfo.dependencyKey!] as IMiddleware;
 
       middlewareHandler
         .handler({

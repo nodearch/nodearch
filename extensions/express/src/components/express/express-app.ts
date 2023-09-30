@@ -10,15 +10,6 @@ import { fileURLToPath } from 'node:url';
 import { ClassConstructor } from '@nodearch/core/utils';
 
 
-/**
- * TODO
- * validation 
- * upload
- * expose new stuff in index.ts
- * start the server
- * add express commands
- */
-
 @Service()
 export class ExpressApp {
 
@@ -91,7 +82,6 @@ export class ExpressApp {
     ];
 
     router[routeInfo.method](routeInfo.path, ...routeParams);
-    
     const middlewareCount = routerInfo.middleware.length + routeMiddleware.length;
     this.logger.info(this.createRouteRegisterMsg(routerInfo, routeInfo, controllerClass, middlewareCount));
   }

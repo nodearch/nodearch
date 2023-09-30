@@ -56,21 +56,21 @@ export class AppLoader {
     
     if (AppClass) {
 
-      const app = (new AppClass(...this.args)) as App;
+      this.app = (new AppClass(...this.args)) as App;
       
       if (this.initMode === 'init' || this.initMode === 'start') {
-        await app.init({
+        await this.app.init({
           mode: 'app',
           appSettings: this.appSettings
         });
       }
 
       if (this.initMode === 'start') {
-        await app.start();
+        await this.app.start();
       }
 
       return {
-        app,
+        app: this.app,
         appSettings: this.appSettings
       } as IAppLoaderResult;
     }
