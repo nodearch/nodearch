@@ -44,6 +44,7 @@ export class ExpressApp {
         }
 
         app.use(staticItem.httpPath, express.static(filePath, staticItem.options));
+        this.logger.info(`Static: ${staticItem.httpPath} -> ${filePath}`);
       });
     }
   }
