@@ -425,30 +425,11 @@
 
     // ============= Templates =============
     {
-      "packageName": "@nodearch/template-standalone",
-      "projectFolder": "templates/standalone",
-      "reviewCategory": "prototypes",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "@nodearch/template-cli",
-      "projectFolder": "templates/cli",
-      "reviewCategory": "prototypes",
-      "shouldPublish": false
-    },
-    {
       "packageName": "@nodearch/template-express",
       "projectFolder": "templates/express",
       "reviewCategory": "prototypes",
       "shouldPublish": false
     },
-    {
-      "packageName": "@nodearch/template-socket.io",
-      "projectFolder": "templates/socket.io",
-      "reviewCategory": "prototypes",
-      "shouldPublish": false
-    },
-
 
     // ============= Extensions =============
     {
@@ -461,41 +442,6 @@
     {
       "packageName": "@nodearch/express",
       "projectFolder": "extensions/express",
-      "reviewCategory": "production",
-      "versionPolicyName": "packages",
-      "tags": ["extension"]
-    },
-    {
-      "packageName": "@nodearch/socket.io",
-      "projectFolder": "extensions/socket.io",
-      "reviewCategory": "production",
-      "versionPolicyName": "packages",
-      "tags": ["extension"]
-    },
-    {
-      "packageName": "@nodearch/socket.io-redis",
-      "projectFolder": "extensions/socket.io-redis",
-      "reviewCategory": "production",
-      "versionPolicyName": "packages",
-      "tags": ["extension"]
-    },
-    {
-      "packageName": "@nodearch/socket.io-admin-ui",
-      "projectFolder": "extensions/socket.io-admin-ui",
-      "reviewCategory": "production",
-      "versionPolicyName": "packages",
-      "tags": ["extension"]
-    },
-    {
-      "packageName": "@nodearch/keycloak",
-      "projectFolder": "extensions/keycloak",
-      "reviewCategory": "production",
-      "versionPolicyName": "packages",
-      "tags": ["extension"]
-    },
-    {
-      "packageName": "@nodearch/vault",
-      "projectFolder": "extensions/vault",
       "reviewCategory": "production",
       "versionPolicyName": "packages",
       "tags": ["extension"]
