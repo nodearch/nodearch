@@ -1,6 +1,6 @@
 import { Controller, Use } from '@nodearch/core';
 import { HttpBody, HttpGet, HttpParam, HttpPost, HttpQuery, ExpressMiddleware } from "@nodearch/express";
-import { Validate } from '@nodearch/joi-express';
+import { Validate, ValidationMiddleware } from '@nodearch/joi-express';
 import { RequestBody, Responses, RouteInfo, Servers, Tags } from '@nodearch/openapi';
 import { FirstMiddleware } from './middleware.js';
 import { IUser } from './user.interface.js';
@@ -25,17 +25,18 @@ export class UserController {
 
   private one = 1;
 
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
-  @Use(ExpressMiddleware, (req, res, next) => {
-    console.log('Middleware 1');
-    next();
-  })
-  @Validate(Joi.object({ username: Joi.string().required().min(10) }))
-  @Use(ExpressMiddleware, (req, res, next) => {
-    console.log('Middleware 2');
-    next();
-  })
+  @Use(
+    ValidationMiddleware,
+    Joi.object({
+      query: Joi.object({ 
+        username: Joi.string().required().min(10),
+        role: Joi.string().valid('admin', 'user').required() 
+      }),
+      headers: Joi.object({ 'x-api-key': Joi.string().required() })
+    })
+  )
   @Use(FirstMiddleware)
   @HttpGet('/test')
   async test(@HttpQuery('username') username: string) {
@@ -70,6 +71,13 @@ export class UserController {
   }
 
 
+  @Use(
+    ValidationMiddleware,
+    Joi.object({
+      params: Joi.object({ id: Joi.string().min(5).max(10).required() }),
+      cookies: Joi.object({ 'x-api-key': Joi.string().required() })
+    })
+  )
   @RouteInfo({
     tags: ['Special Tag'],
     requestBody: {
@@ -112,6 +120,12 @@ export class UserController {
     return this.userService.getUsers({ id: parseInt(id) })[0];
   }
 
+  @Use(
+    ValidationMiddleware,
+    Joi.object({
+      body: Joi.object({ name: Joi.string().required(), age: Joi.number().required() })
+    })
+  )
   @RequestBody({
     description: 'User request body',
     content: {

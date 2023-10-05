@@ -86,11 +86,32 @@ export function assignValue(objRef: any, key: string, value: any) {
     objRef[key].push(...value);
   }
   else if (isObject(objRef[key]) && isObject(value)) {
-    Object.assign(objRef[key], value);
+    // Object.assign(objRef[key], value);
+    deepMerge(objRef[key], value);
   }
   else {
     objRef[key] = value;
   }
+}
+
+export function deepMerge(target: any, source: any): any {
+  // Iterate over all properties in the source object
+  for (const key of Object.keys(source)) {
+    // If the property is an object, recursively merge it
+    if (isObject(target[key]) && isObject(source[key])) {
+      deepMerge(target[key], source[key]);
+    }
+    // If the property is an array, concatenate it
+    else if (Array.isArray(target[key]) && Array.isArray(source[key])) {
+      target[key] = target[key].concat(source[key]);
+    }
+    // Otherwise, assign the value from the source object to the target object
+    else {
+      target[key] = source[key];
+    }
+  }
+
+  return target;
 }
 
 export function set(obj: any, dottedPath: any, value: any): any {

@@ -6,7 +6,7 @@ export type IExpressMiddlewareHandler = (req: express.Request, res: express.Resp
 
 export type IMiddlewareArgs = { req: express.Request; res: express.Response; };
 
-export type IMiddleware = IUseProvider<IMiddlewareArgs, any>;
+export type IMiddleware<T = any> = IUseProvider<IMiddlewareArgs, T>;
 
 export type IMiddlewareClass<T = undefined> = IUseProviderClass<T>;
 

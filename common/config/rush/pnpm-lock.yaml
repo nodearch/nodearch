@@ -68,6 +68,9 @@ importers:
       '@nodearch/joi':
         specifier: workspace:^0.0.1
         version: link:../joi
+      '@nodearch/openapi':
+        specifier: workspace:^0.0.1
+        version: link:../openapi
       '@types/express':
         specifier: ^4.17.14
         version: 4.17.14
@@ -77,6 +80,9 @@ importers:
       joi:
         specifier: ^17.9.1
         version: 17.9.1
+      joi-to-swagger:
+        specifier: ^6.2.0
+        version: 6.2.0(joi@17.9.1)
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.13
@@ -462,6 +468,9 @@ importers:
       chai:
         specifier: ^4.3.6
         version: 4.3.6
+      joi-to-swagger:
+        specifier: ^6.2.0
+        version: 6.2.0(joi@17.9.1)
       nyc:
         specifier: ^15.1.0
         version: 15.1.0
@@ -2348,6 +2357,16 @@ packages:
       istanbul-lib-report: 3.0.1
     dev: true
 
+  /joi-to-swagger@6.2.0(joi@17.9.1):
+    resolution: {integrity: sha512-gwfIr1TsbbvZWozB/sFqiD7POFcXeaLKp6QJKGFkVgdom2ie/4f75QQAanZc/Wlbnyk66e6kTZXO28i6pN3oQA==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      joi: '>=17.1.1'
+    dependencies:
+      joi: 17.9.1
+      lodash: 4.17.21
+    dev: true
+
   /joi@17.9.1:
     resolution: {integrity: sha512-FariIi9j6QODKATGBrEX7HZcja8Bsh3rfdGYy/Sb65sGlZWK/QWesU1ghk7aJWDj95knjXlQfSmzFSPPkLVsfw==}
     dependencies:
@@ -2517,7 +2536,6 @@ packages:
 
   /lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: false
 
   /log-symbols@4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}

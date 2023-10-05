@@ -48,7 +48,34 @@
       "get": {
         "summary": "test",
         "description": "Test",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "minLength": 10
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "admin",
+                "user"
+              ]
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -118,8 +145,17 @@
                     "type": "string",
                     "description": "User name",
                     "example": "John Doe"
+                  },
+                  "age": {
+                    "type": "number",
+                    "format": "float"
                   }
-                }
+                },
+                "required": [
+                  "name",
+                  "age"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -140,9 +176,17 @@
             "name": "id",
             "in": "path",
             "schema": {
+              "type": "string",
+              "minLength": 5,
+              "maxLength": 10
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "cookie",
+            "schema": {
               "type": "string"
-            },
-            "required": true
+            }
           }
         ],
         "responses": {

@@ -131,7 +131,38 @@ export class OpenAPI {
     if (route.schema.data) {
       for (const [key, value] of Object.entries(route.schema.data)) {
         const schemaPath = `paths.${routeInfo.httpPath}.${routeInfo.httpMethod}.${key}`;
-        utils.set(this.openAPIObj, schemaPath, value);
+        
+        /**
+         * If the key is parameters, we need to merge the parameters instead of replacing them
+         * If utils.set is used directly in this case, it will just create duplicate parameters
+         * TODO: Find a better way to merge parameters (Creating smarter utils.set??)
+         */
+        if (key === 'parameters') {
+          const existingParameters = utils.get(this.openAPIObj, schemaPath);
+          
+          if (existingParameters) {
+
+            value.forEach((parameter: any) => {
+              const existingParameter = existingParameters.find((existingParameter: any) => {
+                return existingParameter.name === parameter.name && existingParameter.in === parameter.in;
+              });
+
+              if (existingParameter) {
+                Object.assign(existingParameter, parameter);
+              }
+              else {
+                existingParameters.push(parameter);
+              }
+            });
+
+          }
+          else {
+            utils.set(this.openAPIObj, schemaPath, value);
+          }
+        }
+        else {
+          utils.set(this.openAPIObj, schemaPath, value);
+        }
       }
     }
   }

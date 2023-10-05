@@ -10,3 +10,5 @@ export * from './components/middleware/interfaces.js';
 export * from './components/middleware/express-middleware.js';
 
 export * from './components/openapi/provider.js';
+
+export * from './components/errors/http-errors.js';
