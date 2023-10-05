@@ -67,6 +67,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@types/body-parser",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@types/chai",
       "allowedCategories": [ "prototypes" ]
     },
@@ -132,6 +136,10 @@
     },
     {
       "name": "axios",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "body-parser",
       "allowedCategories": [ "production" ]
     },
     {

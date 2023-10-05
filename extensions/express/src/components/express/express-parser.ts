@@ -3,14 +3,17 @@ import { IExpressInfo, IExpressRoute, IExpressRouteHandlerInput, IHttpMethodInfo
 import { IMiddlewareInfo } from '../middleware/interfaces.js';
 import { ComponentInfo, CoreDecorator, DecoratorType, IComponentDecorator } from '@nodearch/core/components';
 import { ExpressDecorator } from './enums.js';
+import { ExpressConfig } from './express.config.js';
 
 
 @Service()
 export class ExpressParser {
 
   private expressInfo: IExpressInfo;
+  private config: ExpressConfig;
 
-  constructor(appContext: AppContext) {
+  constructor(appContext: AppContext, config: ExpressConfig) {
+    this.config = config;
     this.expressInfo = { routers: [] };
 
     const componentsInfo = appContext.getComponentRegistry().get({
@@ -48,13 +51,13 @@ export class ExpressParser {
       const routes = comp
         .getDecorators({
           // Decorators like @Get(), @Post(), etc
-          id: ExpressDecorator.HTTP_METHOD 
+          id: ExpressDecorator.HTTP_METHOD
         })
         .map(deco => {
           return this.getRouteInfo(comp, deco);
         });
 
-        expressInfo.routers.push({
+      expressInfo.routers.push({
         controllerInfo: comp,
         path: this.getControllerPath(comp),
         routes,
@@ -71,9 +74,9 @@ export class ExpressParser {
 
     // Get middleware on the method level
     const middleware: IMiddlewareInfo[] = componentInfo
-      .getDecorators({ 
+      .getDecorators({
         useId: ExpressDecorator.MIDDLEWARE,
-        method: decoratorInfo.method 
+        method: decoratorInfo.method
       })
       .map(deco => {
         return { ...deco.data, dependencyKey: deco.dependencies[0].key };
@@ -106,9 +109,18 @@ export class ExpressParser {
       ctrlPath = this.formatPath(ctrlPathDecorator.data.httpPath);
     }
 
+    if (this.config.httpPath) {
+      ctrlPath = this.formatPath(this.config.httpPath) + ctrlPath;
+    }
+
     return ctrlPath;
   }
 
+  /**
+   * Formats a URL path by ensuring it starts with a forward slash and removing any trailing slashes.
+   * @param urlPath The URL path to format.
+   * @returns The formatted URL path.
+   */
   private formatPath(urlPath?: string) {
     let newPath = urlPath || '';
 

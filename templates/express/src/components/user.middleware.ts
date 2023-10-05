@@ -1,8 +1,8 @@
 import { Middleware } from '@nodearch/express';
 
 @Middleware()
-export class FirstMiddleware {
+export class UserMiddleware {
   async handler() {
-    console.log('From FirstMiddleware');
+    // Do something
   }
 }

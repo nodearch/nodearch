@@ -30,4 +30,5 @@ export interface ILogOptions {
   getTimestamp?(): string;
   disable?: boolean;
   prefix?: string;
+  disableColors?: boolean;
 }

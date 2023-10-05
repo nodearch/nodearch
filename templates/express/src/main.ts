@@ -1,6 +1,6 @@
-import { App } from '@nodearch/core';
+import { App, ComponentScope } from '@nodearch/core';
 import { ExpressApp, ExpressOAIProvider } from '@nodearch/express';
-import { JoiApp, JoiProvider } from '@nodearch/joi';
+import { JoiApp } from '@nodearch/joi';
 import { JoiExpressApp, JoiOpenApiProvider } from '@nodearch/joi-express';
 import Joi from 'joi';
 import { OpenAPIApp, OpenAPIFormat } from '@nodearch/openapi';
@@ -15,6 +15,7 @@ export default class MyApp extends App {
       },
       extensions: [
         new ExpressApp({
+          httpPath: '/api',
           static: [
             { httpPath: '/docs', filePath: './public/docs' },
             { httpPath: '/docs', filePath: getAbsoluteFSPath() }
@@ -30,19 +31,13 @@ export default class MyApp extends App {
             ]
           }
         }),
-        new OpenAPIApp({ 
+        new OpenAPIApp({
           providers: [ExpressOAIProvider, JoiOpenApiProvider],
           openAPI: {
             info: {
               title: 'NodeArch Express Template',
               version: '0.1.0'
-            },
-            servers: [
-              {
-                url: 'http://localhost:6000',
-                description: 'Local server O'
-              }
-            ]
+            }
           },
           format: OpenAPIFormat.Json,
           path: './public/docs/openapi.json'

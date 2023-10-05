@@ -49,12 +49,12 @@ export class JoiOpenApiService {
     const paramKeys = Object.keys(schema.properties);
 
     paramKeys.forEach(key => {
-      const paramKey = schema.properties[key];
+      const paramSchema = schema.properties[key];
       const parameter = {
         name: key,
         in: location,
-        required: paramKey.required,
-        schema: paramKey
+        required: schema.required.includes(key),
+        schema: paramSchema
       };
 
       parameters.push(parameter);

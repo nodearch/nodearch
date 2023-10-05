@@ -18,7 +18,7 @@ export class Logger {
   ];
 
   constructor(loggingOptions?: ILogOptions) {
-    this.loggerHandler = loggingOptions?.logger ? new loggingOptions.logger : new ConsoleLogger({ disableColors: false });
+    this.loggerHandler = loggingOptions?.logger ? new loggingOptions.logger : new ConsoleLogger({ disableColors: loggingOptions?.disableColors });
     this.logLevel = loggingOptions?.logLevel || LogLevel.Info;
     this.getTimestamp = loggingOptions?.getTimestamp || this.defaultGetTimestamp;
     this.isDisabled = loggingOptions?.disable === undefined ? false : loggingOptions?.disable;

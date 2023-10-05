@@ -1,6 +1,6 @@
 import express from 'express';
 import { AppContext, Logger, Service } from '@nodearch/core';
-import { IExpressInfo, IExpressRoute, IExpressRouter } from './interfaces.js';
+import { IExpressInfo, IExpressRoute, IExpressRouter, IHttpLogger } from './interfaces.js';
 import { RouteHandler } from './route-handler.js';
 import { MiddlewareFactory } from '../middleware/middleware-factory.js';
 import { ExpressParser } from './express-parser.js';
@@ -26,10 +26,103 @@ export class ExpressApp {
     const app = express();
     const expressInfo = this.expressParser.getExpressInfo();
 
+    this.registerResponseTimer(app);
+    this.registerHttpLogger(app);
+    this.registerParsers(app);
     this.registerStatic(app);
+    this.registerGlobalMiddleware(app);
     this.registerRouter(expressInfo, app);
 
     return app;
+  }
+
+  private registerResponseTimer(app: express.Application) {
+    if (this.expressConfig.httpLogger.enable && this.expressConfig.httpLogger.showDuration) {
+      app.use((req, res, next) => {
+        const start = process.hrtime();
+  
+        res.on('finish', () => {
+          const durationInMs = this.getDurationInMs(start);
+          req.nodearch.responseTime = durationInMs;
+        });
+
+        next();
+      });
+    }
+  }
+
+  private registerHttpLogger(app: express.Application) {
+    if (this.expressConfig.httpLogger.enable) {
+      app.use((req, res, next) => {
+
+        res.on('finish', () => {
+          const message = this.getHttpLoggerMessage(req, res, this.expressConfig.httpLogger);
+          this.logger.info(message);
+        });
+
+        next();
+      });
+    }
+  }
+
+  private getHttpLoggerMessage(req: express.Request, res: express.Response, config: IHttpLogger) {
+    let message = `[${req.method}] ${req.originalUrl}`;
+
+    if (config.custom) {
+      message = config.custom(req);
+    }
+    else {
+      if (config.showHeaders) {
+        message += ` - Headers: ${JSON.stringify(req.headers)}`;
+      }
+
+      if (config.showBody) {
+        message += ` - Body: ${JSON.stringify(req.body)}`;
+      }
+
+      if (config.showQuery) {
+        message += ` - Query: ${JSON.stringify(req.query)}`;
+      }
+
+      if (config.showParams) {
+        message += ` - Params: ${JSON.stringify(req.params)}`;
+      }
+
+      if (config.showCookies) {
+        message += ` - Cookies: ${JSON.stringify(req.cookies)}`;
+      }
+
+      if (config.showStatus) {
+        message += ` - Status: ${res.statusCode}`;
+      }
+
+      if (config.showDuration) {
+        message += ` - Duration: ${req.nodearch.responseTime}ms`;
+      }
+    }
+
+    return message;
+  }
+
+  private getDurationInMs(start: [number, number]) {
+    const NS_PER_SEC = 1e9;
+    const NS_TO_MS = 1e6;
+    const diff = process.hrtime(start);
+    return (diff[0] * NS_PER_SEC + diff[1]) / NS_TO_MS;
+  }
+
+  private registerParsers(app: express.Application) {
+    this.expressConfig.jsonParser.enable && app.use(express.json(this.expressConfig.jsonParser.options));
+    this.expressConfig.textParser.enable && app.use(express.text(this.expressConfig.textParser.options));
+    this.expressConfig.urlencodedParser.enable && app.use(express.urlencoded(this.expressConfig.urlencodedParser.options));
+  }
+
+  private registerGlobalMiddleware(app: express.Application) {
+    if (this.expressConfig.use) {
+      this.expressConfig.use.forEach(middleware => {
+        app.use(middleware);
+      });
+    }
   }
 
   private registerStatic(app: express.Application) {

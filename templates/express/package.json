@@ -9,7 +9,8 @@
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc",
-    "start": "node dist/start.js"
+    "start": "node dist/start.js",
+    "temp-dev": "ts-node ../../lib/cli/src/start.ts openapi generate && ts-node ../../lib/cli/src/start.ts start"
   },
   "keywords": [],
   "author": "",

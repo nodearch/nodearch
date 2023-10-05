@@ -17,7 +17,7 @@ export class ConfigManager {
     this.externalConfig = externalConfig;
 
     if (this.externalConfig && (typeof this.externalConfig !== 'object' || !Object.keys(this.externalConfig).length)) {
-      throw new Error(`External Configurations can only be non-empty object - option: components.externalConfig`);
+      throw new Error(`External Configurations can only be non-empty object - option: components.config`);
     }
   }
 

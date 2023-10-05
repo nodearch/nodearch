@@ -1,5 +1,6 @@
 import { IEnvConfig } from './config.interfaces.js';
 import { TypeParser } from './type-parser.js';
+import * as utils from '../../utils/utils.js';
 
 
 export abstract class ConfigResolve {
@@ -38,7 +39,7 @@ export abstract class ConfigResolve {
     }
 
     if (!ConfigResolve.hasValue(envValue) && (envConfig.external && externalConfig)) {
-      externalValue = externalConfig[envConfig.external];
+      externalValue = utils.get(externalConfig, envConfig.external) || undefined;
     }
 
     const value = ConfigResolve.hasValue(envValue) ? envValue :

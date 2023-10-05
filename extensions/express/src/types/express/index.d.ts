@@ -5,6 +5,7 @@ declare global {
     export interface  Request {
       nodearch: {
         controller: any;
+        responseTime?: number;
       };
     }
   }

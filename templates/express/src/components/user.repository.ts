@@ -13,14 +13,16 @@ export class UserRepository {
         name: 'John Doe',
         email: 'john.doe@email.com',
         age: 30,
-        role: 'admin'
+        role: 'admin',
+        language: 'en'
       },
       {
         id: 2,
         name: 'Jane Doe',
         email: 'jane.doe@email.com',
         age: 25,
-        role: 'user'
+        role: 'user',
+        language: 'fr'
       }
     ];
   }

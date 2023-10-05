@@ -3,7 +3,7 @@ import { Color } from './enums.js';
 
 
 export interface IConsoleLoggerOptions {
-  disableColors: boolean;
+  disableColors?: boolean;
 }
 
 export type ILogColorMap = {
