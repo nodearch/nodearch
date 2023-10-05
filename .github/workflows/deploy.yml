@@ -11,13 +11,13 @@ jobs:
     name: npm-publish
     runs-on: Ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - name: install node v14
-      uses: actions/setup-node@v1
+    - name: install node v18
+      uses: actions/setup-node@v3
       with:
-        node-version: 14
+        node-version: 18
     - name: Checking for missing change logs...
       run: node common/scripts/install-run-rush.js change -v
     - name: Installing...
