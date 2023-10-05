@@ -12,7 +12,7 @@
   {
     "definitionName": "individualVersion",
     "policyName": "packages",
-    "lockedMajor": 1
+    "lockedMajor": 2
   }
   // {
   //   /**
