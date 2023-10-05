@@ -440,6 +440,9 @@ importers:
       '@nodearch/joi-express':
         specifier: workspace:^0.0.1
         version: link:../../extensions/joi-express
+      '@nodearch/mocha':
+        specifier: workspace:^0.1.0
+        version: link:../../extensions/mocha
       '@nodearch/openapi':
         specifier: workspace:^0.0.1
         version: link:../../extensions/openapi

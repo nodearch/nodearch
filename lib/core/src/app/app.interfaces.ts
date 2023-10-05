@@ -4,8 +4,6 @@ import { AppContext } from './app-context.js';
 import { App } from './app.js';
 import { AppLoadMode } from '../fs/enums.js';
 import { ComponentScope } from '../components/enums.js';
-import { Container } from '../components.index.js';
-import { ComponentRegistry } from '../components/component-registry.js';
 
 
 export interface IAppConstructor {

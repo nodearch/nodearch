@@ -27,7 +27,7 @@ export class UserRepository {
     ];
   }
 
-  getUsers(criteria?: Partial<IUser>) {
+  async getUsers(criteria?: Partial<IUser>) {
     if (!criteria || !Object.keys(criteria).length) {
       return this.users;
     }
@@ -37,11 +37,15 @@ export class UserRepository {
     });
   }
 
-  addUser(user: IUser) {
+  async addUser(user: IUser) {
     this.users.push(user);
   }
 
-  getUsersCount() {
+  async getUsersCount() {
     return this.users.length;
+  }
+
+  async removeAll() {
+    this.users = [];
   }
 }

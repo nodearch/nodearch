@@ -15,7 +15,7 @@ export class ClassLoader {
     this.classes = options.classes || [];
     this.url =  options.url;
     this.include = options.include || ['*.js', '*.ts'];
-    this.exclude = options.exclude || ['*.d.ts', '*.spec.ts', '*.e2e-spec.ts', '*.spec.js', '*.e2e-spec.ts', '*.map'];
+    this.exclude = options.exclude || ['*.d.ts', '*.map'];
     this.depth = options.depth || 10;
   }
 

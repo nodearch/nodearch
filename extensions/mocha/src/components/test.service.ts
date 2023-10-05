@@ -95,8 +95,7 @@ export class TestService {
           title,
           fn: active ? compInstance[method as string].bind(compInstance, params) : undefined
         };
-      })
-      .reverse();
+      });
   }
 
   private getBeforeAll(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
@@ -107,8 +106,7 @@ export class TestService {
           title,
           fn: compInstance[method as string].bind(compInstance)
         };
-      })
-      .reverse();
+      });
   }
 
   private getAfterAll(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
@@ -119,8 +117,7 @@ export class TestService {
           title,
           fn: compInstance[method as string].bind(compInstance)
         };
-      })
-      .reverse();
+      });
   }
 
   private getBeforeEach(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
@@ -131,8 +128,7 @@ export class TestService {
           title,
           fn: compInstance[method as string].bind(compInstance)
         };
-      })
-      .reverse();
+      });
   }
 
   private getAfterEach(componentInfo: ComponentInfo, compInstance: any): TestHook[] {
@@ -143,7 +139,6 @@ export class TestService {
           title,
           fn: compInstance[method as string].bind(compInstance)
         };
-      })
-      .reverse();
+      });
   }
 }

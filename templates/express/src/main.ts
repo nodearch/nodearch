@@ -5,6 +5,7 @@ import { JoiExpressApp, JoiOpenApiProvider } from '@nodearch/joi-express';
 import Joi from 'joi';
 import { OpenAPIApp, OpenAPIFormat } from '@nodearch/openapi';
 import { SwaggerApp, getAbsoluteFSPath } from '@nodearch/swagger';
+import { MochaApp } from '@nodearch/mocha';
 
 
 export default class MyApp extends App {
@@ -46,7 +47,8 @@ export default class MyApp extends App {
           url: '/docs/openapi.json'
         }),
         new JoiApp(),
-        new JoiExpressApp()
+        new JoiExpressApp(),
+        new MochaApp()
       ],
       logs: {
         prefix: 'MyApp'

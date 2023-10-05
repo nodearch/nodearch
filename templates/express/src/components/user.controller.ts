@@ -18,18 +18,18 @@ export class UserController {
 
   @HttpGet('/')
   async getUsers(@HttpQuery() user?: Partial<IUser>) {
-    return this.userService.getUsers(user);
+    return await this.userService.getUsers(user);
   }
 
   @HttpGet('/:id')
   async getUserById(@HttpParam('id') id: string) {
-    return this.userService.getUsers({ id: parseInt(id) })[0] || {};
+    return (await this.userService.getUsers({ id: parseInt(id) }))[0] || {};
   }
 
   @HttpPost('/')
   @Use(ValidationMiddleware, createUserValidation)
   async addUser(@HttpBody() user: Omit<IUser, 'id'>) {
-    this.userService.addUser(user);
+    await this.userService.addUser(user);
     return 'ok';
   }
 
