@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/joi",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "NodeArch Joi Wrapper",
   "exports": {
     ".": {
@@ -32,7 +32,7 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^1.4.2",
+    "@nodearch/core": "workspace:^2.0.0",
     "@types/node": "^18.11.9",
     "rimraf": "~3.0.2",
     "typescript": "^5.2.2",
@@ -40,7 +40,7 @@
     "joi": "^17.9.1"
   },
   "peerDependencies": {
-    "@nodearch/core": "1.4.2",
+    "@nodearch/core": "2.0.0",
     "reflect-metadata": "0.x",
     "joi": "^17.x"
   }

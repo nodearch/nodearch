@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/mocha",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "nodearch mocha extension",
   "exports": {
     ".": {
@@ -32,8 +32,8 @@
     "email": "bluemax7o1@gmail.com"
   },
   "dependencies": {
-    "@nodearch/core": "workspace:^1.4.2",
-    "@nodearch/command": "workspace:^0.1.0",
+    "@nodearch/core": "workspace:^2.0.0",
+    "@nodearch/command": "workspace:^1.0.0",
     "typescript": "^5.2.2",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0"
