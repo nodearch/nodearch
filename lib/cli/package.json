@@ -13,7 +13,7 @@
     "node": ">=16"
   },
   "bin": {
-    "nodearch": "ts-node ./dist/start.js"
+    "nodearch": "./dist/start.js"
   },
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
