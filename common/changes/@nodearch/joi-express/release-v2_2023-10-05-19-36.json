@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/joi-express",
+      "comment": "v2",
+      "type": "major"
+    }
+  ],
+  "packageName": "@nodearch/joi-express"
+}

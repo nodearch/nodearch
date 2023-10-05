@@ -18,5 +18,3 @@
 #
 #   //registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}
 #
-
-registry=registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}

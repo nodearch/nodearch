@@ -1,0 +1,61 @@
+{
+  "name": "@nodearch/core",
+  "version": "1.4.2",
+  "description": "nodearch core module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./components": {
+      "import": "./dist/components.index.js",
+      "types": "./dist/components.index.d.ts"
+    },
+    "./fs": {
+      "import": "./dist/fs.index.js",
+      "types": "./dist/fs.index.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils.index.js",
+      "types": "./dist/utils.index.d.ts"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc",
+    "release": "npm run build && npm publish --tag beta --access public",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodearch/nodearch.git"
+  },
+  "keywords": [
+    "nodearch",
+    "nodearch-core"
+  ],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodearch/nodearch/issues",
+    "email": "bluemax7o1@gmail.com"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "reflect-metadata": "^0.1.13",
+    "typescript": "^5.2.2",
+    "rimraf": "~3.0.2",
+    "mocha": "^10.2.0",
+    "@types/mocha": "^10.0.1"
+  },
+  "dependencies": {
+    "inversify": "6.0.1"
+  },
+  "peerDependencies": {
+    "reflect-metadata": "0.x"
+  }
+}

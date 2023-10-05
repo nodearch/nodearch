@@ -1,0 +1,51 @@
+{
+  "name": "@nodearch/command",
+  "version": "0.1.0",
+  "description": "NodeArch Command Toolkit",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodearch/nodearch.git"
+  },
+  "keywords": [
+    "nodearch",
+    "nodearch-command",
+    "command"
+  ],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodearch/nodearch/issues",
+    "email": "bluemax7o1@gmail.com"
+  },
+  "devDependencies": {
+    "@nodearch/core": "workspace:^1.4.2",
+    "@types/node": "^18.11.9",
+    "rimraf": "~3.0.2",
+    "typescript": "^5.2.2",
+    "@types/yargs": "^17.0.22",
+    "@types/inquirer": "^9.0.3"
+  },
+  "dependencies": {
+    "yargs": "^17.7.0",
+    "inquirer": "^9.1.4"
+  },
+  "peerDependencies": {
+    "@nodearch/core": "1.4.2",
+    "reflect-metadata": "0.x"
+  },
+  "nodearch": {}
+}

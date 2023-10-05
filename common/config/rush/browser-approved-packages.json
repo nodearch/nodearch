@@ -7,20 +7,72 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@nodearch/cli",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@nodearch/command",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
       "name": "@nodearch/core",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@nodearch/express",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@nodearch/joi",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@nodearch/joi-express",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@nodearch/mocha",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@nodearch/openapi",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@nodearch/server",
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "@nodearch/socket.io",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@nodearch/socket.io-admin-ui",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@nodearch/swagger",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@socket.io/admin-ui",
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "@socket.io/redis-adapter",
       "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@swc/core",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/body-parser",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/chai",
+      "allowedCategories": [ "prototypes" ]
     },
     {
       "name": "@types/decompress",
@@ -28,7 +80,7 @@
     },
     {
       "name": "@types/express",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@types/hapi__joi",
@@ -40,11 +92,15 @@
     },
     {
       "name": "@types/jest",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "@types/jsonwebtoken",
       "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/mocha",
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@types/multer",
@@ -52,7 +108,7 @@
     },
     {
       "name": "@types/node",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@types/node-notifier",
@@ -68,7 +124,11 @@
     },
     {
       "name": "@types/supertest",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@types/swagger-ui-dist",
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@types/yargs",
@@ -79,12 +139,28 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "body-parser",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "c8",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "chai",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "cli-spinners",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "decompress",
       "allowedCategories": [ "production" ]
     },
     {
       "name": "express",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "inquirer",
@@ -96,14 +172,18 @@
     },
     {
       "name": "jest",
-      "allowedCategories": [ "production", "tools" ]
-    },
-    {
-      "name": "joi",
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "joi",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
       "name": "joi-to-swagger",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "json5",
       "allowedCategories": [ "production" ]
     },
     {
@@ -115,6 +195,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "mocha",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
       "name": "multer",
       "allowedCategories": [ "production" ]
     },
@@ -124,10 +208,18 @@
     },
     {
       "name": "nodemon",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "nyc",
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "open",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "openapi3-ts",
       "allowedCategories": [ "production" ]
     },
     {
@@ -140,7 +232,7 @@
     },
     {
       "name": "reflect-metadata",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "request",
@@ -152,31 +244,35 @@
     },
     {
       "name": "rimraf",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "socket.io",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "supertest",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "swagger-ui-dist",
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "ts-jest",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "ts-node",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "tsconfig-paths",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "prototypes" ]
     },
     {
       "name": "typescript",
-      "allowedCategories": [ "production", "tools" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "yargs",

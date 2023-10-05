@@ -2,7 +2,7 @@
  * This is the main configuration file for Rush.
  * For full documentation, please see https://rushjs.io
  */
- {
+{
   "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/rush.schema.json",
 
   /**
@@ -16,7 +16,7 @@
    * path segment in the "$schema" field for all your Rush config files.  This will ensure
    * correct error-underlining and tab-completion for editors such as VS Code.
    */
-  "rushVersion": "5.35.2",
+  "rushVersion": "5.105.0",
 
   /**
    * The next field selects which package manager should be installed and determines its version.
@@ -26,9 +26,9 @@
    * Specify one of: "pnpmVersion", "npmVersion", or "yarnVersion".  See the Rush documentation
    * for details about these alternatives.
    */
-  "pnpmVersion": "5.13.6",
+  "pnpmVersion": "8.7.5",
 
-  // "npmVersion": "4.5.0",
+  // "npmVersion": "6.14.15",
   // "yarnVersion": "1.9.4",
 
   /**
@@ -100,7 +100,7 @@
      * If true, then `rush install` will use the PNPM workspaces feature to perform the
      * install.
      *
-     * This feature uses PNPM to peform the entire monorepo install. When using workspaces, Rush will
+     * This feature uses PNPM to perform the entire monorepo install. When using workspaces, Rush will
      * generate a "pnpm-workspace.yaml" file referencing all local projects to install. Rush will
      * also generate a "pnpmfile.js" which is used to provide preferred versions support. When install
      * is run, this pnpmfile will be used to replace dependency version ranges with a smaller subset
@@ -110,7 +110,7 @@
      *
      * This option is experimental. The default value is false.
      */
-    // "useWorkspaces": true
+    "useWorkspaces": true
   },
 
   /**
@@ -120,8 +120,11 @@
    *
    * Specify a SemVer range to ensure developers use a Node.js version that is appropriate
    * for your repo.
+   *
+   * LTS schedule: https://nodejs.org/en/about/releases/
+   * LTS versions: https://nodejs.org/en/download/releases/
    */
-  "nodeSupportedVersionRange": ">=12 <=16",
+  "nodeSupportedVersionRange": ">=18 <20",
 
   /**
    * Odd-numbered major versions of Node.js are experimental.  Even-numbered releases
@@ -157,7 +160,7 @@
    *
    * The Rush developers recommend a "category folder" model, where buildable project folders
    * must always be exactly two levels below the repo root.  The parent folder acts as the category.
-   * This provides a basic facility for grouping related projects (e.g. "apps", "libaries",
+   * This provides a basic facility for grouping related projects (e.g. "apps", "libraries",
    * "tools", "prototypes") while still encouraging teams to organize their projects into
    * a unified taxonomy.  Limiting to 2 levels seems very restrictive at first, but if you have
    * 20 categories and 20 projects in each category, this scheme can easily accommodate hundreds
@@ -172,8 +175,8 @@
    * To remove these restrictions, you could set projectFolderMinDepth=1
    * and set projectFolderMaxDepth to a large number.
    */
-  // "projectFolderMinDepth": 2,
-  "projectFolderMaxDepth": 3,
+  "projectFolderMinDepth": 2,
+  "projectFolderMaxDepth": 2,
 
   /**
    * Today the npmjs.com registry enforces fairly strict naming rules for packages, but in the early
@@ -196,32 +199,31 @@
    * and "nonbrowser-approved-packages.json".  See the Rush documentation for details.
    */
   "approvedPackagesPolicy": {
-    /**
-     * The review categories allow you to say for example "This library is approved for usage
-     * in prototypes, but not in production code."
-     *
-     * Each project can be associated with one review category, by assigning the "reviewCategory" field
-     * in the "projects" section of rush.json.  The approval is then recorded in the files
-     * "common/config/rush/browser-approved-packages.json" and "nonbrowser-approved-packages.json"
-     * which are automatically generated during "rush update".
-     *
-     * Designate categories with whatever granularity is appropriate for your review process,
-     * or you could just have a single category called "default".
-     */
+  //   /**
+  //    * The review categories allow you to say for example "This library is approved for usage
+  //    * in prototypes, but not in production code."
+  //    *
+  //    * Each project can be associated with one review category, by assigning the "reviewCategory" field
+  //    * in the "projects" section of rush.json.  The approval is then recorded in the files
+  //    * "common/config/rush/browser-approved-packages.json" and "nonbrowser-approved-packages.json"
+  //    * which are automatically generated during "rush update".
+  //    *
+  //    * Designate categories with whatever granularity is appropriate for your review process,
+  //    * or you could just have a single category called "default".
+  //    */
     "reviewCategories": [
-      // Some example categories:
       "production", // projects that ship to production
       "tools",      // non-shipping projects that are part of the developer toolchain
       "prototypes"  // experiments that should mostly be ignored by the review process
-    ],
-  
-    /**
-     * A list of NPM package scopes that will be excluded from review.
-     * We recommend to exclude TypeScript typings (the "@types" scope), because
-     * if the underlying package was already approved, this would imply that the typings
-     * are also approved.
-     */
-    // "ignoredNpmScopes": ["@types"]
+    ]
+  // 
+  //   /**
+  //    * A list of NPM package scopes that will be excluded from review.
+  //    * We recommend to exclude TypeScript typings (the "@types" scope), because
+  //    * if the underlying package was already approved, this would imply that the typings
+  //    * are also approved.
+  //    */
+  //   // "ignoredNpmScopes": ["@types"]
   },
 
   /**
@@ -238,7 +240,7 @@
      * They are case-insensitive anchored JavaScript RegExps.  Example: ".*@example\.com"
      *
      * IMPORTANT: Because these are regular expressions encoded as JSON string literals,
-     * RegExp escapes need two backspashes, and ordinary periods should be "\\.".
+     * RegExp escapes need two backslashes, and ordinary periods should be "\\.".
      */
     // "allowedEmailRegExps": [
     //   "[^@]+@users\\.noreply\\.github\\.com",
@@ -259,7 +261,16 @@
      * you might configure your system's trigger to look for a special string such as "[skip-ci]"
      * in the commit message, and then customize Rush's message to contain that string.
      */
-    "versionBumpCommitMessage": "Applying package updates. [npm version deployment]"
+    // "versionBumpCommitMessage": "Bump versions [skip ci]",
+
+    /**
+     * The commit message to use when committing changes during 'rush version'.
+     *
+     * For example, if you want to prevent these commits from triggering a CI build,
+     * you might configure your system's trigger to look for a special string such as "[skip-ci]"
+     * in the commit message, and then customize Rush's message to contain that string.
+     */
+    // "changeLogUpdateCommitMessage": "Update changelogs [skip ci]"
   },
 
   "repository": {
@@ -267,22 +278,22 @@
      * The URL of this Git repository, used by "rush change" to determine the base branch for your PR.
      *
      * The "rush change" command needs to determine which files are affected by your PR diff.
-     * If you merged or cherry-picked commits from the master branch into your PR branch, those commits
+     * If you merged or cherry-picked commits from the main branch into your PR branch, those commits
      * should be excluded from this diff (since they belong to some other PR).  In order to do that,
      * Rush needs to know where to find the base branch for your PR.  This information cannot be
      * determined from Git alone, since the "pull request" feature is not a Git concept.  Ideally
      * Rush would use a vendor-specific protocol to query the information from GitHub, Azure DevOps, etc.
-     * But to keep things simple, "rush change" simply assumes that your PR is against the "master" branch
+     * But to keep things simple, "rush change" simply assumes that your PR is against the "main" branch
      * of the Git remote indicated by the repository.url setting in rush.json.  If you are working in
      * a GitHub "fork" of the real repo, this setting will be different from the repository URL of your
      * your PR branch, and in this situation "rush change" will also automatically invoke "git fetch"
-     * to retrieve the latest activity for the remote master branch.
+     * to retrieve the latest activity for the remote main branch.
      */
-    "url": "https://github.com/AhmedAli7O1/nodearch.git",
+    "url": "https://github.com/nodearch/nodearch.git",
 
     /**
      * The default branch name. This tells "rush change" which remote branch to compare against.
-     * The default value is "master"
+     * The default value is "main"
      */
     "defaultBranch": "master",
 
@@ -324,7 +335,7 @@
    * Installation variants allow you to maintain a parallel set of configuration files that can be
    * used to build the entire monorepo with an alternate set of dependencies.  For example, suppose
    * you upgrade all your projects to use a new release of an important framework, but during a transition period
-   * you intend to maintain compability with the old release.  In this situation, you probably want your
+   * you intend to maintain compatibility with the old release.  In this situation, you probably want your
    * CI validation to build the entire repo twice: once with the old release, and once with the new release.
    *
    * Rush "installation variants" correspond to sets of config files located under this folder:
@@ -369,6 +380,13 @@
   // "hotfixChangeEnabled": false,
 
   /**
+    * This is an optional, but recommended, list of available tags that can be applied
+    * to projects. If this property is not specified, any tag is allowed. This
+    * list is useful in preventing typos when specifying tags for projects.
+    */
+  // "allowedProjectTags": [ "apps", "Web", "tools" ],
+
+  /**
    * (Required) This is the inventory of projects to be managed by Rush.
    *
    * Rush does not automatically scan for projects using wildcards, for a few reasons:
@@ -377,6 +395,85 @@
    * 3. It's useful to have a centralized inventory of all projects and their important metadata.
    */
   "projects": [
+    // ============= Main =============
+    {
+      "packageName": "@nodearch/core",
+      "projectFolder": "lib/core",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages"
+    },
+    {
+      "packageName": "@nodearch/command",
+      "projectFolder": "lib/command",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages"
+    },
+    {
+      "packageName": "@nodearch/cli",
+      "projectFolder": "lib/cli",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages"
+    },
+
+    // ============= Scripts =============
+    // {
+    //   "packageName": "*****",
+    //   "projectFolder": "scripts/*",
+    //   "reviewCategory": "tools",
+    //   "shouldPublish": false
+    // },
+
+    // ============= Templates =============
+    {
+      "packageName": "@nodearch/template-express",
+      "projectFolder": "templates/express",
+      "reviewCategory": "prototypes",
+      "shouldPublish": false
+    },
+
+    // ============= Extensions =============
+    {
+      "packageName": "@nodearch/mocha",
+      "projectFolder": "extensions/mocha",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/express",
+      "projectFolder": "extensions/express",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/openapi",
+      "projectFolder": "extensions/openapi",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/swagger",
+      "projectFolder": "extensions/swagger",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/joi",
+      "projectFolder": "extensions/joi",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/joi-express",
+      "projectFolder": "extensions/joi-express",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    }
     // {
     //   /**
     //    * The NPM package name of the project (must match package.json)
@@ -418,77 +515,41 @@
     //   // "shouldPublish": false,
     // 
     //   /**
+    //    * Facilitates postprocessing of a project's files prior to publishing.
+    //    *
+    //    * If specified, the "publishFolder" is the relative path to a subfolder of the project folder.
+    //    * The "rush publish" command will publish the subfolder instead of the project folder.  The subfolder
+    //    * must contain its own package.json file, which is typically a build output.
+    //    */
+    //   // "publishFolder": "temp/publish",
+    // 
+    //   /**
     //    * An optional version policy associated with the project.  Version policies are defined
     //    * in "version-policies.json" file.  See the "rush publish" documentation for more info.
     //    * NOTE: "versionPolicyName" and "shouldPublish" are alternatives; you cannot specify them both.
     //    */
-    //   // "versionPolicyName": ""
+    //   // "versionPolicyName": "",
+    // 
+    //   /**
+    //     * An optional set of custom tags that can be used to select this project. For example,
+    //     * adding "my-custom-tag" will allow this project to be selected by the
+    //     * command "rush list --only tag:my-custom-tag"
+    //     */
+    //   // "tags": ["apps", "web"]
     // },
     // 
     // {
     //   "packageName": "my-controls",
     //   "projectFolder": "libraries/my-controls",
-    //   "reviewCategory": "production"
+    //   "reviewCategory": "production",
+    //   "tags": ["libraries", "web"]
     // },
     // 
     // {
     //   "packageName": "my-toolchain",
     //   "projectFolder": "tools/my-toolchain",
-    //   "reviewCategory": "tools"
+    //   "reviewCategory": "tools",
+    //   "tags": ["tools"]
     // }
-    {
-      "packageName": "@nodearch/core",
-      "projectFolder": "system/core",
-      "reviewCategory": "production",
-      "versionPolicyName": "nodearchPackages"
-    },
-    {
-      "packageName": "@nodearch/express",
-      "projectFolder": "backend/express",
-      "reviewCategory": "production",
-      "versionPolicyName": "nodearchPackages"
-    },
-    {
-      "packageName": "@nodearch/socket.io",
-      "projectFolder": "backend/socket.io/socket.io",
-      "reviewCategory": "production",
-      "versionPolicyName": "nodearchPackages"
-    },
-    {
-      "packageName": "@nodearch/socket.io-redis",
-      "projectFolder": "backend/socket.io/redis-adapter",
-      "reviewCategory": "production",
-      "versionPolicyName": "nodearchPackages"
-    },
-    {
-      "packageName": "@nodearch/cli",
-      "projectFolder": "system/cli",
-      "reviewCategory": "production",
-      "versionPolicyName": "nodearchPackages"
-    },
-    {
-      "packageName": "@nodearch/keycloak",
-      "projectFolder": "security/keycloak",
-      "reviewCategory": "production",
-      "versionPolicyName": "nodearchPackages"
-    },
-    {
-      "packageName": "@nodearch/vault",
-      "projectFolder": "security/vault",
-      "reviewCategory": "production",
-      "versionPolicyName": "nodearchPackages"
-    },
-    {
-      "packageName": "@nodearch/template-express",
-      "projectFolder": "templates/express",
-      "reviewCategory": "tools",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "@nodearch/template-socket.io",
-      "projectFolder": "templates/socket.io",
-      "reviewCategory": "tools",
-      "shouldPublish": false
-    }
   ]
 }

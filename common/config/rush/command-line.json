@@ -1,6 +1,6 @@
 /**
  * This configuration file defines custom commands for the "rush" command-line.
- * For full documentation, please see https://rushjs.io
+ * More documentation is available on the Rush website: https://rushjs.io
  */
 {
   "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/command-line.schema.json",
@@ -12,11 +12,13 @@
    */
   "commands": [
     {
+      "name": "build:watch",
       "commandKind": "bulk",
-      "name": "test",
-      "summary": "test by jest",
+      "summary": "Build projects and watch for changes",
+      "description": "For details, see the article \"Using watch mode\" on the Rush website: https://rushjs.io/",
+      "incremental": true,
       "enableParallelism": true,
-      "allowWarningsInSuccessfulBuild": true
+      "watchForChanges": true
     }
     // {
     //   /**
@@ -99,7 +101,7 @@
     //    *
     //    * Thus, warnings do not interfere with local development, but they will cause a CI job to fail, because
     //    * the Rush process itself returns a nonzero exit code if there are any warnings or errors. This is by design.
-    //    * In an active monorepo, we've found that if you allow any warnings in your master branch, it inadvertently
+    //    * In an active monorepo, we've found that if you allow any warnings in your main branch, it inadvertently
     //    * teaches developers to ignore warnings, which quickly leads to a situation where so many "expected" warnings
     //    * have accumulated that warnings no longer serve any useful purpose.
     //    *
@@ -110,11 +112,27 @@
     //    * Note: The default value is false. In Rush 5.7.x and earlier, the default value was true.
     //    */
     //   "allowWarningsInSuccessfulBuild": false,
-    //   
+    // 
     //   /**
     //    * If true then this command will be incremental like the built-in "build" command
     //    */
-    //   "incremental": false
+    //   "incremental": false,
+    // 
+    //   /**
+    //    * (EXPERIMENTAL) Normally Rush terminates after the command finishes. If this option is set to "true" Rush
+    //    * will instead enter a loop where it watches the file system for changes to the selected projects. Whenever a
+    //    * change is detected, the command will be invoked again for the changed project and any selected projects that
+    //    * directly or indirectly depend on it.
+    //    *
+    //    * For details, refer to the website article "Using watch mode".
+    //    */
+    //   "watchForChanges": false,
+    // 
+    //   /**
+    //    * (EXPERIMENTAL) Disable cache for this action. This may be useful if this command affects state outside of
+    //    * projects' own folders.
+    //    */
+    //   "disableBuildCache": false
     // },
     // 
     // {
