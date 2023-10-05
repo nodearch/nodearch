@@ -2,6 +2,28 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.0",
+      "tag": "@nodearch/cli_v2.0.0",
+      "date": "Thu, 05 Oct 2023 19:43:23 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "v2",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "7b6b771b3ec9282afe460830e7e23eb13bc0136c"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^1.4.2` to `^2.0.0`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/command\" from `^0.1.0` to `^1.0.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.2.4",
       "tag": "@nodearch/cli_v1.2.4",
       "date": "Sun, 29 May 2022 15:25:53 GMT",
