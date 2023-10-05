@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.1",
+      "tag": "@nodearch/cli_v2.0.1",
+      "date": "Thu, 05 Oct 2023 19:56:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix cli linking",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "14e0f09ee3d515e87f1c7b6a628aedbb292a0e07"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.0",
       "tag": "@nodearch/cli_v2.0.0",
       "date": "Thu, 05 Oct 2023 19:43:23 GMT",
