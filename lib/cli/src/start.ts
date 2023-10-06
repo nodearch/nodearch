@@ -17,7 +17,7 @@ async function main() {
   catch(e: any) {}
 
   if (!loaded) {
-    const appLoader = new AppLoader({ cwd: new URL('..', import.meta.url), loadMode: AppLoadMode.TS, initMode: 'start' });
+    const appLoader = new AppLoader({ cwd: new URL('..', import.meta.url), loadMode: AppLoadMode.JS, initMode: 'start' });
     await appLoader.load();
   }
 }
