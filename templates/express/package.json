@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@nodearch/core": "workspace:^2.0.0",
-    "@nodearch/cli": "workspace:^2.0.1",
+    "@nodearch/cli": "workspace:^2.0.2",
     "@nodearch/express": "workspace:^2.0.0",
     "@nodearch/openapi": "workspace:^1.0.0",
     "@nodearch/swagger": "workspace:^1.0.0",

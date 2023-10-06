@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Thu, 05 Oct 2023 19:56:52 GMT and should not be manually modified.
+This log was last generated on Fri, 06 Oct 2023 00:46:21 GMT and should not be manually modified.
+
+## 2.0.2
+Fri, 06 Oct 2023 00:46:21 GMT
+
+### Patches
+
+- fix cli linking
 
 ## 2.0.1
 Thu, 05 Oct 2023 19:56:52 GMT
