@@ -1,11 +1,12 @@
-import { App, ComponentScope } from '@nodearch/core';
+import { App } from '@nodearch/core';
 import { ExpressApp, ExpressOAIProvider } from '@nodearch/express';
 import { JoiApp } from '@nodearch/joi';
 import { JoiExpressApp, JoiOpenApiProvider } from '@nodearch/joi-express';
-import Joi from 'joi';
 import { OpenAPIApp, OpenAPIFormat } from '@nodearch/openapi';
-import { SwaggerApp, getAbsoluteFSPath } from '@nodearch/swagger';
+import { SwaggerApp } from '@nodearch/swagger';
+import { getAbsoluteFSPath } from 'swagger-ui-dist';
 import { MochaApp } from '@nodearch/mocha';
+import Joi from 'joi';
 
 
 export default class MyApp extends App {

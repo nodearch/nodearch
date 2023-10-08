@@ -1,7 +1,8 @@
-import { AppContext, Logger, Service } from '@nodearch/core';
-import { AppLoader, AppLoadMode } from '@nodearch/core/fs';
+import { Logger, Service } from '@nodearch/core';
+import { AppLoader } from '@nodearch/core/fs';
 import { cwd } from 'node:process';
 import { pathToFileURL } from 'node:url';
+import { getLoadMode } from '../utils/load-mode.js';
 
 
 @Service()
@@ -15,7 +16,7 @@ export class LocalAppService {
   constructor(logger: Logger) {
     this.hasLoadError = false;
     this.logger = logger;
-    this.appLoader = new AppLoader({ cwd: pathToFileURL(cwd()), loadMode: this.getLoadMode(), initMode: 'init' });
+    this.appLoader = new AppLoader({ cwd: pathToFileURL(cwd()), loadMode: getLoadMode(), initMode: 'init' });
   }
 
   async init() {
@@ -37,35 +38,6 @@ export class LocalAppService {
       }
       this.hasLoadError = true;
     }
-  }
-
-  private getLoadMode() {
-    /**
-     * Yargs is not loaded yet, so we need to parse the arguments manually
-     * But we're still including this argument in the yargs config in commands/start/start.command.ts
-     * For validation.
-     */
-    let loadMode = AppLoadMode.TS;
-
-    const flagIndex = process.argv.findIndex(x => x.startsWith('--loadMode') || x.startsWith('-m'));
-  
-    if (flagIndex === -1) return loadMode;
-
-    const flagKey = process.argv[flagIndex];
-
-    const flagHasValue = flagKey.includes('=');
-
-    if (flagHasValue) {
-      loadMode = flagKey.split('=')[1] as AppLoadMode;
-    }
-    else {
-      const value = process.argv[flagIndex + 1];
-      if (value && !value.startsWith('-')) {
-        loadMode = value as AppLoadMode;
-      }
-    }
-    
-    return loadMode;
   }
 
   get app() {
