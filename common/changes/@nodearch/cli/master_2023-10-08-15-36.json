@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "fix cli watch mode",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
