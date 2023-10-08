@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/express",
+      "comment": "fix express responseTime",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/express"
+}
