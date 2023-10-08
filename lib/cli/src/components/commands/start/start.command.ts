@@ -43,9 +43,11 @@ export class StartCommand implements ICommand {
       return await localApp.start();
     }
 
+    const ext = this.appContext.getSettings().loadMode;
+
     const starterScriptPath = path.join(
       fileURLToPath(this.appContext.getSettings().paths.appDir), 
-      'utils', 'app-starter.ts'
+      'utils', 'app-starter.' + ext 
     );
 
     // Watch Mode
