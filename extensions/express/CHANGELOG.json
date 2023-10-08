@@ -2,6 +2,20 @@
   "name": "@nodearch/express",
   "entries": [
     {
+      "version": "2.0.1",
+      "tag": "@nodearch/express_v2.0.1",
+      "date": "Sun, 08 Oct 2023 14:08:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix express responseTime",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "8684322c09638bb575abe54e941482ff2ca6e853"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.0",
       "tag": "@nodearch/express_v2.0.0",
       "date": "Thu, 05 Oct 2023 19:43:23 GMT",
