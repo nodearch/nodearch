@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.8",
+      "tag": "@nodearch/cli_v2.0.8",
+      "date": "Sun, 08 Oct 2023 22:22:19 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "js mode for production",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "d9f5726f785a5a7b4168356bbd186c8567bd14b4"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.7",
       "tag": "@nodearch/cli_v2.0.7",
       "date": "Sun, 08 Oct 2023 15:38:34 GMT",

@@ -2,6 +2,20 @@
   "name": "@nodearch/swagger",
   "entries": [
     {
+      "version": "1.0.1",
+      "tag": "@nodearch/swagger_v1.0.1",
+      "date": "Sun, 08 Oct 2023 22:22:19 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix dependency issue",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "d9f5726f785a5a7b4168356bbd186c8567bd14b4"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.0",
       "tag": "@nodearch/swagger_v1.0.0",
       "date": "Thu, 05 Oct 2023 19:43:23 GMT",
