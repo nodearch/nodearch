@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.6",
+      "tag": "@nodearch/cli_v2.0.6",
+      "date": "Sun, 08 Oct 2023 13:36:17 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "remove workspace from generated templates",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "309a8033481b864f671040440754af36e5fe6f99"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.5",
       "tag": "@nodearch/cli_v2.0.5",
       "date": "Sun, 08 Oct 2023 13:20:11 GMT",

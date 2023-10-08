@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Sun, 08 Oct 2023 13:20:11 GMT and should not be manually modified.
+This log was last generated on Sun, 08 Oct 2023 13:36:17 GMT and should not be manually modified.
+
+## 2.0.6
+Sun, 08 Oct 2023 13:36:17 GMT
+
+### Patches
+
+- remove workspace from generated templates
 
 ## 2.0.5
 Sun, 08 Oct 2023 13:20:11 GMT
