@@ -1,5 +1,3 @@
-#!/usr/bin/env ts-node
-
 import { AppLoader, AppLoadMode } from '@nodearch/core/fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';

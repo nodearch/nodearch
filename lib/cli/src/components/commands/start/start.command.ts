@@ -23,6 +23,11 @@ export class StartCommand implements ICommand {
       alias: 'w',
       boolean: true,
       describe: 'Start in watch mode [nodemon]'
+    },
+    loadMode:{
+      alias: 'm',
+      choices: ['ts', 'js'],
+      describe: 'Load mode [ts, js]'
     }
   };
 

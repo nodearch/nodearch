@@ -13,11 +13,12 @@
     "node": ">=18"
   },
   "bin": {
-    "nodearch": "./dist/start.js"
+    "nodearch": "./start.js"
   },
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc",
+    "start": "node ./dist/start.js",
     "release": "npm run build && npm publish --tag beta --access public"
   },
   "repository": {
