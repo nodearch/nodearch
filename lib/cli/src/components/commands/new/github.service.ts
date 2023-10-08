@@ -1,7 +1,8 @@
 import { Service } from '@nodearch/core';
 import axios from 'axios';
 import path from 'path';
-import fs from 'fs';
+import fs from 'node:fs/promises';
+import { createWriteStream } from 'node:fs';
 import { ITemplateFile } from './interfaces.js';
 
 
@@ -23,10 +24,12 @@ export class GitHubService {
       filesInfo.map(async fileInfo => {
         const filePath = fileInfo.path.split('/').slice(2).join('/');
 
-        await fs.promises.mkdir(path.join(downloadPath, path.parse(filePath).dir), { recursive: true });
+        await fs.mkdir(path.join(downloadPath, path.parse(filePath).dir), { recursive: true });
         await this.downloadFile(path.join(downloadPath, filePath), fileInfo.download_url);
       })
     );
+
+    await this.removeWorkspaceFromPackageJson(path.join(downloadPath, 'package.json'));
   }
 
   private async getDirPathInfo(repoPath: string) {
@@ -73,7 +76,7 @@ export class GitHubService {
     });
 
     await new Promise((resolve, reject) => {
-      const writeStream = fs.createWriteStream(filePath);
+      const writeStream = createWriteStream(filePath);
 
       response.data.pipe(writeStream);
 
@@ -82,4 +85,28 @@ export class GitHubService {
       writeStream.on('finish', () => resolve(true));
     });
   }
+
+  private async removeWorkspaceFromPackageJson(filePath: string) {
+    const packageJson = JSON.parse(await fs.readFile(filePath, 'utf8'));
+  
+    for (const depType of ['dependencies', 'devDependencies']) {
+      const deps = packageJson[depType];
+      if (!deps) {
+        continue;
+      }
+  
+      for (const depName in deps) {
+        if (deps.hasOwnProperty(depName)) {
+          const depVersion = deps[depName];
+          if (depVersion.startsWith('workspace:')) {
+            deps[depName] = depVersion.substring('workspace:'.length);
+          }
+        }
+      }
+    }
+  
+    await fs.writeFile(filePath, JSON.stringify(packageJson, null, 2));
+  }
+  
+
 }
