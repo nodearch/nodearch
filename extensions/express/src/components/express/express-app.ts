@@ -43,6 +43,7 @@ export class ExpressApp {
   
         res.on('finish', () => {
           const durationInMs = this.getDurationInMs(start);
+          req.nodearch = req.nodearch || {};
           req.nodearch.responseTime = durationInMs;
         });
 
