@@ -37,7 +37,7 @@
     "@nodearch/swagger": "workspace:^1.0.1",
     "@nodearch/joi": "workspace:^1.0.0",
     "@nodearch/joi-express": "workspace:^1.0.0",
-    "@nodearch/mocha": "workspace:^1.0.0",
+    "@nodearch/mocha": "workspace:^1.0.1",
     "joi": "^17.9.1",
     "express": "^4.18.2",
     "reflect-metadata": "^0.1.13",
