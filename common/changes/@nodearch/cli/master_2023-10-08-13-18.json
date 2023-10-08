@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "add tsconfig to cli",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
