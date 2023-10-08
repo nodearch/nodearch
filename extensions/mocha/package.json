@@ -32,16 +32,20 @@
     "email": "bluemax7o1@gmail.com"
   },
   "dependencies": {
-    "@nodearch/core": "workspace:^2.0.0",
-    "@nodearch/command": "workspace:^1.0.0",
-    "typescript": "^5.2.2",
-    "mocha": "^10.2.0",
-    "nyc": "^15.1.0"
+    "@nodearch/command": "workspace:^1.0.0"
   },
   "devDependencies": {
+    "@nodearch/core": "workspace:^2.0.0",
+    "typescript": "^5.2.2",
     "@types/node": "^18.11.9",
     "rimraf": "~3.0.2",
-    "@types/mocha": "^10.0.1"
+    "@types/mocha": "^10.0.1",
+    "mocha": "^10.2.0"
+  },
+  "peerDependencies": {
+    "@nodearch/core": "2.x",
+    "mocha": "10.x",
+    "reflect-metadata": "0.x"
   },
   "nodearch": {}
 }

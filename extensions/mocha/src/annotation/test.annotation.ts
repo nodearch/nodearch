@@ -48,9 +48,9 @@ export function Mock(component: ClassConstructor): ClassDecorator {
   });
 }
 
-export function UseMock(component: ClassConstructor): ClassDecorator {
+export function Override(component: ClassConstructor): ClassDecorator {
   return ComponentFactory.classDecorator({
-    id: MochaAnnotation.UseMock,
+    id: MochaAnnotation.Override,
     fn() {
       return { component };
     },

@@ -6,7 +6,7 @@ export enum TestMode {
 export enum MochaAnnotation {
   Test = '@nodearch/mocha/annotation/test',
   Mock = '@nodearch/mocha/annotation/mock',
-  UseMock = '@nodearch/mocha/annotation/use-mock',
+  Override = '@nodearch/mocha/annotation/override',
   BeforeAll = '@nodearch/mocha/annotation/before-all',
   AfterAll = '@nodearch/mocha/annotation/after-all',
   BeforeEach = '@nodearch/mocha/annotation/before-each',

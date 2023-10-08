@@ -72,7 +72,7 @@ export class TestService {
   }
 
   private applyMocks(testComponentInfo: ComponentInfo, mockComponents: ComponentInfo[], container: Container) {
-    testComponentInfo.getDecorators({ id: MochaAnnotation.UseMock })
+    testComponentInfo.getDecorators({ id: MochaAnnotation.Override })
       .forEach(({ data }) => {
 
         const mockComp = mockComponents
