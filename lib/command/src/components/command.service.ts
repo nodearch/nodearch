@@ -26,7 +26,9 @@ export class CommandService {
       exclude: (RegExp | string)[] = options?.exclude || [];
 
     filteredCommands = commands.filter(cmd => {
-      return !exclude.some(ex => ex instanceof RegExp ? ex.test(cmd.command) : ex === cmd.command);
+      if (typeof cmd.command !== 'string') return true;
+
+      return !exclude.some(ex => ex instanceof RegExp ? ex.test(cmd.command as string) : ex === cmd.command);
     });
 
     // Get yargs commands
@@ -35,9 +37,13 @@ export class CommandService {
     // Initialize yargs
     const args = yargs(hideBin(process.argv))
       .scriptName(this.commandConfig.name)
-      .usage(this.commandConfig.usage)
-      .options(this.commandConfig.options || {})
-      .demandCommand();
+      .usage(this.commandConfig.usage);
+
+    if (this.commandConfig.options) {
+      args.options(this.commandConfig.options);
+    }
+
+    args.demandCommand();
 
     // Pass all yargs commands
     yargsCommands

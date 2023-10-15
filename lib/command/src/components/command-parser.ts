@@ -15,6 +15,10 @@ export class CommandParser {
       const { handler, questions, ...commandOptions } = cmd;
       const handlerFn = (args: Arguments) => this.handlerFactory(cmd, args);
 
+      if (commandOptions.builder && typeof commandOptions.builder === 'function') {
+        commandOptions.builder = commandOptions.builder.bind(cmd);
+      }
+
       return {
         ...commandOptions,
         handler: handlerFn

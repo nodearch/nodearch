@@ -1,5 +1,5 @@
 import { AppContext, Logger } from '@nodearch/core';
-import { Command, ICommand } from '@nodearch/command';
+import { Command, ICommand, ICommandBuilder } from '@nodearch/command';
 import { IOpenAPICommandOptions, OpenAPIFormat } from '../interfaces.js';
 import OAISchema from 'openapi3-ts';
 import { OpenAPI } from './openapi.js';
@@ -11,21 +11,23 @@ import { UrlParser } from '@nodearch/core/fs';
 
 
 @Command({ export: true })
-export class OpenAPICommand implements ICommand<IOpenAPICommandOptions> {
-  command = 'openapi generate';
+export class OpenAPICommand implements ICommand {
+  command = 'openapi';
   describe = 'Generate OpenAPI Document';
 
-  builder = {
+  builder: ICommandBuilder = {
     format: {
       describe: 'Select in which format you\'d like to generate the OpenAPI document',
       choices: ['json', 'yaml']
     },
-    path: {
+
+    paths: {
       describe: 'Absolute/relative path to where the generated OpenAPI will be saved',
-      type: 'string',
+      type: 'string', 
       required: false
     }
   };
+
 
   constructor(
     private readonly openAPI: OpenAPI,

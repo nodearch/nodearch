@@ -3,3 +3,4 @@ export * from './components/command.service.js';
 export * from './decorators/interfaces.js';
 export * from './decorators/decorators.js';
 export * from './decorators/enums.js';
+export * from './decorators/yargs.interfaces.js';

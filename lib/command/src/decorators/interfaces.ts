@@ -1,12 +1,12 @@
 import { QuestionType } from './enums.js';
+import { ICommandModule } from './yargs.interfaces.js';
 
 
-export type CommandHandler<T> = (data: T) => Promise<void>;
+
 export type CommandAnswers = Record<string, any>;
 export type CommandQuestionsDefault = string | number | boolean | Array<any> | 
   {(answers: CommandAnswers): string | number | boolean | Array<any>};
 export type CommandQuestionsChoices = string | number | { name?: string, value?: any, short?: string; extra?: any; };
-export type CommandBuilder<T> = Record<keyof T, { alias?: string | string[]; describe?: string, default?: any, [key: string]: any } >;
 
 
 export interface CommandQuestion<T = any> extends Record<string, any> {
@@ -114,48 +114,11 @@ export interface INotificationService {
   notify(message: string): void;
 }
 
-export interface ICommand<T extends Record<string, any> = any> {
-  /** 
-   * string (or array of strings) that executes this command 
-   * when given on the command line, 
-   * first string may contain positional args 
-   */
-  command: string;
-  
-  /** 
-   * string used as the description for the command in help text, 
-   * use `false` for a hidden command 
-   */
-  describe: string;
-
-  /** 
-   * array of strings (or a single string) 
-   * representing aliases of `exports.command`, 
-   * positional args defined in an alias are ignored 
-   */
-  aliases?: string | string[];
-  
-  /** 
-   * boolean (or string) to show deprecation notice 
-   */
-  deprecated?: boolean | string;
-  
-  /**
-   * Object that gives hints about the options that your command accepts.
-   * can also be a function. This function is executed with a yargs instance, 
-   * and can be used to provide advanced command specific help.
-   */
-  builder?: CommandBuilder<T>;
-
+export interface ICommand<T = any> extends ICommandModule<T> {
   /**
    * Inquirer questions
    */
   questions?: CommandQuestion[];
-
-  /** 
-   * a function which will be passed the data.
-   */
-  handler(options: T): Promise<void>;
 }
 
 export enum NpmDependencyType {

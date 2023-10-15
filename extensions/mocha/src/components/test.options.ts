@@ -1,4 +1,4 @@
-import { CommandBuilder } from '@nodearch/command';
+import { ICommandBuilder } from '@nodearch/command';
 
 
 const list = (str: any) =>
@@ -9,7 +9,7 @@ const GROUPS = {
   MOCHA: 'Test Runner Options [Mocha]'
 };
 
-export const testOptions: CommandBuilder<any> = {
+export const testOptions: ICommandBuilder<any> = {
   // General Options
   mode: {
     alias: ['m'],

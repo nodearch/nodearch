@@ -1,4 +1,4 @@
-import { CommandBuilder } from '../decorators/interfaces.js';
+import { ICommandOptionsBuilder } from '../decorators/yargs.interfaces.js';
 
 
 export interface ICommandAppOptions {
@@ -11,5 +11,5 @@ export interface ICommandAppOptions {
    * can also be a function. This function is executed with a yargs instance, 
    * and can be used to provide advanced command specific help.
    */
-  options?: CommandBuilder<any>;
+  options?: ICommandOptionsBuilder;
 }

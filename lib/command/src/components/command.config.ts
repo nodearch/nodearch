@@ -1,5 +1,5 @@
 import { Config, ConfigManager, ConfigType } from '@nodearch/core';
-import { CommandBuilder } from '../decorators/interfaces.js';
+import { ICommandOptionsBuilder } from '../decorators/yargs.interfaces.js';
 
 
 @Config()
@@ -7,7 +7,7 @@ export class CommandConfig {
   autoStart?: boolean;
   name: string;
   usage: string;
-  options?: CommandBuilder<any>;
+  options?: ICommandOptionsBuilder;
 
   constructor(config: ConfigManager) {
     this.autoStart = config.env({

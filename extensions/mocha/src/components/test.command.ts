@@ -1,5 +1,5 @@
 import { toCamelCase } from '@nodearch/core/utils';
-import { Command, CommandBuilder, ICommand } from '@nodearch/command';
+import { Command, ICommandBuilder, ICommand } from '@nodearch/command';
 import { MochaService } from './mocha.service.js';
 import { testOptions } from './test.options.js';
 
@@ -9,7 +9,7 @@ export class TestCommand implements ICommand {
   command: string; 
   describe: string;
   aliases: string[];
-  builder: CommandBuilder<any>;
+  builder: ICommandBuilder;
   
   constructor(
     private readonly mochaService: MochaService
