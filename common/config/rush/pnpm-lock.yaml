@@ -18,7 +18,7 @@ importers:
         specifier: workspace:^2.0.1
         version: link:../../lib/core
       '@nodearch/openapi':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../openapi
       '@types/body-parser':
         specifier: ^1.19.3
@@ -66,13 +66,13 @@ importers:
         specifier: workspace:^2.0.1
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.1
+        specifier: workspace:^2.0.2
         version: link:../express
       '@nodearch/joi':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../joi
       '@nodearch/openapi':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../openapi
       '@types/express':
         specifier: ^4.17.14
@@ -99,7 +99,7 @@ importers:
   ../../extensions/mocha:
     dependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.2
+        specifier: workspace:^1.0.3
         version: link:../../lib/command
       reflect-metadata:
         specifier: 0.x
@@ -134,7 +134,7 @@ importers:
         version: 0.1.13
     devDependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.2
+        specifier: workspace:^1.0.3
         version: link:../../lib/command
       '@nodearch/core':
         specifier: workspace:^2.0.1
@@ -162,14 +162,14 @@ importers:
         specifier: ^18.11.9
         version: 18.17.15
       '@types/swagger-ui-dist':
-        specifier: ^3.30.1
-        version: 3.30.1
+        specifier: ^3.30.2
+        version: 3.30.2
       rimraf:
         specifier: ~3.0.2
         version: 3.0.2
       swagger-ui-dist:
-        specifier: ^4.15.5
-        version: 4.15.5
+        specifier: ^5.9.0
+        version: 5.9.0
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -177,7 +177,7 @@ importers:
   ../../lib/cli:
     dependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.2
+        specifier: workspace:^1.0.3
         version: link:../command
       '@nodearch/core':
         specifier: workspace:^2.0.1
@@ -267,28 +267,28 @@ importers:
   ../../templates/express:
     dependencies:
       '@nodearch/cli':
-        specifier: workspace:^2.0.9
+        specifier: workspace:^2.0.10
         version: link:../../lib/cli
       '@nodearch/core':
         specifier: workspace:^2.0.1
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.1
+        specifier: workspace:^2.0.2
         version: link:../../extensions/express
       '@nodearch/joi':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../../extensions/joi
       '@nodearch/joi-express':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../../extensions/joi-express
       '@nodearch/mocha':
-        specifier: workspace:^1.0.3
+        specifier: workspace:^1.0.4
         version: link:../../extensions/mocha
       '@nodearch/openapi':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../../extensions/openapi
       '@nodearch/swagger':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../../extensions/swagger
       express:
         specifier: ^4.18.2
@@ -303,8 +303,8 @@ importers:
         specifier: ^0.1.13
         version: 0.1.13
       swagger-ui-dist:
-        specifier: ^4.15.5
-        version: 4.15.5
+        specifier: ^5.9.0
+        version: 5.9.0
     devDependencies:
       '@types/chai':
         specifier: ^4.3.3
@@ -322,8 +322,8 @@ importers:
         specifier: ^2.0.10
         version: 2.0.12
       '@types/swagger-ui-dist':
-        specifier: ^3.30.1
-        version: 3.30.1
+        specifier: ^3.30.2
+        version: 3.30.2
       chai:
         specifier: ^4.3.6
         version: 4.3.6
@@ -854,8 +854,8 @@ packages:
       '@types/superagent': 4.1.15
     dev: true
 
-  /@types/swagger-ui-dist@3.30.1:
-    resolution: {integrity: sha512-wWojDensMF33dSrhak4iWSPOsWBbvf+rSJ6VWQ7ohQbGdKAiT2IwUexrDZkMvf3+vVAPVnNFDRDtxADFszbh+Q==}
+  /@types/swagger-ui-dist@3.30.2:
+    resolution: {integrity: sha512-Wx1swzWAUisf/zTr6eg6H0v/crVw52311aZ1qdM1/qk7pv8kxvYeqzfqtUIl1xAWhIrJu1mHF+D8BfEK4YQuqQ==}
     dev: true
 
   /@types/through@0.0.30:
@@ -2639,8 +2639,8 @@ packages:
     dependencies:
       has-flag: 4.0.0
 
-  /swagger-ui-dist@4.15.5:
-    resolution: {integrity: sha512-V3eIa28lwB6gg7/wfNvAbjwJYmDXy1Jo1POjyTzlB6wPcHiGlRxq39TSjYGVjQrUSAzpv+a7nzp7mDxgNy57xA==}
+  /swagger-ui-dist@5.9.0:
+    resolution: {integrity: sha512-NUHSYoe5XRTk/Are8jPJ6phzBh3l9l33nEyXosM17QInoV95/jng8+PuSGtbD407QoPf93MH3Bkh773OgesJpA==}
 
   /test-exclude@6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
