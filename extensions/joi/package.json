@@ -33,11 +33,11 @@
   },
   "devDependencies": {
     "@nodearch/core": "workspace:^2.0.1",
-    "@types/node": "^18.11.9",
-    "rimraf": "~3.0.2",
+    "@types/node": "^20.8.6",
+    "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
     "reflect-metadata": "^0.1.13",
-    "joi": "^17.9.1"
+    "joi": "^17.11.0"
   },
   "peerDependencies": {
     "@nodearch/core": "2.x",

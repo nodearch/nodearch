@@ -123,6 +123,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@types/semver-utils",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@types/supertest",
       "allowedCategories": [ "prototypes" ]
     },
@@ -208,6 +212,10 @@
     },
     {
       "name": "nodemon",
+      "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "npm-check-updates",
       "allowedCategories": [ "production", "prototypes" ]
     },
     {
