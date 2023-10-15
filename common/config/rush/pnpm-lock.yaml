@@ -15,7 +15,7 @@ importers:
         version: 0.1.13
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.0
+        specifier: workspace:^2.0.1
         version: link:../../lib/core
       '@nodearch/openapi':
         specifier: workspace:^1.0.0
@@ -42,7 +42,7 @@ importers:
   ../../extensions/joi:
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.0
+        specifier: workspace:^2.0.1
         version: link:../../lib/core
       '@types/node':
         specifier: ^18.11.9
@@ -63,7 +63,7 @@ importers:
   ../../extensions/joi-express:
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.0
+        specifier: workspace:^2.0.1
         version: link:../../lib/core
       '@nodearch/express':
         specifier: workspace:^2.0.1
@@ -99,14 +99,14 @@ importers:
   ../../extensions/mocha:
     dependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../../lib/command
       reflect-metadata:
         specifier: 0.x
         version: 0.1.13
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.0
+        specifier: workspace:^2.0.1
         version: link:../../lib/core
       '@types/mocha':
         specifier: ^10.0.1
@@ -134,10 +134,10 @@ importers:
         version: 0.1.13
     devDependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../../lib/command
       '@nodearch/core':
-        specifier: workspace:^2.0.0
+        specifier: workspace:^2.0.1
         version: link:../../lib/core
       '@types/node':
         specifier: ^18.11.9
@@ -156,7 +156,7 @@ importers:
         version: 0.1.13
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.0
+        specifier: workspace:^2.0.1
         version: link:../../lib/core
       '@types/node':
         specifier: ^18.11.9
@@ -177,10 +177,10 @@ importers:
   ../../lib/cli:
     dependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../command
       '@nodearch/core':
-        specifier: workspace:^2.0.0
+        specifier: workspace:^2.0.1
         version: link:../core
       '@swc/core':
         specifier: 1.3.82
@@ -221,7 +221,7 @@ importers:
         version: 17.7.0
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.0
+        specifier: workspace:^2.0.1
         version: link:../core
       '@types/inquirer':
         specifier: ^9.0.3
@@ -267,10 +267,10 @@ importers:
   ../../templates/express:
     dependencies:
       '@nodearch/cli':
-        specifier: workspace:^2.0.8
+        specifier: workspace:^2.0.9
         version: link:../../lib/cli
       '@nodearch/core':
-        specifier: workspace:^2.0.0
+        specifier: workspace:^2.0.1
         version: link:../../lib/core
       '@nodearch/express':
         specifier: workspace:^2.0.1
@@ -282,7 +282,7 @@ importers:
         specifier: workspace:^1.0.0
         version: link:../../extensions/joi-express
       '@nodearch/mocha':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../../extensions/mocha
       '@nodearch/openapi':
         specifier: workspace:^1.0.0
