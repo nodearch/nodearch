@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/command",
+      "comment": "command interface cleanup",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/command"
+}
