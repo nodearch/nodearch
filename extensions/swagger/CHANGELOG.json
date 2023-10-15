@@ -2,6 +2,28 @@
   "name": "@nodearch/swagger",
   "entries": [
     {
+      "version": "1.0.4",
+      "tag": "@nodearch/swagger_v1.0.4",
+      "date": "Sun, 15 Oct 2023 22:33:54 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add ncu command and deps updates",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "d4bbfa5f72ef6386dd16cfb3a935cbc6965d826f"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^2.0.1` to `^2.0.2`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `2.x` to `2.0.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.3",
       "tag": "@nodearch/swagger_v1.0.3",
       "date": "Sun, 15 Oct 2023 19:57:52 GMT",

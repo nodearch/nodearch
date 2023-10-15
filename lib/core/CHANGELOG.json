@@ -2,6 +2,20 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "2.0.2",
+      "tag": "@nodearch/core_v2.0.2",
+      "date": "Sun, 15 Oct 2023 22:33:54 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add ncu command and deps updates",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "d4bbfa5f72ef6386dd16cfb3a935cbc6965d826f"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.1",
       "tag": "@nodearch/core_v2.0.1",
       "date": "Sun, 15 Oct 2023 13:38:46 GMT",

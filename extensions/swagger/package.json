@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/swagger",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Swagger",
   "exports": {
     ".": {
@@ -32,7 +32,7 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.0.1",
+    "@nodearch/core": "workspace:^2.0.2",
     "@types/node": "^20.8.6",
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
@@ -41,7 +41,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@nodearch/core": "2.x",
+    "@nodearch/core": "2.0.2",
     "reflect-metadata": "0.x",
     "swagger-ui-dist": "5.x"
   }

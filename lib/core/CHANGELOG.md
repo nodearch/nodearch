@@ -1,6 +1,13 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Sun, 15 Oct 2023 13:38:46 GMT and should not be manually modified.
+This log was last generated on Sun, 15 Oct 2023 22:33:54 GMT and should not be manually modified.
+
+## 2.0.2
+Sun, 15 Oct 2023 22:33:54 GMT
+
+### Patches
+
+- Add ncu command and deps updates
 
 ## 2.0.1
 Sun, 15 Oct 2023 13:38:46 GMT

@@ -1,6 +1,13 @@
 # Change Log - @nodearch/swagger
 
-This log was last generated on Sun, 15 Oct 2023 19:57:52 GMT and should not be manually modified.
+This log was last generated on Sun, 15 Oct 2023 22:33:54 GMT and should not be manually modified.
+
+## 1.0.4
+Sun, 15 Oct 2023 22:33:54 GMT
+
+### Patches
+
+- Add ncu command and deps updates
 
 ## 1.0.3
 Sun, 15 Oct 2023 19:57:52 GMT
