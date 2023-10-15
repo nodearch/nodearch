@@ -45,9 +45,9 @@
     "joi-to-swagger": "^6.2.0"
   },
   "peerDependencies": {
-    "@nodearch/core": "2.0.1",
-    "@nodearch/joi": "workspace:^1.0.0",
-    "@nodearch/express": "workspace:^2.0.1",
+    "@nodearch/core": "2.x",
+    "@nodearch/joi": "1.x",
+    "@nodearch/express": "2.x",
     "joi-to-swagger": "6.x"
   }
 }

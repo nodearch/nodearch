@@ -42,7 +42,7 @@
     "openapi3-ts": "^3.1.2"
   },
   "peerDependencies": {
-    "@nodearch/core": "2.0.1",
+    "@nodearch/core": "2.x",
     "reflect-metadata": "0.x"
   }
 }
