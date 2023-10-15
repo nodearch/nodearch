@@ -2,6 +2,28 @@
   "name": "@nodearch/command",
   "entries": [
     {
+      "version": "1.0.1",
+      "tag": "@nodearch/command_v1.0.1",
+      "date": "Sun, 15 Oct 2023 13:38:46 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "pass options to command",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "f21b036bf9863dfed343b93e92323b503045ab49"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^2.0.0` to `^2.0.1`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `2.0.0` to `2.0.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.0",
       "tag": "@nodearch/command_v1.0.0",
       "date": "Thu, 05 Oct 2023 19:43:23 GMT",

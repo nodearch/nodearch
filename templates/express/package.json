@@ -33,14 +33,14 @@
     "@types/mocha": "^10.0.1"
   },
   "dependencies": {
-    "@nodearch/core": "workspace:^2.0.0",
-    "@nodearch/cli": "workspace:^2.0.8",
+    "@nodearch/core": "workspace:^2.0.1",
+    "@nodearch/cli": "workspace:^2.0.9",
     "@nodearch/express": "workspace:^2.0.1",
     "@nodearch/openapi": "workspace:^1.0.0",
     "@nodearch/swagger": "workspace:^1.0.1",
     "@nodearch/joi": "workspace:^1.0.0",
     "@nodearch/joi-express": "workspace:^1.0.0",
-    "@nodearch/mocha": "workspace:^1.0.1",
+    "@nodearch/mocha": "workspace:^1.0.2",
     "joi": "^17.9.1",
     "express": "^4.18.2",
     "reflect-metadata": "^0.1.13",

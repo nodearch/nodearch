@@ -1,6 +1,13 @@
 # Change Log - @nodearch/command
 
-This log was last generated on Thu, 05 Oct 2023 19:43:23 GMT and should not be manually modified.
+This log was last generated on Sun, 15 Oct 2023 13:38:46 GMT and should not be manually modified.
+
+## 1.0.1
+Sun, 15 Oct 2023 13:38:46 GMT
+
+### Patches
+
+- pass options to command
 
 ## 1.0.0
 Thu, 05 Oct 2023 19:43:23 GMT

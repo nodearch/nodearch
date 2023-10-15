@@ -1,6 +1,13 @@
 # Change Log - @nodearch/mocha
 
-This log was last generated on Sun, 08 Oct 2023 23:12:35 GMT and should not be manually modified.
+This log was last generated on Sun, 15 Oct 2023 13:38:46 GMT and should not be manually modified.
+
+## 1.0.2
+Sun, 15 Oct 2023 13:38:46 GMT
+
+### Patches
+
+- change UseMock to Override
 
 ## 1.0.1
 Sun, 08 Oct 2023 23:12:35 GMT
