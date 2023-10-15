@@ -2,6 +2,37 @@
   "name": "@nodearch/joi-express",
   "entries": [
     {
+      "version": "1.0.1",
+      "tag": "@nodearch/joi-express_v1.0.1",
+      "date": "Sun, 15 Oct 2023 19:42:51 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix peer dependencies",
+            "author": "Ahmed Ali <ahmed.a@trufla.com>",
+            "commit": "6759d09058ecfd562756c72db6ddb447bcbffae2"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/joi\" from `^1.0.0` to `^1.0.1`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/express\" from `^2.0.1` to `^2.0.2`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/openapi\" from `^1.0.1` to `^1.0.2`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/joi\" from `1.x` to `1.0.1`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/express\" from `2.x` to `2.0.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.0",
       "tag": "@nodearch/joi-express_v1.0.0",
       "date": "Thu, 05 Oct 2023 19:43:23 GMT",

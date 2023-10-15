@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/openapi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "OpenApi",
   "exports": {
     ".": {
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@nodearch/core": "workspace:^2.0.1",
-    "@nodearch/command": "workspace:^1.0.2",
+    "@nodearch/command": "workspace:^1.0.3",
     "@types/node": "^18.11.9",
     "rimraf": "~3.0.2",
     "typescript": "^5.2.2"

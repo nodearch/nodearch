@@ -2,6 +2,25 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.10",
+      "tag": "@nodearch/cli_v2.0.10",
+      "date": "Sun, 15 Oct 2023 19:42:51 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix peer dependencies",
+            "author": "Ahmed Ali <ahmed.a@trufla.com>",
+            "commit": "6759d09058ecfd562756c72db6ddb447bcbffae2"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/command\" from `^1.0.2` to `^1.0.3`"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.9",
       "tag": "@nodearch/cli_v2.0.9",
       "date": "Sun, 15 Oct 2023 13:38:46 GMT",
