@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/mocha",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "@nodearch/mocha"
+}
