@@ -2,6 +2,20 @@
   "name": "@nodearch/command",
   "entries": [
     {
+      "version": "1.0.2",
+      "tag": "@nodearch/command_v1.0.2",
+      "date": "Sun, 15 Oct 2023 16:38:29 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "command interface cleanup",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "b6d408c15ae04115b7cc42f9d9226ce8130ed710"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.1",
       "tag": "@nodearch/command_v1.0.1",
       "date": "Sun, 15 Oct 2023 13:38:46 GMT",

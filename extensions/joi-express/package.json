@@ -35,7 +35,7 @@
     "@nodearch/core": "workspace:^2.0.1",
     "@nodearch/joi": "workspace:^1.0.0",
     "@nodearch/express": "workspace:^2.0.1",
-    "@nodearch/openapi": "workspace:^1.0.0",
+    "@nodearch/openapi": "workspace:^1.0.1",
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.9",
     "rimraf": "~3.0.2",

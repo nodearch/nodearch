@@ -2,6 +2,25 @@
   "name": "@nodearch/openapi",
   "entries": [
     {
+      "version": "1.0.1",
+      "tag": "@nodearch/openapi_v1.0.1",
+      "date": "Sun, 15 Oct 2023 16:38:29 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "command interface cleanup",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "b6d408c15ae04115b7cc42f9d9226ce8130ed710"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/command\" from `^1.0.1` to `^1.0.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.0",
       "tag": "@nodearch/openapi_v1.0.0",
       "date": "Thu, 05 Oct 2023 19:43:23 GMT",
