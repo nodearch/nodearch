@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "pass options to command",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}

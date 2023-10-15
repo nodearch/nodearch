@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/core",
+      "comment": "add start() in the appContext interface",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/core"
+}

@@ -11,7 +11,13 @@ export class Cli extends App {
       extensions: [
         new CommandApp({
           name: 'nodearch',
-          usage: 'Usage: nodearch <command> [options]'
+          usage: 'Usage: nodearch <command> [options]',
+          options: {
+            loadMode:{
+              choices: ['ts', 'js'],
+              describe: 'Load mode [ts, js]'
+            }
+          }
         })
       ]
     });

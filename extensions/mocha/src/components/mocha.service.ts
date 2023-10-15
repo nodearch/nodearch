@@ -1,7 +1,8 @@
-import { Logger, Service } from '@nodearch/core';
+import { AppContext, Logger, Service } from '@nodearch/core';
 import Mocha, {Test} from 'mocha';
 import { ITestOptions } from './test.interfaces.js';
 import { TestService } from './test.service.js';
+import { TestMode } from '../index.js';
 
 
 @Service()
@@ -9,6 +10,7 @@ export class MochaService {
 
   constructor(
     private readonly testService: TestService,
+    private readonly appContext: AppContext,
     private readonly logger: Logger
   ) {}
 
@@ -58,6 +60,10 @@ export class MochaService {
   
     });
   
+    if (options.mode.includes(TestMode.E2E)) {
+      await this.appContext.start();
+    }
+
     const code: number = await (new Promise((resolve, reject) => {
       mochaInstance.run((failures) => {
         resolve(failures);

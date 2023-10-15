@@ -36,6 +36,7 @@ export class CommandService {
     const args = yargs(hideBin(process.argv))
       .scriptName(this.commandConfig.name)
       .usage(this.commandConfig.usage)
+      .options(this.commandConfig.options || {})
       .demandCommand();
 
     // Pass all yargs commands

@@ -10,6 +10,7 @@ import { IAppOptions, IAppSettings, IInitOptions } from './app.interfaces.js';
 import { ComponentRegistry } from '../components/component-registry.js';
 import { ComponentScope, CoreDecorator } from '../components/enums.js';
 import { ClassConstructor } from '../utils.index.js';
+import { AppState } from './app.enums.js';
 
 
 export class App {
@@ -26,6 +27,7 @@ export class App {
   private inversifyContainer: inversify.Container;
   private appSettings?: IAppSettings;
   private hooks: IHook[];
+  private appState: AppState;
 
 
   constructor(options: IAppOptions) {
@@ -39,9 +41,13 @@ export class App {
     this.logOptions = options.logs || {};
     this.configOptions = options.config;
     this.hooks = [];
+    this.appState = AppState.NONE;
   }
 
   async start() {
+    if (this.appState === AppState.STARTED) return;
+    this.appState = AppState.STARTED;
+
     this.initHooks();
     for (const hook of this.hooks) {
       if (hook.onStart) {
@@ -51,6 +57,9 @@ export class App {
   }
 
   async stop() {
+    if (this.appState === AppState.STOPPED) return;
+    this.appState = AppState.STOPPED;
+
     for (const hook of this.hooks) {
       if (hook.onStop) {
         await hook.onStop();
@@ -59,6 +68,9 @@ export class App {
   }
 
   async init(options: IInitOptions) {
+    if (this.appState === AppState.INITIATED) return;
+    this.appState = AppState.INITIATED;
+    
     // TODO: We can probably add performance insights here
 
     if (options.mode === 'app') {

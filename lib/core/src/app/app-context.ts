@@ -8,4 +8,5 @@ export abstract class AppContext {
   abstract getComponentRegistry(): ComponentRegistry;
   abstract getSettings(): IAppSettings;
   abstract getName(): string;
+  abstract start(): Promise<void>;
 }
