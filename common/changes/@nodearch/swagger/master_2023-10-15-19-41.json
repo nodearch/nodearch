@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/swagger",
+      "comment": "fix peer dependencies",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/swagger"
+}
