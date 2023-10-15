@@ -9,7 +9,10 @@
   "scripts": {
     "build": "rimraf ./dist/ && tsc",
     "build:watch": "tsc",
-    "start": "nodearch start"
+    "start": "nodearch start",
+    "test": "nodearch test",
+    "test:unit": "nodearch test -m unit",
+    "test:e2e": "nodearch test -m e2e"
   },
   "keywords": [],
   "author": "",

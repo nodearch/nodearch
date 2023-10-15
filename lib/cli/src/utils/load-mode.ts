@@ -9,7 +9,7 @@ export function getLoadMode() {
    */
   let loadMode = AppLoadMode.TS;
 
-  const flagIndex = process.argv.findIndex(x => x.startsWith('--loadMode') || x.startsWith('-m'));
+  const flagIndex = process.argv.findIndex(x => x.startsWith('--loadMode'));
 
   if (flagIndex === -1) return loadMode;
 
