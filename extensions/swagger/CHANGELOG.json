@@ -2,6 +2,20 @@
   "name": "@nodearch/swagger",
   "entries": [
     {
+      "version": "1.0.3",
+      "tag": "@nodearch/swagger_v1.0.3",
+      "date": "Sun, 15 Oct 2023 19:57:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update swagger ui version",
+            "author": "Ahmed Ali <ahmed.a@trufla.com>",
+            "commit": "4fa7df5b28a9dc4c9e59f3736c3611afe3dd8d24"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.2",
       "tag": "@nodearch/swagger_v1.0.2",
       "date": "Sun, 15 Oct 2023 19:42:51 GMT",

@@ -1,6 +1,13 @@
 # Change Log - @nodearch/swagger
 
-This log was last generated on Sun, 15 Oct 2023 19:42:51 GMT and should not be manually modified.
+This log was last generated on Sun, 15 Oct 2023 19:57:52 GMT and should not be manually modified.
+
+## 1.0.3
+Sun, 15 Oct 2023 19:57:52 GMT
+
+### Patches
+
+- update swagger ui version
 
 ## 1.0.2
 Sun, 15 Oct 2023 19:42:51 GMT
