@@ -36,12 +36,12 @@
     "@nodearch/joi": "workspace:^1.0.1",
     "@nodearch/express": "workspace:^2.0.2",
     "@nodearch/openapi": "workspace:^1.0.2",
-    "@types/express": "^4.17.14",
-    "@types/node": "^18.11.9",
-    "rimraf": "~3.0.2",
+    "@types/express": "^4.17.19",
+    "@types/node": "^20.8.6",
+    "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
     "reflect-metadata": "^0.1.13",
-    "joi": "^17.9.1",
+    "joi": "^17.11.0",
     "joi-to-swagger": "^6.2.0"
   },
   "peerDependencies": {

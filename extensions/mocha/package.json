@@ -37,9 +37,9 @@
   "devDependencies": {
     "@nodearch/core": "workspace:^2.0.1",
     "typescript": "^5.2.2",
-    "@types/node": "^18.11.9",
-    "rimraf": "~3.0.2",
-    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.8.6",
+    "rimraf": "^5.0.5",
+    "@types/mocha": "^10.0.2",
     "mocha": "^10.2.0"
   },
   "peerDependencies": {

@@ -7,7 +7,7 @@ export interface ICommandModule<T = any> {
   /** object declaring the options the command accepts, or a function accepting and returning a yargs instance */
   builder?: ICommandBuilder<T> | undefined;
   /** string (or array of strings) that executes this command when given on the command line, first string may contain positional args */
-  command?: ReadonlyArray<string> | string | undefined;
+  command: ReadonlyArray<string> | string | undefined;
   /** boolean (or string) to show deprecation notice */
   deprecated?: boolean | string | undefined;
   /** string used as the description for the command in help text, use `false` for a hidden command */

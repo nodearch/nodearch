@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/joi",
+      "comment": "Add ncu command and deps updates",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/joi"
+}
