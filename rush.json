@@ -473,6 +473,13 @@
       "reviewCategory": "production",
       "versionPolicyName": "packages",
       "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/keycloak",
+      "projectFolder": "extensions/keycloak",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
     }
     // {
     //   /**
