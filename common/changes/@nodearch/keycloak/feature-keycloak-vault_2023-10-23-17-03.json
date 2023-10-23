@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/keycloak",
+      "comment": "migrating to core v2",
+      "type": "major"
+    }
+  ],
+  "packageName": "@nodearch/keycloak"
+}
