@@ -1,0 +1,19 @@
+{
+  "name": "@nodearch/vault",
+  "entries": [
+    {
+      "version": "2.0.0",
+      "tag": "@nodearch/vault_v2.0.0",
+      "date": "Mon, 23 Oct 2023 17:06:39 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "migrating to core v2",
+            "author": "Ahmed Medhat Tawfiq <ahmed.medhat.tawfiq@gmail.com>",
+            "commit": "7bde221e49133d7f0a5b1a0d97bba9c150f2a570"
+          }
+        ]
+      }
+    }
+  ]
+}
