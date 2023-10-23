@@ -4,7 +4,7 @@ import { Service } from '@nodearch/core';
 import { IAuthInfo, IJWT } from '../interfaces.js';
 import { KeycloakConfig } from './keycloak.config.js';
 
-@Service()
+@Service({ export: true })
 export class KeycloakAuth {
   realmPattern: RegExp;
 

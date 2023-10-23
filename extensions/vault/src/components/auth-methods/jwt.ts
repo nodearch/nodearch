@@ -5,7 +5,7 @@ import { IJWTAuthOptions, IAuthResponse } from '../../interfaces.js';
 import { VaultError } from '../../vault.error.js';
 
 
-@Service()
+@Service({ export: true })
 export class JWTAuthMethod {
   constructor(private vaultConfig: VaultConfig) {} 
 

@@ -2,7 +2,7 @@ import { App } from '@nodearch/core';
 import { IVaultOptions } from './interfaces.js';
 
 
-export class VayltApp extends App {
+export class VaultApp extends App {
   constructor(config?: IVaultOptions) {
     super({
       components: {

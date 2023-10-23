@@ -4,7 +4,7 @@ import { VaultConfig } from '../vault.config.js';
 import { IAppRoleAuthOptions, IAuthResponse } from '../../interfaces.js';
 import { VaultError } from '../../vault.error.js';
 
-@Service()
+@Service({ export: true })
 export class AppRoleAuthMethod {
   constructor(private vaultConfig: VaultConfig) { }
 

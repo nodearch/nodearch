@@ -5,7 +5,7 @@ import { IDBGetCredsOptions, IDBGetCredsResponse } from '../../interfaces.js';
 import { VaultError } from '../../vault.error.js';
 
 
-@Service()
+@Service({ export: true })
 export class DBSecretEngine {
   constructor(private vaultConfig: VaultConfig) {}
 

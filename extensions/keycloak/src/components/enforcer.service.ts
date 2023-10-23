@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import { Service } from '@nodearch/core';
 
 
-@Service()
+@Service({ export: true })
 export class KeycloakEnforcer {
 
   constructor(private keycloakConfig: KeycloakConfig) {}

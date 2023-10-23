@@ -4,7 +4,7 @@ import { VaultConfig } from '../vault.config.js';
 import { IKVSecretEngineOptions, IKVData, IKVSecretResponse } from '../../interfaces.js';
 import { VaultError } from '../../vault.error.js';
 
-@Service()
+@Service({ export: true })
 export class KVSecretEngine {
   constructor(private vaultConfig: VaultConfig) { }
 
