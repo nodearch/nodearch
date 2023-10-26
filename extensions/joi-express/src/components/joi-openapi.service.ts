@@ -53,7 +53,7 @@ export class JoiOpenApiService {
       const parameter = {
         name: key,
         in: location,
-        required: schema.required.includes(key),
+        required: schema.required ? schema.required.includes(key) : false,
         schema: paramSchema
       };
 
