@@ -1,6 +1,13 @@
 # Change Log - @nodearch/joi-express
 
-This log was last generated on Sun, 15 Oct 2023 22:33:54 GMT and should not be manually modified.
+This log was last generated on Thu, 26 Oct 2023 11:12:47 GMT and should not be manually modified.
+
+## 1.0.3
+Thu, 26 Oct 2023 11:12:47 GMT
+
+### Patches
+
+- Fix Express Openapi Query Params
 
 ## 1.0.2
 Sun, 15 Oct 2023 22:33:54 GMT

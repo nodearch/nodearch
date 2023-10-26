@@ -2,6 +2,20 @@
   "name": "@nodearch/joi-express",
   "entries": [
     {
+      "version": "1.0.3",
+      "tag": "@nodearch/joi-express_v1.0.3",
+      "date": "Thu, 26 Oct 2023 11:12:47 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix Express Openapi Query Params",
+            "author": "Ahmed Medhat Tawfiq <ahmed.medhat.tawfiq@gmail.com>",
+            "commit": "b87b796b3dddcdbff15cd8fb0b7a99028f1e7db8"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.2",
       "tag": "@nodearch/joi-express_v1.0.2",
       "date": "Sun, 15 Oct 2023 22:33:54 GMT",
