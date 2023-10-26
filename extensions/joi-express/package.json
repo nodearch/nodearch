@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/joi-express",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "description": "NodeArch Joi Express Extension",
   "exports": {
     ".": {
