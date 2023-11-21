@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "disable swc in cli",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
