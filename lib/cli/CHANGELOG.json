@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.12",
+      "tag": "@nodearch/cli_v2.0.12",
+      "date": "Tue, 21 Nov 2023 18:30:03 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "disable swc in cli",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "3d6b3526eedb8436ba6f9b96789d101a3bfbf900"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.11",
       "tag": "@nodearch/cli_v2.0.11",
       "date": "Sun, 15 Oct 2023 22:33:54 GMT",

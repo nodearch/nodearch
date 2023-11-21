@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Sun, 15 Oct 2023 22:33:54 GMT and should not be manually modified.
+This log was last generated on Tue, 21 Nov 2023 18:30:03 GMT and should not be manually modified.
+
+## 2.0.12
+Tue, 21 Nov 2023 18:30:03 GMT
+
+### Patches
+
+- disable swc in cli
 
 ## 2.0.11
 Sun, 15 Oct 2023 22:33:54 GMT
