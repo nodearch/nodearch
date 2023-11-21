@@ -335,7 +335,7 @@ importers:
         specifier: workspace:^1.0.2
         version: link:../../extensions/joi
       '@nodearch/joi-express':
-        specifier: workspace:^1.0.2
+        specifier: workspace:^1.0.3
         version: link:../../extensions/joi-express
       '@nodearch/mocha':
         specifier: workspace:^1.0.5
