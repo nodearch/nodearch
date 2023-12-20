@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.14",
+      "tag": "@nodearch/cli_v2.0.14",
+      "date": "Wed, 20 Dec 2023 15:25:50 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix cli swc",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "2c798da19b99e221fcce94eb082b94bc17aae143"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.13",
       "tag": "@nodearch/cli_v2.0.13",
       "date": "Wed, 20 Dec 2023 14:42:43 GMT",
