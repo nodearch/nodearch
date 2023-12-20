@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Tue, 21 Nov 2023 18:30:03 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Dec 2023 14:42:43 GMT and should not be manually modified.
+
+## 2.0.13
+Wed, 20 Dec 2023 14:42:43 GMT
+
+### Patches
+
+- fix tsconfig
 
 ## 2.0.12
 Tue, 21 Nov 2023 18:30:03 GMT
