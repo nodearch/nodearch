@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Wed, 20 Dec 2023 15:25:50 GMT and should not be manually modified.
+This log was last generated on Tue, 26 Dec 2023 18:58:37 GMT and should not be manually modified.
+
+## 2.0.15
+Tue, 26 Dec 2023 18:58:37 GMT
+
+### Patches
+
+- show stack trace on fail to load the app
 
 ## 2.0.14
 Wed, 20 Dec 2023 15:25:50 GMT
