@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.16",
+      "tag": "@nodearch/cli_v2.0.16",
+      "date": "Tue, 26 Dec 2023 19:32:15 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add-tsconfig-paths-cli",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "5238a9072e5cb15d5307949b0304771efe6c927a"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.15",
       "tag": "@nodearch/cli_v2.0.15",
       "date": "Tue, 26 Dec 2023 18:58:37 GMT",
