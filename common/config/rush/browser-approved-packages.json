@@ -276,7 +276,7 @@
     },
     {
       "name": "tsconfig-paths",
-      "allowedCategories": [ "prototypes" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "typescript",
