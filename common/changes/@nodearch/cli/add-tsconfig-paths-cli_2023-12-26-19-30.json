@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "add-tsconfig-paths-cli",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
