@@ -326,7 +326,7 @@ importers:
   ../../templates/express:
     dependencies:
       '@nodearch/cli':
-        specifier: workspace:^2.0.16
+        specifier: workspace:^2.0.17
         version: link:../../lib/cli
       '@nodearch/core':
         specifier: workspace:^2.0.2
