@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/core",
+      "comment": "fix getDecorators while filter by method name",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/core"
+}
