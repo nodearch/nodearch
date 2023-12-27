@@ -42,7 +42,7 @@
     "reflect-metadata": "^0.1.13"
   },
   "peerDependencies": {
-    "@nodearch/core": "2.0.3",
+    "@nodearch/core": "2.x",
     "reflect-metadata": "0.x"
   }
 }
