@@ -150,7 +150,7 @@ export class ExpressApp {
   }
 
   private createRouter(routerInfo: IExpressRouter) {
-    const router = express.Router();
+    const router = express.Router({ mergeParams: true });
 
     router.use(this.middlewareFactory.defaultRouterMiddleware(routerInfo.controllerInfo));
 

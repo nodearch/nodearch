@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/express",
+      "comment": "add mergeParams to express router",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/express"
+}
