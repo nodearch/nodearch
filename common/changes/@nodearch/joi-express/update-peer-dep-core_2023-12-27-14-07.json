@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/joi-express",
+      "comment": "update core peer dep",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/joi-express"
+}
