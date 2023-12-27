@@ -2,6 +2,20 @@
   "name": "@nodearch/joi",
   "entries": [
     {
+      "version": "1.0.3",
+      "tag": "@nodearch/joi_v1.0.3",
+      "date": "Wed, 27 Dec 2023 14:09:55 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update core peer dep",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "ec4eafd46f0808a95f2f2ce32a9af46eefbf240c"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.2",
       "tag": "@nodearch/joi_v1.0.2",
       "date": "Sun, 15 Oct 2023 22:33:54 GMT",
