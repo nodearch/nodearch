@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/keycloak",
+      "comment": "update core peer dep",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/keycloak"
+}
