@@ -1,6 +1,13 @@
 # Change Log - @nodearch/vault
 
-This log was last generated on Wed, 27 Dec 2023 14:09:55 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Dec 2023 16:22:14 GMT and should not be manually modified.
+
+## 2.0.2
+Wed, 27 Dec 2023 16:22:14 GMT
+
+### Patches
+
+- update peers
 
 ## 2.0.1
 Wed, 27 Dec 2023 14:09:55 GMT

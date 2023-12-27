@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@nodearch/core": "workspace:^2.0.3",
-    "@nodearch/command": "workspace:^1.0.5",
+    "@nodearch/command": "workspace:^1.0.6",
     "typescript": "^5.2.2",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",

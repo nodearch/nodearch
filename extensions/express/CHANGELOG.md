@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Wed, 27 Dec 2023 16:01:39 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Dec 2023 16:22:14 GMT and should not be manually modified.
+
+## 2.0.6
+Wed, 27 Dec 2023 16:22:14 GMT
+
+### Patches
+
+- update peers
 
 ## 2.0.5
 Wed, 27 Dec 2023 16:01:39 GMT

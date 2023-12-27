@@ -2,6 +2,20 @@
   "name": "@nodearch/vault",
   "entries": [
     {
+      "version": "2.0.2",
+      "tag": "@nodearch/vault_v2.0.2",
+      "date": "Wed, 27 Dec 2023 16:22:14 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update peers",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "0410c3051672f57b5bb921a4c451cf72c24fe829"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.1",
       "tag": "@nodearch/vault_v2.0.1",
       "date": "Wed, 27 Dec 2023 14:09:55 GMT",

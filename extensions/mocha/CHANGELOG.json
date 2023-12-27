@@ -2,6 +2,25 @@
   "name": "@nodearch/mocha",
   "entries": [
     {
+      "version": "1.0.7",
+      "tag": "@nodearch/mocha_v1.0.7",
+      "date": "Wed, 27 Dec 2023 16:22:14 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update peers",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "0410c3051672f57b5bb921a4c451cf72c24fe829"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/command\" from `^1.0.5` to `^1.0.6`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.6",
       "tag": "@nodearch/mocha_v1.0.6",
       "date": "Wed, 27 Dec 2023 14:09:55 GMT",

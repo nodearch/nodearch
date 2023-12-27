@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/vault",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "NodeArch Vault Wrapper",
   "exports": {
     ".": {
