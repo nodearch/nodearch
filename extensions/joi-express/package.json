@@ -34,7 +34,7 @@
   "devDependencies": {
     "@nodearch/core": "workspace:^2.0.3",
     "@nodearch/joi": "workspace:^1.0.3",
-    "@nodearch/express": "workspace:^2.0.4",
+    "@nodearch/express": "workspace:^2.0.5",
     "@nodearch/openapi": "workspace:^1.0.4",
     "@types/express": "^4.17.19",
     "@types/node": "^20.8.6",
@@ -47,7 +47,7 @@
   "peerDependencies": {
     "@nodearch/core": "2.x",
     "@nodearch/joi": "1.0.3",
-    "@nodearch/express": "2.0.4",
+    "@nodearch/express": "2.0.5",
     "joi-to-swagger": "6.x"
   }
 }

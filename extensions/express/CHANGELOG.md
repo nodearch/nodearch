@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Wed, 27 Dec 2023 14:09:55 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Dec 2023 16:01:39 GMT and should not be manually modified.
+
+## 2.0.5
+Wed, 27 Dec 2023 16:01:39 GMT
+
+### Patches
+
+- add mergeParams to express router
 
 ## 2.0.4
 Wed, 27 Dec 2023 14:09:55 GMT

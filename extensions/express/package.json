@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/express",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "nodearch express server",
   "exports": {
     ".": {

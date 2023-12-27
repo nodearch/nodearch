@@ -2,6 +2,20 @@
   "name": "@nodearch/express",
   "entries": [
     {
+      "version": "2.0.5",
+      "tag": "@nodearch/express_v2.0.5",
+      "date": "Wed, 27 Dec 2023 16:01:39 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add mergeParams to express router",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "a31c33d819d82570f6b6dd65937cb2056eb39f65"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.4",
       "tag": "@nodearch/express_v2.0.4",
       "date": "Wed, 27 Dec 2023 14:09:55 GMT",
