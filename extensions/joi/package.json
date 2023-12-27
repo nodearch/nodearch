@@ -40,7 +40,7 @@
     "joi": "^17.11.0"
   },
   "peerDependencies": {
-    "@nodearch/core": "2.x",
+    "@nodearch/core": ">=2.0.3 || <3",
     "reflect-metadata": "0.x",
     "joi": "^17.x"
   }
