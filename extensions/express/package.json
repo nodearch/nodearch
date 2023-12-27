@@ -42,8 +42,8 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@nodearch/core": "2.x",
-    "@nodearch/openapi": "1.0.4",
+    "@nodearch/core": ">=2.0.3 || <3",
+    "@nodearch/openapi": ">=1.0.4 || <2",
     "express": "4.x",
     "reflect-metadata": "0.x"
   }

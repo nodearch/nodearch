@@ -41,7 +41,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@nodearch/core": "2.x",
+    "@nodearch/core": ">=2.0.3 || <3",
     "reflect-metadata": "0.x",
     "swagger-ui-dist": "5.x"
   }
