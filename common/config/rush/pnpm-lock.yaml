@@ -66,7 +66,7 @@ importers:
         specifier: workspace:^2.0.3
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.4
+        specifier: workspace:^2.0.5
         version: link:../express
       '@nodearch/joi':
         specifier: workspace:^1.0.3
@@ -332,7 +332,7 @@ importers:
         specifier: workspace:^2.0.3
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.4
+        specifier: workspace:^2.0.5
         version: link:../../extensions/express
       '@nodearch/joi':
         specifier: workspace:^1.0.3
