@@ -32,7 +32,7 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.0.2",
+    "@nodearch/core": "workspace:^2.0.3",
     "@nodearch/joi": "workspace:^1.0.2",
     "@nodearch/express": "workspace:^2.0.3",
     "@nodearch/openapi": "workspace:^1.0.3",
@@ -45,7 +45,7 @@
     "joi-to-swagger": "^6.2.0"
   },
   "peerDependencies": {
-    "@nodearch/core": "2.0.2",
+    "@nodearch/core": "2.0.3",
     "@nodearch/joi": "1.0.2",
     "@nodearch/express": "2.0.3",
     "joi-to-swagger": "6.x"

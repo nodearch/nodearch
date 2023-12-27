@@ -2,6 +2,20 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "2.0.3",
+      "tag": "@nodearch/core_v2.0.3",
+      "date": "Wed, 27 Dec 2023 13:39:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix getDecorators while filter by method name",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "c4e9c102ca2f618ff1c229756adb5fb525024728"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.2",
       "tag": "@nodearch/core_v2.0.2",
       "date": "Sun, 15 Oct 2023 22:33:54 GMT",

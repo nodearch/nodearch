@@ -34,7 +34,7 @@
     "@types/mocha": "^10.0.2"
   },
   "dependencies": {
-    "@nodearch/core": "workspace:^2.0.2",
+    "@nodearch/core": "workspace:^2.0.3",
     "@nodearch/cli": "workspace:^2.0.18",
     "@nodearch/express": "workspace:^2.0.3",
     "@nodearch/openapi": "workspace:^1.0.3",

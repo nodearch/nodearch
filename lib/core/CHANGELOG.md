@@ -1,6 +1,13 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Sun, 15 Oct 2023 22:33:54 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Dec 2023 13:39:20 GMT and should not be manually modified.
+
+## 2.0.3
+Wed, 27 Dec 2023 13:39:20 GMT
+
+### Patches
+
+- fix getDecorators while filter by method name
 
 ## 2.0.2
 Sun, 15 Oct 2023 22:33:54 GMT
