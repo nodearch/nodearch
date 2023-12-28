@@ -13,7 +13,17 @@ export class CliHook implements IHook {
   ) {}
 
   async onStart() {
-    this.logger.info(`Starting NodeArch CLI v${this.appContext.getSettings().version}`);
+    // Set by global CLI
+    const cliVersion = process.env.NODEARCH_CLI_VERSION;
+    const currentCliVersion = this.appContext.getSettings().version;
+
+    if (cliVersion && cliVersion !== currentCliVersion) {
+      this.logger.info(`Starting NodeArch CLI using local version v${currentCliVersion} - global version is ${cliVersion}`);
+    }
+    else {
+      this.logger.info(`Starting NodeArch CLI v${this.appContext.getSettings().version}`);
+    }
+
     this.logger.info(`Log Level: ${this.logger.getLogLevel()}`);
     this.logger.info(`Check https://nodearch.io for documentation and guides`);
     this.logger.info('Scanning for a local app...');

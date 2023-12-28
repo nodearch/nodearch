@@ -13,10 +13,6 @@
     "strict": true,
     "alwaysStrict": true,                  
     "moduleResolution": "Node16",            
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
