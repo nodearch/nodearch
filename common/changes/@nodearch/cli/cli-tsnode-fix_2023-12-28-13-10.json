@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "change tsnode path in cli",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
