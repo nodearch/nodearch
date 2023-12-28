@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "upgrade to node v20",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
