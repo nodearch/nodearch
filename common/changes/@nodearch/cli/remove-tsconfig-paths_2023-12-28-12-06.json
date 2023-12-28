@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "remove tsconfig-paths",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
