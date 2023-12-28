@@ -18,7 +18,7 @@ importers:
         specifier: workspace:^2.0.3
         version: link:../../lib/core
       '@nodearch/openapi':
-        specifier: workspace:^1.0.4
+        specifier: workspace:^1.0.5
         version: link:../openapi
       '@types/body-parser':
         specifier: ^1.19.3
@@ -66,13 +66,13 @@ importers:
         specifier: workspace:^2.0.3
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.5
+        specifier: workspace:^2.0.6
         version: link:../express
       '@nodearch/joi':
-        specifier: workspace:^1.0.3
+        specifier: workspace:^1.0.4
         version: link:../joi
       '@nodearch/openapi':
-        specifier: workspace:^1.0.4
+        specifier: workspace:^1.0.5
         version: link:../openapi
       '@types/express':
         specifier: ^4.17.19
@@ -133,7 +133,7 @@ importers:
   ../../extensions/mocha:
     dependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.5
+        specifier: workspace:^1.0.6
         version: link:../../lib/command
       reflect-metadata:
         specifier: 0.x
@@ -168,7 +168,7 @@ importers:
         version: 0.1.13
     devDependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.5
+        specifier: workspace:^1.0.6
         version: link:../../lib/command
       '@nodearch/core':
         specifier: workspace:^2.0.3
@@ -233,7 +233,7 @@ importers:
   ../../lib/cli:
     dependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.5
+        specifier: workspace:^1.0.6
         version: link:../command
       '@nodearch/core':
         specifier: workspace:^2.0.3
@@ -332,22 +332,22 @@ importers:
         specifier: workspace:^2.0.3
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.5
+        specifier: workspace:^2.0.6
         version: link:../../extensions/express
       '@nodearch/joi':
-        specifier: workspace:^1.0.3
+        specifier: workspace:^1.0.4
         version: link:../../extensions/joi
       '@nodearch/joi-express':
-        specifier: workspace:^1.0.4
+        specifier: workspace:^1.0.5
         version: link:../../extensions/joi-express
       '@nodearch/mocha':
-        specifier: workspace:^1.0.6
+        specifier: workspace:^1.0.7
         version: link:../../extensions/mocha
       '@nodearch/openapi':
-        specifier: workspace:^1.0.4
+        specifier: workspace:^1.0.5
         version: link:../../extensions/openapi
       '@nodearch/swagger':
-        specifier: workspace:^1.0.5
+        specifier: workspace:^1.0.6
         version: link:../../extensions/swagger
       express:
         specifier: ^4.18.2
