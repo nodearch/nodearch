@@ -124,7 +124,7 @@
    * LTS schedule: https://nodejs.org/en/about/releases/
    * LTS versions: https://nodejs.org/en/download/releases/
    */
-  "nodeSupportedVersionRange": ">=18 <20",
+  "nodeSupportedVersionRange": ">=20.10.0",
 
   /**
    * Odd-numbered major versions of Node.js are experimental.  Even-numbered releases

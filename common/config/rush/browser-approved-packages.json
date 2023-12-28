@@ -279,6 +279,10 @@
       "allowedCategories": [ "production", "prototypes" ]
     },
     {
+      "name": "tsx",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "typescript",
       "allowedCategories": [ "production", "prototypes" ]
     },

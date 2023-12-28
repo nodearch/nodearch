@@ -10,7 +10,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=18"
+    "node": ">=20.10.0"
   },
   "bin": {
     "nodearch": "./start.js"
