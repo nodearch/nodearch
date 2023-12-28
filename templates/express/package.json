@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@nodearch/core": "workspace:^2.0.3",
-    "@nodearch/cli": "workspace:^2.0.18",
+    "@nodearch/cli": "workspace:^2.0.19",
     "@nodearch/express": "workspace:^2.0.6",
     "@nodearch/openapi": "workspace:^1.0.5",
     "@nodearch/swagger": "workspace:^1.0.6",

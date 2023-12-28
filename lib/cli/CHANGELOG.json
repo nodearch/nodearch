@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.19",
+      "tag": "@nodearch/cli_v2.0.19",
+      "date": "Thu, 28 Dec 2023 12:08:42 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "remove tsconfig-paths",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "6057bebff2e3cc49c42a274440ced04f9181f5f4"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.18",
       "tag": "@nodearch/cli_v2.0.18",
       "date": "Wed, 27 Dec 2023 13:14:26 GMT",
