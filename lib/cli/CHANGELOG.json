@@ -2,6 +2,25 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.21",
+      "tag": "@nodearch/cli_v2.0.21",
+      "date": "Thu, 28 Dec 2023 16:59:04 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "change tsnode path in cli",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "7b0250e18ca0b34814876578886f740d6a0a8d80"
+          },
+          {
+            "comment": "upgrade to node v20",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "7b0250e18ca0b34814876578886f740d6a0a8d80"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.20",
       "tag": "@nodearch/cli_v2.0.20",
       "date": "Thu, 28 Dec 2023 13:12:39 GMT",

@@ -1,6 +1,14 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Thu, 28 Dec 2023 13:12:39 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Dec 2023 16:59:04 GMT and should not be manually modified.
+
+## 2.0.21
+Thu, 28 Dec 2023 16:59:04 GMT
+
+### Patches
+
+- change tsnode path in cli
+- upgrade to node v20
 
 ## 2.0.20
 Thu, 28 Dec 2023 13:12:39 GMT
