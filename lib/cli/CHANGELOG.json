@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.22",
+      "tag": "@nodearch/cli_v2.0.22",
+      "date": "Tue, 02 Jan 2024 17:36:41 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "cli watch mode fix",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "8e4c7ebb4708e45ea99850223b65a4972b74d2a2"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.21",
       "tag": "@nodearch/cli_v2.0.21",
       "date": "Thu, 28 Dec 2023 16:59:04 GMT",

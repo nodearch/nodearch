@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Thu, 28 Dec 2023 16:59:04 GMT and should not be manually modified.
+This log was last generated on Tue, 02 Jan 2024 17:36:41 GMT and should not be manually modified.
+
+## 2.0.22
+Tue, 02 Jan 2024 17:36:41 GMT
+
+### Patches
+
+- cli watch mode fix
 
 ## 2.0.21
 Thu, 28 Dec 2023 16:59:04 GMT
