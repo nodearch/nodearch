@@ -49,7 +49,7 @@ export class StartCommand implements ICommand {
     nodemon({
       watch: [fileURLToPath(localAppInfo.paths.appDir)],
       ext: 'ts',
-      exec: `ts-node --esm ${starterScriptPath} rootDir=${localAppInfo.paths.rootDir}`,
+      exec: `node --no-warnings=ExperimentalWarning --experimental-specifier-resolution=node --loader ts-node/esm ${starterScriptPath} rootDir=${localAppInfo.paths.rootDir}`,
       legacyWatch: true
     });
 
