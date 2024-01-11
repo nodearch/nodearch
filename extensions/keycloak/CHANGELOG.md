@@ -1,6 +1,13 @@
 # Change Log - @nodearch/keycloak
 
-This log was last generated on Wed, 27 Dec 2023 16:22:14 GMT and should not be manually modified.
+This log was last generated on Thu, 11 Jan 2024 18:56:32 GMT and should not be manually modified.
+
+## 2.0.3
+Thu, 11 Jan 2024 18:56:32 GMT
+
+### Patches
+
+- remove /auth prefix from domain
 
 ## 2.0.2
 Wed, 27 Dec 2023 16:22:14 GMT

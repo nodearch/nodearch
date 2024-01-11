@@ -2,6 +2,20 @@
   "name": "@nodearch/keycloak",
   "entries": [
     {
+      "version": "2.0.3",
+      "tag": "@nodearch/keycloak_v2.0.3",
+      "date": "Thu, 11 Jan 2024 18:56:32 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "remove /auth prefix from domain",
+            "author": "Ahmed Medhat Tawfiq <ahmed.medhat.tawfiq@gmail.com>",
+            "commit": "7246d622212af00094f1c99036416506a8c8d5e9"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.2",
       "tag": "@nodearch/keycloak_v2.0.2",
       "date": "Wed, 27 Dec 2023 16:22:14 GMT",
