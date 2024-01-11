@@ -18,7 +18,7 @@ export class KeycloakAuth {
 
     this.validateRealmName(realm);
 
-    const jwksUri = `${this.keycloakConfig.hostname}/auth/realms/${realm}/protocol/openid-connect/certs`
+    const jwksUri = `${this.keycloakConfig.hostname}/realms/${realm}/protocol/openid-connect/certs`
 
     await this.verifyToken(jwksUri, decodedToken, token);
     this.verifyClaims(decodedToken);
