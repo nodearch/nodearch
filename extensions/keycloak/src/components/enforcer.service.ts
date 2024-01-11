@@ -21,7 +21,7 @@ export class KeycloakEnforcer {
 
     try {
       const result = await axios.post(
-        `${this.keycloakConfig.hostname}/auth/realms/${authInfo.realm}/protocol/openid-connect/token`,
+        `${this.keycloakConfig.hostname}/realms/${authInfo.realm}/protocol/openid-connect/token`,
         queryString.stringify(payload),
         {
           headers: {
