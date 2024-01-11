@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/keycloak",
+      "comment": "remove /auth",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@nodearch/keycloak",
+  "email": "bluemax7o1@gmail.com"
+}
