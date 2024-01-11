@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/keycloak",
+      "comment": "remove /auth prefix from domain",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/keycloak"
+}
