@@ -37,6 +37,7 @@ jobs:
         --set-access-level public
         --npm-auth-token ${{ secrets.NPM_AUTH_TOKEN }}
         --apply --publish --add-commit-details
+        --tag ver1
     # - name: Coveralls
     #   uses: coverallsapp/github-action@master
     #   with:
