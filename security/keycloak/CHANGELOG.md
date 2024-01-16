@@ -1,6 +1,13 @@
 # Change Log - @nodearch/keycloak
 
-This log was last generated on Sun, 29 May 2022 15:25:53 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jan 2024 10:09:51 GMT and should not be manually modified.
+
+## 1.3.0
+Tue, 16 Jan 2024 10:09:51 GMT
+
+### Minor changes
+
+- remove /auth
 
 ## 1.2.1
 Sun, 29 May 2022 15:25:53 GMT
