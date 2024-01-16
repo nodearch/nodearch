@@ -21,7 +21,7 @@ export class KeycloakEnforcer {
 
     return request({
       method: 'POST',
-      uri: `${this.keycloakConfig.hostname}/auth/realms/${authInfo.realm}/protocol/openid-connect/token`,
+      uri: `${this.keycloakConfig.hostname}/realms/${authInfo.realm}/protocol/openid-connect/token`,
       headers: {
         Authorization: `Bearer ${authInfo.token}`
       },
