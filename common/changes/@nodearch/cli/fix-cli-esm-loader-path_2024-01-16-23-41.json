@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "fix esm loader path",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
