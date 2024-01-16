@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Tue, 02 Jan 2024 17:36:41 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Jan 2024 23:43:52 GMT and should not be manually modified.
+
+## 2.0.23
+Tue, 16 Jan 2024 23:43:52 GMT
+
+### Patches
+
+- fix esm loader path
 
 ## 2.0.22
 Tue, 02 Jan 2024 17:36:41 GMT

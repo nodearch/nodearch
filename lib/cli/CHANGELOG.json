@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.23",
+      "tag": "@nodearch/cli_v2.0.23",
+      "date": "Tue, 16 Jan 2024 23:43:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix esm loader path",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "6409e9264b98cfd687fd3bcfbe394178c37a9796"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.22",
       "tag": "@nodearch/cli_v2.0.22",
       "date": "Tue, 02 Jan 2024 17:36:41 GMT",
