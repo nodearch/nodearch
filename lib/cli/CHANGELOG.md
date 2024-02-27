@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Tue, 16 Jan 2024 23:43:52 GMT and should not be manually modified.
+This log was last generated on Tue, 27 Feb 2024 11:54:27 GMT and should not be manually modified.
+
+## 2.0.24
+Tue, 27 Feb 2024 11:54:27 GMT
+
+### Patches
+
+- fix cli errors that shows on typescript errors
 
 ## 2.0.23
 Tue, 16 Jan 2024 23:43:52 GMT

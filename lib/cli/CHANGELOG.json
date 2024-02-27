@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.24",
+      "tag": "@nodearch/cli_v2.0.24",
+      "date": "Tue, 27 Feb 2024 11:54:27 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix cli errors that shows on typescript errors",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "2f3c0563e8830011b6a5b4a861d7bde58f009b31"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.23",
       "tag": "@nodearch/cli_v2.0.23",
       "date": "Tue, 16 Jan 2024 23:43:52 GMT",
