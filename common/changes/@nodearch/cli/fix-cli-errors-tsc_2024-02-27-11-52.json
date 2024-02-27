@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "fix cli errors that shows on typescript errors",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
