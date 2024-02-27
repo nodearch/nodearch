@@ -34,7 +34,10 @@ export class LocalAppService {
     }
     catch(e: any) {
       if (this.appLoader.isAppDir) {
-        this.logger.error('Error when trying to load a NodeArch app from the local directory\nMessage:', e.message, '\nTrace:', e.stack);
+        if (e.message)
+          this.logger.error('Error when trying to load a NodeArch app from the local directory\nMessage:', e.message, '\nTrace:', e.stack);
+        else
+        console.log('Error when trying to load a NodeArch app from the local directory\nError:', e);
       }
       this.hasLoadError = true;
     }
