@@ -323,7 +323,7 @@ importers:
   ../../templates/express:
     dependencies:
       '@nodearch/cli':
-        specifier: workspace:^2.0.22
+        specifier: workspace:^2.0.23
         version: link:../../lib/cli
       '@nodearch/core':
         specifier: workspace:^2.0.3
