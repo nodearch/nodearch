@@ -1,16 +1,16 @@
 import { App } from '@nodearch/core';
-import { ISocketIOOptions } from './interfaces.js';
+import { SocketIOAdminUIOptions } from './interfaces.js';
 
 
-export class SocketIO extends App {
-  constructor(options?: ISocketIOOptions) {
+export class SocketIOAdminUIApp extends App {
+  constructor(options: SocketIOAdminUIOptions) {
     super({
       components: {
         url: new URL('components', import.meta.url)
       },
       config: options,
       logs: {
-        prefix: 'Socket.IO'
+        prefix: 'Socket.IO - Admin UI'
       }
     });
   }

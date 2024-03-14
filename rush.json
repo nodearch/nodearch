@@ -399,6 +399,12 @@
       "reviewCategory": "prototypes",
       "shouldPublish": false
     },
+    {
+      "packageName": "@nodearch/template-socket.io",
+      "projectFolder": "templates/socket.io",
+      "reviewCategory": "prototypes",
+      "shouldPublish": false
+    },
 
     // ============= Extensions =============
     {
@@ -453,6 +459,13 @@
     {
       "packageName": "@nodearch/vault",
       "projectFolder": "extensions/vault",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/socket.io",
+      "projectFolder": "extensions/socket.io",
       "reviewCategory": "production",
       "versionPolicyName": "packages",
       "tags": ["extension"]

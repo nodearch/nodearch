@@ -1,0 +1,34 @@
+{
+  "name": "@nodearch/template-socket.io",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc",
+    "start": "node dist/start.js"
+  },
+  "keywords": [],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "devDependencies": {
+    "@nodearch/core": "workspace:^2.0.3",
+    "@nodearch/socket.io": "workspace:^2.0.0",
+    "socket.io": "^4.7.2",
+    "@types/node": "^20.8.6",
+    "typescript": "^5.2.2",
+    "rimraf": "^5.0.5"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@nodearch/core": ">=2.0.3 || <3",
+    "@nodearch/socket.io": "workspace:^2.0.0",
+    "@nodearch/socket.io-admin-ui": "workspace:^0.1.0",
+    "socket.io": "4.x",
+    "reflect-metadata": "0.x"
+  },
+  "nodearch": {}
+}
