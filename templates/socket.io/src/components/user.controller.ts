@@ -7,7 +7,7 @@ export class UserNamespace implements INamespace {
 }
 
 @Controller()
-@Use(UserNamespace)
+// @Use(UserNamespace)
 export class UserController {
   
   private users: any[];

@@ -15,12 +15,14 @@ export class RegistryService {
 
     namespaceMap.forEach((namespaceInfo, namespace) => {
 
+      this.logger.info(`Registering namespace: ${namespaceInfo.name}`);
+
       const nsp = io.of(namespaceInfo.name);
 
       nsp.use(this.getDefaultMiddleware(namespaceInfo));
 
       nsp.on('connection', (socket) => {
-        this.logger.info(`Socket ${socket.id} connected`);
+        this.logger.info(`New socket connected - ID: ${socket.id}`);
 
         // socket.onAny((eventName, ...args) => {
         //   if (!namespaceInfo.events.find(x => x.eventName === eventName)) {
@@ -30,12 +32,14 @@ export class RegistryService {
 
         namespaceInfo.events.forEach((eventInfo) => {
           const { eventName, eventComponent, eventMethod } = eventInfo;
-          // const eventHandler = eventComponent.instance[eventMethod].bind(eventComponent.instance);
+          const componentInstance = eventComponent.getInstance();
+          const eventHandler = componentInstance[eventMethod].bind(componentInstance);
 
 
 
           socket.on(eventName, (...args) => {
             this.logger.info(`EVENT: ${eventName}`, args);
+            eventHandler({ args, socket });
           });
         });
       });
@@ -45,9 +49,7 @@ export class RegistryService {
 
   getDefaultMiddleware(namespaceInfo: INamespaceInfo): IMiddlewareFunction {
     return (socket, next) => {
-      console.log('socket', socket.id, 'from middleware');
-
-
+      this.logger.info(`Middleware: ${namespaceInfo.name}`);
       // subscriptions.forEach((subscription) => {
       //   subscription.
       // });

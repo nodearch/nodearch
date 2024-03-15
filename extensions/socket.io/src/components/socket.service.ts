@@ -35,12 +35,12 @@ export class SocketService {
       this.registryService.register(this.io, this.parser.parse());
 
       this.server.on('error', err => {
-        err.message = 'Error starting HTTP server for socket.io - ' + err.message;
+        err.message = 'Error starting socket.io server - ' + err.message;
         reject(err);
       });
 
       this.server.on('listening', () => {
-        this.logger.info(`HTTP Server running at: ${hostname}:${port}`);
+        this.logger.info(`Socket.io Server running at: ${hostname}:${port}`);
         resolve(0);
       });
 
@@ -48,7 +48,7 @@ export class SocketService {
         this.server.listen(port, hostname);
       }
       catch(err: any) {
-        err.message = 'Error starting HTTP server for socket.io - ' + err.message;
+        err.message = 'Error starting socket.io server - ' + err.message;
         reject(err);
       }
     });

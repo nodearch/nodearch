@@ -21,7 +21,7 @@ export default class SocketIOTemplate extends App {
           },
           ioOptions: {
             cors: {
-              origin: ['https://admin.socket.io', 'http://localhost:3000'],
+              origin: ['https://admin.socket.io', 'https://firecamp.dev', 'https://amritb.github.io', 'http://localhost:3000'],
               credentials: true
             }
           }
