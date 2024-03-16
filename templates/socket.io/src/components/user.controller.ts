@@ -1,13 +1,13 @@
 import { Controller, Use } from '@nodearch/core';
-import { Subscribe, Namespace, INamespaceArgs, INamespace } from '@nodearch/socket.io';
+import { Subscribe, NamespaceProvider, INamespaceArgs, INamespace, Namespace } from '@nodearch/socket.io';
 
-@Namespace('/user1')
+@NamespaceProvider('/user1')
 export class UserNamespace implements INamespace {
   async handler(data: { args: INamespaceArgs; options: any; }) {}
 }
 
+// TODO: test request scope with sockets by adding context class.
 @Controller()
-// @Use(UserNamespace)
 export class UserController {
   
   private users: any[];
@@ -24,11 +24,16 @@ export class UserController {
       }
     ];
   }
+  
+  // @Namespace(UserNamespace)
+  @Subscribe('message2')
+  createUser2() {
+    // console.log('createUser2');
+  }
 
-
-  // @Namespace('/user2')
+  @Namespace(UserNamespace)
   @Subscribe('message')
   createUser() {
-    console.log('createUser');
+    // console.log('createUser');
   }
 }

@@ -222,7 +222,7 @@ export class ComponentFactory {
     return dependencies;
   }
 
-  private static addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[]): IDecoratorDependency[] {
+  static addComponentDependencies(component: ClassConstructor, dependencies: ClassConstructor[]): IDecoratorDependency[] {
     return dependencies.map(dep => {
       const key = generateResourceId();
 

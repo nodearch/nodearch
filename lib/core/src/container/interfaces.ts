@@ -4,7 +4,7 @@ import { ClassConstructor } from '../utils/types.js';
 
 export interface IBindComponentOptions<T> {
   componentClass: ClassConstructor<T>;
-  id: string;
+  id?: string;
   namespace?: string | string[];
   scope?: ComponentScope;
   onActivation?: IBindActivationHandler<T>[];

@@ -57,6 +57,10 @@ export type ISubscriptionOptions = {
 export interface INamespaceInfo {
   name: NamespaceName; 
   events: ISubscriptionInfo[];
+  dependenciesKeys: {
+    key: string;
+    component: ClassConstructor;
+  }[];
 }
 
 export interface ISubscriptionInfo {

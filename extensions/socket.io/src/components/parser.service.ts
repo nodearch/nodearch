@@ -3,7 +3,7 @@ import { SocketIODecorator } from '../enums.js';
 import { ClassConstructor } from '@nodearch/core/utils';
 import { INamespaceMap, ISubscriptionInfo, ISubscriptionOptions, INamespaceInfo } from '../interfaces.js';
 import { DefaultNamespace } from './default-namespace.js';
-import { ComponentInfo, IComponentDecoratorInfo } from '@nodearch/core/components';
+import { ComponentFactory, ComponentInfo, IComponentDecoratorInfo } from '@nodearch/core/components';
 
 
 @Service()
@@ -21,6 +21,8 @@ export class ParserService {
   parse(): INamespaceMap {
     const registry = this.appContext.getComponentRegistry();
 
+    this.appContext.getComponentRegistry().register([DefaultNamespace]);
+
     const defaultNs = registry.getInfo(DefaultNamespace);
 
     // Get all socket events @Subscribe 
@@ -30,22 +32,39 @@ export class ParserService {
 
     // Get events' namespaces
     subscribeDecorators.forEach((decorator) => {
-      const namespaces = registry.getDecorators<{ component: ClassConstructor }>({
-        useId: SocketIODecorator.NAMESPACE,
-        method: decorator.method
-      });
-
-      let namespaceComponentInfo: ComponentInfo;
+      let namespaceComponentInfo: ComponentInfo = defaultNs;
 
       // Get @Use decorators containing namespace e.g. @Use(UserNamespace) on methods/classes  
-      const useNamespaceDecorator = namespaces.find((ns) => ns.method) || 
-        namespaces.find((ns) => !ns.method);
+      const namespaceDecorators = decorator
+        .componentInfo
+        .getDecorators<{ namespaceProvider: ClassConstructor }>({
+          id: SocketIODecorator.NAMESPACE
+        });
 
-      // Get the namespace ComponentInfo or set the default namespace's ComponentInfo
-      namespaceComponentInfo = useNamespaceDecorator ? 
-        registry.getInfo(useNamespaceDecorator.data.component) : defaultNs;
+      let namespaceDecorator = namespaceDecorators.find((ns) => ns.method === decorator.method);
+
+      // If no method namespace decorator is found, use the controller level namespace
+      if (!namespaceDecorator) {
+        namespaceDecorator = namespaceDecorators.find((ns) => !ns.method);
+      }
+
+      if (namespaceDecorator) {
+        namespaceComponentInfo = registry.getInfo(namespaceDecorator.data.namespaceProvider);
+      }
 
       this.addNamespace(namespaceComponentInfo, decorator);
+    });
+
+    this.namespacesMap.forEach((namespaceInfo, namespace) => {
+      const componentsClasses = namespaceInfo.events.map((event) => {
+        return event.eventComponent.getClass();
+      });
+
+      const uniqueClasses = Array.from(new Set(componentsClasses));
+
+      const deps = ComponentFactory.addComponentDependencies(namespace.getClass(), uniqueClasses);
+      
+      namespaceInfo.dependenciesKeys = deps;
     });
 
     return this.namespacesMap;
@@ -61,7 +80,8 @@ export class ParserService {
     if (!this.namespacesMap.has(namespaceComponent)) {
       const namespaceInfo: INamespaceInfo = {
         name: namespaceComponent.getData().name,
-        events: [event]
+        events: [event],
+        dependenciesKeys: []
       };
 
       this.namespacesMap.set(namespaceComponent, namespaceInfo);

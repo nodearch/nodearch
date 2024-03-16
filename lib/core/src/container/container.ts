@@ -51,7 +51,9 @@ export class Container {
       });
     }
 
-    this.bindIdToComponent(options.componentClass, options.id);
+    if (options.id) {
+      this.bindIdToComponent(options.componentClass, options.id);
+    }
 
     if (options.namespace) {
       this.bindNamespacesToComponent(options.componentClass, options.namespace);
@@ -64,8 +66,10 @@ export class Container {
       return extContainer.get(options.componentClass);
     });
 
-    this.bindIdToComponent(options.componentClass, options.id);
-
+    if (options.id) {
+      this.bindIdToComponent(options.componentClass, options.id);
+    }
+    
     if (options.namespace) {
       this.bindNamespacesToComponent(options.componentClass, options.namespace);
     }
