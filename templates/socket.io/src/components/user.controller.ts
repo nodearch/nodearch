@@ -1,11 +1,20 @@
 import { Controller, Use } from '@nodearch/core';
-import { Subscribe, NamespaceProvider, INamespaceArgs, INamespace, Namespace, SocketInfo, EventData } from '@nodearch/socket.io';
+import { Subscribe, NamespaceProvider, Namespace, SocketInfo, EventData, IO, INamespace } from '@nodearch/socket.io';
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+
+
 @NamespaceProvider('/user1')
 export class UserNamespace implements INamespace {
-  async handler(data: { args: INamespaceArgs; options: any; }) {}
+  async middleware(socket: IO.Socket) {
+    console.log('Middleware: UserNamespace');
+    await sleep(1000);
+  }
+
+  async onConnection(socket: IO.Socket) {
+    console.log('onConnection: UserNamespace');
+  }
 }
 
 // TODO: test request scope with sockets by adding context class.

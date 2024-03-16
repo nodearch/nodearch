@@ -1,7 +1,7 @@
 import { AppContext, Logger, Service } from '@nodearch/core';
 import * as IO from 'socket.io';
-import { IEventHandlerInput, IMiddlewareFunction, INamespaceInfo, INamespaceMap, ISubscriptionInfo } from '../interfaces.js';
-import { MethodParameters } from '@nodearch/core/components';
+import { IEventHandlerInput, IMiddlewareFunction, INamespace, INamespaceInfo, INamespaceMap, ISubscriptionInfo } from '../interfaces.js';
+import { ComponentInfo, MethodParameters } from '@nodearch/core/components';
 import { SocketIODecorator } from '../enums.js';
 
 
@@ -30,13 +30,19 @@ export class RegistryService {
 
       // TODO: support namespace middlewares
 
-      // nsp.use(this.getDefaultMiddleware(namespaceInfo));
+      nsp.use(this.getDefaultMiddleware(namespace));
 
       nsp.on('connection', (socket) => {
         this.logger.info(`New socket connected - ID: ${socket.id}`);
 
-        // Initialize namespace & dependencies instances with each connection.
-        const nsInstance = namespace.getInstance();
+        const nsInstance = socket.data.nodearch.namespaceInstance;
+
+        const onConnection = socket.data.nodearch.namespaceInstance.onConnection;
+
+        if (onConnection) {
+          // TODO: await? 
+          onConnection(socket);
+        }
 
         socket.onAny((eventName, ...args) => {
           if (!namespaceInfo.events.find(x => x.eventName === eventName)) {
@@ -73,14 +79,22 @@ export class RegistryService {
     }
   }
 
-  private getDefaultMiddleware(namespaceInfo: INamespaceInfo): IMiddlewareFunction {
+  private getDefaultMiddleware(namespace: ComponentInfo<INamespace>): IMiddlewareFunction {
     return (socket, next) => {
-      // this.logger.info(`Middleware: ${namespaceInfo.name}`);
-      // subscriptions.forEach((subscription) => {
-      //   subscription.
-      // });
+      const nsInstance = namespace.getInstance();
 
-      next();
+      socket.data.nodearch = {
+        namespaceInstance: nsInstance
+      };
+
+      if (nsInstance.middleware) {
+        nsInstance.middleware(socket)
+          .then(() => next())
+          .catch(next);
+      }
+      else {
+        next();
+      }
     }
   }
 

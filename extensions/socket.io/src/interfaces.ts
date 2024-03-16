@@ -43,9 +43,11 @@ export type ParentNspNameMatchFn = (name: string, auth: {
 
 export type NamespaceName = string | RegExp | ParentNspNameMatchFn;
 
-export type INamespaceArgs = {};
 
-export type INamespace = IUseProvider<INamespaceArgs, any>;
+export interface INamespace {
+  onConnection?(socket: IO.Socket): Promise<void>;
+  middleware?(socket: IO.Socket): Promise<void>;
+}
 
 export type INamespaceOptions = {
   name: NamespaceName;
