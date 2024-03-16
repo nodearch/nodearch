@@ -56,6 +56,7 @@ export class RegistryService {
           socket.on(eventName, (...args) => {
             this.logger.info(`(Event) ${eventName} (Namespace) ${namespaceInfo.name} (Socket ID) ${socket.id}`);
             // TODO: update args, use decorators, and handle outputs and errors.
+            console.log(eventInfo.methodInputs);
             eventHandler({ args, socket });
           });
         });

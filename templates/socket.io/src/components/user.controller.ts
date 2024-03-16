@@ -1,5 +1,5 @@
 import { Controller, Use } from '@nodearch/core';
-import { Subscribe, NamespaceProvider, INamespaceArgs, INamespace, Namespace } from '@nodearch/socket.io';
+import { Subscribe, NamespaceProvider, INamespaceArgs, INamespace, Namespace, SocketInfo, EventData } from '@nodearch/socket.io';
 
 @NamespaceProvider('/user1')
 export class UserNamespace implements INamespace {
@@ -33,7 +33,7 @@ export class UserController {
 
   @Namespace(UserNamespace)
   @Subscribe('message')
-  createUser() {
-    // console.log('createUser');
+  createUser(@SocketInfo() socket: any, @EventData() data: any) {
+    console.log('createUser', socket?.id);
   }
 }

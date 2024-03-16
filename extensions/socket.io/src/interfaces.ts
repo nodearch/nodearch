@@ -5,6 +5,7 @@ import https from 'node:https';
 import { ServerOptions } from 'socket.io';
 import { SocketIOServerProvider } from './components/server.provider.js';
 import * as IO from 'socket.io';
+import { SocketIODecorator } from './enums.js';
 
 
 export interface ISocketIOOptions {
@@ -63,10 +64,16 @@ export interface INamespaceInfo {
   }[];
 }
 
+export interface IEventHandlerInput {
+  type: (SocketIODecorator.SOCKET_INFO | SocketIODecorator.EVENT_DATA);
+  index: number;
+}
+
 export interface ISubscriptionInfo {
   eventName: string;
   eventMethod: string;
   eventComponent: ComponentInfo;
+  methodInputs: IEventHandlerInput[];
 }
 
 export type ISocketIOServerProvider = ClassConstructor<SocketIOServerProvider>;
