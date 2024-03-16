@@ -40,9 +40,7 @@ export class ParserService {
     subscribeDecorators.forEach((decorator) => {
       const namespaceComponentInfo = this.getEventNamespace(decorator, defaultNs);
 
-      const eventHandlerParams = this.getEventHandlerParams(decorator);
-
-      this.registerEvent(namespaceComponentInfo, decorator, eventHandlerParams);
+      this.registerEvent(namespaceComponentInfo, decorator);
     });
 
     // Create the dependencies for each namespace component
@@ -113,41 +111,16 @@ export class ParserService {
   }
 
   /**
-   * Gets the event handler parameters.
-   */
-  private getEventHandlerParams(eventDecorator: IComponentDecoratorInfo<ISubscriptionOptions>) {
-    const eventDataParams = eventDecorator
-      .componentInfo
-      .getDecorators({
-        id: SocketIODecorator.EVENT_DATA,
-        method: eventDecorator.method
-      });
-
-    const socketInfoParams = eventDecorator
-      .componentInfo
-      .getDecorators({
-        id: SocketIODecorator.SOCKET_INFO,
-        method: eventDecorator.method
-      });
-
-    return [...eventDataParams, ...socketInfoParams]
-      .map(param => ({ type: param.id, index: param.paramIndex! }))
-      .sort((a, b) => a.index - b.index) as IEventHandlerInput[];
-  }
-
-  /**
    * Registers the event to the namespace component.
    */
   private registerEvent(
     namespaceComponent: ComponentInfo,
-    subscribeDecorator: IComponentDecoratorInfo<ISubscriptionOptions>,
-    handlerInputs: IEventHandlerInput[]
+    subscribeDecorator: IComponentDecoratorInfo<ISubscriptionOptions>
   ) {
     const event: ISubscriptionInfo = {
       eventName: subscribeDecorator.data.eventName,
       eventMethod: subscribeDecorator.method!,
-      eventComponent: subscribeDecorator.componentInfo,
-      methodInputs: handlerInputs
+      eventComponent: subscribeDecorator.componentInfo
     };
 
     // Check if the namespace component is already in the map

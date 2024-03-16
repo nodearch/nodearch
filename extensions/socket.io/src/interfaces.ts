@@ -65,15 +65,15 @@ export interface INamespaceInfo {
 }
 
 export interface IEventHandlerInput {
-  type: (SocketIODecorator.SOCKET_INFO | SocketIODecorator.EVENT_DATA);
-  index: number;
+  id: string;
+  paramIndex: number;
+  data?: any;
 }
 
 export interface ISubscriptionInfo {
   eventName: string;
   eventMethod: string;
   eventComponent: ComponentInfo;
-  methodInputs: IEventHandlerInput[];
 }
 
 export type ISocketIOServerProvider = ClassConstructor<SocketIOServerProvider>;

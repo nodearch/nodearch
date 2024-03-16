@@ -24,6 +24,6 @@ export function SocketInfo() {
   return ComponentFactory.parameterDecorator({ id: SocketIODecorator.SOCKET_INFO });
 }
 
-export function EventData() {
-  return ComponentFactory.parameterDecorator({ id: SocketIODecorator.EVENT_DATA });
+export function EventData(index?: number) {
+  return ComponentFactory.parameterDecorator({ id: SocketIODecorator.EVENT_DATA, fn: () => ({ index }) });
 }

@@ -1,11 +1,12 @@
 import { injectable } from 'inversify';
 import { ClassInfo } from '../utils/class-info.js';
 import { ClassConstructor } from '../utils/types.js';
-import { IDecoratorDependency, IComponentOptions } from './interfaces.js';
+import { IDecoratorDependency, IComponentOptions, IParameterDecorator } from './interfaces.js';
 import { IComponentRegistration } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 import { DecoratorType } from './enums.js';
 import { generateResourceId } from '../utils/crypto.js';
+import { ComponentInfo } from './component-info.js';
 
 /**
  * The `ComponentFactory` class provides static methods for creating decorators used in the dependency injection framework.
