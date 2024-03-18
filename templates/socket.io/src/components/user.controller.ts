@@ -15,6 +15,14 @@ export class UserNamespace implements INamespace {
   async onConnection(socket: IO.Socket) {
     console.log('onConnection: UserNamespace');
   }
+
+  async onDisconnect(socket: IO.Socket) {
+    console.log('onDisconnect: UserNamespace');
+  }
+
+  async onAny(event: string, ...args: any[]) {
+    console.log('onAny: UserNamespace', event, args);
+  }
 }
 
 // TODO: test request scope with sockets by adding context class.

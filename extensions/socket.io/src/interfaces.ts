@@ -47,6 +47,8 @@ export type NamespaceName = string | RegExp | ParentNspNameMatchFn;
 export interface INamespace {
   onConnection?(socket: IO.Socket): Promise<void>;
   middleware?(socket: IO.Socket): Promise<void>;
+  onDisconnect?(socket: IO.Socket): Promise<void>;
+  onAny?(event: string, ...args: any[]): Promise<void>;
 }
 
 export type INamespaceOptions = {
