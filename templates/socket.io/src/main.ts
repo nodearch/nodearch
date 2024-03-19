@@ -30,3 +30,10 @@ export default class SocketIOTemplate extends App {
     });
   }
 }
+
+/**
+ * TODO: 
+ * 1. Redis EXT
+ * 2. AdminUI EXT
+ * 3. pass http server as option 
+ */
