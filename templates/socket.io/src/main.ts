@@ -1,4 +1,4 @@
-import { App, LogLevel } from '@nodearch/core';
+import { App, ComponentScope, LogLevel } from '@nodearch/core';
 import { SocketIO, SocketIOServerProvider } from '@nodearch/socket.io';
 // import { SocketIOAdminUIApp } from '@nodearch/socket.io-admin-ui';
 

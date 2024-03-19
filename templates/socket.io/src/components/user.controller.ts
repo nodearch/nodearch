@@ -1,4 +1,4 @@
-import { Controller, Use } from '@nodearch/core';
+import { Controller, Service, Use } from '@nodearch/core';
 import { Subscribe, NamespaceProvider, Namespace, SocketInfo, EventData, IO, INamespace } from '@nodearch/socket.io';
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -8,54 +8,60 @@ const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 @NamespaceProvider('/user1')
 export class UserNamespace implements INamespace {
   async middleware(socket: IO.Socket) {
-    console.log('Middleware: UserNamespace');
-    await sleep(1000);
-  }
-
-  async onConnection(socket: IO.Socket) {
-    console.log('onConnection: UserNamespace');
-  }
-
-  async onDisconnect(socket: IO.Socket) {
-    console.log('onDisconnect: UserNamespace');
-  }
-
-  async onAny(event: string, ...args: any[]) {
-    console.log('onAny: UserNamespace', event, args);
   }
 }
 
-// TODO: test request scope with sockets by adding context class.
+
+@Service()
+export class Context {
+  private value: number = 0;
+
+  setValue(value: number) {
+    this.value = value;
+  }
+
+  getValue() {
+    return this.value;
+  }
+}
+
+@Service()
+export class AddService {
+  
+  constructor(private context: Context) {}
+
+  add(value: number) {
+    this.context.setValue(this.context.getValue() + value);
+  }
+}
+
+@Service()
+export class GetService { 
+  constructor(private context: Context) {}
+
+  get() {
+    return this.context.getValue();
+  }
+}
+
+
 @Controller()
 export class UserController {
   
-  private users: any[];
+  constructor(
+    private addService: AddService,
+    private getService: GetService
+  ) {}
 
-  constructor() {
-    this.users = [
-      {
-        id: 1,
-        name: 'John Doe'
-      },
-      {
-        id: 2,
-        name: 'Jane Doe'
-      }
-    ];
-  }
-  
-  // @Namespace(UserNamespace)
-  @Subscribe('message2')
-  createUser2() {
-    // console.log('createUser2');
-  }
 
   @Namespace(UserNamespace)
   @Subscribe('message')
-  async createUser(h: any, @SocketInfo() socket: any, num: number, num1: number, num2: number, @EventData() data: any, num4: number) {
-    console.log('createUser', socket?.id);
-    console.log('createUser', data);
+  async createUser(@EventData(0) data: string) {
 
-    return 'Hello from Server';
+    const value = parseInt(data);
+
+    this.addService.add(value);
+
+    return this.getService.get();
   }
 }

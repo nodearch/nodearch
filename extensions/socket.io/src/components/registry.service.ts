@@ -12,41 +12,23 @@ export class RegistryService {
   ) { }
 
 
-  register(io: IO.Server, namespaceMap: INamespaceMap) {
-    let hasDefaultNamespace = false;
-
-    namespaceMap.forEach((namespaceInfo, namespace) => {
-      namespaceInfo.events.forEach((eventInfo) => {
-        const controllerMethod = `${eventInfo.eventComponent.getClass().name}.${eventInfo.eventMethod}`;
-        this.logger.info(`Register (${namespaceInfo.name}) (${eventInfo.eventName}) (${controllerMethod})`);
-      });
-
-      if (namespaceInfo.name === '/') {
-        hasDefaultNamespace = true;
-      }
-
-      const nsp = io.of(namespaceInfo.name);
-
-      nsp.use(this.getDefaultMiddleware(namespace));
-
-      nsp.on('connection', (socket) => {
-        this.onConnection(socket, namespaceInfo)
-          .catch((err) => {
-            this.logger.error(err);
-            socket.disconnect();
-          });
-      });
-
+  register(io: IO.Server, namespaceInfo: INamespaceInfo, namespace: ComponentInfo) {
+    namespaceInfo.events.forEach((eventInfo) => {
+      const controllerMethod = `${eventInfo.eventComponent.getClass().name}.${eventInfo.eventMethod}`;
+      this.logger.info(`Register (${namespaceInfo.name}) (${eventInfo.eventName}) (${controllerMethod})`);
     });
 
-    if (!hasDefaultNamespace) {
-      io
-        .of('/')
-        .use((socket, next) => {
-          this.logger.warn(`Default namespace not allowed - Socket ID: ${socket.id}`);
-          next(new Error('Default namespace not allowed'));
+    const nsp = io.of(namespaceInfo.name);
+
+    nsp.use(this.getDefaultMiddleware(namespace));
+
+    nsp.on('connection', (socket) => {
+      this.onConnection(socket, namespaceInfo)
+        .catch((err) => {
+          this.logger.error(err);
+          socket.disconnect();
         });
-    }
+    });
   }
 
   private getDefaultMiddleware(namespace: ComponentInfo<INamespace>): IMiddlewareFunction {
@@ -69,7 +51,7 @@ export class RegistryService {
   }
 
   private async onConnection(socket: IO.Socket, namespaceInfo: INamespaceInfo) {
-    this.logger.info(`New socket connected - ID: ${socket.id}`);
+    this.logger.info(`New socket connected - (Namespace) ${socket.nsp.name} (ID) ${socket.id}`);
 
     socket.on('disconnect', () => {
       this.onDisconnect(socket, namespaceInfo);
@@ -119,7 +101,7 @@ export class RegistryService {
   }
 
   private async onDisconnect(socket: IO.Socket, namespaceInfo: INamespaceInfo) {
-    this.logger.info(`Socket disconnected - ID: ${socket.id}`);
+    this.logger.info(`Socket disconnected - (Namespace) ${socket.nsp.name} (ID) ${socket.id}`);
     
     const nsInstance = socket.data.nodearch.namespaceInstance as INamespace;
 
