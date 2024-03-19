@@ -18,12 +18,6 @@ export default class SocketIOTemplate extends App {
           server: {
             hostname: 'localhost',
             port: 4000
-          },
-          ioOptions: {
-            cors: {
-              origin: ['https://admin.socket.io', 'https://firecamp.dev', 'https://amritb.github.io', 'http://localhost:3000'],
-              credentials: true
-            }
           }
         }),
         // new SocketIOAdminUIApp({
