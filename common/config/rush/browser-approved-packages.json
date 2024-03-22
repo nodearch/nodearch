@@ -259,6 +259,10 @@
       "allowedCategories": [ "production", "prototypes" ]
     },
     {
+      "name": "socket.io-adapter",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "supertest",
       "allowedCategories": [ "prototypes" ]
     },

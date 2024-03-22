@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/socket.io-redis",
-  "version": "0.2.2",
+  "version": "2.0.0",
   "description": "nodearch socket.io redis adapter",
   "exports": {
     ".": {
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bluemax-io/nodearch.git"
+    "url": "git+https://github.com/nodearch/nodearch.git"
   },
   "keywords": [
     "nodearch",
@@ -26,22 +26,23 @@
   "author": "https://github.com/AhmedAli7O1",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bluemax-io/nodearch/issues",
+    "url": "https://github.com/nodearch/nodearch/issues",
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@types/node": "^18.11.9",
-    "rimraf": "~3.0.2",
+    "@types/node": "^20.8.6",
+    "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
-    "@nodearch/socket.io": "workspace:^0.5.2",
-    "@nodearch/core": "workspace:^1.4.2"
+    "@nodearch/socket.io": "workspace:^2.0.0",
+    "@nodearch/core": "workspace:^2.0.3"
   },
   "peerDependencies": {
-    "@nodearch/socket.io": "0.5.2",
     "reflect-metadata": "0.x",
-    "@nodearch/core": "1.4.2"
+    "@nodearch/core": ">=2.0.3 || <3",
+    "@nodearch/socket.io": ">=2.0.0 || <3"
   },
   "dependencies": {
-    "@socket.io/redis-adapter": "~7.0.0"
+    "@socket.io/redis-adapter": "^8.3.0",
+    "socket.io-adapter": "^2.5.4"
   }
 }

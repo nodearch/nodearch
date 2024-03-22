@@ -1,12 +1,12 @@
 import { Config, ConfigManager } from '@nodearch/core';
-import { IServerSettings, ISocketAppAdapter, ISocketIOOptions } from '../interfaces.js';
+import { IServerSettings, ISocketAdapter, ISocketIOOptions } from '../interfaces.js';
 import { ServerOptions } from 'socket.io';
 
 
 @Config()
 export class SocketConfig implements ISocketIOOptions {
   server: IServerSettings;
-  adapters?: ISocketAppAdapter[];
+  adapter?: ISocketAdapter;
   ioOptions?: Partial<ServerOptions>;
 
   constructor(config: ConfigManager) {
@@ -20,8 +20,8 @@ export class SocketConfig implements ISocketIOOptions {
       }
     });
 
-    this.adapters = config.env({
-      external: 'adapters'
+    this.adapter = config.env({
+      external: 'adapter'
     });
 
     this.ioOptions = config.env({

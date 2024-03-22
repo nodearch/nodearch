@@ -10,7 +10,7 @@ import { SocketIODecorator } from './enums.js';
 
 export interface ISocketIOOptions {
   server?: IServerOptions;
-  adapters?: ISocketAppAdapter[];
+  adapter?: ISocketAdapter;
 
   // Refer to https://socket.io/docs/v4/server-api/#new-Server-httpServer-options
   ioOptions?: Partial<ServerOptions>;
@@ -29,13 +29,15 @@ export type IServerSettings = IServerOptions & {
   hostname: string;
 };
 
-export type ISocketAppAdapter = IAdapter | INativeAdapter;
+export type ISocketAdapter = IAdapterConstructor | INativeAdapter;
+
+export type IAdapterConstructor = ClassConstructor<IAdapter>;
 
 export type IAdapter = {
-  getAdapter(getComponent:<T = any>(identifier: any)=> T): INativeAdapter;
+  get(): INativeAdapter;
 };
 
-export type INativeAdapter = (nsp: any) => any;
+export type INativeAdapter = any; // Couldn't export the type from socket.io
 
 export type ParentNspNameMatchFn = (name: string, auth: {
   [key: string]: any;

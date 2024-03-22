@@ -469,6 +469,13 @@
       "reviewCategory": "production",
       "versionPolicyName": "packages",
       "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/socket.io-redis",
+      "projectFolder": "extensions/socket.io-redis",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
     }
     // {
     //   /**

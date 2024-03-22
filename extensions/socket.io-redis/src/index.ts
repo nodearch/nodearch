@@ -1,2 +1,2 @@
-export * from './adapter';
-export * from './interfaces';
+export * from './adapter.js';
+export * from './interfaces.js';

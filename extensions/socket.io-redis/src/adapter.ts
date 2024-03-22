@@ -1,16 +1,37 @@
-import { Adapter } from '@nodearch/socket.io';
-import { createAdapter, RedisAdapterOptions } from '@socket.io/redis-adapter';
-import { ClassConstructor } from '@nodearch/core';
-import { IRedisProvider } from './interfaces';
+import { IAdapter } from '@nodearch/socket.io';
+import { createAdapter, createShardedAdapter } from '@socket.io/redis-adapter';
+import { IRedisProvider } from './interfaces.js';
+import { AppContext, Service } from '@nodearch/core';
+import { AdapterConfig } from './adapter.config.js';
 
 
-export function redisAdapter(redisProvider: ClassConstructor<IRedisProvider>, opts?: Partial<RedisAdapterOptions>) {
-  return {
-    getAdapter: (getComponent) => {
-      const redisProviderInstance = getComponent<IRedisProvider>(redisProvider);
-      const pubClient = redisProviderInstance.getClient();
-      const subClient = pubClient.duplicate();
-      return createAdapter(pubClient, subClient, opts);
+@Service()
+export class RedisAdapter implements IAdapter {
+  constructor(
+    private appContext: AppContext,
+    private adapterConfig: AdapterConfig
+  ) {}
+
+  get() {
+    const { redisProvider } = this.adapterConfig;
+    
+    const redisProviderInstance = this.appContext
+      .getContainer()
+      .get<IRedisProvider>(redisProvider);
+
+    if (!redisProviderInstance) {
+      throw new Error('Redis provider is not found');
     }
-  } as Adapter;
+
+    const pubClient = redisProviderInstance.getClient();
+
+    const subClient = pubClient.duplicate();
+    
+    if (this.adapterConfig.shardedAdapter) {
+      return createShardedAdapter(pubClient, subClient, this.adapterConfig.options);
+    }
+    else {
+      return createAdapter(pubClient, subClient, this.adapterConfig.options);
+    }
+  }
 }
