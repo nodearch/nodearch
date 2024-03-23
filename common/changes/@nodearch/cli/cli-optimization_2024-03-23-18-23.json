@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "update logs",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}

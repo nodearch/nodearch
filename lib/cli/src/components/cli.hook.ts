@@ -2,6 +2,7 @@ import { CommandDecorator, ICommand, CommandService } from '@nodearch/command';
 import { AppContext, Hook, IHook, Logger } from '@nodearch/core';
 import { LocalAppService } from './local-app.service.js';
 
+
 @Hook()
 export class CliHook implements IHook {
 
@@ -9,7 +10,7 @@ export class CliHook implements IHook {
     private readonly commandService: CommandService,
     private readonly localAppService: LocalAppService,
     private readonly logger: Logger,
-    private readonly appContext: AppContext
+    private readonly appContext: AppContext,
   ) {}
 
   async onStart() {
@@ -26,7 +27,6 @@ export class CliHook implements IHook {
 
     this.logger.info(`Log Level: ${this.logger.getLogLevel()}`);
     this.logger.info(`Check https://nodearch.io for documentation and guides`);
-    this.logger.info('Scanning for a local app...');
     
     // Scan & Load local app
     await this.localAppService.init();
@@ -43,7 +43,7 @@ export class CliHook implements IHook {
         this.logger.info(`Local app found: ${localAppInfo.name} v${localAppInfo.version} - ${localAppInfo.loadMode.toUpperCase()} Mode`);
       }
       else {
-        this.logger.warn(`Local app found but we were unable to load it.`);
+        this.logger.warn(`Local app might be in an invalid state.`)
       }
 
       /**

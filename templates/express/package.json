@@ -32,10 +32,12 @@
     "joi-to-swagger": "^6.2.0",
     "@types/swagger-ui-dist": "^3.30.2",
     "@types/mocha": "^10.0.2",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "@swc/core": "^1.4.8"
   },
   "dependencies": {
     "@nodearch/core": "workspace:^2.1.0",
+    "@nodearch/command": "workspace:^1.0.6",
     "@nodearch/cli": "workspace:^2.0.24",
     "@nodearch/express": "workspace:^2.0.7",
     "@nodearch/openapi": "workspace:^1.0.5",

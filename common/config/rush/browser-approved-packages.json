@@ -72,7 +72,7 @@
     },
     {
       "name": "@swc/core",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@types/body-parser",

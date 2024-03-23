@@ -11,7 +11,7 @@ importers:
   ../../extensions/express:
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@nodearch/openapi':
         specifier: workspace:^1.0.5
@@ -42,7 +42,7 @@ importers:
         version: 5.3.2
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@types/node':
         specifier: ^20.8.6
@@ -57,7 +57,7 @@ importers:
   ../../extensions/joi:
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@types/node':
         specifier: ^20.8.6
@@ -78,10 +78,10 @@ importers:
   ../../extensions/joi-express:
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.6
+        specifier: workspace:^2.0.7
         version: link:../express
       '@nodearch/joi':
         specifier: workspace:^1.0.4
@@ -130,7 +130,7 @@ importers:
         version: 8.1.0
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@types/node':
         specifier: ^20.8.6
@@ -152,7 +152,7 @@ importers:
         version: link:../../lib/command
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@types/mocha':
         specifier: ^10.0.2
@@ -180,7 +180,7 @@ importers:
         specifier: workspace:^1.0.6
         version: link:../../lib/command
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@types/node':
         specifier: ^20.8.6
@@ -195,7 +195,7 @@ importers:
   ../../extensions/socket.io:
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@types/node':
         specifier: ^20.8.6
@@ -217,10 +217,10 @@ importers:
         version: 0.5.1(socket.io@4.7.4)
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@nodearch/socket.io':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../socket.io
       '@types/node':
         specifier: ^20.8.6
@@ -248,10 +248,10 @@ importers:
         version: 2.5.4
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@nodearch/socket.io':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../socket.io
       '@types/node':
         specifier: ^20.8.6
@@ -266,7 +266,7 @@ importers:
   ../../extensions/swagger:
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@types/node':
         specifier: ^20.8.6
@@ -291,7 +291,7 @@ importers:
         version: 1.3.3
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@types/node':
         specifier: ^20.8.6
@@ -312,11 +312,8 @@ importers:
         specifier: workspace:^1.0.6
         version: link:../command
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../core
-      '@swc/core':
-        specifier: 1.3.82
-        version: 1.3.82
       axios:
         specifier: ^1.3.3
         version: 1.3.3
@@ -328,7 +325,7 @@ importers:
         version: 16.14.6
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.1(@swc/core@1.3.82)(@types/node@20.8.6)(typescript@5.2.2)
+        version: 10.9.1(@swc/core@1.4.8)(@types/node@20.8.6)(typescript@5.2.2)
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -356,7 +353,7 @@ importers:
         version: 17.7.0
     devDependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../core
       '@types/inquirer':
         specifier: ^9.0.3
@@ -398,11 +395,14 @@ importers:
       '@nodearch/cli':
         specifier: workspace:^2.0.24
         version: link:../../lib/cli
+      '@nodearch/command':
+        specifier: workspace:^1.0.6
+        version: link:../../lib/command
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.6
+        specifier: workspace:^2.0.7
         version: link:../../extensions/express
       '@nodearch/joi':
         specifier: workspace:^1.0.4
@@ -432,6 +432,9 @@ importers:
         specifier: ^5.9.0
         version: 5.9.0
     devDependencies:
+      '@swc/core':
+        specifier: ^1.4.8
+        version: 1.4.8
       '@types/chai':
         specifier: ^4.3.8
         version: 4.3.8
@@ -478,27 +481,30 @@ importers:
   ../../templates/socket.io:
     dependencies:
       '@nodearch/core':
-        specifier: workspace:^2.0.3
+        specifier: workspace:^2.1.0
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.6
+        specifier: workspace:^2.0.7
         version: link:../../extensions/express
       '@nodearch/ioredis':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../../extensions/ioredis
       '@nodearch/socket.io':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../../extensions/socket.io
       '@nodearch/socket.io-admin-ui':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../../extensions/socket.io-admin-ui
       '@nodearch/socket.io-redis':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.1
         version: link:../../extensions/socket.io-redis
       socket.io:
         specifier: ^4.7.2
         version: 4.7.4
     devDependencies:
+      '@swc/core':
+        specifier: ^1.4.8
+        version: 1.4.8
       '@types/node':
         specifier: ^20.8.6
         version: 20.8.6
@@ -510,7 +516,7 @@ importers:
         version: 5.0.5
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.1(@swc/core@1.3.82)(@types/node@20.8.6)(typescript@5.2.2)
+        version: 10.9.1(@swc/core@1.4.8)(@types/node@20.8.6)(typescript@5.2.2)
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -986,88 +992,88 @@ packages:
       - supports-color
     dev: false
 
-  /@swc/core-darwin-arm64@1.3.82:
-    resolution: {integrity: sha512-JfsyDW34gVKD3uE0OUpUqYvAD3yseEaicnFP6pB292THtLJb0IKBBnK50vV/RzEJtc1bR3g1kNfxo2PeurZTrA==}
+  /@swc/core-darwin-arm64@1.4.8:
+    resolution: {integrity: sha512-hhQCffRTgzpTIbngSnC30vV6IJVTI9FFBF954WEsshsecVoCGFiMwazBbrkLG+RwXENTrMhgeREEFh6R3KRgKQ==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     optional: true
 
-  /@swc/core-darwin-x64@1.3.82:
-    resolution: {integrity: sha512-ogQWgNMq7qTpITjcP3dnzkFNj7bh6SwMr859GvtOTrE75H7L7jDWxESfH4f8foB/LGxBKiDNmxKhitCuAsZK4A==}
+  /@swc/core-darwin-x64@1.4.8:
+    resolution: {integrity: sha512-P3ZBw8Jr8rKhY/J8d+6WqWriqngGTgHwtFeJ8MIakQJTbdYbFgXSZxcvDiERg3psbGeFXaUaPI0GO6BXv9k/OQ==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     optional: true
 
-  /@swc/core-linux-arm-gnueabihf@1.3.82:
-    resolution: {integrity: sha512-7TMXG1lXlNhD0kUiEqs+YlGV4irAdBa2quuy+XI3oJf2fBK6dQfEq4xBy65B3khrorzQS3O0oDGQ+cmdpHExHA==}
+  /@swc/core-linux-arm-gnueabihf@1.4.8:
+    resolution: {integrity: sha512-PP9JIJt19bUWhAGcQW6qMwTjZOcMyzkvZa0/LWSlDm0ORYVLmDXUoeQbGD3e0Zju9UiZxyulnpjEN0ZihJgPTA==}
     engines: {node: '>=10'}
     cpu: [arm]
     os: [linux]
     requiresBuild: true
     optional: true
 
-  /@swc/core-linux-arm64-gnu@1.3.82:
-    resolution: {integrity: sha512-26JkOujbzcItPAmIbD5vHJxQVy5ihcSu3YHTKwope1h28sApZdtE7S3e2G3gsZRTIdsCQkXUtAQeqHxGWWR3pw==}
+  /@swc/core-linux-arm64-gnu@1.4.8:
+    resolution: {integrity: sha512-HvEWnwKHkoVUr5iftWirTApFJ13hGzhAY2CMw4lz9lur2m+zhPviRRED0FCI6T95Knpv7+8eUOr98Z7ctrG6DQ==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     optional: true
 
-  /@swc/core-linux-arm64-musl@1.3.82:
-    resolution: {integrity: sha512-8Izj9tuuMpoc3cqiPBRtwqpO1BZ/+sfZVsEhLxrbOFlcSb8LnKyMle1g3JMMUwI4EU75RGVIzZMn8A6GOKdJbA==}
+  /@swc/core-linux-arm64-musl@1.4.8:
+    resolution: {integrity: sha512-kY8+qa7k/dEeBq9p0Hrta18QnJPpsiJvDQSLNaTIFpdM3aEM9zbkshWz8gaX5VVGUEALowCBUWqmzO4VaqM+2w==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     optional: true
 
-  /@swc/core-linux-x64-gnu@1.3.82:
-    resolution: {integrity: sha512-0GSrIBScQwTaPv46T2qB7XnDYxndRCpwH4HMjh6FN+I+lfPUhTSJKW8AonqrqT1TbpFIgvzQs7EnTsD7AnSCow==}
+  /@swc/core-linux-x64-gnu@1.4.8:
+    resolution: {integrity: sha512-0WWyIw432wpO/zeGblwq4f2YWam4pn8Z/Ig4KzHMgthR/KmiLU3f0Z7eo45eVmq5vcU7Os1zi/Zb65OOt09q/w==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     optional: true
 
-  /@swc/core-linux-x64-musl@1.3.82:
-    resolution: {integrity: sha512-KJUnaaepDKNzrEbwz4jv0iC3/t9x0NSoe06fnkAlhh2+NFKWKKJhVCOBTrpds8n7eylBDIXUlK34XQafjVMUdg==}
+  /@swc/core-linux-x64-musl@1.4.8:
+    resolution: {integrity: sha512-p4yxvVS05rBNCrBaSTa20KK88vOwtg8ifTW7ec/yoab0bD5EwzzB8KbDmLLxE6uziFa0sdjF0dfRDwSZPex37Q==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     optional: true
 
-  /@swc/core-win32-arm64-msvc@1.3.82:
-    resolution: {integrity: sha512-TR3MHKhDYIyGyFcyl2d/p1ftceXcubAhX5wRSOdtOyr5+K/v3jbyCCqN7bbqO5o43wQVCwwR/drHleYyDZvg8Q==}
+  /@swc/core-win32-arm64-msvc@1.4.8:
+    resolution: {integrity: sha512-jKuXihxAaqUnbFfvPxtmxjdJfs87F1GdBf33il+VUmSyWCP4BE6vW+/ReDAe8sRNsKyrZ3UH1vI5q1n64csBUA==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     optional: true
 
-  /@swc/core-win32-ia32-msvc@1.3.82:
-    resolution: {integrity: sha512-ZX4HzVVt6hs84YUg70UvyBJnBOIspmQQM0iXSzBvOikk3zRoN7BnDwQH4GScvevCEBuou60+i4I6d5kHLOfh8Q==}
+  /@swc/core-win32-ia32-msvc@1.4.8:
+    resolution: {integrity: sha512-O0wT4AGHrX8aBeH6c2ADMHgagAJc5Kf6W48U5moyYDAkkVnKvtSc4kGhjWhe1Yl0sI0cpYh2In2FxvYsb44eWw==}
     engines: {node: '>=10'}
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
     optional: true
 
-  /@swc/core-win32-x64-msvc@1.3.82:
-    resolution: {integrity: sha512-4mJMnex21kbQoaHeAmHnVwQN9/XAfPszJ6n9HI7SVH+aAHnbBIR0M59/b50/CJMjTj5niUGk7EwQ3nhVNOG32g==}
+  /@swc/core-win32-x64-msvc@1.4.8:
+    resolution: {integrity: sha512-C2AYc3A2o+ECciqsJWRgIpp83Vk5EaRzHe7ed/xOWzVd0MsWR+fweEsyOjlmzHfpUxJSi46Ak3/BIZJlhZbXbg==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     optional: true
 
-  /@swc/core@1.3.82:
-    resolution: {integrity: sha512-jpC1a18HMH67018Ij2jh+hT7JBFu7ZKcQVfrZ8K6JuEY+kjXmbea07P9MbQUZbAe0FB+xi3CqEVCP73MebodJQ==}
+  /@swc/core@1.4.8:
+    resolution: {integrity: sha512-uY2RSJcFPgNOEg12RQZL197LZX+MunGiKxsbxmh22VfVxrOYGRvh4mPANFlrD1yb38CgmW1wI6YgIi8LkIwmWg==}
     engines: {node: '>=10'}
     requiresBuild: true
     peerDependencies:
@@ -1076,21 +1082,27 @@ packages:
       '@swc/helpers':
         optional: true
     dependencies:
-      '@swc/types': 0.1.4
+      '@swc/counter': 0.1.3
+      '@swc/types': 0.1.6
     optionalDependencies:
-      '@swc/core-darwin-arm64': 1.3.82
-      '@swc/core-darwin-x64': 1.3.82
-      '@swc/core-linux-arm-gnueabihf': 1.3.82
-      '@swc/core-linux-arm64-gnu': 1.3.82
-      '@swc/core-linux-arm64-musl': 1.3.82
-      '@swc/core-linux-x64-gnu': 1.3.82
-      '@swc/core-linux-x64-musl': 1.3.82
-      '@swc/core-win32-arm64-msvc': 1.3.82
-      '@swc/core-win32-ia32-msvc': 1.3.82
-      '@swc/core-win32-x64-msvc': 1.3.82
+      '@swc/core-darwin-arm64': 1.4.8
+      '@swc/core-darwin-x64': 1.4.8
+      '@swc/core-linux-arm-gnueabihf': 1.4.8
+      '@swc/core-linux-arm64-gnu': 1.4.8
+      '@swc/core-linux-arm64-musl': 1.4.8
+      '@swc/core-linux-x64-gnu': 1.4.8
+      '@swc/core-linux-x64-musl': 1.4.8
+      '@swc/core-win32-arm64-msvc': 1.4.8
+      '@swc/core-win32-ia32-msvc': 1.4.8
+      '@swc/core-win32-x64-msvc': 1.4.8
 
-  /@swc/types@0.1.4:
-    resolution: {integrity: sha512-z/G02d+59gyyUb7KYhKi9jOhicek6QD2oMaotUyG+lUkybpXoV49dY9bj7Ah5Q+y7knK2jU67UTX9FyfGzaxQg==}
+  /@swc/counter@0.1.3:
+    resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
+
+  /@swc/types@0.1.6:
+    resolution: {integrity: sha512-/JLo/l2JsT/LRd80C3HfbmVpxOAJ11FO2RCEslFrgzLltoP9j8XIbsyDcfCt2WWyX+CM96rBoNM+IToAkFOugg==}
+    dependencies:
+      '@swc/counter': 0.1.3
 
   /@szmarczak/http-timer@5.0.1:
     resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
@@ -4520,7 +4532,7 @@ packages:
       nopt: 1.0.10
     dev: false
 
-  /ts-node@10.9.1(@swc/core@1.3.82)(@types/node@20.8.6)(typescript@5.2.2):
+  /ts-node@10.9.1(@swc/core@1.4.8)(@types/node@20.8.6)(typescript@5.2.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -4535,7 +4547,7 @@ packages:
         optional: true
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
-      '@swc/core': 1.3.82
+      '@swc/core': 1.4.8
       '@tsconfig/node10': 1.0.9
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
