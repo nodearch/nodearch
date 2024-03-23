@@ -51,9 +51,3 @@ export default class SocketIOTemplate extends App {
     });
   }
 }
-
-/**
- * TODO: 
- * 2. AdminUI EXT
- * 3. pass http server as option 
- */
