@@ -33,7 +33,7 @@ export class SocketAdminHook implements IHook {
     const httpServer = serverProvider.getHttpServer();
 
     httpServer.prependListener('request', (req, res) => {
-      // TODO: Fix this
+      // TODO: Fix this (use express ext to serving, and pass it to socket.io)
       if (req.url?.startsWith(this.config.url)) {
         return handler(req, res, {
           public: fileURLToPath(getUiUrl()),

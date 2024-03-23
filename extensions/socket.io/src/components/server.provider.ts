@@ -13,6 +13,7 @@ export class SocketIOServerProvider {
     return this.socketService.getServer();
   }
 
+  // TODO: remove this
   getHttpServer() {
     return this.socketService.getHttpServer();
   }
