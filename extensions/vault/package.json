@@ -35,14 +35,14 @@
     "axios": "^1.3.3"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.1.1",
+    "@nodearch/core": "workspace:^2.1.2",
     "@types/node": "^20.8.6",
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
     "reflect-metadata": "^0.1.13"
   },
   "peerDependencies": {
-    "@nodearch/core": "2.1.1",
+    "@nodearch/core": "2.1.2",
     "reflect-metadata": "0.x"
   }
 }

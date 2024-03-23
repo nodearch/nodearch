@@ -2,6 +2,20 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "2.1.2",
+      "tag": "@nodearch/core_v2.1.2",
+      "date": "Sat, 23 Mar 2024 19:34:17 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "enhanced logs",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "ff86640f3d5c32b0ba850df76c50847da776d07c"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.1.1",
       "tag": "@nodearch/core_v2.1.1",
       "date": "Sat, 23 Mar 2024 18:35:49 GMT",
