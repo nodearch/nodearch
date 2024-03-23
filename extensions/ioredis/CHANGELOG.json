@@ -1,0 +1,27 @@
+{
+  "name": "@nodearch/ioredis",
+  "entries": [
+    {
+      "version": "1.0.1",
+      "tag": "@nodearch/ioredis_v1.0.1",
+      "date": "Sat, 23 Mar 2024 14:31:22 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "added new ext",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "ce2343d08c4db8e2983653e0e194afaa2df4190f"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^2.0.3` to `2.1.0`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `>=2.0.3 || <3` to `2.1.0`"
+          }
+        ]
+      }
+    }
+  ]
+}

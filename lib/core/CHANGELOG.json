@@ -2,6 +2,20 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "2.1.0",
+      "tag": "@nodearch/core_v2.1.0",
+      "date": "Sat, 23 Mar 2024 14:31:22 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "componentFactory additions",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "ce2343d08c4db8e2983653e0e194afaa2df4190f"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.3",
       "tag": "@nodearch/core_v2.0.3",
       "date": "Wed, 27 Dec 2023 13:39:20 GMT",

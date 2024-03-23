@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/socket.io-admin-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "nodearch socket.io admin ui",
   "exports": {
     ".": {
@@ -30,8 +30,8 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.0.3",
-    "@nodearch/socket.io": "workspace:^1.0.0",
+    "@nodearch/core": "workspace:^2.1.0",
+    "@nodearch/socket.io": "workspace:^1.0.1",
     "@types/node": "^20.8.6",
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
@@ -39,8 +39,8 @@
     "@types/serve-handler": "^6.1.4"
   },
   "peerDependencies": {
-    "@nodearch/core": ">=2.0.3 || <3",
-    "@nodearch/socket.io": ">=1.0.0 || <2",
+    "@nodearch/core": "2.1.0",
+    "@nodearch/socket.io": "1.0.1",
     "reflect-metadata": "0.x"
   },
   "dependencies": {

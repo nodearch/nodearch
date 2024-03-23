@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Wed, 27 Dec 2023 16:22:14 GMT and should not be manually modified.
+This log was last generated on Sat, 23 Mar 2024 14:31:22 GMT and should not be manually modified.
+
+## 2.0.7
+Sat, 23 Mar 2024 14:31:22 GMT
+
+### Patches
+
+- fix httpServerProvider return
 
 ## 2.0.6
 Wed, 27 Dec 2023 16:22:14 GMT

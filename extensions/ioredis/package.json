@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/ioredis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Nodearch ioredis client",
   "exports": {
     ".": {
@@ -32,13 +32,13 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.0.3",
+    "@nodearch/core": "workspace:^2.1.0",
     "@types/node": "^20.8.6",
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@nodearch/core": ">=2.0.3 || <3",
+    "@nodearch/core": "2.1.0",
     "reflect-metadata": "0.x"
   },
   "dependencies": {

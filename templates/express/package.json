@@ -35,9 +35,9 @@
     "reflect-metadata": "^0.1.13"
   },
   "dependencies": {
-    "@nodearch/core": "workspace:^2.0.3",
+    "@nodearch/core": "workspace:^2.1.0",
     "@nodearch/cli": "workspace:^2.0.24",
-    "@nodearch/express": "workspace:^2.0.6",
+    "@nodearch/express": "workspace:^2.0.7",
     "@nodearch/openapi": "workspace:^1.0.5",
     "@nodearch/swagger": "workspace:^1.0.6",
     "@nodearch/joi": "workspace:^1.0.4",

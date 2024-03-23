@@ -1,6 +1,13 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Wed, 27 Dec 2023 13:39:20 GMT and should not be manually modified.
+This log was last generated on Sat, 23 Mar 2024 14:31:22 GMT and should not be manually modified.
+
+## 2.1.0
+Sat, 23 Mar 2024 14:31:22 GMT
+
+### Minor changes
+
+- componentFactory additions
 
 ## 2.0.3
 Wed, 27 Dec 2023 13:39:20 GMT
