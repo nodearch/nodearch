@@ -7,8 +7,6 @@ export class SocketIOAdminUIConfig implements SocketIOAdminUIOptions {
   serverProvider: ISocketIOServerProvider;
   options: AdminUIOptions;
   enable: boolean;
-  serve: boolean;
-  url: string;
 
   constructor(config: ConfigManager) {
     this.serverProvider = config.env({
@@ -28,20 +26,6 @@ export class SocketIOAdminUIConfig implements SocketIOAdminUIOptions {
       external: 'enable',
       defaults: {
         all: false
-      }
-    });
-
-    this.serve = config.env({
-      external: 'serve',
-      defaults: {
-        all: false
-      }
-    });
-
-    this.url = config.env({
-      external: 'url',
-      defaults: {
-        all: '/socket-admin'
       }
     });
   }

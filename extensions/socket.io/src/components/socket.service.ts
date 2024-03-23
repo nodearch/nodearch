@@ -5,8 +5,8 @@ import http from 'http';
 import https from 'https';
 import { ParserService } from './parser.service.js';
 import { RegistryService } from './registry.service.js';
-import { ServerPatch } from './server-patches.js';
-import { IAdapter, INamespaceMap, INativeAdapter } from '../interfaces.js';
+// import { ServerPatch } from './server-patches.js';
+import { IAdapter, IHttpServerProvider, INamespaceMap, INativeAdapter } from '../interfaces.js';
 import { ComponentFactory } from '@nodearch/core/components';
 
 
@@ -23,9 +23,12 @@ export class SocketService {
   private appContext: AppContext;
 
   constructor(
-    logger: Logger, socketConfig: SocketConfig,
-    parser: ParserService, registryService: RegistryService,
-    serverPatch: ServerPatch, appContext: AppContext
+    logger: Logger,
+    socketConfig: SocketConfig,
+    parser: ParserService,
+    registryService: RegistryService,
+    // serverPatch: ServerPatch, 
+    appContext: AppContext
   ) {
     this.logger = logger;
     this.socketConfig = socketConfig;
@@ -33,25 +36,56 @@ export class SocketService {
     this.registryService = registryService;
     // this.serverPatch = serverPatch;
     this.appContext = appContext;
-    this.server = http.createServer();
+    this.server = this.initHttpServer();
     this.io = new IO.Server(this.server, socketConfig.ioOptions);
   }
 
-
   async start() {
+    this.registerAdapters();
+
+    const namespacesData = this.parser.parse();
+
+    this.protectDefaultNamespace(namespacesData);
+
+    // Register namespaces, events, middlewares, etc.
+    this.register(this.io, namespacesData);
+
+    // this.serverPatch.patch(this.io, namespacesData);
+
+    if (!this.socketConfig.httpProvider) {
+      await this.startHttpServer();
+    }
+  }
+
+  private initHttpServer() {
+    let server: http.Server | https.Server;
+
+    if (this.socketConfig.httpProvider) {
+      const httpProvider = this.appContext.getContainer()
+        .get<IHttpServerProvider>(this.socketConfig.httpProvider);
+
+      if (httpProvider) {
+        server = httpProvider.get();
+      }
+      else {
+        throw new Error(`HttpServerProvider instance not found for: ${this.socketConfig.httpProvider.name}`);
+      }
+    }
+    else {
+      if (this.socketConfig.server.https) {
+        server = https.createServer(this.socketConfig.server.https);
+      }
+      else {
+        server = http.createServer(this.socketConfig.server.http || {});
+      }
+    }
+
+    return server;
+  }
+
+  private async startHttpServer() {
     await new Promise((resolve, reject) => {
       const { port, hostname } = this.socketConfig.server;
-
-      this.registerAdapters();
-
-      const namespacesData = this.parser.parse();
-
-      this.protectDefaultNamespace(namespacesData);
-
-      // Register namespaces, events, middlewares, etc.
-      this.register(this.io, namespacesData);
-
-      // this.serverPatch.patch(this.io, namespacesData);
 
       this.server.on('error', err => {
         err.message = 'Error starting socket.io server - ' + err.message;

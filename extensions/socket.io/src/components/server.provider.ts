@@ -12,9 +12,4 @@ export class SocketIOServerProvider {
   get(): IO.Server {
     return this.socketService.getServer();
   }
-
-  // TODO: remove this
-  getHttpServer() {
-    return this.socketService.getHttpServer();
-  }
 }

@@ -1,11 +1,13 @@
 import { Config, ConfigManager } from '@nodearch/core';
-import { IServerSettings, ISocketAdapter, ISocketIOOptions } from '../interfaces.js';
+import { IHttpServerProvider, IServerSettings, ISocketAdapter, ISocketIOOptions } from '../interfaces.js';
 import { ServerOptions } from 'socket.io';
+import { ClassConstructor } from '@nodearch/core/utils';
 
 
 @Config()
 export class SocketConfig implements ISocketIOOptions {
   server: IServerSettings;
+  httpProvider?: ClassConstructor<IHttpServerProvider>;  
   adapter?: ISocketAdapter;
   ioOptions?: Partial<ServerOptions>;
 
@@ -18,6 +20,10 @@ export class SocketConfig implements ISocketIOOptions {
           hostname: 'localhost'
         }
       }
+    });
+
+    this.httpProvider = config.env({
+      external: 'httpProvider'
     });
 
     this.adapter = config.env({

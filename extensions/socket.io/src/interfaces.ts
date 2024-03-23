@@ -10,8 +10,8 @@ import { SocketIODecorator } from './enums.js';
 
 export interface ISocketIOOptions {
   server?: IServerOptions;
+  httpProvider?: ClassConstructor<IHttpServerProvider>;  
   adapter?: ISocketAdapter;
-
   // Refer to https://socket.io/docs/v4/server-api/#new-Server-httpServer-options
   ioOptions?: Partial<ServerOptions>;
 }
@@ -23,6 +23,10 @@ export type IServerOptions = {
   https?: https.ServerOptions;
   http?: http.ServerOptions;
 };
+
+export interface IHttpServerProvider {
+  get(): http.Server | https.Server;
+}
 
 export type IServerSettings = IServerOptions & {
   port: number;

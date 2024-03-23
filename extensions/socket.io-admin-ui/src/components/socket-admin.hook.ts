@@ -22,28 +22,10 @@ export class SocketAdminHook implements IHook {
   
     if (!serverProvider) throw new Error('Socket.IO Server Provider not found. Admin UI cannot be started.');
 
-    this.logger.info('Starting Socket.IO Admin UI');
+    this.logger.info('Enabling Socket.IO Admin UI');
 
     const io = serverProvider.get();
     
     instrument(io, this.config.options);
-
-    if (!this.config.serve) return;
-
-    const httpServer = serverProvider.getHttpServer();
-
-    httpServer.prependListener('request', (req, res) => {
-      // TODO: Fix this (use express ext to serving, and pass it to socket.io)
-      if (req.url?.startsWith(this.config.url)) {
-        return handler(req, res, {
-          public: fileURLToPath(getUiUrl()),
-          rewrites: [
-            { source: this.config.url, destination: '/index.html' }
-          ]
-        });
-      }
-    });
-
-    this.logger.info(`Socket.IO Admin UI is available on ${this.config.url}`);
   }
 }
