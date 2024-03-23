@@ -40,7 +40,7 @@ export class CliHook implements IHook {
       const localAppInfo = this.localAppService.info;
 
       if (localAppInfo) {
-        this.logger.info(`Local app found: ${localAppInfo.name} v${localAppInfo.version} - ${localAppInfo.loadMode.toUpperCase()} Mode`);
+        this.logger.info(`Local app loaded: ${localAppInfo.name} v${localAppInfo.version} - ${localAppInfo.loadMode.toUpperCase()} Mode`);
       }
       else {
         this.logger.warn(`Local app might be in an invalid state.`)

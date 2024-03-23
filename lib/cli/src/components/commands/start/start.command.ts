@@ -34,7 +34,7 @@ export class StartCommand implements ICommand {
     if (!localApp || !localAppInfo) return;
 
     if (!options.watch) {
-      this.logger.info('Starting app...');
+      this.logger.info('Starting your app...');
       return await localApp.start();
     }
 

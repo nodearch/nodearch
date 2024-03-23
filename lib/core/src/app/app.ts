@@ -28,6 +28,7 @@ export class App {
   private appSettings?: IAppSettings;
   private hooks: IHook[];
   private appState: AppState;
+  private startedAt!: [number, number];
 
 
   constructor(options: IAppOptions) {
@@ -54,6 +55,12 @@ export class App {
         await hook.onStart();
       }
     }
+
+    if (this.appSettings && !this.appSettings.disableBootstrapMetrics) {
+      const time = process.hrtime(this.startedAt);
+      const ms = Math.round((time[0] * 1000) + (time[1] / 1000000));
+      this.logger.info(`App Started in ${ms}ms`);
+    }
   }
 
   async stop() {
@@ -71,8 +78,6 @@ export class App {
     if (this.appState === AppState.INITIATED) return;
     this.appState = AppState.INITIATED;
     
-    // TODO: We can probably add performance insights here
-
     if (options.mode === 'app') {
       this.appSettings = options.appSettings;
     }
@@ -81,13 +86,29 @@ export class App {
       this.appContext = options.appContext;
     }
 
-    this.loadCoreComponents();
+    const bootstrapLogs = options.mode === 'app' && (this.appSettings && !this.appSettings.disableBootstrapMetrics);
 
-    // TODO: add bootstrapping logs here
+    if (bootstrapLogs)
+      this.startedAt = process.hrtime();
+
+    this.loadCoreComponents();
 
     await this.loadExtensions();
     this.registerExtensions();
+
     await this.loadComponents();
+
+    if (bootstrapLogs) {
+      const componentsCount = this.componentRegistry.count();
+      const extensionsCount = this.extensions?.length || 0;
+      const hooksCount = this.componentRegistry
+        .get<IHook>({ id: CoreDecorator.HOOK }).length;
+
+      const end = process.hrtime(this.startedAt);
+      const time = Math.round((end[0] * 1000) + (end[1] / 1000000));
+
+      this.logger.info(`${componentsCount} Components, ${extensionsCount} Extensions, ${hooksCount} Hooks Loaded in ${time}ms`);
+    }
   }
 
   /**

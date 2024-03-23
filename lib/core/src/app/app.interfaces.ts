@@ -33,6 +33,7 @@ export interface IAppSettings {
   version: string;
   paths: IAppPaths;
   loadMode: AppLoadMode;
+  disableBootstrapMetrics?: boolean;
 }
 
 export interface IAppPaths {
@@ -47,7 +48,9 @@ export interface IAppPaths {
 export interface IPackageJSON {
   name: string;
   version: string;
-  nodearch: {};
+  nodearch: {
+    disableBootstrapMetrics?: boolean;
+  };
   [key: string]: any;
 }
 

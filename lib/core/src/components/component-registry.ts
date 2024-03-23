@@ -107,6 +107,10 @@ export class ComponentRegistry {
     });
   }
 
+  count() {
+    return this.registeredComponents.length;
+  }
+
   private getComponents(id?: string) {
     let components: ComponentInfo[] = [];
 
