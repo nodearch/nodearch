@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/swagger",
+      "comment": "update license",
+      "type": "none"
+    }
+  ],
+  "packageName": "@nodearch/swagger"
+}

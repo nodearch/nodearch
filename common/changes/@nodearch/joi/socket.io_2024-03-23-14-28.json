@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/joi",
+      "comment": "update license",
+      "type": "none"
+    }
+  ],
+  "packageName": "@nodearch/joi"
+}

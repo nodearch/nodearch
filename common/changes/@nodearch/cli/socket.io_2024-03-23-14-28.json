@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "update license",
+      "type": "none"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
