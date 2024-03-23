@@ -1,9 +1,6 @@
 import { AppContext, Hook, IHook, Logger } from '@nodearch/core';
 import { SocketIOAdminUIConfig } from './socket-admin.config.js';
 import { instrument } from '@socket.io/admin-ui';
-import handler from 'serve-handler';
-import { getUiUrl } from '../ui.js';
-import { fileURLToPath } from 'node:url';
 
 
 @Hook({ export: true })

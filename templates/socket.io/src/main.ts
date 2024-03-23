@@ -1,8 +1,6 @@
 import { App, LogLevel } from '@nodearch/core';
 import { SocketIO, SocketIOServerProvider } from '@nodearch/socket.io';
-import { RedisAdapterProvider, SocketIORedisAdapter } from '@nodearch/socket.io-redis';
-import { IORedis, RedisClient } from '@nodearch/ioredis';
-import { SocketIOAdminUI, getUiUrl } from '@nodearch/socket.io-admin-ui';
+import { SocketIOAdminUI, getSocketAdminUiUrl } from '@nodearch/socket.io-admin-ui';
 import { ExpressApp, HttpServerProvider } from '@nodearch/express';
 
 
@@ -17,36 +15,21 @@ export default class SocketIOTemplate extends App {
         prefix: 'SocketIO App'
       },
       extensions: [
-        // new IORedis(),
-        // new SocketIORedisAdapter({
-        //   redisProvider: RedisClient
-        // }),
+        new SocketIOAdminUI({
+          serverProvider: SocketIOServerProvider,
+          enable: true
+        }),
+        new SocketIO({
+          httpProvider: HttpServerProvider
+        }),
         new ExpressApp({
           static: [
             {
-              filePath: getUiUrl(),
-              httpPath: '/io'
+              filePath: getSocketAdminUiUrl(),
+              httpPath: '/socket-admin'
             }
           ]
-        }),
-        new SocketIO({
-          httpProvider: HttpServerProvider,
-          ioOptions: {
-            cors: {
-              origin: ['https://firecamp.dev']
-            }
-          }
-          // adapter: RedisAdapterProvider
-        }),
-        new SocketIOAdminUI({
-          serverProvider: SocketIOServerProvider,
-          options: {
-            auth: false,
-            namespaceName: 'admin'
-          },
-          enable: true
-        }),
-
+        })
       ]
     });
   }
