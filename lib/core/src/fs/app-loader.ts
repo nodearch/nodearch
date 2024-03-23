@@ -108,7 +108,8 @@ export class AppLoader {
         tsConfig: this.tsConfigUrl,
         appDir,
         app
-      }
+      },
+      disableBootstrapMetrics: pkgInfo.nodearch.disableBootstrapMetrics || false
     };
 
     return appInfo;
