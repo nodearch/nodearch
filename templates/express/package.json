@@ -36,9 +36,9 @@
     "@swc/core": "^1.4.8"
   },
   "dependencies": {
-    "@nodearch/core": "workspace:^2.1.0",
+    "@nodearch/core": "workspace:^2.1.1",
     "@nodearch/command": "workspace:^1.0.6",
-    "@nodearch/cli": "workspace:^2.0.24",
+    "@nodearch/cli": "workspace:^2.0.25",
     "@nodearch/express": "workspace:^2.0.7",
     "@nodearch/openapi": "workspace:^1.0.5",
     "@nodearch/swagger": "workspace:^1.0.6",

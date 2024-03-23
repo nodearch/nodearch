@@ -2,6 +2,32 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.0.25",
+      "tag": "@nodearch/cli_v2.0.25",
+      "date": "Sat, 23 Mar 2024 18:35:49 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update logs",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "38751ec10626fe4183c91e308274b769c6fff96f"
+          }
+        ],
+        "none": [
+          {
+            "comment": "update license",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "ce2343d08c4db8e2983653e0e194afaa2df4190f"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^2.1.0` to `2.1.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.24",
       "tag": "@nodearch/cli_v2.0.24",
       "date": "Tue, 27 Feb 2024 11:54:27 GMT",
