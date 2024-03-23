@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/socket.io-redis",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "nodearch socket.io redis adapter",
   "exports": {
     ".": {
@@ -33,13 +33,13 @@
     "@types/node": "^20.8.6",
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
-    "@nodearch/socket.io": "workspace:^2.0.0",
+    "@nodearch/socket.io": "workspace:^1.0.0",
     "@nodearch/core": "workspace:^2.0.3"
   },
   "peerDependencies": {
     "reflect-metadata": "0.x",
     "@nodearch/core": ">=2.0.3 || <3",
-    "@nodearch/socket.io": ">=2.0.0 || <3"
+    "@nodearch/socket.io": ">=1.0.0 || <2"
   },
   "dependencies": {
     "@socket.io/redis-adapter": "^8.3.0",

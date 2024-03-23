@@ -19,7 +19,7 @@ export class SocketService {
   private server: http.Server | https.Server;
   private parser: ParserService;
   private registryService: RegistryService;
-  private serverPatch: ServerPatch;
+  // private serverPatch: ServerPatch;
   private appContext: AppContext;
 
   constructor(
@@ -31,7 +31,7 @@ export class SocketService {
     this.socketConfig = socketConfig;
     this.parser = parser;
     this.registryService = registryService;
-    this.serverPatch = serverPatch;
+    // this.serverPatch = serverPatch;
     this.appContext = appContext;
     this.server = http.createServer();
     this.io = new IO.Server(this.server, socketConfig.ioOptions);

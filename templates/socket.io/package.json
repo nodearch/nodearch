@@ -15,21 +15,18 @@
   "author": "https://github.com/AhmedAli7O1",
   "license": "MIT",
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.0.3",
-    "@nodearch/socket.io": "workspace:^2.0.0",
-    "socket.io": "^4.7.2",
     "@types/node": "^20.8.6",
     "typescript": "^5.2.2",
     "rimraf": "^5.0.5",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "reflect-metadata": "^0.1.13"
   },
-  "dependencies": {},
-  "peerDependencies": {
-    "@nodearch/core": ">=2.0.3 || <3",
-    "@nodearch/socket.io": "workspace:^2.0.0",
-    "@nodearch/socket.io-admin-ui": "workspace:^0.1.0",
-    "socket.io": "4.x",
-    "reflect-metadata": "0.x"
+  "dependencies": {
+    "@nodearch/core": "workspace:^2.0.3",
+    "@nodearch/socket.io": "workspace:^1.0.0",
+    "@nodearch/socket.io-redis": "workspace:^1.0.0",
+    "@nodearch/ioredis": "workspace:^1.0.0",
+    "socket.io": "^4.7.2"
   },
   "nodearch": {}
 }

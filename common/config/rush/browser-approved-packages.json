@@ -23,6 +23,10 @@
       "allowedCategories": [ "production", "prototypes" ]
     },
     {
+      "name": "@nodearch/ioredis",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "@nodearch/joi",
       "allowedCategories": [ "production", "prototypes" ]
     },
@@ -48,6 +52,10 @@
     },
     {
       "name": "@nodearch/socket.io-admin-ui",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@nodearch/socket.io-redis",
       "allowedCategories": [ "prototypes" ]
     },
     {
@@ -172,6 +180,10 @@
     },
     {
       "name": "inversify",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "ioredis",
       "allowedCategories": [ "production" ]
     },
     {

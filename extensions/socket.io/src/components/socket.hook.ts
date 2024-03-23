@@ -16,6 +16,7 @@ export class SocketIOHook {
     }
     catch(error: any) {
       this.logger.error(error);
+      throw error;
     }
   }
   

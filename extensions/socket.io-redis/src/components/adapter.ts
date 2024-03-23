@@ -1,12 +1,12 @@
 import { IAdapter } from '@nodearch/socket.io';
 import { createAdapter, createShardedAdapter } from '@socket.io/redis-adapter';
-import { IRedisProvider } from './interfaces.js';
+import { IRedisProvider } from '../interfaces.js';
 import { AppContext, Service } from '@nodearch/core';
 import { AdapterConfig } from './adapter.config.js';
 
 
-@Service()
-export class RedisAdapter implements IAdapter {
+@Service({ export: true })
+export class RedisAdapterProvider implements IAdapter {
   constructor(
     private appContext: AppContext,
     private adapterConfig: AdapterConfig
@@ -23,12 +23,12 @@ export class RedisAdapter implements IAdapter {
       throw new Error('Redis provider is not found');
     }
 
-    const pubClient = redisProviderInstance.getClient();
+    const pubClient = redisProviderInstance.get();
 
     const subClient = pubClient.duplicate();
     
-    if (this.adapterConfig.shardedAdapter) {
-      return createShardedAdapter(pubClient, subClient, this.adapterConfig.options);
+    if (this.adapterConfig.shardedOptions) {
+      return createShardedAdapter(pubClient, subClient, this.adapterConfig.shardedOptions) as any;
     }
     else {
       return createAdapter(pubClient, subClient, this.adapterConfig.options);

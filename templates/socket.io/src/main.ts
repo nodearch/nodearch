@@ -1,5 +1,7 @@
-import { App, ComponentScope, LogLevel } from '@nodearch/core';
-import { SocketIO, SocketIOServerProvider } from '@nodearch/socket.io';
+import { App, LogLevel } from '@nodearch/core';
+import { SocketIO } from '@nodearch/socket.io';
+import { RedisAdapterProvider, SocketIORedisAdapter } from '@nodearch/socket.io-redis';
+import { IORedis, RedisClient } from '@nodearch/ioredis';
 // import { SocketIOAdminUIApp } from '@nodearch/socket.io-admin-ui';
 
 
@@ -11,14 +13,19 @@ export default class SocketIOTemplate extends App {
       },
       logs: {
         logLevel: LogLevel.Debug,
-        prefix: 'SocketIOTemplate'
+        prefix: 'SocketIO App'
       },
       extensions: [
+        new IORedis(),
+        new SocketIORedisAdapter({
+          redisProvider: RedisClient
+        }),
         new SocketIO({
           server: {
             hostname: 'localhost',
             port: 4000
-          }
+          },
+          adapter: RedisAdapterProvider
         }),
         // new SocketIOAdminUIApp({
         //   serverProvider: SocketIOServerProvider,
