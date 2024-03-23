@@ -25,19 +25,14 @@ export class LocalAppService {
 
   private async load() {
     try {
-      const localApp = await this.appLoader.load();
-    
-      if (!localApp)
-        this.logger.debug('No local app found');
-      else 
-        this.logger.debug('Local app loaded');
+      await this.appLoader.load();
     }
     catch(e: any) {
       if (this.appLoader.isAppDir) {
         if (e.message)
           this.logger.error('Error when trying to load a NodeArch app from the local directory\nMessage:', e.message, '\nTrace:', e.stack);
         else
-        console.log('Error when trying to load a NodeArch app from the local directory\nError:', e);
+          console.log('Error when trying to load a NodeArch app from the local directory\nError:', e);
       }
       this.hasLoadError = true;
     }
