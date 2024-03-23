@@ -135,6 +135,14 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@types/serve-handler",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/serve-static",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@types/supertest",
       "allowedCategories": [ "prototypes" ]
     },
@@ -265,6 +273,14 @@
     {
       "name": "rimraf",
       "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "serve-handler",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "serve-static",
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "socket.io",

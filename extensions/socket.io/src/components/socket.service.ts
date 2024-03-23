@@ -123,4 +123,8 @@ export class SocketService {
   getServer(): IO.Server {
     return this.io;
   }
+
+  getHttpServer() {
+    return this.server;
+  }
 }

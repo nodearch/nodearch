@@ -2,7 +2,7 @@ import { App } from '@nodearch/core';
 import { SocketIOAdminUIOptions } from './interfaces.js';
 
 
-export class SocketIOAdminUIApp extends App {
+export class SocketIOAdminUI extends App {
   constructor(options: SocketIOAdminUIOptions) {
     super({
       components: {

@@ -1,8 +1,9 @@
 import { App, LogLevel } from '@nodearch/core';
-import { SocketIO } from '@nodearch/socket.io';
+import { SocketIO, SocketIOServerProvider } from '@nodearch/socket.io';
 import { RedisAdapterProvider, SocketIORedisAdapter } from '@nodearch/socket.io-redis';
 import { IORedis, RedisClient } from '@nodearch/ioredis';
-// import { SocketIOAdminUIApp } from '@nodearch/socket.io-admin-ui';
+import { SocketIOAdminUI, getUiUrl } from '@nodearch/socket.io-admin-ui';
+import { ExpressApp } from '@nodearch/express';
 
 
 export default class SocketIOTemplate extends App {
@@ -27,11 +28,22 @@ export default class SocketIOTemplate extends App {
           },
           adapter: RedisAdapterProvider
         }),
-        // new SocketIOAdminUIApp({
-        //   serverProvider: SocketIOServerProvider,
-        //   options: {
-        //     auth: false
-        //   }
+        new SocketIOAdminUI({
+          serverProvider: SocketIOServerProvider,
+          options: {
+            auth: false,
+            namespaceName: 'admin'
+          },
+          enable: true,
+          serve: true
+        }),
+        // new ExpressApp({
+        //   static: [
+        //     {
+        //       filePath: getUiUrl(),
+        //       httpPath: '/io'
+        //     }
+        //   ]
         // })
       ]
     });
@@ -40,7 +52,6 @@ export default class SocketIOTemplate extends App {
 
 /**
  * TODO: 
- * 1. Redis EXT
  * 2. AdminUI EXT
  * 3. pass http server as option 
  */

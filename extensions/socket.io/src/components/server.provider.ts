@@ -9,7 +9,11 @@ export class SocketIOServerProvider {
     private readonly socketService: SocketService
   ) {}
 
-  getServer(): IO.Server {
+  get(): IO.Server {
     return this.socketService.getServer();
+  }
+
+  getHttpServer() {
+    return this.socketService.getHttpServer();
   }
 }

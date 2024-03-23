@@ -478,6 +478,13 @@
       "tags": ["extension"]
     },
     {
+      "packageName": "@nodearch/socket.io-admin-ui",
+      "projectFolder": "extensions/socket.io-admin-ui",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
+    {
       "packageName": "@nodearch/ioredis",
       "projectFolder": "extensions/ioredis",
       "reviewCategory": "production",

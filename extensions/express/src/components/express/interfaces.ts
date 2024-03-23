@@ -109,7 +109,7 @@ export interface IHttpLogger {
 
 export interface IExpressStatic {
   httpPath: string;
-  filePath: string;
+  filePath: string | URL;
   options?: {
     dotfiles?: string;
     etag?: boolean;
