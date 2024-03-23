@@ -133,6 +133,10 @@ export class ExpressApp {
       this.expressConfig.static.forEach(staticItem => {
         let filePath =  staticItem.filePath;
         
+        if (filePath instanceof URL) {
+          filePath = fileURLToPath(filePath);
+        }
+
         if (!path.isAbsolute(filePath)) {
           filePath = path.join(rootDirPath, filePath);
         }

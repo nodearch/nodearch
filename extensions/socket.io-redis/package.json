@@ -1,0 +1,48 @@
+{
+  "name": "@nodearch/socket.io-redis",
+  "version": "1.0.0",
+  "description": "nodearch socket.io redis adapter",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodearch/nodearch.git"
+  },
+  "keywords": [
+    "nodearch",
+    "nodearch-socketio",
+    "nodearch-socketio-redis",
+    "socket.io-redis"
+  ],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodearch/nodearch/issues",
+    "email": "bluemax7o1@gmail.com"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.6",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2",
+    "@nodearch/socket.io": "workspace:^1.0.0",
+    "@nodearch/core": "workspace:^2.0.3"
+  },
+  "peerDependencies": {
+    "reflect-metadata": "0.x",
+    "@nodearch/core": ">=2.0.3 || <3",
+    "@nodearch/socket.io": ">=1.0.0 || <2"
+  },
+  "dependencies": {
+    "@socket.io/redis-adapter": "^8.3.0",
+    "socket.io-adapter": "^2.5.4"
+  }
+}

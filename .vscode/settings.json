@@ -8,6 +8,7 @@
     "jwks",
     "keycloak",
     "openapi",
+    "sharded",
     "socketio"
   ]
 }

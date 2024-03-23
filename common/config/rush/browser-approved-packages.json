@@ -23,6 +23,10 @@
       "allowedCategories": [ "production", "prototypes" ]
     },
     {
+      "name": "@nodearch/ioredis",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "@nodearch/joi",
       "allowedCategories": [ "production", "prototypes" ]
     },
@@ -48,6 +52,10 @@
     },
     {
       "name": "@nodearch/socket.io-admin-ui",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@nodearch/socket.io-redis",
       "allowedCategories": [ "prototypes" ]
     },
     {
@@ -127,6 +135,14 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@types/serve-handler",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@types/serve-static",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@types/supertest",
       "allowedCategories": [ "prototypes" ]
     },
@@ -172,6 +188,10 @@
     },
     {
       "name": "inversify",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "ioredis",
       "allowedCategories": [ "production" ]
     },
     {
@@ -255,8 +275,20 @@
       "allowedCategories": [ "production", "prototypes" ]
     },
     {
+      "name": "serve-handler",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "serve-static",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "socket.io",
       "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "socket.io-adapter",
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "supertest",

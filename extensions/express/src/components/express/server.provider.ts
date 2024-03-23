@@ -8,7 +8,7 @@ export class HttpServerProvider {
     private readonly expressServer: ExpressServer
   ) {}
 
-  getServer() {
-    this.expressServer.getServer();
+  get() {
+    return this.expressServer.getServer();
   }
 }

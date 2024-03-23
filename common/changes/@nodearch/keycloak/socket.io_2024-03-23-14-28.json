@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/keycloak",
+      "comment": "update license",
+      "type": "none"
+    }
+  ],
+  "packageName": "@nodearch/keycloak"
+}

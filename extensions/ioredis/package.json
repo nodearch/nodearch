@@ -1,0 +1,47 @@
+{
+  "name": "@nodearch/ioredis",
+  "version": "1.0.0",
+  "description": "Nodearch ioredis client",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodearch/nodearch.git"
+  },
+  "keywords": [
+    "nodearch",
+    "nodearch-ioredis",
+    "ioredis"
+  ],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodearch/nodearch/issues",
+    "email": "bluemax7o1@gmail.com"
+  },
+  "devDependencies": {
+    "@nodearch/core": "workspace:^2.0.3",
+    "@types/node": "^20.8.6",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "@nodearch/core": ">=2.0.3 || <3",
+    "reflect-metadata": "0.x"
+  },
+  "dependencies": {
+    "ioredis": "^5.3.2"
+  }
+}
