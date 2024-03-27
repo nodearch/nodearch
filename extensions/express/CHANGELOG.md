@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Wed, 27 Mar 2024 14:13:04 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 19:38:53 GMT and should not be manually modified.
+
+## 2.0.9
+Wed, 27 Mar 2024 19:38:53 GMT
+
+### Patches
+
+- Add Extension Provide Interface
 
 ## 2.0.8
 Wed, 27 Mar 2024 14:13:04 GMT

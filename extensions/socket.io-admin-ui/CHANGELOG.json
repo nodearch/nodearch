@@ -2,6 +2,34 @@
   "name": "@nodearch/socket.io-admin-ui",
   "entries": [
     {
+      "version": "1.0.4",
+      "tag": "@nodearch/socket.io-admin-ui_v1.0.4",
+      "date": "Wed, 27 Mar 2024 19:38:53 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add Extension Provide Interface",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "425bd2ec2ae1b2d5fe7fc9380a0489320983ad2b"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^2.1.2` to `2.1.3`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/socket.io\" from `^1.0.3` to `1.0.4`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `2.x` to `2.1.3`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/socket.io\" from `1.0.3` to `1.0.4`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.3",
       "tag": "@nodearch/socket.io-admin-ui_v1.0.3",
       "date": "Wed, 27 Mar 2024 16:05:44 GMT",

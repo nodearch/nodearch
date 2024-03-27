@@ -2,6 +2,34 @@
   "name": "@nodearch/express",
   "entries": [
     {
+      "version": "2.0.9",
+      "tag": "@nodearch/express_v2.0.9",
+      "date": "Wed, 27 Mar 2024 19:38:53 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add Extension Provide Interface",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "425bd2ec2ae1b2d5fe7fc9380a0489320983ad2b"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^2.1.2` to `2.1.3`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/openapi\" from `^1.0.6` to `1.0.7`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `2.x` to `2.1.3`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/openapi\" from `1.0.6` to `1.0.7`"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.8",
       "tag": "@nodearch/express_v2.0.8",
       "date": "Wed, 27 Mar 2024 14:13:04 GMT",

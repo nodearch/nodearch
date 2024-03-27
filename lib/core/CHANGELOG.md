@@ -1,6 +1,13 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Sat, 23 Mar 2024 19:34:17 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 19:38:53 GMT and should not be manually modified.
+
+## 2.1.3
+Wed, 27 Mar 2024 19:38:53 GMT
+
+### Patches
+
+- Add Extension Provide Interface
 
 ## 2.1.2
 Sat, 23 Mar 2024 19:34:17 GMT

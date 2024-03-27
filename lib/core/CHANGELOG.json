@@ -2,6 +2,20 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "2.1.3",
+      "tag": "@nodearch/core_v2.1.3",
+      "date": "Wed, 27 Mar 2024 19:38:53 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add Extension Provide Interface",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "425bd2ec2ae1b2d5fe7fc9380a0489320983ad2b"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.1.2",
       "tag": "@nodearch/core_v2.1.2",
       "date": "Sat, 23 Mar 2024 19:34:17 GMT",
