@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/socket.io-redis",
+      "comment": "update ext name",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/socket.io-redis"
+}
