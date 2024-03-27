@@ -1,6 +1,13 @@
 # Change Log - @nodearch/socket.io-redis
 
-This log was last generated on Wed, 27 Mar 2024 19:38:53 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 20:18:47 GMT and should not be manually modified.
+
+## 1.0.5
+Wed, 27 Mar 2024 20:18:47 GMT
+
+### Patches
+
+- update socketio redis interface
 
 ## 1.0.4
 Wed, 27 Mar 2024 19:38:53 GMT

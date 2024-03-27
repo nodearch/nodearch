@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io-redis",
   "entries": [
     {
+      "version": "1.0.5",
+      "tag": "@nodearch/socket.io-redis_v1.0.5",
+      "date": "Wed, 27 Mar 2024 20:18:47 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update socketio redis interface",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "eb251bdd7754e403e55068b3391d70b39f34a704"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.4",
       "tag": "@nodearch/socket.io-redis_v1.0.4",
       "date": "Wed, 27 Mar 2024 19:38:53 GMT",
