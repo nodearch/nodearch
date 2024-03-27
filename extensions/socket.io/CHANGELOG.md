@@ -1,6 +1,13 @@
 # Change Log - @nodearch/socket.io
 
-This log was last generated on Wed, 27 Mar 2024 14:13:04 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 16:05:44 GMT and should not be manually modified.
+
+## 1.0.3
+Wed, 27 Mar 2024 16:05:44 GMT
+
+### Patches
+
+- update ext name
 
 ## 1.0.2
 Wed, 27 Mar 2024 14:13:04 GMT

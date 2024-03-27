@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io",
   "entries": [
     {
+      "version": "1.0.3",
+      "tag": "@nodearch/socket.io_v1.0.3",
+      "date": "Wed, 27 Mar 2024 16:05:44 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update ext name",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "3627693ed87331e7632e2ca7a60d326367054f7e"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.2",
       "tag": "@nodearch/socket.io_v1.0.2",
       "date": "Wed, 27 Mar 2024 14:13:04 GMT",

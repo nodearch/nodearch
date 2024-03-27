@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/socket.io-admin-ui",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "nodearch socket.io admin ui",
   "exports": {
     ".": {
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@nodearch/core": "workspace:^2.1.2",
-    "@nodearch/socket.io": "workspace:^1.0.2",
+    "@nodearch/socket.io": "workspace:^1.0.3",
     "@types/node": "^20.8.6",
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
@@ -40,7 +40,7 @@
   },
   "peerDependencies": {
     "@nodearch/core": "2.x",
-    "@nodearch/socket.io": "1.0.2",
+    "@nodearch/socket.io": "1.0.3",
     "reflect-metadata": "0.x"
   },
   "dependencies": {
