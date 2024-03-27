@@ -2,7 +2,7 @@ import { App, ComponentScope } from '@nodearch/core';
 import { RedisOptions } from 'ioredis';
 
 
-export class IORedis extends App {
+export class IORedisApp extends App {
   constructor(options?: RedisOptions) {
     super({
       components: {

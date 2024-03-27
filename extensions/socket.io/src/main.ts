@@ -2,7 +2,7 @@ import { App } from '@nodearch/core';
 import { ISocketIOOptions } from './interfaces.js';
 
 
-export class SocketIO extends App {
+export class SocketIOApp extends App {
   constructor(options?: ISocketIOOptions) {
     super({
       components: {
