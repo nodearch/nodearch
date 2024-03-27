@@ -17,7 +17,7 @@ export interface IOpenAPIAppMapItem {
 }
 
 export interface IOpenAPIProvider {
-  getData(): IOpenAPIProviderData;
+  get(): IOpenAPIProviderData;
 }
 
 export type IOpenAPIProviderData = {

@@ -1,12 +1,12 @@
 import { IAdapter } from '@nodearch/socket.io';
 import { createAdapter, createShardedAdapter } from '@socket.io/redis-adapter';
 import { IRedisProvider } from '../interfaces.js';
-import { AppContext, Service } from '@nodearch/core';
+import { AppContext, IExtensionProvider, Service } from '@nodearch/core';
 import { AdapterConfig } from './adapter.config.js';
 
 
 @Service({ export: true })
-export class RedisAdapterProvider implements IAdapter {
+export class RedisAdapterProvider implements IAdapter, IExtensionProvider {
   constructor(
     private appContext: AppContext,
     private adapterConfig: AdapterConfig

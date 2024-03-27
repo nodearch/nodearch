@@ -8,7 +8,7 @@ import { ShardedRedisAdapterOptions } from '@socket.io/redis-adapter/dist/sharde
 @Config()
 export class AdapterConfig implements IRedisAdapterOptions {
   redisProvider: ClassConstructor<IRedisProvider>;
-  options?: RedisAdapterOptions;
+  options?: Partial<RedisAdapterOptions>;
   shardedOptions?: ShardedRedisAdapterOptions;
 
   constructor(config: ConfigManager) {

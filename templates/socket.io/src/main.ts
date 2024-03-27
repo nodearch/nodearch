@@ -16,11 +16,11 @@ export default class SocketIOTemplate extends App {
       },
       extensions: [
         new SocketIOAdminUIApp({
-          serverProvider: SocketIOServerProvider,
+          server: SocketIOServerProvider,
           enable: true
         }),
         new SocketIOApp({
-          httpProvider: HttpServerProvider
+          httpServer: HttpServerProvider
         }),
         new ExpressApp({
           static: [

@@ -2,7 +2,7 @@ import { ISocketIOServerProvider } from '@nodearch/socket.io';
 import { instrument } from '@socket.io/admin-ui';
 
 export interface SocketIOAdminUIOptions {
-  serverProvider: ISocketIOServerProvider;
+  server: ISocketIOServerProvider;
   options?: AdminUIOptions;
   enable?: boolean;
 }

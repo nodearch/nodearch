@@ -4,6 +4,7 @@ import { AppContext } from './app-context.js';
 import { App } from './app.js';
 import { AppLoadMode } from '../fs/enums.js';
 import { ComponentScope } from '../components/enums.js';
+import { ClassConstructor } from '../utils.index.js';
 
 
 export interface IAppConstructor {
@@ -62,3 +63,9 @@ export interface ITsConfig {
   };
   [key: string]: any;
 }
+
+export interface IExtensionProvider<T = any> {
+  get(): T;
+}
+
+export type IExtensionProviderComponent<T = any> = ClassConstructor<IExtensionProvider<T>>;
