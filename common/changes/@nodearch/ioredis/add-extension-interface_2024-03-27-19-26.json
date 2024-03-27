@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/ioredis",
+      "comment": "Add Extension Provide Interface",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/ioredis"
+}
