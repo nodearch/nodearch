@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/command",
+      "comment": "peer deps fix",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/command"
+}

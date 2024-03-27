@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/vault",
+      "comment": " peer deps fix",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/vault"
+}
