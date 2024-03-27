@@ -1,19 +1,19 @@
-import { Config, ConfigManager } from '@nodearch/core';
+import { Config, ConfigManager, IExtensionProviderComponent } from '@nodearch/core';
 import { RedisAdapterOptions } from '@socket.io/redis-adapter';
-import { IRedisAdapterOptions, IRedisProvider } from '../interfaces.js';
+import { IRedisAdapterOptions } from '../interfaces.js';
 import { ClassConstructor } from '@nodearch/core/utils';
 import { ShardedRedisAdapterOptions } from '@socket.io/redis-adapter/dist/sharded-adapter.js';
 
 
 @Config()
 export class AdapterConfig implements IRedisAdapterOptions {
-  redisProvider: ClassConstructor<IRedisProvider>;
+  redisClient: IExtensionProviderComponent;
   options?: Partial<RedisAdapterOptions>;
   shardedOptions?: ShardedRedisAdapterOptions;
 
   constructor(config: ConfigManager) {
-    this.redisProvider = config.env({
-      external: 'redisProvider'
+    this.redisClient = config.env({
+      external: 'redisClient'
     });
 
     this.options = config.env({

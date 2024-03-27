@@ -1,6 +1,5 @@
 import { IAdapter } from '@nodearch/socket.io';
 import { createAdapter, createShardedAdapter } from '@socket.io/redis-adapter';
-import { IRedisProvider } from '../interfaces.js';
 import { AppContext, IExtensionProvider, Service } from '@nodearch/core';
 import { AdapterConfig } from './adapter.config.js';
 
@@ -13,11 +12,11 @@ export class RedisAdapterProvider implements IAdapter, IExtensionProvider {
   ) {}
 
   get() {
-    const { redisProvider } = this.adapterConfig;
+    const { redisClient } = this.adapterConfig;
     
     const redisProviderInstance = this.appContext
       .getContainer()
-      .get<IRedisProvider>(redisProvider);
+      .get(redisClient);
 
     if (!redisProviderInstance) {
       throw new Error('Redis provider is not found');
