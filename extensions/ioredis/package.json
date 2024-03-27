@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/ioredis",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Nodearch ioredis client",
   "exports": {
     ".": {

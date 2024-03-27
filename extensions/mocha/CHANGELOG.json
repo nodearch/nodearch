@@ -2,6 +2,32 @@
   "name": "@nodearch/mocha",
   "entries": [
     {
+      "version": "1.0.8",
+      "tag": "@nodearch/mocha_v1.0.8",
+      "date": "Wed, 27 Mar 2024 14:13:04 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": " peer deps fix",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "7d17d849a12681296d4b23cff5ae9f7c216943e6"
+          }
+        ],
+        "none": [
+          {
+            "comment": "update license",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "ce2343d08c4db8e2983653e0e194afaa2df4190f"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/command\" from `^1.0.6` to `1.0.7`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.7",
       "tag": "@nodearch/mocha_v1.0.7",
       "date": "Wed, 27 Dec 2023 16:22:14 GMT",

@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Sat, 23 Mar 2024 14:31:22 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 14:13:04 GMT and should not be manually modified.
+
+## 2.0.8
+Wed, 27 Mar 2024 14:13:04 GMT
+
+### Patches
+
+-  peer deps fix
 
 ## 2.0.7
 Sat, 23 Mar 2024 14:31:22 GMT

@@ -1,6 +1,13 @@
 # Change Log - @nodearch/command
 
-This log was last generated on Wed, 27 Dec 2023 16:22:14 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Mar 2024 14:13:04 GMT and should not be manually modified.
+
+## 1.0.7
+Wed, 27 Mar 2024 14:13:04 GMT
+
+### Patches
+
+- peer deps fix
 
 ## 1.0.6
 Wed, 27 Dec 2023 16:22:14 GMT

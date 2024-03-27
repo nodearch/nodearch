@@ -2,6 +2,28 @@
   "name": "@nodearch/socket.io-admin-ui",
   "entries": [
     {
+      "version": "1.0.2",
+      "tag": "@nodearch/socket.io-admin-ui_v1.0.2",
+      "date": "Wed, 27 Mar 2024 14:13:04 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": " peer deps fix",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "7d17d849a12681296d4b23cff5ae9f7c216943e6"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/socket.io\" from `^1.0.1` to `1.0.2`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/socket.io\" from `1.x` to `1.0.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.1",
       "tag": "@nodearch/socket.io-admin-ui_v1.0.1",
       "date": "Sat, 23 Mar 2024 14:31:22 GMT",

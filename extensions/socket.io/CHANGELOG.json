@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io",
   "entries": [
     {
+      "version": "1.0.2",
+      "tag": "@nodearch/socket.io_v1.0.2",
+      "date": "Wed, 27 Mar 2024 14:13:04 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": " peer deps fix",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "7d17d849a12681296d4b23cff5ae9f7c216943e6"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.1",
       "tag": "@nodearch/socket.io_v1.0.1",
       "date": "Sat, 23 Mar 2024 14:31:22 GMT",
