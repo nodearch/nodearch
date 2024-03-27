@@ -14,7 +14,7 @@ importers:
         specifier: workspace:^2.1.2
         version: link:../../lib/core
       '@nodearch/openapi':
-        specifier: workspace:^1.0.5
+        specifier: workspace:^1.0.6
         version: link:../openapi
       '@types/body-parser':
         specifier: ^1.19.3
@@ -81,13 +81,13 @@ importers:
         specifier: workspace:^2.1.2
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.7
+        specifier: workspace:^2.0.8
         version: link:../express
       '@nodearch/joi':
-        specifier: workspace:^1.0.4
+        specifier: workspace:^1.0.5
         version: link:../joi
       '@nodearch/openapi':
-        specifier: workspace:^1.0.5
+        specifier: workspace:^1.0.6
         version: link:../openapi
       '@types/express':
         specifier: ^4.17.19
@@ -148,7 +148,7 @@ importers:
   ../../extensions/mocha:
     dependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.6
+        specifier: workspace:^1.0.7
         version: link:../../lib/command
     devDependencies:
       '@nodearch/core':
@@ -177,7 +177,7 @@ importers:
         version: 3.1.2
     devDependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.6
+        specifier: workspace:^1.0.7
         version: link:../../lib/command
       '@nodearch/core':
         specifier: workspace:^2.1.2
@@ -220,7 +220,7 @@ importers:
         specifier: workspace:^2.1.2
         version: link:../../lib/core
       '@nodearch/socket.io':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../socket.io
       '@types/node':
         specifier: ^20.8.6
@@ -251,7 +251,7 @@ importers:
         specifier: workspace:^2.1.2
         version: link:../../lib/core
       '@nodearch/socket.io':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../socket.io
       '@types/node':
         specifier: ^20.8.6
@@ -309,7 +309,7 @@ importers:
   ../../lib/cli:
     dependencies:
       '@nodearch/command':
-        specifier: workspace:^1.0.6
+        specifier: workspace:^1.0.7
         version: link:../command
       '@nodearch/core':
         specifier: workspace:^2.1.2
@@ -396,25 +396,25 @@ importers:
         specifier: workspace:^2.0.26
         version: link:../../lib/cli
       '@nodearch/command':
-        specifier: workspace:^1.0.6
+        specifier: workspace:^1.0.7
         version: link:../../lib/command
       '@nodearch/core':
         specifier: workspace:^2.1.2
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.7
+        specifier: workspace:^2.0.8
         version: link:../../extensions/express
       '@nodearch/joi':
-        specifier: workspace:^1.0.4
+        specifier: workspace:^1.0.5
         version: link:../../extensions/joi
       '@nodearch/joi-express':
-        specifier: workspace:^1.0.5
+        specifier: workspace:^1.0.6
         version: link:../../extensions/joi-express
       '@nodearch/mocha':
-        specifier: workspace:^1.0.7
+        specifier: workspace:^1.0.8
         version: link:../../extensions/mocha
       '@nodearch/openapi':
-        specifier: workspace:^1.0.5
+        specifier: workspace:^1.0.6
         version: link:../../extensions/openapi
       '@nodearch/swagger':
         specifier: workspace:^1.0.6
@@ -484,19 +484,19 @@ importers:
         specifier: workspace:^2.1.2
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.7
+        specifier: workspace:^2.0.8
         version: link:../../extensions/express
       '@nodearch/ioredis':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../../extensions/ioredis
       '@nodearch/socket.io':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../../extensions/socket.io
       '@nodearch/socket.io-admin-ui':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../../extensions/socket.io-admin-ui
       '@nodearch/socket.io-redis':
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.0.2
         version: link:../../extensions/socket.io-redis
       socket.io:
         specifier: ^4.7.2

@@ -1,6 +1,6 @@
 import { App, LogLevel } from '@nodearch/core';
-import { SocketIO, SocketIOServerProvider } from '@nodearch/socket.io';
-import { SocketIOAdminUI, getSocketAdminUiUrl } from '@nodearch/socket.io-admin-ui';
+import { SocketIOApp, SocketIOServerProvider } from '@nodearch/socket.io';
+import { SocketIOAdminUIApp, getSocketAdminUiUrl } from '@nodearch/socket.io-admin-ui';
 import { ExpressApp, HttpServerProvider } from '@nodearch/express';
 
 
@@ -15,11 +15,11 @@ export default class SocketIOTemplate extends App {
         prefix: 'SocketIO App'
       },
       extensions: [
-        new SocketIOAdminUI({
+        new SocketIOAdminUIApp({
           serverProvider: SocketIOServerProvider,
           enable: true
         }),
-        new SocketIO({
+        new SocketIOApp({
           httpProvider: HttpServerProvider
         }),
         new ExpressApp({

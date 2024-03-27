@@ -2,7 +2,7 @@ import { App } from '@nodearch/core';
 import { IRedisAdapterOptions } from './interfaces.js';
 
 
-export class SocketIORedisAdapter extends App {
+export class SocketIORedisApp extends App {
   constructor(options: IRedisAdapterOptions) {
     super({
       components: {
