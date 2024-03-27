@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/openapi",
+      "comment": " peer deps fix",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/openapi"
+}

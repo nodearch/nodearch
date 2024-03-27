@@ -38,8 +38,8 @@
   },
   "peerDependencies": {
     "reflect-metadata": "0.x",
-    "@nodearch/core": "2.1.2",
-    "@nodearch/socket.io": "1.0.1"
+    "@nodearch/core": "2.x",
+    "@nodearch/socket.io": "1.x"
   },
   "dependencies": {
     "@socket.io/redis-adapter": "^8.3.0",

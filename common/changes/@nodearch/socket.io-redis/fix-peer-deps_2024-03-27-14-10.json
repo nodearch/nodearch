@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/socket.io-redis",
+      "comment": " peer deps fix",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/socket.io-redis"
+}

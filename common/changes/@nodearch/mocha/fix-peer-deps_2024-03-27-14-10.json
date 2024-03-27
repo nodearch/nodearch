@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/mocha",
+      "comment": " peer deps fix",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/mocha"
+}
