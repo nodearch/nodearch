@@ -7,7 +7,7 @@ import { ClassConstructor } from '@nodearch/core/utils';
 @Config()
 export class SocketConfig implements ISocketIOOptions {
   server: IServerSettings;
-  httpProvider?: ClassConstructor<IHttpServerProvider>;  
+  httpServer?: ClassConstructor<IHttpServerProvider>;  
   adapter?: ISocketAdapter;
   ioOptions?: Partial<ServerOptions>;
 
@@ -22,8 +22,8 @@ export class SocketConfig implements ISocketIOOptions {
       }
     });
 
-    this.httpProvider = config.env({
-      external: 'httpProvider'
+    this.httpServer = config.env({
+      external: 'httpServer'
     });
 
     this.adapter = config.env({

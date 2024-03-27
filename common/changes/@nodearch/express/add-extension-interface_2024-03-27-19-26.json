@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/express",
+      "comment": "Add Extension Provide Interface",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/express"
+}

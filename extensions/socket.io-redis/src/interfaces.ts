@@ -8,6 +8,6 @@ export interface IRedisProvider {
 
 export interface IRedisAdapterOptions {
   redisProvider: ClassConstructor<IRedisProvider>;
-  options?: RedisAdapterOptions;
+  options?: Partial<RedisAdapterOptions>;
   shardedOptions?: ShardedRedisAdapterOptions;
 }

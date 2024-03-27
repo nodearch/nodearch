@@ -1,4 +1,4 @@
-import { AppContext, Service } from '@nodearch/core';
+import { AppContext, IExtensionProvider, Service } from '@nodearch/core';
 import { IOpenAPIProvider, IOpenAPIProviderData } from '@nodearch/openapi';
 import { ValidationMiddleware } from './validation.middleware.js';
 import { ExpressDecorator } from '@nodearch/express';
@@ -6,14 +6,14 @@ import { JoiOpenApiService } from './joi-openapi.service.js';
 
 
 @Service({ export: true })
-export class JoiOpenApiProvider implements IOpenAPIProvider {
+export class JoiOpenApiProvider implements IOpenAPIProvider, IExtensionProvider {
 
   constructor(
     private readonly appContext: AppContext,
     private readonly joiOpenApiService: JoiOpenApiService
   ) { }
 
-  getData(): IOpenAPIProviderData {
+  get(): IOpenAPIProviderData {
 
     const useMiddleware = this.appContext.getComponentRegistry().getDecorators({ useId: ExpressDecorator.MIDDLEWARE });
 

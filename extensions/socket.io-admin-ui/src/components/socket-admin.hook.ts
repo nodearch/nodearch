@@ -15,7 +15,7 @@ export class SocketAdminHook implements IHook {
   async onStart() {
     if (!this.config.enable) return;
 
-    const serverProvider = this.appContext.getContainer().get(this.config.serverProvider);
+    const serverProvider = this.appContext.getContainer().get(this.config.server);
   
     if (!serverProvider) throw new Error('Socket.IO Server Provider not found. Admin UI cannot be started.');
 

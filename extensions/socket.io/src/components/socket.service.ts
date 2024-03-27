@@ -52,7 +52,7 @@ export class SocketService {
 
     // this.serverPatch.patch(this.io, namespacesData);
 
-    if (!this.socketConfig.httpProvider) {
+    if (!this.socketConfig.httpServer) {
       await this.startHttpServer();
     }
   }
@@ -60,15 +60,15 @@ export class SocketService {
   private initHttpServer() {
     let server: http.Server | https.Server;
 
-    if (this.socketConfig.httpProvider) {
+    if (this.socketConfig.httpServer) {
       const httpProvider = this.appContext.getContainer()
-        .get<IHttpServerProvider>(this.socketConfig.httpProvider);
+        .get<IHttpServerProvider>(this.socketConfig.httpServer);
 
       if (httpProvider) {
         server = httpProvider.get();
       }
       else {
-        throw new Error(`HttpServerProvider instance not found for: ${this.socketConfig.httpProvider.name}`);
+        throw new Error(`HttpServerProvider instance not found for: ${this.socketConfig.httpServer.name}`);
       }
     }
     else {

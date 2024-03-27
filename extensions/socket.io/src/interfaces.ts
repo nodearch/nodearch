@@ -1,22 +1,21 @@
-import { ComponentInfo, IComponentDecoratorInfo, IUseProvider } from '@nodearch/core/components';
+import { ComponentInfo } from '@nodearch/core/components';
 import { ClassConstructor } from '@nodearch/core/utils';
 import http from 'node:http';
 import https from 'node:https';
 import { ServerOptions } from 'socket.io';
 import { SocketIOServerProvider } from './components/server.provider.js';
 import * as IO from 'socket.io';
-import { SocketIODecorator } from './enums.js';
+import { IExtensionProviderComponent } from '@nodearch/core';
 
 
 export interface ISocketIOOptions {
   server?: IServerOptions;
-  httpProvider?: ClassConstructor<IHttpServerProvider>;  
+  httpServer?: IExtensionProviderComponent<http.Server | https.Server>;  
   adapter?: ISocketAdapter;
   // Refer to https://socket.io/docs/v4/server-api/#new-Server-httpServer-options
   ioOptions?: Partial<ServerOptions>;
 }
 
-// TODO: add optional IHttpServerProvider { server, status }
 export type IServerOptions = {
   port: number;
   hostname?: string;

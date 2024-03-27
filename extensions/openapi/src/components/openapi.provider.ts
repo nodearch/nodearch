@@ -1,13 +1,13 @@
-import { AppContext, Service } from '@nodearch/core';
+import { AppContext, IExtensionProvider, Service } from '@nodearch/core';
 import { IOpenAPIProvider, IOpenAPIProviderData, OpenApiDecorator } from '../index.js';
 
 @Service({ export: true })
-export class OAIBuiltInProvider implements IOpenAPIProvider {
+export class OAIBuiltInProvider implements IOpenAPIProvider, IExtensionProvider {
   constructor(
     private readonly appContext: AppContext
   ) { }
 
-  getData(): IOpenAPIProviderData {
+  get(): IOpenAPIProviderData {
     return {
       servers: this.getServers(),
       routes: [

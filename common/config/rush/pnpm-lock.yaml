@@ -220,7 +220,7 @@ importers:
         specifier: workspace:^2.1.2
         version: link:../../lib/core
       '@nodearch/socket.io':
-        specifier: workspace:^1.0.2
+        specifier: workspace:^1.0.3
         version: link:../socket.io
       '@types/node':
         specifier: ^20.8.6
@@ -251,7 +251,7 @@ importers:
         specifier: workspace:^2.1.2
         version: link:../../lib/core
       '@nodearch/socket.io':
-        specifier: workspace:^1.0.2
+        specifier: workspace:^1.0.3
         version: link:../socket.io
       '@types/node':
         specifier: ^20.8.6
@@ -487,16 +487,16 @@ importers:
         specifier: workspace:^2.0.8
         version: link:../../extensions/express
       '@nodearch/ioredis':
-        specifier: workspace:^1.0.2
+        specifier: workspace:^1.0.3
         version: link:../../extensions/ioredis
       '@nodearch/socket.io':
-        specifier: workspace:^1.0.2
+        specifier: workspace:^1.0.3
         version: link:../../extensions/socket.io
       '@nodearch/socket.io-admin-ui':
-        specifier: workspace:^1.0.2
+        specifier: workspace:^1.0.3
         version: link:../../extensions/socket.io-admin-ui
       '@nodearch/socket.io-redis':
-        specifier: workspace:^1.0.2
+        specifier: workspace:^1.0.3
         version: link:../../extensions/socket.io-redis
       socket.io:
         specifier: ^4.7.2

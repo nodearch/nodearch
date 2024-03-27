@@ -42,7 +42,7 @@ export class OpenAPI {
 
     // Get data from all providers
     const providersData = providers
-      .map(provider => provider.getData());
+      .map(provider => provider.get());
 
     // Populate app map which maps HTTP routes to app components/methods 
     this.populateAppMap(providersData);

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/openapi",
+      "comment": "Add Extension Provide Interface",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/openapi"
+}
