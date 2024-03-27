@@ -38,7 +38,7 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@nodearch/core": "2.1.2",
+    "@nodearch/core": "2.x",
     "reflect-metadata": "0.x"
   },
   "dependencies": {
