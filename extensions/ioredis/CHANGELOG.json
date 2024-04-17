@@ -2,6 +2,20 @@
   "name": "@nodearch/ioredis",
   "entries": [
     {
+      "version": "1.0.5",
+      "tag": "@nodearch/ioredis_v1.0.5",
+      "date": "Wed, 17 Apr 2024 13:42:38 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix onStart",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "8e83eac43aeb10997a607622e664556df68a4f77"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.4",
       "tag": "@nodearch/ioredis_v1.0.4",
       "date": "Wed, 27 Mar 2024 19:38:53 GMT",
