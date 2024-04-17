@@ -496,7 +496,7 @@ importers:
         specifier: workspace:^1.0.4
         version: link:../../extensions/socket.io-admin-ui
       '@nodearch/socket.io-redis':
-        specifier: workspace:^1.0.4
+        specifier: workspace:^1.0.5
         version: link:../../extensions/socket.io-redis
       socket.io:
         specifier: ^4.7.2
