@@ -26,8 +26,12 @@ export class RedisHook implements IHook {
       client.on('error', (error) => {
         reject(error);
       });
-
+      
       client.on('connect', () => {
+        resolve(null);
+      });
+    
+      client.on('ready', () => {
         resolve(null);
       });
     }));
