@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/ioredis",
+      "comment": "fix onStart",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/ioredis"
+}
