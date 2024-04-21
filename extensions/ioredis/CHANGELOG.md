@@ -1,6 +1,13 @@
 # Change Log - @nodearch/ioredis
 
-This log was last generated on Wed, 17 Apr 2024 13:42:38 GMT and should not be manually modified.
+This log was last generated on Sun, 21 Apr 2024 20:53:47 GMT and should not be manually modified.
+
+## 1.0.6
+Sun, 21 Apr 2024 20:53:47 GMT
+
+### Patches
+
+- fix onStar
 
 ## 1.0.5
 Wed, 17 Apr 2024 13:42:38 GMT
