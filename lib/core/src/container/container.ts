@@ -77,7 +77,7 @@ export class Container {
 
   // Get all components' instances in a container namespace
   getByNamespace<T>(namespace: string) {
-    return this.getAll<T>(this.getNamespaceId(namespace));
+    return this.getAll<T>(Container.getNamespaceId(namespace));
   }
 
   // Get all components' instances in a component group
@@ -163,7 +163,7 @@ export class Container {
     namespaces = namespaces ? (Array.isArray(namespaces) ? namespaces : [namespaces]) : [];
 
     namespaces.forEach(ns => {
-      this.inversifyContainer.bind(this.getNamespaceId(ns)).toService(componentClass);
+      this.inversifyContainer.bind(Container.getNamespaceId(ns)).toService(componentClass);
     });
   }
 
@@ -197,11 +197,11 @@ export class Container {
     return instances;
   }
 
-  private getNamespaceId(namespace: string) {
-    return 'namespace:' + namespace;
-  }
-
   private getComponentGroupId(componentId: string) {
     return 'component-group:' + componentId;
+  }
+
+  static getNamespaceId(namespace: string) {
+    return 'namespace:' + namespace;
   }
 }
