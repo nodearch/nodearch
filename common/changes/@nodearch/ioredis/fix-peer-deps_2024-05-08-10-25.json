@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/ioredis",
+      "comment": "Fix peer deps",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/ioredis"
+}
