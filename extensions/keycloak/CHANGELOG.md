@@ -1,6 +1,13 @@
 # Change Log - @nodearch/keycloak
 
-This log was last generated on Wed, 27 Mar 2024 14:13:04 GMT and should not be manually modified.
+This log was last generated on Wed, 08 May 2024 10:28:22 GMT and should not be manually modified.
+
+## 2.0.5
+Wed, 08 May 2024 10:28:22 GMT
+
+### Patches
+
+- Fix peer deps
 
 ## 2.0.4
 Wed, 27 Mar 2024 14:13:04 GMT

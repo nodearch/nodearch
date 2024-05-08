@@ -1,6 +1,13 @@
 # Change Log - @nodearch/ioredis
 
-This log was last generated on Sun, 21 Apr 2024 20:53:47 GMT and should not be manually modified.
+This log was last generated on Wed, 08 May 2024 10:28:22 GMT and should not be manually modified.
+
+## 1.0.7
+Wed, 08 May 2024 10:28:22 GMT
+
+### Patches
+
+- Fix peer deps
 
 ## 1.0.6
 Sun, 21 Apr 2024 20:53:47 GMT

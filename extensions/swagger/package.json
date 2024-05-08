@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/swagger",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Swagger",
   "exports": {
     ".": {

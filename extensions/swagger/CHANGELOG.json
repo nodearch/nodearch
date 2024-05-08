@@ -2,6 +2,27 @@
   "name": "@nodearch/swagger",
   "entries": [
     {
+      "version": "1.0.7",
+      "tag": "@nodearch/swagger_v1.0.7",
+      "date": "Wed, 08 May 2024 10:28:22 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix peer deps",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "8863b5759bd68925507ce4c0991a81e285fb7788"
+          }
+        ],
+        "none": [
+          {
+            "comment": "update license",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "ce2343d08c4db8e2983653e0e194afaa2df4190f"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.6",
       "tag": "@nodearch/swagger_v1.0.6",
       "date": "Wed, 27 Dec 2023 16:22:14 GMT",

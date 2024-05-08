@@ -2,6 +2,20 @@
   "name": "@nodearch/command",
   "entries": [
     {
+      "version": "1.0.8",
+      "tag": "@nodearch/command_v1.0.8",
+      "date": "Wed, 08 May 2024 10:28:22 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix peer deps",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "8863b5759bd68925507ce4c0991a81e285fb7788"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.7",
       "tag": "@nodearch/command_v1.0.7",
       "date": "Wed, 27 Mar 2024 14:13:04 GMT",
