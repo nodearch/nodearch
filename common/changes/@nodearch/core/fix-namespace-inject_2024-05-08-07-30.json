@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/core",
+      "comment": "fix namespace inject",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/core"
+}
