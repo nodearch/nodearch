@@ -34,11 +34,11 @@
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
     "@nodearch/socket.io": "workspace:^1.0.4",
-    "@nodearch/core": "workspace:^2.1.3"
+    "@nodearch/core": "workspace:^2.1.4"
   },
   "peerDependencies": {
     "reflect-metadata": "0.x",
-    "@nodearch/core": "2.1.3",
+    "@nodearch/core": "2.1.4",
     "@nodearch/socket.io": "1.0.4"
   },
   "dependencies": {

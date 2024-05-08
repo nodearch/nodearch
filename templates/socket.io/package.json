@@ -23,7 +23,7 @@
     "@swc/core": "^1.4.8"
   },
   "dependencies": {
-    "@nodearch/core": "workspace:^2.1.3",
+    "@nodearch/core": "workspace:^2.1.4",
     "@nodearch/socket.io": "workspace:^1.0.4",
     "@nodearch/express": "workspace:^2.0.9",
     "@nodearch/socket.io-redis": "workspace:^1.0.5",

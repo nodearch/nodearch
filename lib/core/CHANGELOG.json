@@ -2,6 +2,20 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "2.1.4",
+      "tag": "@nodearch/core_v2.1.4",
+      "date": "Wed, 08 May 2024 07:32:44 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix namespace inject",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "76e7efd07308e68c0f76f21b87bba91e798d0f53"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.1.3",
       "tag": "@nodearch/core_v2.1.3",
       "date": "Wed, 27 Mar 2024 19:38:53 GMT",
