@@ -1,6 +1,13 @@
 # Change Log - @nodearch/socket.io-redis
 
-This log was last generated on Wed, 08 May 2024 10:28:22 GMT and should not be manually modified.
+This log was last generated on Wed, 08 May 2024 14:12:12 GMT and should not be manually modified.
+
+## 1.0.7
+Wed, 08 May 2024 14:12:12 GMT
+
+### Patches
+
+- Fix peer deps
 
 ## 1.0.6
 Wed, 08 May 2024 10:28:22 GMT

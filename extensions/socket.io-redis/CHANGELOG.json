@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io-redis",
   "entries": [
     {
+      "version": "1.0.7",
+      "tag": "@nodearch/socket.io-redis_v1.0.7",
+      "date": "Wed, 08 May 2024 14:12:12 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix peer deps",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "6c0a2e32c1ed60fb07b1cafa58d2df64042af9c8"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.6",
       "tag": "@nodearch/socket.io-redis_v1.0.6",
       "date": "Wed, 08 May 2024 10:28:22 GMT",
