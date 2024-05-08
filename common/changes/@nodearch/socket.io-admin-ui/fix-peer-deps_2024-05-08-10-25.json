@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/socket.io-admin-ui",
+      "comment": "Fix peer deps",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/socket.io-admin-ui"
+}
