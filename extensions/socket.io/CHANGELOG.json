@@ -2,6 +2,20 @@
   "name": "@nodearch/socket.io",
   "entries": [
     {
+      "version": "1.0.6",
+      "tag": "@nodearch/socket.io_v1.0.6",
+      "date": "Wed, 08 May 2024 13:57:55 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix socket.io handlers binding",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "cc55a69b4bf1df02c195142cf95e711de5b19375"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.5",
       "tag": "@nodearch/socket.io_v1.0.5",
       "date": "Wed, 08 May 2024 10:28:22 GMT",

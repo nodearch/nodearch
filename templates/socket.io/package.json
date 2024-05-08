@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@nodearch/core": "workspace:^2.1.4",
-    "@nodearch/socket.io": "workspace:^1.0.5",
+    "@nodearch/socket.io": "workspace:^1.0.6",
     "@nodearch/express": "workspace:^2.0.10",
     "@nodearch/socket.io-redis": "workspace:^1.0.6",
     "@nodearch/ioredis": "workspace:^1.0.7",

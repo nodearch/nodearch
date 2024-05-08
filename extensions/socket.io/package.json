@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/socket.io",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Nodearch socket.io server",
   "exports": {
     ".": {

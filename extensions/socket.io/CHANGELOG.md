@@ -1,6 +1,13 @@
 # Change Log - @nodearch/socket.io
 
-This log was last generated on Wed, 08 May 2024 10:28:22 GMT and should not be manually modified.
+This log was last generated on Wed, 08 May 2024 13:57:55 GMT and should not be manually modified.
+
+## 1.0.6
+Wed, 08 May 2024 13:57:55 GMT
+
+### Patches
+
+- fix socket.io handlers binding
 
 ## 1.0.5
 Wed, 08 May 2024 10:28:22 GMT
