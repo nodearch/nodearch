@@ -46,8 +46,8 @@
   },
   "peerDependencies": {
     "@nodearch/core": "2.x",
-    "@nodearch/joi": "1.0.7",
-    "@nodearch/express": "2.0.10",
+    "@nodearch/joi": "1.x",
+    "@nodearch/express": "2.x",
     "joi-to-swagger": "6.x"
   }
 }
