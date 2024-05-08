@@ -487,7 +487,7 @@ importers:
         specifier: workspace:^2.0.9
         version: link:../../extensions/express
       '@nodearch/ioredis':
-        specifier: workspace:^1.0.5
+        specifier: workspace:^1.0.6
         version: link:../../extensions/ioredis
       '@nodearch/socket.io':
         specifier: workspace:^1.0.4
