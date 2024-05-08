@@ -62,7 +62,7 @@ export class RegistryService {
     const onConnection = nsInstance.onConnection;
 
     if (onConnection) {
-      await onConnection(socket);
+      await onConnection.call(nsInstance, socket);
       
       if (socket.disconnected) {
         return;
@@ -92,7 +92,7 @@ export class RegistryService {
     const onAny = nsInstance.onAny;
 
     if (onAny) {
-      await onAny(eventName, ...args);
+      await onAny.call(nsInstance, eventName, ...args);
     }
 
     if (!namespaceInfo.events.find(x => x.eventName === eventName)) {
@@ -108,7 +108,7 @@ export class RegistryService {
     const onDisconnect = nsInstance.onDisconnect;
 
     if (onDisconnect) {
-      await onDisconnect(socket);
+      await onDisconnect.call(nsInstance, socket);
     }
   }
 
