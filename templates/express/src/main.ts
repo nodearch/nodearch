@@ -31,7 +31,7 @@ export default class MyApp extends App {
                 }
               }
             ]
-          }
+          },
         }),
         new OpenAPIApp({
           providers: [ExpressOAIProvider, JoiOpenApiProvider],

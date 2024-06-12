@@ -96,11 +96,11 @@ export interface IUrlencodedParserOptions {
  */
 export interface IHttpLogger {
   enable: boolean;
-  showHeaders?: boolean;
-  showBody?: boolean;
-  showQuery?: boolean;
-  showParams?: boolean;
-  showCookies?: boolean;
+  showHeaders?: boolean | ((args: any) => string);
+  showBody?: boolean | ((args: any) => string);
+  showQuery?: boolean | ((args: any) => string);
+  showParams?: boolean | ((args: any) => string);
+  showCookies?: boolean | ((args: any) => string);
   showStatus?: boolean;
   showDuration?: boolean;
   custom?(req: express.Request): string;
