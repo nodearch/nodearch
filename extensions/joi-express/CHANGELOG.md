@@ -1,6 +1,13 @@
 # Change Log - @nodearch/joi-express
 
-This log was last generated on Wed, 12 Jun 2024 10:05:16 GMT and should not be manually modified.
+This log was last generated on Wed, 12 Jun 2024 10:11:29 GMT and should not be manually modified.
+
+## 1.0.11
+Wed, 12 Jun 2024 10:11:29 GMT
+
+### Patches
+
+- update perr deps
 
 ## 1.0.10
 Wed, 12 Jun 2024 10:05:16 GMT

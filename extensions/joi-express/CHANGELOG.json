@@ -2,6 +2,20 @@
   "name": "@nodearch/joi-express",
   "entries": [
     {
+      "version": "1.0.11",
+      "tag": "@nodearch/joi-express_v1.0.11",
+      "date": "Wed, 12 Jun 2024 10:11:29 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update perr deps",
+            "author": "Ahmed Ali <ahmed.a@trufla.com>",
+            "commit": "2c3c071044df6bed7dd66b78878c5b7ca7e1e4af"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.10",
       "tag": "@nodearch/joi-express_v1.0.10",
       "date": "Wed, 12 Jun 2024 10:05:16 GMT",
