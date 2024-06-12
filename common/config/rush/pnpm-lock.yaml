@@ -81,7 +81,7 @@ importers:
         specifier: workspace:^2.1.4
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.11
+        specifier: workspace:^2.0.12
         version: link:../express
       '@nodearch/joi':
         specifier: workspace:^1.0.7
@@ -402,13 +402,13 @@ importers:
         specifier: workspace:^2.1.4
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.11
+        specifier: workspace:^2.0.12
         version: link:../../extensions/express
       '@nodearch/joi':
         specifier: workspace:^1.0.7
         version: link:../../extensions/joi
       '@nodearch/joi-express':
-        specifier: workspace:^1.0.9
+        specifier: workspace:^1.0.10
         version: link:../../extensions/joi-express
       '@nodearch/mocha':
         specifier: workspace:^1.0.9
@@ -484,7 +484,7 @@ importers:
         specifier: workspace:^2.1.4
         version: link:../../lib/core
       '@nodearch/express':
-        specifier: workspace:^2.0.11
+        specifier: workspace:^2.0.12
         version: link:../../extensions/express
       '@nodearch/ioredis':
         specifier: workspace:^1.0.7
