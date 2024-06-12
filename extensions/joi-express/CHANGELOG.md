@@ -1,6 +1,13 @@
 # Change Log - @nodearch/joi-express
 
-This log was last generated on Wed, 08 May 2024 14:12:12 GMT and should not be manually modified.
+This log was last generated on Wed, 12 Jun 2024 10:05:16 GMT and should not be manually modified.
+
+## 1.0.10
+Wed, 12 Jun 2024 10:05:16 GMT
+
+### Patches
+
+- update peer dep
 
 ## 1.0.9
 Wed, 08 May 2024 14:12:12 GMT

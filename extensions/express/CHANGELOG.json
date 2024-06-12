@@ -2,6 +2,20 @@
   "name": "@nodearch/express",
   "entries": [
     {
+      "version": "2.0.12",
+      "tag": "@nodearch/express_v2.0.12",
+      "date": "Wed, 12 Jun 2024 10:05:16 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update to http custom logger",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "6ef91b75288a45007196f537a180fc9cb89e8823"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.11",
       "tag": "@nodearch/express_v2.0.11",
       "date": "Wed, 08 May 2024 14:12:12 GMT",

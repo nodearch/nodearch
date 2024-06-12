@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/joi-express",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "NodeArch Joi Express Extension",
   "exports": {
     ".": {
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@nodearch/core": "workspace:^2.1.4",
     "@nodearch/joi": "workspace:^1.0.7",
-    "@nodearch/express": "workspace:^2.0.11",
+    "@nodearch/express": "workspace:^2.0.12",
     "@nodearch/openapi": "workspace:^1.0.8",
     "@types/express": "^4.17.19",
     "@types/node": "^20.8.6",
@@ -47,7 +47,7 @@
   "peerDependencies": {
     "@nodearch/core": "2.x",
     "@nodearch/joi": "1.x",
-    "@nodearch/express": "2.x",
+    "@nodearch/express": "2.0.12",
     "joi-to-swagger": "6.x"
   }
 }
