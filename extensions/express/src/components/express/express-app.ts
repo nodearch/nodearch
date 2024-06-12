@@ -69,37 +69,46 @@ export class ExpressApp {
   private getHttpLoggerMessage(req: express.Request, res: express.Response, config: IHttpLogger) {
     let message = `[${req.method}] ${req.originalUrl}`;
 
-    if (config.custom) {
-      message = config.custom(req);
+    if (config.showHeaders) {
+      message += ' - Headers: ';
+      message += typeof config.showHeaders === 'function' ? 
+        config.showHeaders(req.headers) : JSON.stringify(req.headers);
     }
-    else {
-      if (config.showHeaders) {
-        message += ` - Headers: ${JSON.stringify(req.headers)}`;
-      }
 
-      if (config.showBody) {
-        message += ` - Body: ${JSON.stringify(req.body)}`;
-      }
+    if (config.showBody) {
+      message += ' - Body: ';
+      message += typeof config.showBody === 'function' ? 
+        config.showBody(req.body) : JSON.stringify(req.body);
+    }
 
-      if (config.showQuery) {
-        message += ` - Query: ${JSON.stringify(req.query)}`;
-      }
+    if (config.showQuery) {
+      message += ' - Query: ';
+      message += typeof config.showQuery === 'function' ? 
+        config.showQuery(req.query) : JSON.stringify(req.query);
+    }
 
-      if (config.showParams) {
-        message += ` - Params: ${JSON.stringify(req.params)}`;
-      }
+    if (config.showParams) {
+      message += ' - Params: ';
+      message += typeof config.showParams === 'function' ? 
+        config.showParams(req.params) : JSON.stringify(req.params);
+    }
 
-      if (config.showCookies) {
-        message += ` - Cookies: ${JSON.stringify(req.cookies)}`;
-      }
+    if (config.showCookies) {
+      message += ' - Cookies: ';
+      message += typeof config.showCookies === 'function' ? 
+        config.showCookies(req.cookies) : JSON.stringify(req.cookies);
+    }
 
-      if (config.showStatus) {
-        message += ` - Status: ${res.statusCode}`;
-      }
+    if (config.showStatus) {
+      message += ` - Status: ${res.statusCode}`;
+    }
 
-      if (config.showDuration) {
-        message += ` - Duration: ${req.nodearch.responseTime}ms`;
-      }
+    if (config.custom) {
+      message += ` - ${config.custom(req)}`;
+    }
+
+    if (config.showDuration) {
+      message += ` - Duration: ${req.nodearch.responseTime}ms`;
     }
 
     return message;
