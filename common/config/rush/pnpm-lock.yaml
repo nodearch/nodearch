@@ -145,6 +145,28 @@ importers:
         specifier: ^5.2.2
         version: 5.4.5
 
+  ../../extensions/lambda:
+    dependencies:
+      '@nodearch/command':
+        specifier: workspace:^1.0.8
+        version: link:../../lib/command
+    devDependencies:
+      '@nodearch/core':
+        specifier: workspace:^2.1.4
+        version: link:../../lib/core
+      '@types/aws-lambda':
+        specifier: ^8.10.138
+        version: 8.10.138
+      '@types/node':
+        specifier: ^20.8.6
+        version: 20.12.11
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.5
+      typescript:
+        specifier: ^5.2.2
+        version: 5.4.5
+
   ../../extensions/mocha:
     dependencies:
       '@nodearch/command':
@@ -408,7 +430,7 @@ importers:
         specifier: workspace:^1.0.7
         version: link:../../extensions/joi
       '@nodearch/joi-express':
-        specifier: workspace:^1.0.10
+        specifier: workspace:^1.0.11
         version: link:../../extensions/joi-express
       '@nodearch/mocha':
         specifier: workspace:^1.0.9
@@ -474,6 +496,52 @@ importers:
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
+      typescript:
+        specifier: ^5.2.2
+        version: 5.4.5
+
+  ../../templates/lambda:
+    dependencies:
+      '@nodearch/cli':
+        specifier: workspace:^2.0.26
+        version: link:../../lib/cli
+      '@nodearch/command':
+        specifier: workspace:^1.0.8
+        version: link:../../lib/command
+      '@nodearch/core':
+        specifier: workspace:^2.1.4
+        version: link:../../lib/core
+      '@nodearch/lambda':
+        specifier: workspace:^1.0.0
+        version: link:../../extensions/lambda
+      '@nodearch/mocha':
+        specifier: workspace:^1.0.9
+        version: link:../../extensions/mocha
+      mocha:
+        specifier: ^10.2.0
+        version: 10.4.0
+    devDependencies:
+      '@swc/core':
+        specifier: ^1.4.8
+        version: 1.5.5
+      '@types/chai':
+        specifier: ^4.3.8
+        version: 4.3.16
+      '@types/mocha':
+        specifier: ^10.0.2
+        version: 10.0.6
+      '@types/node':
+        specifier: ^20.8.6
+        version: 20.12.11
+      chai:
+        specifier: ^4.3.10
+        version: 4.4.1
+      reflect-metadata:
+        specifier: ^0.1.13
+        version: 0.1.14
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.5
       typescript:
         specifier: ^5.2.2
         version: 5.4.5
@@ -1170,6 +1238,10 @@ packages:
       '@tufjs/canonical-json': 1.0.0
       minimatch: 9.0.4
     dev: false
+
+  /@types/aws-lambda@8.10.138:
+    resolution: {integrity: sha512-71EHMl70TPWIAsFuHd85NHq6S6T2OOjiisPTrH7RgcjzpJpPh4RQJv7PvVvIxc6PIp8CLV7F9B+TdjcAES5vcA==}
+    dev: true
 
   /@types/bcryptjs@2.4.6:
     resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
@@ -4221,6 +4293,7 @@ packages:
 
   /rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
     dependencies:
       glob: 7.2.3

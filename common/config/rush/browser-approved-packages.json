@@ -35,6 +35,10 @@
       "allowedCategories": [ "prototypes" ]
     },
     {
+      "name": "@nodearch/lambda",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "@nodearch/mocha",
       "allowedCategories": [ "prototypes" ]
     },
@@ -73,6 +77,10 @@
     {
       "name": "@swc/core",
       "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "@types/aws-lambda",
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "@types/body-parser",

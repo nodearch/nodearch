@@ -405,6 +405,12 @@
       "reviewCategory": "prototypes",
       "shouldPublish": false
     },
+    {
+      "packageName": "@nodearch/template-lambda",
+      "projectFolder": "templates/lambda",
+      "reviewCategory": "prototypes",
+      "shouldPublish": false
+    },
 
     // ============= Extensions =============
     {
@@ -487,6 +493,13 @@
     {
       "packageName": "@nodearch/ioredis",
       "projectFolder": "extensions/ioredis",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/lambda",
+      "projectFolder": "extensions/lambda",
       "reviewCategory": "production",
       "versionPolicyName": "packages",
       "tags": ["extension"]
