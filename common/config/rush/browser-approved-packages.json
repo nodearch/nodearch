@@ -80,7 +80,7 @@
     },
     {
       "name": "@types/aws-lambda",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@types/body-parser",

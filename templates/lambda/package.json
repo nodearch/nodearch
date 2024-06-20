@@ -26,7 +26,8 @@
     "rimraf": "^5.0.5",
     "@types/mocha": "^10.0.2",
     "reflect-metadata": "^0.1.13",
-    "@swc/core": "^1.4.8"
+    "@swc/core": "^1.4.8",
+    "@types/aws-lambda": "^8.10.138"
   },
   "dependencies": {
     "@nodearch/core": "workspace:^2.1.4",

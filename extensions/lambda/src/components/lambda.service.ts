@@ -2,7 +2,7 @@ import { Service } from '@nodearch/core';
 import { RegistryService } from './registry.service.js';
 
 
-@Service()
+@Service({ export: true })
 export class LambdaService {
 
   constructor(

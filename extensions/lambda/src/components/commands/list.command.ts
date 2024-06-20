@@ -11,7 +11,7 @@ export class LambdaCommand implements ICommand {
     private logger: Logger
   ) {}
 
-  command = 'lambda list';
+  command = 'lambda-list';
   describe = 'List Lambda functions';
 
   builder = {};

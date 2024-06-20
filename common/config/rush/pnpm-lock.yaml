@@ -524,6 +524,9 @@ importers:
       '@swc/core':
         specifier: ^1.4.8
         version: 1.5.5
+      '@types/aws-lambda':
+        specifier: ^8.10.138
+        version: 8.10.138
       '@types/chai':
         specifier: ^4.3.8
         version: 4.3.16
