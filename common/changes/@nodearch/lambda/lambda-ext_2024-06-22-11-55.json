@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/lambda",
+      "comment": "draft version of lambda ext",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/lambda"
+}
