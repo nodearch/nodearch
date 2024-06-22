@@ -1,0 +1,41 @@
+{
+  "name": "@nodearch/template-lambda",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc",
+    "nodearch": "nodearch",
+    "start": "nodearch start",
+    "test": "nodearch test",
+    "test:unit": "nodearch test -m unit",
+    "test:e2e": "nodearch test -m e2e"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.3.8",
+    "@types/node": "^20.8.6",
+    "chai": "^4.3.10",
+    "typescript": "^5.2.2",
+    "rimraf": "^5.0.5",
+    "@types/mocha": "^10.0.2",
+    "reflect-metadata": "^0.1.13",
+    "@swc/core": "^1.4.8",
+    "@types/aws-lambda": "^8.10.138"
+  },
+  "dependencies": {
+    "@nodearch/core": "workspace:^2.1.4",
+    "@nodearch/command": "workspace:^1.0.8",
+    "@nodearch/cli": "workspace:^2.0.26",
+    "@nodearch/mocha": "workspace:^1.0.9",
+    "@nodearch/lambda": "workspace:^0.1.0",
+    "mocha": "^10.2.0"
+  },
+  "nodearch": {}
+}
