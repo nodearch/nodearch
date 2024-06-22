@@ -512,7 +512,7 @@ importers:
         specifier: workspace:^2.1.4
         version: link:../../lib/core
       '@nodearch/lambda':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.1.0
         version: link:../../extensions/lambda
       '@nodearch/mocha':
         specifier: workspace:^1.0.9

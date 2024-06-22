@@ -21,6 +21,3 @@ export const handler = async (event: any, context: Context) => {
 
   return await lambdaService.invoke(context.functionName, event);
 };
-
-const res = await handler("1", { functionName: 'getUsers' } as Context);
-console.log(res);

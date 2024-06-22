@@ -34,7 +34,7 @@
     "@nodearch/command": "workspace:^1.0.8",
     "@nodearch/cli": "workspace:^2.0.26",
     "@nodearch/mocha": "workspace:^1.0.9",
-    "@nodearch/lambda": "workspace:^1.0.0",
+    "@nodearch/lambda": "workspace:^0.1.0",
     "mocha": "^10.2.0"
   },
   "nodearch": {}

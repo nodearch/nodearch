@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/lambda",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "nodearch lambda function toolkit",
   "exports": {
     ".": {
