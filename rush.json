@@ -497,13 +497,13 @@
       "versionPolicyName": "packages",
       "tags": ["extension"]
     },
-    {
-      "packageName": "@nodearch/lambda",
-      "projectFolder": "extensions/lambda",
-      "reviewCategory": "production",
-      "versionPolicyName": "packages",
-      "tags": ["extension"]
-    }
+    // {
+    //   "packageName": "@nodearch/lambda",
+    //   "projectFolder": "extensions/lambda",
+    //   "reviewCategory": "production",
+    //   "versionPolicyName": "packages",
+    //   "tags": ["extension"]
+    // }
     // {
     //   /**
     //    * The NPM package name of the project (must match package.json)
