@@ -21,9 +21,13 @@ export class MochaService {
   
     const mochaInstance = new Mocha(options.mochaOptions);
 
-    suites.forEach((suite: any) => {
+    suites.forEach((suite) => {
       const suiteInstance = Mocha.Suite.create(mochaInstance.suite, suite.name);
   
+      if (suite.timeout) {
+        suiteInstance.timeout(suite.timeout);
+      }
+
       suite.beforeAll.forEach((beforeAll: any) => {
         suiteInstance.beforeAll(
           beforeAll.title || beforeAll.fn.name,
