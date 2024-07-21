@@ -405,12 +405,12 @@
       "reviewCategory": "prototypes",
       "shouldPublish": false
     },
-    {
-      "packageName": "@nodearch/template-lambda",
-      "projectFolder": "templates/lambda",
-      "reviewCategory": "prototypes",
-      "shouldPublish": false
-    },
+    // {
+    //   "packageName": "@nodearch/template-lambda",
+    //   "projectFolder": "templates/lambda",
+    //   "reviewCategory": "prototypes",
+    //   "shouldPublish": false
+    // },
 
     // ============= Extensions =============
     {
