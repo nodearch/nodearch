@@ -1,0 +1,19 @@
+{
+  "name": "@nodearch/lambda",
+  "entries": [
+    {
+      "version": "0.1.1",
+      "tag": "@nodearch/lambda_v0.1.1",
+      "date": "Sun, 21 Jul 2024 06:11:31 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "draft version of lambda ext",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "a1997ad9d6c8912b541bdd994721588f8c33f5ab"
+          }
+        ]
+      }
+    }
+  ]
+}

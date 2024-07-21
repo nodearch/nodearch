@@ -1,6 +1,13 @@
 # Change Log - @nodearch/mocha
 
-This log was last generated on Wed, 08 May 2024 10:28:22 GMT and should not be manually modified.
+This log was last generated on Sun, 21 Jul 2024 06:11:31 GMT and should not be manually modified.
+
+## 1.0.10
+Sun, 21 Jul 2024 06:11:31 GMT
+
+### Patches
+
+- pass timeout arg
 
 ## 1.0.9
 Wed, 08 May 2024 10:28:22 GMT
