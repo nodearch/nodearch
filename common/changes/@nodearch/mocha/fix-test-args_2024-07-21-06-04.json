@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/mocha",
+      "comment": "pass timeout arg",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/mocha"
+}
