@@ -411,7 +411,7 @@ importers:
         specifier: workspace:^1.0.11
         version: link:../../extensions/joi-express
       '@nodearch/mocha':
-        specifier: workspace:^1.0.9
+        specifier: workspace:^1.0.10
         version: link:../../extensions/mocha
       '@nodearch/openapi':
         specifier: workspace:^1.0.8
