@@ -34,10 +34,12 @@ export class TestService {
 
           const compInstance = cloneContainer.get(componentInfo.getClass());
 
-          const suiteOptions = componentInfo.getData() || {
+          const defaultOptions = {
             title: componentInfo.getName(),
             timeout: 2000
           };
+
+          const suiteOptions = Object.assign(defaultOptions, componentInfo.getData() || {});
 
           return {
             name: suiteOptions.title as string,
