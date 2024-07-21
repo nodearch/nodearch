@@ -2,6 +2,20 @@
   "name": "@nodearch/mocha",
   "entries": [
     {
+      "version": "1.0.10",
+      "tag": "@nodearch/mocha_v1.0.10",
+      "date": "Sun, 21 Jul 2024 06:20:22 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "pass timeout arg",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "16e9e33f8ae9a1440027c4eb16cd9870e4adffb2"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.9",
       "tag": "@nodearch/mocha_v1.0.9",
       "date": "Wed, 08 May 2024 10:28:22 GMT",
