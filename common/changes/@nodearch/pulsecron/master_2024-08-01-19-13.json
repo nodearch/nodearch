@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/pulsecron",
+      "comment": "fix job interface",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/pulsecron"
+}
