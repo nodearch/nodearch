@@ -19,13 +19,7 @@ export class SchedulerRegistry {
   ) {}
 
   async start() {
-    this.pulse = new Pulse({
-      db: { address: this.config.mongoConnectionString },
-      defaultConcurrency: this.config.defaultConcurrency,
-      maxConcurrency: this.config.maxConcurrency,
-      processEvery: this.config.processEvery,
-      resumeOnRestart: this.config.resumeOnRestart
-    });
+    this.pulse = new Pulse(this.config);
 
     await this.pulse.start();
 
