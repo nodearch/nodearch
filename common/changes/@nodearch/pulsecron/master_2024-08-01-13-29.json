@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/pulsecron",
+      "comment": "update inputs to reflect the lib",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/pulsecron"
+}
