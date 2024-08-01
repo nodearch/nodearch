@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/pulsecron",
+      "comment": "Add support for now()",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/pulsecron"
+}
