@@ -2,6 +2,20 @@
   "name": "@nodearch/pulsecron",
   "entries": [
     {
+      "version": "0.1.4",
+      "tag": "@nodearch/pulsecron_v0.1.4",
+      "date": "Thu, 01 Aug 2024 19:15:10 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix job interface",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "5755d4d688f756dde566de0eabd76e3373a38e9a"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.3",
       "tag": "@nodearch/pulsecron_v0.1.3",
       "date": "Thu, 01 Aug 2024 17:32:00 GMT",
