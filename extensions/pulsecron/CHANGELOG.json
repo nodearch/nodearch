@@ -1,0 +1,19 @@
+{
+  "name": "@nodearch/pulsecron",
+  "entries": [
+    {
+      "version": "0.1.1",
+      "tag": "@nodearch/pulsecron_v0.1.1",
+      "date": "Thu, 01 Aug 2024 12:50:04 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add new ext",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "aca75ae8c2a6c755c6dc0b0c7a500fbf6814abfd"
+          }
+        ]
+      }
+    }
+  ]
+}
