@@ -10,6 +10,8 @@ export class SchedulerHook implements IHook {
   ) {}
 
   async onStart() {
+    this.logger.info('Starting Scheduler...');
+    
     await this.schedulerService.start();
     this.logger.info('Scheduler Started');
   }

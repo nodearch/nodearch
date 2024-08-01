@@ -3,7 +3,6 @@ import { PulseDecorator } from './enums.js';
 import { DefineOptions } from '@pulsecron/pulse';
 import { ComponentScope } from '@nodearch/core';
 
-// JobDefinition
 
 export function JobDefinition(
   name: string,
@@ -11,7 +10,7 @@ export function JobDefinition(
   componentOptions?: Omit<IComponentOptions, 'scope'>
 ) {
   return ComponentFactory.componentDecorator({
-    id: PulseDecorator.JOB,
+    id: PulseDecorator.JOB_DEFINITION,
     fn: () => ({ name, options }),
     options: {
       ...(componentOptions || {}),

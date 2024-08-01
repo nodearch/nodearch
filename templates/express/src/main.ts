@@ -6,7 +6,6 @@ import { OpenAPIApp, OpenAPIFormat } from '@nodearch/openapi';
 import { SwaggerApp } from '@nodearch/swagger';
 import { getAbsoluteFSPath } from 'swagger-ui-dist';
 import { MochaApp } from '@nodearch/mocha';
-import { PulseCronApp } from '@nodearch/pulsecron';
 import Joi from 'joi';
 
 
@@ -50,8 +49,7 @@ export default class MyApp extends App {
         }),
         new JoiApp(),
         new JoiExpressApp(),
-        new MochaApp(),
-        new PulseCronApp()
+        new MochaApp()
       ],
       logs: {
         prefix: 'MyApp'

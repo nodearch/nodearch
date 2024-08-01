@@ -72,7 +72,7 @@
     },
     {
       "name": "@pulsecron/pulse",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@socket.io/admin-ui",

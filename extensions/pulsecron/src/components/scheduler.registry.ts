@@ -4,11 +4,13 @@ import {
 } from '@pulsecron/pulse';
 import { SchedulerConfig } from './schedule.config.js';
 import { PulseDecorator } from '../enums.js';
-import { IScheduledJob } from '../interfaces.js';
+import { IJobDefinition, IJobInfo } from '../interfaces.js';
+import { ClassConstructor } from '@nodearch/core/utils';
 
 @Service()
 export class SchedulerRegistry {
   private pulse!: Pulse;
+  private jobs: IJobInfo[] = [];
 
   constructor(
     private config: SchedulerConfig,
@@ -29,25 +31,47 @@ export class SchedulerRegistry {
 
     this.registerLoggers();
 
-    const componentsInfo = this.getScheduledJobsComponents();
-  
-    const jobs = componentsInfo.map(compInfo => {
-      return {
-        jobInstance: compInfo.getInstance() as IScheduledJob,
-        jobName: compInfo.getData().name,
-        jobOptions: compInfo.getData().options 
-      };
-    });
-
-    console.log(jobs);
+    this.jobs = this.getJobDefinitionComponents();
+    
+    this.registerJobs();
   }
 
   async stop() {
     await this.pulse.stop();
   }
 
-  private getScheduledJobsComponents() {
-    return this.appContext.getComponentRegistry().get({ id: PulseDecorator.JOB });
+  getJobs() {
+    return this.jobs;
+  }
+
+  getJobInfo(jobDefinition: ClassConstructor<IJobDefinition>) {
+    return this.jobs.find(job => job.jobClass === jobDefinition);
+  }
+
+  getPulse() {
+    return this.pulse;
+  }
+
+  private getJobDefinitionComponents() {
+    return this.appContext
+      .getComponentRegistry()
+      .get({ id: PulseDecorator.JOB_DEFINITION })
+      .map(compInfo => {
+        return {
+          jobInstance: compInfo.getInstance() as IJobDefinition,
+          jobName: compInfo.getData().name,
+          jobOptions: compInfo.getData().options,
+          jobClass: compInfo.getClass()
+        } as IJobInfo;
+      });
+  }
+
+  private registerJobs() {
+    this.jobs.forEach(job => {
+      this.createJob(job.jobName, job.jobInstance.run.bind(job.jobInstance) as any, job.jobOptions);
+      
+      this.logger.info(`Registered Job <${job.jobName}> - ${job.jobInstance.constructor.name}`);
+    });
   }
 
   private createJob(name: string, processor: Processor<JobAttributesData>, options?: DefineOptions) {
@@ -67,8 +91,8 @@ export class SchedulerRegistry {
       this.logger.error(`Job <${job.attrs.name}> failed:`, error);
     });
 
-    this.pulse.on('cancel', (job) => {
-      this.logger.info(`Job <${job.attrs.name}> cancelled`);
+    this.pulse.on('cancel', (jobsCount) => {
+      this.logger.info(`Cancelled ${jobsCount} jobs`);
     });
 
     this.pulse.on('complete', (job) => {
