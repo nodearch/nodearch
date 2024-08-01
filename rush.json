@@ -497,6 +497,13 @@
       "versionPolicyName": "packages",
       "tags": ["extension"]
     },
+    {
+      "packageName": "@nodearch/pulsecron",
+      "projectFolder": "extensions/pulsecron",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
     // {
     //   "packageName": "@nodearch/lambda",
     //   "projectFolder": "extensions/lambda",

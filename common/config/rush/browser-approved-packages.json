@@ -47,6 +47,10 @@
       "allowedCategories": [ "production", "prototypes" ]
     },
     {
+      "name": "@nodearch/pulsecron",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "@nodearch/server",
       "allowedCategories": [ "production" ]
     },
@@ -65,6 +69,10 @@
     {
       "name": "@nodearch/swagger",
       "allowedCategories": [ "prototypes" ]
+    },
+    {
+      "name": "@pulsecron/pulse",
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@socket.io/admin-ui",

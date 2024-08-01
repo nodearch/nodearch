@@ -1,0 +1,47 @@
+{
+  "name": "@nodearch/pulsecron",
+  "version": "0.1.0",
+  "description": "nodearch pulsecron toolkit",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodearch/nodearch.git"
+  },
+  "keywords": [
+    "nodearch",
+    "nodearch-pulsecron",
+    "pulsecron"
+  ],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodearch/nodearch/issues",
+    "email": "bluemax7o1@gmail.com"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@nodearch/core": "workspace:^2.1.4",
+    "@types/node": "^20.8.6",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2",
+    "@pulsecron/pulse": "^1.6.1"
+  },
+  "peerDependencies": {
+    "@nodearch/core": "2.x",
+    "reflect-metadata": "0.x",
+    "@pulsecron/pulse": "1.x"
+  }
+}
