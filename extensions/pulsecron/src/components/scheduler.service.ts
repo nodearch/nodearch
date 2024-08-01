@@ -10,28 +10,29 @@ export class SchedulerService {
     private logger: Logger
   ) { }
 
-  scheduleJobs(
+  schedule(
     when: string | Date,
     jobDefinition: ClassConstructor<IJobDefinition> | ClassConstructor<IJobDefinition>[],
     data?: any
   ) {
-    if (!Array.isArray(jobDefinition)) {
-      jobDefinition = [jobDefinition];
-    }
-
-    const jobNames = jobDefinition.map(job => {
-      const jobInfo = this.schedulerRegistry.getJobInfo(job);
-    
-      if (!jobInfo) {
-        throw new Error(`Job ${job.name} not found in the registry`);
-      }
-
-      return jobInfo.jobName;
-    });
+    const jobNames = this.getJobName(jobDefinition);
 
     this.schedulerRegistry.getPulse().schedule(when, jobNames, data);
 
     this.logger.info(`Scheduled jobs [${jobNames.join(', ')}] to run at ${when}`);
+  }
+
+  now(
+    jobDefinition: ClassConstructor<IJobDefinition> | ClassConstructor<IJobDefinition>[],
+    data?: any
+  ) {
+    const jobNames = this.getJobName(jobDefinition);
+
+    jobNames.forEach(jobName => {
+      this.schedulerRegistry.getPulse().now(jobName, data);
+    });
+
+    this.logger.info(`Scheduled jobs [${jobNames.join(', ')}] to run now`);
   }
 
   async getJobs(options: IGetJobsInputs) {
@@ -71,5 +72,21 @@ export class SchedulerService {
     }
 
     return query;
+  }
+
+  private getJobName(jobDefinition: ClassConstructor<IJobDefinition> | ClassConstructor<IJobDefinition>[]) {
+    if (!Array.isArray(jobDefinition)) {
+      jobDefinition = [jobDefinition];
+    }
+
+    return jobDefinition.map(job => {
+      const jobInfo = this.schedulerRegistry.getJobInfo(job);
+    
+      if (!jobInfo) {
+        throw new Error(`Job ${job.name} not found in the registry`);
+      }
+
+      return jobInfo.jobName;
+    });
   }
 }
