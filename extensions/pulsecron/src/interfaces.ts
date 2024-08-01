@@ -1,5 +1,8 @@
 import { ClassConstructor } from '@nodearch/core/utils';
-import { DefineOptions, JobAttributes } from '@pulsecron/pulse';
+import { DefineOptions, Job, JobAttributes } from '@pulsecron/pulse';
+
+export type IJobAttributes = JobAttributes;
+export type IJob = Job; 
 
 export interface IPulseCronAppOptions {
   /**
@@ -110,7 +113,7 @@ export interface IPulseCronAppOptions {
 }
 
 export interface IJobDefinition {
-  run(job: JobAttributes): Promise<void>;
+  run(job: IJob): Promise<void>;
 }
 
 export interface IJobInfo {
