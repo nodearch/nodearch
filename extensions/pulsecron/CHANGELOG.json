@@ -2,6 +2,20 @@
   "name": "@nodearch/pulsecron",
   "entries": [
     {
+      "version": "0.1.5",
+      "tag": "@nodearch/pulsecron_v0.1.5",
+      "date": "Mon, 07 Oct 2024 13:59:03 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "stop exiting on connection error - pulsecron",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "4264581bbd48fbfb5a8f68788d89f8a27c428deb"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.4",
       "tag": "@nodearch/pulsecron_v0.1.4",
       "date": "Thu, 01 Aug 2024 19:15:10 GMT",

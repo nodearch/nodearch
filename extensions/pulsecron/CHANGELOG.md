@@ -1,6 +1,13 @@
 # Change Log - @nodearch/pulsecron
 
-This log was last generated on Thu, 01 Aug 2024 19:15:10 GMT and should not be manually modified.
+This log was last generated on Mon, 07 Oct 2024 13:59:03 GMT and should not be manually modified.
+
+## 0.1.5
+Mon, 07 Oct 2024 13:59:03 GMT
+
+### Patches
+
+- stop exiting on connection error - pulsecron
 
 ## 0.1.4
 Thu, 01 Aug 2024 19:15:10 GMT
