@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/pulsecron",
+      "comment": "stop exiting on connection error - pulsecron",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/pulsecron"
+}
