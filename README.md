@@ -15,20 +15,8 @@
   <a href="https://https://www.npmjs.com/package/@nodearch/core" target="_blank">
     <img alt="Downloads" src="https://img.shields.io/npm/dt/@nodearch/core.svg" />
   </a>
-  <a href="https://coveralls.io/github/nodearch/core?branch=master" target="_blank">
-    <img alt="Code Coverage" src="https://coveralls.io/repos/github/BlueMax-IO/nodearch/badge.svg?branch=master" />
-  </a>
-  <a href="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core" target="_blank">
-    <img alt="Vulnerabilities" src="https://img.shields.io/snyk/vulnerabilities/npm/@nodearch/core.svg" />
-  </a>
-  <a href="https://www.codefactor.io/repository/github/ahmedali7o1/nodearch" target="_blank">
-    <img src="https://www.codefactor.io/repository/github/ahmedali7o1/nodearch/badge" alt="CodeFactor" />
-  </a>
   <a href="https://img.shields.io/github/workflow/status/bluemax-io/nodearch/Deploy/master" target="_blank">
-    <img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/bluemax-io/nodearch/deploy.yml?branch=master" />
-  </a>
-  <a href="https://github.com/nodearch/nodearch/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2023.svg" />
+    <img alt="Build Status" src="https://img.shields.io/github/actions/workflow/status/nodearch/nodearch/deploy.yml?branch=master" />
   </a>
   <a href="https://github.com/bluemax-io/nodearch/stargazers" target="_blank">
     <img alt="Star on GitHub" src="https://img.shields.io/github/stars/bluemax-io/nodearch?style=social" />
