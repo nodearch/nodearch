@@ -29,8 +29,8 @@ export class ExpressApp {
     this.registerResponseTimer(app);
     this.registerHttpLogger(app);
     this.registerParsers(app);
-    this.registerStatic(app);
     this.registerGlobalMiddleware(app);
+    this.registerStatic(app);
     this.registerRouter(expressInfo, app);
 
     return app;
