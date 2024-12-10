@@ -2,6 +2,20 @@
   "name": "@nodearch/express",
   "entries": [
     {
+      "version": "2.0.13",
+      "tag": "@nodearch/express_v2.0.13",
+      "date": "Tue, 10 Dec 2024 13:39:51 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix express middleware ordering",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "1028a48d6fbe7f5a9727c233d56c753652ac3c08"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.12",
       "tag": "@nodearch/express_v2.0.12",
       "date": "Wed, 12 Jun 2024 10:05:16 GMT",

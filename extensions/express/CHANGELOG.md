@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Wed, 12 Jun 2024 10:05:16 GMT and should not be manually modified.
+This log was last generated on Tue, 10 Dec 2024 13:39:51 GMT and should not be manually modified.
+
+## 2.0.13
+Tue, 10 Dec 2024 13:39:51 GMT
+
+### Patches
+
+- fix express middleware ordering
 
 ## 2.0.12
 Wed, 12 Jun 2024 10:05:16 GMT
