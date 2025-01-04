@@ -1,0 +1,11 @@
+# Change Log - @nodearch/prisma
+
+This log was last generated on Sat, 04 Jan 2025 18:08:54 GMT and should not be manually modified.
+
+## 1.0.1
+Sat, 04 Jan 2025 18:08:54 GMT
+
+### Patches
+
+- create the prisma ext
+

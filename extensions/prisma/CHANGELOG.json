@@ -1,0 +1,19 @@
+{
+  "name": "@nodearch/prisma",
+  "entries": [
+    {
+      "version": "1.0.1",
+      "tag": "@nodearch/prisma_v1.0.1",
+      "date": "Sat, 04 Jan 2025 18:08:54 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "create the prisma ext",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "04bddf3e3b067c9c1a2794c21235f1c47880d4fa"
+          }
+        ]
+      }
+    }
+  ]
+}
