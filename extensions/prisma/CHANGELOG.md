@@ -1,6 +1,13 @@
 # Change Log - @nodearch/prisma
 
-This log was last generated on Sat, 04 Jan 2025 18:25:29 GMT and should not be manually modified.
+This log was last generated on Sat, 04 Jan 2025 18:36:18 GMT and should not be manually modified.
+
+## 1.0.3
+Sat, 04 Jan 2025 18:36:18 GMT
+
+### Patches
+
+- fix prisma hook
 
 ## 1.0.2
 Sat, 04 Jan 2025 18:25:29 GMT

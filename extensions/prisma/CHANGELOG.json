@@ -2,6 +2,20 @@
   "name": "@nodearch/prisma",
   "entries": [
     {
+      "version": "1.0.3",
+      "tag": "@nodearch/prisma_v1.0.3",
+      "date": "Sat, 04 Jan 2025 18:36:18 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix prisma hook",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "ee3970556a063c757ebbd0e70c1fe61bc49633dc"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.2",
       "tag": "@nodearch/prisma_v1.0.2",
       "date": "Sat, 04 Jan 2025 18:25:29 GMT",
