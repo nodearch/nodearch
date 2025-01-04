@@ -1,0 +1,49 @@
+{
+  "name": "@nodearch/prisma",
+  "version": "1.0.0",
+  "description": "Prisma extension for Nodearch",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodearch/nodearch.git"
+  },
+  "keywords": [
+    "nodearch",
+    "nodearch-prisma",
+    "prisma"
+  ],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodearch/nodearch/issues",
+    "email": "bluemax7o1@gmail.com"
+  },
+  "devDependencies": {
+    "@nodearch/core": "workspace:^2.1.4",
+    "@types/node": "^20.8.6",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2",
+    "prisma": "^6.1.0",
+    "@prisma/client": "^6.1.0"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@nodearch/core": "2.x",
+    "prisma": "6.x",
+    "@prisma/client": "6.x",
+    "reflect-metadata": "0.x"
+  }
+}
