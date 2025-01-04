@@ -11,14 +11,14 @@ export class PrismaHook implements IHook {
   ) {}
 
   async onStart() {
-    this.logger.info("Connecting to Prisma database...");
+    this.logger.info("Connecting to database...");
     await this.prisma.connect();
-    this.logger.info("Connected to Prisma database");
+    this.logger.info("Connected to database");
   }
 
   async onStop() {
-    this.logger.info("Disconnecting from Prisma database...");
+    this.logger.info("Disconnecting from database...");
     await this.prisma.disconnect();
-    this.logger.info("Disconnected from Prisma database");
+    this.logger.info("Disconnected from database");
   }
 }

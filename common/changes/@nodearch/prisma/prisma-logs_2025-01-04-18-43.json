@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/prisma",
+      "comment": "prisma logs",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/prisma"
+}
