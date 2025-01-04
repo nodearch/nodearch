@@ -2,7 +2,7 @@ import { Hook, IHook, Logger } from '@nodearch/core';
 import { PrismaClient } from './prisma.service.js';
 
 
-@Hook()
+@Hook({ export: true })
 export class PrismaHook implements IHook {
 
   constructor(
