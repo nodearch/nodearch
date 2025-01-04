@@ -504,6 +504,13 @@
       "versionPolicyName": "packages",
       "tags": ["extension"]
     },
+    {
+      "packageName": "@nodearch/prisma",
+      "projectFolder": "extensions/prisma",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
     // {
     //   "packageName": "@nodearch/lambda",
     //   "projectFolder": "extensions/lambda",
