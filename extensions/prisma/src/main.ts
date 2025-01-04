@@ -6,6 +6,9 @@ export class PrismaApp extends App {
     super({
       components: {
         url: new URL('components', import.meta.url)
+      },
+      logs: {
+        prefix: 'Prisma'
       }
     });
   }
