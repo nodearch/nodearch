@@ -2,6 +2,20 @@
   "name": "@nodearch/prisma",
   "entries": [
     {
+      "version": "1.0.5",
+      "tag": "@nodearch/prisma_v1.0.5",
+      "date": "Sat, 04 Jan 2025 19:08:41 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update prisma client",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "6a6935669673bf4231d78314c0a7e5e71bf5c16a"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.4",
       "tag": "@nodearch/prisma_v1.0.4",
       "date": "Sat, 04 Jan 2025 18:45:40 GMT",
