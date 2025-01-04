@@ -1,12 +1,12 @@
 import { Service } from '@nodearch/core';
-import { PrismaClient as Client } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 @Service({ export: true })
-export class PrismaClient {
-  prisma: Client;
+export class PrismaService {
+  private prisma: PrismaClient;
 
   constructor() {
-    this.prisma = new Client();
+    this.prisma = new PrismaClient();
   }
 
   async connect() {
@@ -15,5 +15,9 @@ export class PrismaClient {
 
   async disconnect() {
     await this.prisma.$disconnect();
+  }
+
+  getClient() {
+    return this.prisma;
   }
 }
