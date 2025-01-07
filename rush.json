@@ -511,6 +511,13 @@
       "versionPolicyName": "packages",
       "tags": ["extension"]
     },
+    {
+      "packageName": "@nodearch/aws-sqs-event",
+      "projectFolder": "extensions/aws-sqs-event",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
     // {
     //   "packageName": "@nodearch/lambda",
     //   "projectFolder": "extensions/lambda",

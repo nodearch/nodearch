@@ -1,0 +1,49 @@
+{
+  "name": "@nodearch/aws-sqs-event",
+  "version": "1.0.0",
+  "description": "AWS SQS Queue Event Listener for Nodearch",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodearch/nodearch.git"
+  },
+  "keywords": [
+    "nodearch",
+    "nodearch-sqs",
+    "sqs",
+    "listener",
+    "aws"
+  ],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodearch/nodearch/issues",
+    "email": "bluemax7o1@gmail.com"
+  },
+  "devDependencies": {
+    "@nodearch/core": "workspace:^2.1.4",
+    "@types/node": "^20.8.6",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2",
+    "@aws-sdk/client-sqs": "^3.723.0"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@nodearch/core": "2.x",
+    "reflect-metadata": "0.x",
+    "@aws-sdk/client-sqs": "3.x"
+  }
+}
