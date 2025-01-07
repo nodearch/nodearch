@@ -1,0 +1,19 @@
+{
+  "name": "@nodearch/aws-sqs-event",
+  "entries": [
+    {
+      "version": "1.0.1",
+      "tag": "@nodearch/aws-sqs-event_v1.0.1",
+      "date": "Tue, 07 Jan 2025 16:52:19 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "create the ext",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "2056ca8ccaa70e2235d42a8b86c28a27a597de29"
+          }
+        ]
+      }
+    }
+  ]
+}
