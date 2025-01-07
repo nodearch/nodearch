@@ -1,16 +1,16 @@
 import { App, ComponentScope} from '@nodearch/core';
-import { SQSClientOptions } from './interfaces.js';
+import { IAWSSQSEventOptions } from './interfaces.js';
 
 
-export class AWSClientSQSApp extends App {
-  constructor(options: SQSClientOptions) {
+export class AWSSQSEvent extends App {
+  constructor(options: IAWSSQSEventOptions) {
     super({
       components: {
         url: new URL('components', import.meta.url),
         scope: ComponentScope.SINGLETON
       },
       logs: {
-        prefix: 'SQS Client'
+        prefix: `SQS Q:${options.id}`
       },
       config: options
     });

@@ -1,7 +1,7 @@
 {
-  "name": "@nodearch/aws-client-sqs",
+  "name": "@nodearch/aws-sqs-event",
   "version": "1.0.0",
-  "description": "AWS SQS Client for Nodearch",
+  "description": "AWS SQS Queue Event Listener for Nodearch",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -24,6 +24,7 @@
     "nodearch",
     "nodearch-sqs",
     "sqs",
+    "listener",
     "aws"
   ],
   "author": "https://github.com/AhmedAli7O1",
