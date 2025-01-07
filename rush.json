@@ -512,8 +512,8 @@
       "tags": ["extension"]
     },
     {
-      "packageName": "@nodearch/aws-client-sqs",
-      "projectFolder": "extensions/aws-client-sqs",
+      "packageName": "@nodearch/aws-sqs-event",
+      "projectFolder": "extensions/aws-sqs-event",
       "reviewCategory": "production",
       "versionPolicyName": "packages",
       "tags": ["extension"]

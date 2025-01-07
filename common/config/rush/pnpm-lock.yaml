@@ -10,7 +10,7 @@ importers:
 
   .: {}
 
-  ../../extensions/aws-client-sqs:
+  ../../extensions/aws-sqs-event:
     devDependencies:
       '@aws-sdk/client-sqs':
         specifier: ^3.723.0
