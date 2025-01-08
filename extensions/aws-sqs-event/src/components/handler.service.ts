@@ -1,18 +1,18 @@
 import { AppContext, Service } from '@nodearch/core';
-import { ClientSQSDecorator } from '../enums.js';
-import { ISQSEvent, ISQSEventHandler, ISQSEventOptions } from '../interfaces.js';
-import { SQSEventConfig } from './sqs.config.js';
+import { ClientSqsDecorator } from '../enums.js';
+import { ISqsEvent, ISqsEventHandler, ISqsEventOptions } from '../interfaces.js';
+import { SqsEventConfig } from './sqs.config.js';
 import { Message } from '@aws-sdk/client-sqs';
 import { EventMatchingService } from './event-matching.service.js';
 
 @Service()
 export class HandlerService {
   
-  private handlers: ISQSEventHandler[];
+  private handlers: ISqsEventHandler[];
 
   constructor(
     private appContext: AppContext,
-    private config: SQSEventConfig,
+    private config: SqsEventConfig,
     private eventMatchingService: EventMatchingService
   ) {
     this.handlers = [];
@@ -32,7 +32,7 @@ export class HandlerService {
 
   private getQueueHandlers() {
     const componentsInfo = this.appContext.getComponentRegistry()
-      .get<ISQSEvent, ISQSEventOptions>({ id: ClientSQSDecorator.SQSEvent });
+      .get<ISqsEvent, ISqsEventOptions>({ id: ClientSqsDecorator.SqsEvent });
      
     this.handlers = componentsInfo
       .filter((componentInfo) => {

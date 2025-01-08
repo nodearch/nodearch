@@ -1,13 +1,13 @@
 import { Service } from '@nodearch/core';
 import * as utils from '@nodearch/core/utils';
-import { ISQSEventHandler, ISQSEventMatching } from '../interfaces.js';
+import { ISqsEventHandler, ISqsEventMatching } from '../interfaces.js';
 import { Message } from '@aws-sdk/client-sqs';
-import { SQSMatching } from '../enums.js';
+import { SqsMatching } from '../enums.js';
 
 @Service()
 export class EventMatchingService {
 
-  matchEvent(event: Message, handlers: ISQSEventHandler[]) {
+  matchEvent(event: Message, handlers: ISqsEventHandler[]) {
 
     // deep clone the message
     const eventMessage = JSON.parse(JSON.stringify(event)) as Message;
@@ -24,13 +24,13 @@ export class EventMatchingService {
     return foundHandlers[0];
   }
 
-  private match(event: Message, match: ISQSEventMatching[]) {
+  private match(event: Message, match: ISqsEventMatching[]) {
     return match.every((m) => {
       return this.matchOne(event, m);
     });
   }
 
-  private matchOne(event: Message, match: ISQSEventMatching) {
+  private matchOne(event: Message, match: ISqsEventMatching) {
     const messageValue = utils.get(event, match.path);
 
     if (messageValue === undefined || messageValue === null) {
@@ -40,37 +40,37 @@ export class EventMatchingService {
     let isMatch = false;
 
     switch (match.operation) {
-      case SQSMatching.EQUALS:
+      case SqsMatching.EQUALS:
         isMatch = messageValue === match.value;
         break;
-      case SQSMatching.NOT_EQUALS:
+      case SqsMatching.NOT_EQUALS:
         isMatch = messageValue !== match.value;
         break;
-      case SQSMatching.CONTAINS:
+      case SqsMatching.CONTAINS:
         isMatch = messageValue.includes(match.value);
         break;
-      case SQSMatching.STARTS_WITH:
+      case SqsMatching.STARTS_WITH:
         isMatch = messageValue.startsWith(match.value);
         break;
-      case SQSMatching.ENDS_WITH:
+      case SqsMatching.ENDS_WITH:
         isMatch = messageValue.endsWith(match.value);
         break;
-      case SQSMatching.GREATER_THAN:
+      case SqsMatching.GREATER_THAN:
         isMatch = messageValue > match.value;
         break;
-      case SQSMatching.LESS_THAN:
+      case SqsMatching.LESS_THAN:
         isMatch = messageValue < match.value;
         break;
-      case SQSMatching.GREATER_THAN_OR_EQUAL:
+      case SqsMatching.GREATER_THAN_OR_EQUAL:
         isMatch = messageValue >= match.value;
         break;
-      case SQSMatching.LESS_THAN_OR_EQUAL:
+      case SqsMatching.LESS_THAN_OR_EQUAL:
         isMatch = messageValue <= match.value;
         break;
-      case SQSMatching.EXIST:
+      case SqsMatching.EXIST:
         isMatch = messageValue !== undefined;
         break;
-      case SQSMatching.NOT_EXIST:
+      case SqsMatching.NOT_EXIST:
         isMatch = messageValue === undefined;
         break;
     }

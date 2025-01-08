@@ -1,16 +1,16 @@
 import { Hook, IHook, Logger } from '@nodearch/core';
-import { SQSEventConfig } from './sqs.config.js';
+import { SqsEventConfig } from './sqs.config.js';
 import { HandlerService } from './handler.service.js';
-import { SQSService } from './sqs.service.js';
+import { SqsService } from './sqs.service.js';
 
 @Hook({ export: true })
-export class SQSHook implements IHook {
+export class SqsHook implements IHook {
 
   constructor(
-    private config: SQSEventConfig,
+    private config: SqsEventConfig,
     private logger: Logger,
     private handlerService: HandlerService,
-    private sqsService: SQSService
+    private sqsService: SqsService
   ) {}
 
   async onStart() {

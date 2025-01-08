@@ -1,9 +1,9 @@
 import { App, ComponentScope} from '@nodearch/core';
-import { IAWSSQSEventOptions } from './interfaces.js';
+import { IAwsSqsEventAppOptions } from './interfaces.js';
 
 
-export class AWSSQSEvent extends App {
-  constructor(options: IAWSSQSEventOptions) {
+export class AwsSqsEventApp extends App {
+  constructor(options: IAwsSqsEventAppOptions) {
     super({
       components: {
         url: new URL('components', import.meta.url),

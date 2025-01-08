@@ -1,10 +1,10 @@
 import { Config, ConfigManager } from '@nodearch/core';
 import { MessageSystemAttributeName } from '@aws-sdk/client-sqs';
-import { IAWSCredentials } from '../interfaces.js';
+import { IAwsCredentials } from '../interfaces.js';
 
 
 @Config()
-export class SQSEventConfig {
+export class SqsEventConfig {
   id: string;
   enabled: boolean;
   queueUrl: string;
@@ -12,8 +12,8 @@ export class SQSEventConfig {
   maxNumberOfMessages: number;
   visibilityTimeout: number;
   waitTimeSeconds: number;
-  awsCredentials?: IAWSCredentials;
-  failuerBackoffMs?: number;
+  awsCredentials?: IAwsCredentials;
+  failureBackoffMs?: number;
   receiveRequestAttemptId?: string;
   messageAttributeNames?: string[];
   messageSystemAttributeNames?: MessageSystemAttributeName[];
@@ -60,7 +60,7 @@ export class SQSEventConfig {
       external: 'awsCredentials'
     });
 
-    this.failuerBackoffMs = config.env({
+    this.failureBackoffMs = config.env({
       external: 'failuerBackoffMs',
       defaults: {
         all: 5000

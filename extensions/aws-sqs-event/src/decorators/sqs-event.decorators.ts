@@ -1,11 +1,11 @@
 import { ComponentFactory, IComponentOptions } from '@nodearch/core/components';
-import { ClientSQSDecorator } from '../enums.js';
-import { ISQSEventOptions } from '../interfaces.js';
+import { ClientSqsDecorator } from '../enums.js';
+import { ISqsEventOptions } from '../interfaces.js';
 
 
-export const SQSEvent = (options: ISQSEventOptions, componentOptions?: IComponentOptions): ClassDecorator =>
+export const SQSEvent = (options: ISqsEventOptions, componentOptions?: IComponentOptions): ClassDecorator =>
   ComponentFactory.componentDecorator({
-    id: ClientSQSDecorator.SQSEvent,
+    id: ClientSqsDecorator.SqsEvent,
     options: {
       ...(componentOptions || {}),
     },

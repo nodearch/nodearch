@@ -1,6 +1,6 @@
 import { Logger, Service } from '@nodearch/core';
 import { SQSClient, ReceiveMessageCommand, DeleteMessageCommand, Message, ReceiveMessageCommandInput } from "@aws-sdk/client-sqs";
-import { SQSEventConfig } from './sqs.config.js';
+import { SqsEventConfig } from './sqs.config.js';
 import util from 'node:util';
 import { HandlerService } from './handler.service.js';
 
@@ -8,14 +8,14 @@ const sleep = util.promisify(setTimeout);
 
 
 @Service()
-export class SQSService {
+export class SqsService {
 
   private sqsClient: SQSClient;
   private command: ReceiveMessageCommand;
   private polling: boolean;
 
   constructor(
-    private config: SQSEventConfig,
+    private config: SqsEventConfig,
     private logger: Logger,
     private handlerService: HandlerService
   ) {
@@ -46,7 +46,7 @@ export class SQSService {
       }
       catch (error) {
         this.logger.error(`Error polling SQS`, error);
-        await sleep(this.config.failuerBackoffMs);
+        await sleep(this.config.failureBackoffMs);
       }
     }
   }
