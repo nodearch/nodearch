@@ -1,6 +1,6 @@
 import { Logger, Service } from '@nodearch/core';
 import { SQSClient, ReceiveMessageCommand, DeleteMessageCommand, Message, ReceiveMessageCommandInput } from "@aws-sdk/client-sqs";
-import { SQSEventConfig } from './sqs.config.js';
+import { SqsEventConfig } from './sqs.config.js';
 import util from 'node:util';
 import { HandlerService } from './handler.service.js';
 
@@ -8,14 +8,14 @@ const sleep = util.promisify(setTimeout);
 
 
 @Service()
-export class SQSService {
+export class SqsService {
 
   private sqsClient: SQSClient;
   private command: ReceiveMessageCommand;
   private polling: boolean;
 
   constructor(
-    private config: SQSEventConfig,
+    private config: SqsEventConfig,
     private logger: Logger,
     private handlerService: HandlerService
   ) {
@@ -46,7 +46,7 @@ export class SQSService {
       }
       catch (error) {
         this.logger.error(`Error polling SQS`, error);
-        await sleep(this.config.failuerBackoffMs);
+        await sleep(this.config.failureBackoffMs);
       }
     }
   }
@@ -59,27 +59,33 @@ export class SQSService {
     const result = await this.sqsClient.send(this.command);
     
     if (result.Messages) {
-      for (const message of result.Messages) {
-        this.logger.info(`Message Received: ${message.MessageId}`);
+      this.logger.info(`Received ${result.Messages.length} messages`);
+      await Promise.all(result.Messages.map(async (message) => {
+        await this.receiveOneMessage(message);
+      }));
+    }
+  }
 
-        try {
-          await this.processMessage(message);
+  private async receiveOneMessage(message: Message) {
+    this.logger.info(`Message Received: ${message.MessageId}`);
 
-          if (message.ReceiptHandle) {
-            const deleteCommand = new DeleteMessageCommand({
-              QueueUrl: this.config.queueUrl,
-              ReceiptHandle: message.ReceiptHandle
-            });
-    
-            await this.sqsClient.send(deleteCommand);
-            this.logger.info(`Message Deleted: ${message.MessageId}`);
-          }
-        }
-        catch (error) {
-          this.logger.error(`Error processing message: ${message.MessageId}`, error);
-        }
+    try {
+      await this.processMessage(message);
+
+      if (message.ReceiptHandle) {
+        const deleteCommand = new DeleteMessageCommand({
+          QueueUrl: this.config.queueUrl,
+          ReceiptHandle: message.ReceiptHandle
+        });
+  
+        await this.sqsClient.send(deleteCommand);
+        this.logger.info(`Message Deleted: ${message.MessageId}`);
       }
     }
+    catch (error) {
+      this.logger.error(`Error processing message: ${message.MessageId}`, error);
+    }
+
   }
 
   private async processMessage(message: Message) {

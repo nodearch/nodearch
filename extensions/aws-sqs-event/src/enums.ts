@@ -1,8 +1,8 @@
-export enum ClientSQSDecorator {
-  SQSEvent = '@nodearch/aws-sqs-listener/decorators/sqs-event',
+export enum ClientSqsDecorator {
+  SqsEvent = '@nodearch/aws-sqs-listener/decorators/sqs-event',
 }
 
-export enum SQSMatching {
+export enum SqsMatching {
   EQUALS = 'EQUALS',
   NOT_EQUALS = 'NOT_EQUALS',
   CONTAINS = 'CONTAINS',

@@ -4,11 +4,15 @@
   "packages": [
     {
       "name": "@aws-sdk/client-sqs",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "@hapi/joi",
       "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@nodearch/aws-sqs-event",
+      "allowedCategories": [ "prototypes" ]
     },
     {
       "name": "@nodearch/cli",

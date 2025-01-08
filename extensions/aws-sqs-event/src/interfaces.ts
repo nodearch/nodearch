@@ -1,13 +1,13 @@
 import { ComponentInfo } from '@nodearch/core/components';
-import { SQSMatching } from './enums.js';
+import { SqsMatching } from './enums.js';
 import { Message } from '@aws-sdk/client-sqs';
 
-export interface ISQSEventOptions {
+export interface ISqsEventOptions {
   id: string;
-  match: ISQSEventMatching[];
+  match?: ISqsEventMatching[];
 }
 
-export interface IAWSSQSEventOptions {
+export interface IAwsSqsEventAppOptions {
   id: string;
   enabled: boolean;
   queueUrl: string;
@@ -15,26 +15,26 @@ export interface IAWSSQSEventOptions {
   maxNumberOfMessages?: number;
   visibilityTimeout?: number;
   waitTimeSeconds?: number;
-  awsCredentials?: IAWSCredentials;
-  failuerBackoffMs?: number;
+  awsCredentials?: IAwsCredentials;
+  failureBackoffMs?: number;
 }
 
-export interface ISQSEvent {
+export interface ISqsEvent {
   onMessage(message: Message): Promise<void>;
 } 
 
-export interface ISQSEventHandler {
-  match: ISQSEventMatching[];
-  componentInfo: ComponentInfo<ISQSEvent, ISQSEventOptions>;
+export interface ISqsEventHandler {
+  match: ISqsEventMatching[];
+  componentInfo: ComponentInfo<ISqsEvent, ISqsEventOptions>;
 }
 
-export interface ISQSEventMatching {
+export interface ISqsEventMatching {
   path: string;
-  operation: SQSMatching;
+  operation: SqsMatching;
   value: any;
 }
 
-export interface IAWSCredentials {
+export interface IAwsCredentials {
   accessKeyId: string;
   secretAccessKey: string;
   sessionToken?: string;
