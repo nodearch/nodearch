@@ -16,7 +16,8 @@ export default class SQSListener extends App {
         new AwsSqsEventApp({
           enabled: true,
           id: 'sqs-listener',
-          queueUrl: ''
+          queueUrl: '',
+          awsRegion: 'ca-central-1',
         })
       ]
     });

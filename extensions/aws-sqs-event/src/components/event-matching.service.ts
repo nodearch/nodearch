@@ -14,7 +14,7 @@ export class EventMatchingService {
 
     // Find first matching handler
     const foundHandlers = handlers.filter((handler) => {
-      return this.match(eventMessage, handler.match);
+      return handler.match.length < 1 || this.match(eventMessage, handler.match);
     });
 
     if (foundHandlers.length > 1) {

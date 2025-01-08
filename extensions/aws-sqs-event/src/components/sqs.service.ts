@@ -59,27 +59,33 @@ export class SqsService {
     const result = await this.sqsClient.send(this.command);
     
     if (result.Messages) {
-      for (const message of result.Messages) {
-        this.logger.info(`Message Received: ${message.MessageId}`);
+      this.logger.info(`Received ${result.Messages.length} messages`);
+      await Promise.all(result.Messages.map(async (message) => {
+        await this.receiveOneMessage(message);
+      }));
+    }
+  }
 
-        try {
-          await this.processMessage(message);
+  private async receiveOneMessage(message: Message) {
+    this.logger.info(`Message Received: ${message.MessageId}`);
 
-          if (message.ReceiptHandle) {
-            const deleteCommand = new DeleteMessageCommand({
-              QueueUrl: this.config.queueUrl,
-              ReceiptHandle: message.ReceiptHandle
-            });
-    
-            await this.sqsClient.send(deleteCommand);
-            this.logger.info(`Message Deleted: ${message.MessageId}`);
-          }
-        }
-        catch (error) {
-          this.logger.error(`Error processing message: ${message.MessageId}`, error);
-        }
+    try {
+      await this.processMessage(message);
+
+      if (message.ReceiptHandle) {
+        const deleteCommand = new DeleteMessageCommand({
+          QueueUrl: this.config.queueUrl,
+          ReceiptHandle: message.ReceiptHandle
+        });
+  
+        await this.sqsClient.send(deleteCommand);
+        this.logger.info(`Message Deleted: ${message.MessageId}`);
       }
     }
+    catch (error) {
+      this.logger.error(`Error processing message: ${message.MessageId}`, error);
+    }
+
   }
 
   private async processMessage(message: Message) {

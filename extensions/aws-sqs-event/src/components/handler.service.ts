@@ -40,7 +40,7 @@ export class HandlerService {
       })
       .map((componentInfo) => {
         return {
-          match: componentInfo.getData()!.match,
+          match: componentInfo.getData()!.match || [],
           componentInfo: componentInfo
         };
       });
