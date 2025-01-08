@@ -2,6 +2,20 @@
   "name": "@nodearch/aws-sqs-event",
   "entries": [
     {
+      "version": "1.0.2",
+      "tag": "@nodearch/aws-sqs-event_v1.0.2",
+      "date": "Wed, 08 Jan 2025 15:03:54 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update naming convention",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "1bac2d768dce727fb8628c4b1fa2be0ad5767a9d"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.1",
       "tag": "@nodearch/aws-sqs-event_v1.0.1",
       "date": "Tue, 07 Jan 2025 16:52:19 GMT",

@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/aws-sqs-event",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "AWS SQS Queue Event Listener for Nodearch",
   "exports": {
     ".": {
