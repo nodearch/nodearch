@@ -1,0 +1,31 @@
+{
+  "name": "@nodearch/template-standard",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "rimraf ./dist/ && tsc",
+    "build:watch": "tsc",
+    "start": "node dist/start.js"
+  },
+  "keywords": [],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.8.6",
+    "typescript": "^5.2.2",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.1",
+    "reflect-metadata": "^0.1.13",
+    "@swc/core": "^1.4.8"
+  },
+  "dependencies": {
+    "@nodearch/core": "workspace:^2.1.4",
+    "@nodearch/jsonata": "workspace:^1.0.0",
+    "jsonata": "^2.0.6"
+  },
+  "nodearch": {}
+}

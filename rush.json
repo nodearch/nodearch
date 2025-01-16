@@ -411,6 +411,12 @@
       "reviewCategory": "prototypes",
       "shouldPublish": false
     },
+    {
+      "packageName": "@nodearch/template-standard",
+      "projectFolder": "templates/standard",
+      "reviewCategory": "prototypes",
+      "shouldPublish": false
+    },
     // {
     //   "packageName": "@nodearch/template-lambda",
     //   "projectFolder": "templates/lambda",
@@ -520,6 +526,13 @@
     {
       "packageName": "@nodearch/aws-sqs-event",
       "projectFolder": "extensions/aws-sqs-event",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages",
+      "tags": ["extension"]
+    },
+    {
+      "packageName": "@nodearch/jsonata",
+      "projectFolder": "extensions/jsonata",
       "reviewCategory": "production",
       "versionPolicyName": "packages",
       "tags": ["extension"]

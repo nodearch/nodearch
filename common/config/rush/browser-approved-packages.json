@@ -43,6 +43,10 @@
       "allowedCategories": [ "prototypes" ]
     },
     {
+      "name": "@nodearch/jsonata",
+      "allowedCategories": [ "prototypes" ]
+    },
+    {
       "name": "@nodearch/lambda",
       "allowedCategories": [ "prototypes" ]
     },
@@ -237,6 +241,10 @@
     {
       "name": "json5",
       "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "jsonata",
+      "allowedCategories": [ "production", "prototypes" ]
     },
     {
       "name": "jsonwebtoken",
