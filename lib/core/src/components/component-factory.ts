@@ -146,6 +146,37 @@ export class ComponentFactory {
     }
   }
 
+  static propertyDecorator<T>(
+    options: {
+      id: string;
+      fn?(target: any, propKey: string | symbol): T | void;
+      dependencies?: ClassConstructor[];
+    }
+  ): PropertyDecorator {
+    return function (target: any, propKey: string | symbol) {
+      const decoratorTarget = target.constructor;
+
+      const data = options.fn?.(target, propKey);
+
+
+      const dataType = Reflect.getMetadata('design:type', target, propKey as string);
+
+      ComponentMetadata.setComponentDecorator(decoratorTarget, {
+        type: DecoratorType.PROPERTY,
+        id: options.id,
+        property: propKey as string,
+        dataType: dataType,
+        data,
+        dependencies: options.dependencies ? ComponentFactory.getComponentDependencies({
+          target: decoratorTarget,
+          decoratorId: options.id,
+          depsInfo: options.dependencies,
+          propKey: (propKey as string)
+        }) : []
+      });
+    }
+  }
+
   /**
    * Decorator method for creating a class method decorator.
    *

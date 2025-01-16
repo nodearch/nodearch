@@ -1,4 +1,5 @@
 import { App, LogLevel } from '@nodearch/core';
+import { JsonataApp } from '@nodearch/jsonata';
 
 export default class StandardTemplate extends App {
   constructor() {
@@ -9,7 +10,10 @@ export default class StandardTemplate extends App {
       logs: {
         logLevel: LogLevel.Debug,
         prefix: 'Standard App'
-      }
+      },
+      extensions: [
+        new JsonataApp()
+      ]
     });
   }
 }

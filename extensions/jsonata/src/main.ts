@@ -3,7 +3,7 @@ import { IJsonataAppOptions } from './interfaces.js';
 
 
 export class JsonataApp extends App {
-  constructor(options: IJsonataAppOptions) {
+  constructor() {
     super({
       components: {
         url: new URL('components', import.meta.url),
@@ -12,7 +12,7 @@ export class JsonataApp extends App {
       logs: {
         prefix: `JSONata`
       },
-      config: options
+      // config: options
     });
   }
 }

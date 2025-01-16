@@ -20,5 +20,6 @@ export enum DecoratorType {
   CLASS = 'class',
   CLASS_METHOD = 'classMethod',
   METHOD = 'method',
-  PARAMETER = 'parameter'
+  PARAMETER = 'parameter',
+  PROPERTY = 'property'
 }

@@ -33,6 +33,17 @@ export type IComponentDecorator<T = any> = {
    */
   method?: string;
 
+
+  /**
+   * Available only for property decorator
+   */
+  property?: string;
+
+  /**
+   * Available only for property decorator
+   */
+  dataType?: string;
+
   /**
    * Available only for parameter decorator 
    */
