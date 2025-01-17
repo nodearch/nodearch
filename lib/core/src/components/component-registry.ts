@@ -2,6 +2,8 @@ import { Container } from '../container/container.js';
 import { ClassConstructor } from '../utils/types.js';
 import { ComponentBinder } from './component-binder.js';
 import { ComponentInfo } from './component-info.js';
+import { DataRegistry } from './data/data-registry.js';
+import { CoreDecorator } from './enums.js';
 import { IComponentDecoratorInfo, IGetComponentsOptions, IGetDecoratorsOptions } from './interfaces.js';
 import { ComponentMetadata } from './metadata.js';
 
@@ -15,11 +17,15 @@ export class ComponentRegistry {
   private container: Container;
   private registeredComponents: ComponentInfo[];
   private componentBinder: ComponentBinder;
+  private dataRegistry: DataRegistry;
+  // private dataComponents: IDataComponentInfo[];
 
   constructor(container: Container) {
     this.container = container;
     this.registeredComponents = [];
     this.componentBinder = new ComponentBinder(container);
+    this.dataRegistry = new DataRegistry();
+    // this.dataComponents = [];
   }
 
   /**
@@ -71,12 +77,20 @@ export class ComponentRegistry {
       .flat(1);
   }
 
+  // getDataComponents() {
+  //   const dataComponents = this.getComponents(CoreDecorator.DATA);    
+  // }
+
   /**
    * Retrieves the list of exported ComponentInfo objects from the app.
    * @returns An array of ComponentInfo objects.
    */
   getExported() {
     return this.registeredComponents.filter(comp => comp.isExported());
+  }
+
+  getDataComponent(classConstructor: ClassConstructor) {
+    return this.dataRegistry.getDataComponent(classConstructor);
   }
 
   /**
@@ -107,6 +121,46 @@ export class ComponentRegistry {
     });
   }
 
+  registerDataComponents() {
+    this.dataRegistry.registerDataComponents(this.getComponents(CoreDecorator.DATA));
+  }
+
+  // private getDataComponentInfo(comp: ComponentInfo) {
+  //   const fieldsDecorators = comp.getDecorators({ id: CoreDecorator.FIELD });
+  //   const fields: any[] = [];
+
+  //   for (const fieldDecorator of fieldsDecorators) {
+  //     const { dataType, elementType } = fieldDecorator.data;
+
+  //     let formattedDataType;
+
+  //     if (dataType.name === 'UserDto') {
+  //       const dataTypeCompInfo = this.registeredComponents.find(rc => rc.getClass() === dataType);
+  //       formattedDataType = this.getDataComponentInfo(dataTypeCompInfo!);
+  //     }
+  //     else {
+  //       formattedDataType = dataType.name.toLowerCase();
+  //     }
+
+  //     fields.push({
+  //       property: fieldDecorator.property!,
+  //       dataType: formattedDataType,
+  //       elementType,
+  //       // decorators: comp.getDecorators({ method: fieldDecorator.property })
+  //     });
+
+  //   }
+
+  //   return {
+  //     componentInfo: comp,
+  //     fields
+  //   };
+  // }
+
+  /**
+   * Returns the total number of registered components.
+   * @returns The total number of registered components.
+   */
   count() {
     return this.registeredComponents.length;
   }

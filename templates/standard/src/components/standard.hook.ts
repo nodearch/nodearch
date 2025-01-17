@@ -1,6 +1,6 @@
 import { Hook, IHook } from '@nodearch/core';
 import { MappingService } from '@nodearch/jsonata';
-import { UserMapper } from './user.mapper.js';
+import { ClientDTO } from './client.dto.js';
 
 @Hook()
 export class StandardHook implements IHook {
@@ -14,7 +14,7 @@ export class StandardHook implements IHook {
         user: { key: '1' },
         client: { key: '2' }
       } 
-    }, UserMapper);
+    }, ClientDTO);
 
     console.log('Mapped Data', user);
 

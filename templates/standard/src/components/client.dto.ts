@@ -1,8 +1,12 @@
 import { Data, Field } from '@nodearch/core';
+import { UserDto } from './user.dto.js';
+import { JsonGet } from '@nodearch/jsonata';
 
 
 @Data()
 export class ClientDTO {
+
+  @JsonGet('data.client.key')
   @Field()
   id: string;
   
@@ -23,10 +27,14 @@ export class ClientDTO {
   
   @Field()
   state: string;
-  
+
   @Field()
   zip: string;
-  
+
   @Field(String)
   country: string[];
+
+  @Field()
+  user: UserDto;
+
 }

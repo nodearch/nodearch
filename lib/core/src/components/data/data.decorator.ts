@@ -18,7 +18,7 @@ export const Field = (elementType?: any): PropertyDecorator =>
 
       return {
         dataType,
-        elementType
+        elementType,
       };
     }, 
   });

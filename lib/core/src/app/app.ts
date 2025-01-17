@@ -180,6 +180,7 @@ export class App {
   private async loadComponents() {
     await this.classLoader.load();
     this.componentRegistry.register(this.classLoader.classes);
+    this.componentRegistry.registerDataComponents();
     // this.logger.debug(`${registered} Components Loaded`);
     // this.logger.debug(`${hooks} Hooks registered`);
     // this.logger.debug(`${exported} Components exported`);

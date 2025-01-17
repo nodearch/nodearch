@@ -57,6 +57,12 @@ export class ComponentInfo<T = any, D = any> {
       });
     }
 
+    if (options.property) {
+      decorators = decorators.filter(deco => {
+        return deco.property === options.property;
+      });
+    }
+
     if (options.id) {
       decorators = decorators.filter(deco => {
         return deco.id === options.id;

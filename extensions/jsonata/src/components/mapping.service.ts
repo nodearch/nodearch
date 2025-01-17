@@ -10,29 +10,35 @@ export class MappingService {
   ) {}
 
   transform(data: any, mapper: ClassConstructor) {
-    const transformsComponents = this.appContext.getComponentRegistry().get({ id: JsonataDecorator.JsonataTransform });
-    const transform = transformsComponents.find(t => t.getClass() === mapper);
-
-    const getDecorators = transform?.getDecorators({ id: JsonataDecorator.JsonGet });
+    const dataComp = this.appContext.getComponentRegistry().getDataComponent(mapper);
     
-    let dataObj: any = {};
+    console.log('dataComp', dataComp);
+    // console.log('dataComp', dataComp?.fields[0].decorators);
 
-    getDecorators!.forEach(decorator => {
+    // const transformsComponents = this.appContext.getComponentRegistry().get({ id: JsonataDecorator.JsonataTransform });
+    // const transform = transformsComponents.find(t => t.getClass() === mapper);
 
-      const dataPath = decorator.data.path;
-      const value = get(data, dataPath);
-
-      
-      // const t = transformsComponents.find(t => t.getClass() === decorator.dataType as any);
-
-      // const d = t!.getDecorators({ id: JsonataDecorator.JsonGet });
-      
-      
-
-      dataObj[decorator.property!] = value;
-
-    });
+    // const getDecorators = transform?.getDecorators({ id: JsonataDecorator.JsonGet });
     
-    return dataObj;
+    // let dataObj: any = {};
+
+    // getDecorators!.forEach(decorator => {
+
+    //   const dataPath = decorator.data.path;
+    //   const value = get(data, dataPath);
+
+      
+    //   // const t = transformsComponents.find(t => t.getClass() === decorator.dataType as any);
+
+    //   // const d = t!.getDecorators({ id: JsonataDecorator.JsonGet });
+      
+      
+
+    //   dataObj[decorator.property!] = value;
+
+    // });
+    
+    // return dataObj;
+    return {};
   }
 }
