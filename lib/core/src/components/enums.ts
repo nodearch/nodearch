@@ -14,6 +14,8 @@ export enum CoreDecorator {
   INTERCEPTOR = '@nodearch/core/decorators/interceptor',
   CONTROLLER = '@nodearch/core/decorators/controller',
   USE = '@nodearch/core/decorators/use',
+  DATA = '@nodearch/core/decorators/data',
+  FIELD = '@nodearch/core/decorators/field'
 }
 
 export enum DecoratorType {

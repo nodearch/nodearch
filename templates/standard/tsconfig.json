@@ -65,6 +65,7 @@
   },
   "ts-node": {
     "transpileOnly": true,
+    "esm": true,
     "swc": true
   }
 }

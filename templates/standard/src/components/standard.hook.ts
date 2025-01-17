@@ -16,7 +16,7 @@ export class StandardHook implements IHook {
       } 
     }, UserMapper);
 
-    console.log('Standard Hook', user);
+    console.log('Mapped Data', user);
 
   }
 } 

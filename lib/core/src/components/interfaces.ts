@@ -40,11 +40,6 @@ export type IComponentDecorator<T = any> = {
   property?: string;
 
   /**
-   * Available only for property decorator
-   */
-  dataType?: string;
-
-  /**
    * Available only for parameter decorator 
    */
   paramIndex?: number;

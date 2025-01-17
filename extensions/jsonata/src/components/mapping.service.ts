@@ -22,11 +22,10 @@ export class MappingService {
       const dataPath = decorator.data.path;
       const value = get(data, dataPath);
 
-      console.log('decorator.dataType', decorator.dataType)
       
-      const t = transformsComponents.find(t => t.getClass() === decorator.dataType as any);
+      // const t = transformsComponents.find(t => t.getClass() === decorator.dataType as any);
 
-      const d = t!.getDecorators({ id: JsonataDecorator.JsonGet });
+      // const d = t!.getDecorators({ id: JsonataDecorator.JsonGet });
       
       
 

@@ -158,14 +158,10 @@ export class ComponentFactory {
 
       const data = options.fn?.(target, propKey);
 
-
-      const dataType = Reflect.getMetadata('design:type', target, propKey as string);
-
       ComponentMetadata.setComponentDecorator(decoratorTarget, {
         type: DecoratorType.PROPERTY,
         id: options.id,
         property: propKey as string,
-        dataType: dataType,
         data,
         dependencies: options.dependencies ? ComponentFactory.getComponentDependencies({
           target: decoratorTarget,

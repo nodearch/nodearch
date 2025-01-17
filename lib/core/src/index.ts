@@ -23,6 +23,8 @@ export * from './components/repository/repository.decorator.js';
 
 export * from './components/service/service.decorator.js';
 
+export * from './components/data/data.decorator.js';
+
 export { ComponentScope } from './components/enums.js';
 
 export { IComponentOptions } from './components/interfaces.js';
