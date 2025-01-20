@@ -10,29 +10,51 @@ export class SchedulerService {
     private logger: Logger
   ) { }
 
-  schedule(
+  async schedule(
     when: string | Date,
     jobDefinition: ClassConstructor<IJobDefinition> | ClassConstructor<IJobDefinition>[],
     data?: any
   ) {
     const jobNames = this.getJobName(jobDefinition);
 
-    this.schedulerRegistry.getPulse().schedule(when, jobNames, data);
+    const jobs = await this.schedulerRegistry.getPulse().schedule(when, jobNames, data);
 
     this.logger.info(`Scheduled jobs [${jobNames.join(', ')}] to run at ${when}`);
+
+    return jobs;
   }
 
-  now(
+  async now(
     jobDefinition: ClassConstructor<IJobDefinition> | ClassConstructor<IJobDefinition>[],
     data?: any
   ) {
     const jobNames = this.getJobName(jobDefinition);
 
-    jobNames.forEach(jobName => {
-      this.schedulerRegistry.getPulse().now(jobName, data);
-    });
+    const jobs = await Promise.all(
+      jobNames.map(
+        jobName => this.schedulerRegistry
+          .getPulse()
+          .now(jobName, data)
+      )
+    );
 
     this.logger.info(`Scheduled jobs [${jobNames.join(', ')}] to run now`);
+  
+    return jobs;
+  }
+
+  async every(
+    interval: string,
+    jobDefinition: ClassConstructor<IJobDefinition> | ClassConstructor<IJobDefinition>[],
+    data?: any
+  ) {
+    const jobNames = this.getJobName(jobDefinition);
+
+    const jobs = await this.schedulerRegistry.getPulse().every(interval, jobNames, data);
+
+    this.logger.info(`Scheduled jobs [${jobNames.join(', ')}] to run every ${interval}`);
+
+    return jobs;
   }
 
   async getJobs(options: IGetJobsInputs) {
@@ -54,13 +76,13 @@ export class SchedulerService {
 
   private resolveJobQuery(jobDefinition: ClassConstructor<IJobDefinition>, query: any) {
     const jobInfo = this.schedulerRegistry.getJobInfo(jobDefinition);
-    
+
     if (!jobInfo) {
       throw new Error(`Job ${jobDefinition.name} not found in the registry`);
     }
 
     query = query || {};
-    
+
     if (typeof query.name === 'string') {
       query.name = { $in: [jobInfo.jobName, query.name] };
     }
@@ -81,7 +103,7 @@ export class SchedulerService {
 
     return jobDefinition.map(job => {
       const jobInfo = this.schedulerRegistry.getJobInfo(job);
-    
+
       if (!jobInfo) {
         throw new Error(`Job ${job.name} not found in the registry`);
       }
