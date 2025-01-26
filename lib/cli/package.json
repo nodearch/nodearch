@@ -40,16 +40,15 @@
     "@nodearch/command": "workspace:^1.1.0",
     "typescript": "^5.7.3",
     "axios": "^1.7.9",
-    "nodemon": "^3.0.1",
-    "npm-check-updates": "~16.14.6",
+    "nodemon": "3.1.2",
+    "npm-check-updates": "^17.1.14",
     "@swc/core": "^1.10.9",
     "@swc-node/register": "~1.10.9"
   },
   "devDependencies": {
     "@types/node": "^22.10.10",
     "rimraf": "^6.0.1",
-    "@types/nodemon": "^1.19.3",
-    "@types/semver-utils": "~1.1.1"
+    "@types/semver-utils": "^1.1.3"
   },
   "nodearch": {
     "disableBootstrapMetrics": true

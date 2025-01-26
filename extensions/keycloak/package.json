@@ -47,7 +47,7 @@
     "@types/jsonwebtoken": "^9.0.4"
   },
   "peerDependencies": {
-    "@nodearch/core": "2.2.0",
-    "reflect-metadata": "0.x"
+    "@nodearch/core": "^2.0.0",
+    "reflect-metadata": "^0.0.0"
   }
 }
