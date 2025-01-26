@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "update swc config",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
