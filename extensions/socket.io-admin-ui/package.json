@@ -39,9 +39,9 @@
     "@types/serve-handler": "^6.1.4"
   },
   "peerDependencies": {
-    "@nodearch/core": "^2.2.1",
-    "@nodearch/socket.io": "^1.1.1",
-    "reflect-metadata": "^0.0.0"
+    "@nodearch/core": "^2.x.x",
+    "@nodearch/socket.io": "^1.x.x",
+    "reflect-metadata": "^0.x.x"
   },
   "dependencies": {
     "@socket.io/admin-ui": "^0.5.1"

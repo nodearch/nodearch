@@ -42,7 +42,7 @@
     "@types/aws-lambda": "^8.10.138"
   },
   "peerDependencies": {
-    "@nodearch/core": "^2.0.0",
-    "reflect-metadata": "^0.0.0"
+    "@nodearch/core": "^2.x.x",
+    "reflect-metadata": "^0.x.x"
   }
 }

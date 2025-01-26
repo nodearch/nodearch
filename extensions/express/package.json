@@ -42,9 +42,9 @@
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
-    "@nodearch/core": "^2.2.1",
-    "@nodearch/openapi": "^1.1.1",
-    "express": "^4.0.0",
-    "reflect-metadata": "^0.0.0"
+    "@nodearch/core": "^2.x.x",
+    "@nodearch/openapi": "^1.x.x",
+    "express": "^4.x.x",
+    "reflect-metadata": "^0.x.x"
   }
 }

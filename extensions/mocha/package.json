@@ -43,9 +43,9 @@
     "mocha": "^11.1.0"
   },
   "peerDependencies": {
-    "@nodearch/core": "^2.2.1",
-    "mocha": "^11.0.0",
-    "reflect-metadata": "^0.0.0"
+    "@nodearch/core": "^2.x.x",
+    "mocha": "^11.x.x",
+    "reflect-metadata": "^0.x.x"
   },
   "nodearch": {}
 }

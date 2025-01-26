@@ -39,9 +39,9 @@
     "socket.io": "^4.8.1"
   },
   "peerDependencies": {
-    "@nodearch/core": "^2.2.1",
-    "socket.io": "^4.0.0",
-    "reflect-metadata": "^0.0.0"
+    "@nodearch/core": "^2.x.x",
+    "socket.io": "^4.x.x",
+    "reflect-metadata": "^0.x.x"
   },
   "dependencies": {}
 }
