@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/express",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "nodearch express server",
   "exports": {
     ".": {
@@ -32,8 +32,8 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.2.1",
-    "@nodearch/openapi": "workspace:^1.1.1",
+    "@nodearch/core": "workspace:^2.2.2",
+    "@nodearch/openapi": "workspace:^1.1.2",
     "@types/express": "^5.0.0",
     "@types/body-parser": "^1.19.5",
     "express": "^4.21.2",
@@ -42,8 +42,8 @@
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
-    "@nodearch/core": "^2.x.x",
-    "@nodearch/openapi": "^1.x.x",
+    "@nodearch/core": "^2.2.2",
+    "@nodearch/openapi": "^1.1.2",
     "express": "^4.x.x",
     "reflect-metadata": "^0.x.x"
   }

@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/mocha",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "nodearch mocha extension",
   "exports": {
     ".": {
@@ -32,10 +32,10 @@
     "email": "bluemax7o1@gmail.com"
   },
   "dependencies": {
-    "@nodearch/command": "workspace:^1.1.1"
+    "@nodearch/command": "workspace:^1.1.2"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.2.1",
+    "@nodearch/core": "workspace:^2.2.2",
     "typescript": "^5.7.3",
     "@types/node": "^22.10.10",
     "rimraf": "^6.0.1",
@@ -43,7 +43,7 @@
     "mocha": "^11.1.0"
   },
   "peerDependencies": {
-    "@nodearch/core": "^2.x.x",
+    "@nodearch/core": "^2.2.2",
     "mocha": "^11.x.x",
     "reflect-metadata": "^0.x.x"
   },

@@ -2,6 +2,20 @@
   "name": "@nodearch/core",
   "entries": [
     {
+      "version": "2.2.2",
+      "tag": "@nodearch/core_v2.2.2",
+      "date": "Sun, 26 Jan 2025 23:38:48 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update per deps",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "bdeee229492ad0242b043c8cf976ed664d0d2893"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.2.1",
       "tag": "@nodearch/core_v2.2.1",
       "date": "Sun, 26 Jan 2025 23:04:20 GMT",

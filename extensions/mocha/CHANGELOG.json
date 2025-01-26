@@ -2,6 +2,31 @@
   "name": "@nodearch/mocha",
   "entries": [
     {
+      "version": "1.1.2",
+      "tag": "@nodearch/mocha_v1.1.2",
+      "date": "Sun, 26 Jan 2025 23:38:48 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update per deps",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "bdeee229492ad0242b043c8cf976ed664d0d2893"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/command\" from `^1.1.1` to `1.1.2`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^2.2.1` to `2.2.2`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^2.x.x` to `2.2.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.1",
       "tag": "@nodearch/mocha_v1.1.1",
       "date": "Sun, 26 Jan 2025 23:04:20 GMT",

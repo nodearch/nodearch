@@ -1,6 +1,13 @@
 # Change Log - @nodearch/aws-sqs-event
 
-This log was last generated on Sun, 26 Jan 2025 23:04:20 GMT and should not be manually modified.
+This log was last generated on Sun, 26 Jan 2025 23:38:48 GMT and should not be manually modified.
+
+## 1.1.2
+Sun, 26 Jan 2025 23:38:48 GMT
+
+### Patches
+
+- update per deps
 
 ## 1.1.1
 Sun, 26 Jan 2025 23:04:20 GMT
