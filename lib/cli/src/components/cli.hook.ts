@@ -63,6 +63,7 @@ export class CliHook implements IHook {
     else {
       excludedCommands.push('start');
       excludedCommands.push('build');
+      excludedCommands.push('ncu');
     }
 
     await this.commandService.start({ commands: localAppCommands, exclude: excludedCommands });
