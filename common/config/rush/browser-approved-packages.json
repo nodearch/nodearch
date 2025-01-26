@@ -95,6 +95,14 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@swc-node/register",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@swc/cli",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@swc/core",
       "allowedCategories": [ "production", "prototypes" ]
     },

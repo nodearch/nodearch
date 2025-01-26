@@ -1,5 +1,5 @@
 import { ClassConstructor } from '@nodearch/core/utils';
-import OAISchema from 'openapi3-ts';
+import OAISchema, {} from 'openapi3-ts';
 
 
 export interface IOpenAPIAppOptions {

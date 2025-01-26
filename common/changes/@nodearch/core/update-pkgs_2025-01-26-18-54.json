@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/core",
+      "comment": "update pkgs",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@nodearch/core"
+}

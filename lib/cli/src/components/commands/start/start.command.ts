@@ -45,12 +45,11 @@ export class StartCommand implements ICommand {
       'utils', 'app-starter.' + ext 
     );
 
-    const tsxLoaderUrl = import.meta.resolve('tsx');
-
     nodemon({
       watch: [fileURLToPath(localAppInfo.paths.appDir)],
       ext: 'ts',
-      exec: `node --import ${tsxLoaderUrl} ${starterScriptPath} rootDir=${localAppInfo.paths.rootDir}`,
+      cwd: fileURLToPath(localAppInfo.paths.rootDir),
+      script: starterScriptPath,
       legacyWatch: true
     });
 

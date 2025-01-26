@@ -33,11 +33,11 @@
   },
   "devDependencies": {
     "@nodearch/core": "workspace:^2.1.4",
-    "@types/node": "^20.8.6",
-    "rimraf": "^5.0.5",
-    "typescript": "^5.2.2",
-    "@types/swagger-ui-dist": "^3.30.2",
-    "swagger-ui-dist": "^5.9.0"
+    "@types/node": "^22.10.10",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3",
+    "@types/swagger-ui-dist": "^3.30.5",
+    "swagger-ui-dist": "^5.18.2"
   },
   "dependencies": {},
   "peerDependencies": {
