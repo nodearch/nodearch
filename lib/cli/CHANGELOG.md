@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Sun, 26 Jan 2025 15:15:05 GMT and should not be manually modified.
+This log was last generated on Sun, 26 Jan 2025 16:30:49 GMT and should not be manually modified.
+
+## 2.1.1
+Sun, 26 Jan 2025 16:30:49 GMT
+
+### Patches
+
+- revert to ts-node and swc
 
 ## 2.1.0
 Sun, 26 Jan 2025 15:15:05 GMT

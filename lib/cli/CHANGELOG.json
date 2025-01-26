@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.1.1",
+      "tag": "@nodearch/cli_v2.1.1",
+      "date": "Sun, 26 Jan 2025 16:30:49 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "revert to ts-node and swc",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "f66096df6a4e595e7c9f0ca0661d456292221e96"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.1.0",
       "tag": "@nodearch/cli_v2.1.0",
       "date": "Sun, 26 Jan 2025 15:15:05 GMT",
