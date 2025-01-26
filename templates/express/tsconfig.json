@@ -62,5 +62,9 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "tsBuildInfoFile": "./dist/buildinfo"
+  },
+  "ts-node": {
+    "esm": true,
+    "swc": true
   }
 }

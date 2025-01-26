@@ -18,9 +18,8 @@
     "@types/node": "^20.8.6",
     "typescript": "^5.2.2",
     "rimraf": "^5.0.5",
-    "ts-node": "^10.9.1",
     "reflect-metadata": "^0.1.13",
-    "@swc/core": "^1.4.8"
+    "@swc/core": "^1.10.9"
   },
   "dependencies": {
     "@nodearch/core": "workspace:^2.1.4",
