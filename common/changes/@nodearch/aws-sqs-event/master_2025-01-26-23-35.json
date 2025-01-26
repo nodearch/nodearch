@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/aws-sqs-event",
+      "comment": "update per deps",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/aws-sqs-event"
+}

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/pulsecron",
+      "comment": "update per deps",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/pulsecron"
+}
