@@ -4,6 +4,7 @@
 # Use negative patterns to bring back the specific things we want to publish.
 !/dist/**
 !tsconfig.json
+!src/index.ts
 
 # Ignore certain patterns that should not get published.
 /dist/**/*spec.*
