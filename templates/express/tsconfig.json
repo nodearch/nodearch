@@ -62,9 +62,5 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "tsBuildInfoFile": "./dist/buildinfo"
-  },
-  "ts-node": {
-    "transpileOnly": true,
-    "swc": true
   }
 }
