@@ -1,6 +1,13 @@
 # Change Log - @nodearch/pulsecron
 
-This log was last generated on Sun, 26 Jan 2025 18:58:03 GMT and should not be manually modified.
+This log was last generated on Sun, 26 Jan 2025 23:04:20 GMT and should not be manually modified.
+
+## 0.3.1
+Sun, 26 Jan 2025 23:04:20 GMT
+
+### Patches
+
+- update dependencies
 
 ## 0.3.0
 Sun, 26 Jan 2025 18:58:03 GMT

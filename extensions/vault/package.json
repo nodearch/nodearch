@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/vault",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "NodeArch Vault Wrapper",
   "exports": {
     ".": {
@@ -35,14 +35,14 @@
     "axios": "^1.7.9"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.2.0",
+    "@nodearch/core": "workspace:^2.2.1",
     "@types/node": "^22.10.10",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.3",
     "reflect-metadata": "^0.2.2"
   },
   "peerDependencies": {
-    "@nodearch/core": "^2.0.0",
+    "@nodearch/core": "^2.2.1",
     "reflect-metadata": "^0.0.0"
   }
 }

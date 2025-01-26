@@ -21,8 +21,8 @@
     "reflect-metadata": "^0.2.2"
   },
   "dependencies": {
-    "@nodearch/core": "workspace:^2.2.0",
-    "@nodearch/aws-sqs-event": "workspace:^1.1.0",
+    "@nodearch/core": "workspace:^2.2.1",
+    "@nodearch/aws-sqs-event": "workspace:^1.1.1",
     "@aws-sdk/client-sqs": "^3.723.0"
   },
   "nodearch": {}
