@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.2.2",
+      "tag": "@nodearch/cli_v2.2.2",
+      "date": "Sun, 26 Jan 2025 23:14:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add reflect-metadata",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "13e6f480108c34ed43a5206aea76f63cbe7ebffc"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.2.1",
       "tag": "@nodearch/cli_v2.2.1",
       "date": "Sun, 26 Jan 2025 23:04:20 GMT",
