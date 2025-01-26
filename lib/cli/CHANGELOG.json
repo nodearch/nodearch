@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.1.0",
+      "tag": "@nodearch/cli_v2.1.0",
+      "date": "Sun, 26 Jan 2025 15:15:05 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "replace ts-node with tsx",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "d8f0dfbdeeedd4b906413c136c48a2033ac78d08"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.26",
       "tag": "@nodearch/cli_v2.0.26",
       "date": "Sat, 23 Mar 2024 19:34:17 GMT",

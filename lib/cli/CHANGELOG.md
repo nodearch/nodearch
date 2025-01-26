@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Sat, 23 Mar 2024 19:34:17 GMT and should not be manually modified.
+This log was last generated on Sun, 26 Jan 2025 15:15:05 GMT and should not be manually modified.
+
+## 2.1.0
+Sun, 26 Jan 2025 15:15:05 GMT
+
+### Minor changes
+
+- replace ts-node with tsx
 
 ## 2.0.26
 Sat, 23 Mar 2024 19:34:17 GMT
