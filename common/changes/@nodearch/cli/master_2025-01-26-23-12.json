@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "add reflect-metadata",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
