@@ -5,7 +5,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { LocalAppService } from '../../local-app.service.js';
 
-
 @Command()
 export class StartCommand implements ICommand {
 
@@ -45,7 +44,7 @@ export class StartCommand implements ICommand {
       'utils', 'app-starter.' + ext 
     );
 
-    nodemon({
+    (nodemon as any)({
       watch: [fileURLToPath(localAppInfo.paths.appDir)],
       ext: 'ts',
       cwd: fileURLToPath(localAppInfo.paths.rootDir),
@@ -53,7 +52,7 @@ export class StartCommand implements ICommand {
       legacyWatch: true
     });
 
-    nodemon
+    (nodemon as any)
       .on('start', () => {
         this.logger.info('App started in watch mode');
       })
@@ -61,7 +60,7 @@ export class StartCommand implements ICommand {
         this.logger.info('App has quit');
         process.exit();
       })
-      .on('restart', (files) => {
+      .on('restart', (files: any) => {
         this.logger.info('App restarted due to: ', files);
       });
   }

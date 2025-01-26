@@ -41,9 +41,9 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@nodearch/core": "2.2.0",
-    "prisma": "6.x",
-    "@prisma/client": "6.x",
-    "reflect-metadata": "0.x"
+    "@nodearch/core": "^2.0.0",
+    "prisma": "^6.0.0",
+    "@prisma/client": "^6.0.0",
+    "reflect-metadata": "^0.0.0"
   }
 }

@@ -42,8 +42,8 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@nodearch/core": "2.2.0",
-    "reflect-metadata": "0.x",
-    "@aws-sdk/client-sqs": "3.x"
+    "@nodearch/core": "^2.0.0",
+    "reflect-metadata": "^0.0.0",
+    "@aws-sdk/client-sqs": "^3.0.0"
   }
 }
