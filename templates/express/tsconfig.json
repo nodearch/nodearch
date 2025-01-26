@@ -66,5 +66,12 @@
   "ts-node": {
     "esm": true,
     "swc": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ]
 }

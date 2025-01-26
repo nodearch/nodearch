@@ -33,11 +33,11 @@
   },
   "devDependencies": {
     "@nodearch/core": "workspace:^2.1.4",
-    "@types/node": "^20.8.6",
-    "rimraf": "^5.0.5",
-    "typescript": "^5.2.2",
-    "prisma": "^6.1.0",
-    "@prisma/client": "^6.1.0"
+    "@types/node": "^22.10.10",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3",
+    "prisma": "^6.2.1",
+    "@prisma/client": "^6.2.1"
   },
   "dependencies": {},
   "peerDependencies": {
