@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.2.3",
+      "tag": "@nodearch/cli_v2.2.3",
+      "date": "Sun, 26 Jan 2025 23:53:30 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update swc config",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "90f0144e1347bc73085ad08094297281a03e135f"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.2.2",
       "tag": "@nodearch/cli_v2.2.2",
       "date": "Sun, 26 Jan 2025 23:14:20 GMT",
