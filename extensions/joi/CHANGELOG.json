@@ -2,6 +2,28 @@
   "name": "@nodearch/joi",
   "entries": [
     {
+      "version": "1.1.0",
+      "tag": "@nodearch/joi_v1.1.0",
+      "date": "Sun, 26 Jan 2025 18:58:03 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "update pkgs",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "98d67931bac8194b52b8a567864443006aa28e62"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `^2.1.4` to `2.2.0`"
+          },
+          {
+            "comment": "Updating dependency \"@nodearch/core\" from `2.x` to `2.2.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.0.7",
       "tag": "@nodearch/joi_v1.0.7",
       "date": "Wed, 08 May 2024 10:28:22 GMT",

@@ -1,6 +1,13 @@
 # Change Log - @nodearch/mocha
 
-This log was last generated on Sun, 21 Jul 2024 06:20:22 GMT and should not be manually modified.
+This log was last generated on Sun, 26 Jan 2025 18:58:03 GMT and should not be manually modified.
+
+## 1.1.0
+Sun, 26 Jan 2025 18:58:03 GMT
+
+### Minor changes
+
+- update pkgs
 
 ## 1.0.10
 Sun, 21 Jul 2024 06:20:22 GMT

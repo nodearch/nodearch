@@ -1,6 +1,13 @@
 # Change Log - @nodearch/keycloak
 
-This log was last generated on Wed, 08 May 2024 10:28:22 GMT and should not be manually modified.
+This log was last generated on Sun, 26 Jan 2025 18:58:03 GMT and should not be manually modified.
+
+## 2.1.0
+Sun, 26 Jan 2025 18:58:03 GMT
+
+### Minor changes
+
+- update pkgs
 
 ## 2.0.5
 Wed, 08 May 2024 10:28:22 GMT

@@ -22,12 +22,12 @@
     "@swc/core": "^1.10.9"
   },
   "dependencies": {
-    "@nodearch/core": "workspace:^2.1.4",
-    "@nodearch/socket.io": "workspace:^1.0.6",
-    "@nodearch/express": "workspace:^2.0.13",
-    "@nodearch/socket.io-redis": "workspace:^1.0.7",
-    "@nodearch/ioredis": "workspace:^1.0.7",
-    "@nodearch/socket.io-admin-ui": "workspace:^1.0.6",
+    "@nodearch/core": "workspace:^2.2.0",
+    "@nodearch/socket.io": "workspace:^1.1.0",
+    "@nodearch/express": "workspace:^2.1.0",
+    "@nodearch/socket.io-redis": "workspace:^1.1.0",
+    "@nodearch/ioredis": "workspace:^1.1.0",
+    "@nodearch/socket.io-admin-ui": "workspace:^1.1.0",
     "socket.io": "^4.8.1"
   },
   "nodearch": {}

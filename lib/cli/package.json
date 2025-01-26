@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/cli",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "nodearch cli",
   "exports": {
     ".": {
@@ -36,8 +36,8 @@
     "email": "bluemax7o1@gmail.com"
   },
   "dependencies": {
-    "@nodearch/core": "workspace:^2.1.4",
-    "@nodearch/command": "workspace:^1.0.8",
+    "@nodearch/core": "workspace:^2.2.0",
+    "@nodearch/command": "workspace:^1.1.0",
     "typescript": "^5.7.3",
     "axios": "^1.7.9",
     "nodemon": "^3.0.1",

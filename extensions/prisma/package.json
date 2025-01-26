@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/prisma",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Prisma extension for Nodearch",
   "exports": {
     ".": {
@@ -32,7 +32,7 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.1.4",
+    "@nodearch/core": "workspace:^2.2.0",
     "@types/node": "^22.10.10",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.3",
@@ -41,7 +41,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@nodearch/core": "2.x",
+    "@nodearch/core": "2.2.0",
     "prisma": "6.x",
     "@prisma/client": "6.x",
     "reflect-metadata": "0.x"

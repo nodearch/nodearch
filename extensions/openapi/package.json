@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/openapi",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "OpenApi",
   "exports": {
     ".": {
@@ -32,8 +32,8 @@
     "email": "bluemax7o1@gmail.com"
   },
   "devDependencies": {
-    "@nodearch/core": "workspace:^2.1.4",
-    "@nodearch/command": "workspace:^1.0.8",
+    "@nodearch/core": "workspace:^2.2.0",
+    "@nodearch/command": "workspace:^1.1.0",
     "@types/node": "^22.10.10",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.3"
@@ -42,7 +42,7 @@
     "openapi3-ts": "^3.1.2"
   },
   "peerDependencies": {
-    "@nodearch/core": "2.x",
+    "@nodearch/core": "2.2.0",
     "reflect-metadata": "0.x"
   }
 }

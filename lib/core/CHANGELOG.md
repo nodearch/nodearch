@@ -1,6 +1,13 @@
 # Change Log - @nodearch/core
 
-This log was last generated on Wed, 08 May 2024 07:32:44 GMT and should not be manually modified.
+This log was last generated on Sun, 26 Jan 2025 18:58:03 GMT and should not be manually modified.
+
+## 2.2.0
+Sun, 26 Jan 2025 18:58:03 GMT
+
+### Minor changes
+
+- update pkgs
 
 ## 2.1.4
 Wed, 08 May 2024 07:32:44 GMT

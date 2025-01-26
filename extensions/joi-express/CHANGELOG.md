@@ -1,6 +1,13 @@
 # Change Log - @nodearch/joi-express
 
-This log was last generated on Wed, 12 Jun 2024 10:11:29 GMT and should not be manually modified.
+This log was last generated on Sun, 26 Jan 2025 18:58:03 GMT and should not be manually modified.
+
+## 1.1.0
+Sun, 26 Jan 2025 18:58:03 GMT
+
+### Minor changes
+
+- update pkgs
 
 ## 1.0.11
 Wed, 12 Jun 2024 10:11:29 GMT
