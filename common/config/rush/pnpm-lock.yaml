@@ -480,7 +480,7 @@ importers:
   ../../templates/express:
     dependencies:
       '@nodearch/cli':
-        specifier: workspace:^2.2.1
+        specifier: workspace:^2.2.2
         version: link:../../lib/cli
       '@nodearch/command':
         specifier: workspace:^1.1.1
