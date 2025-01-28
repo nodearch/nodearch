@@ -123,6 +123,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@types/ejs",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@types/express",
       "allowedCategories": [ "production", "prototypes" ]
     },
@@ -215,8 +219,16 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "ejs",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "express",
       "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "handlebars",
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "inquirer",
