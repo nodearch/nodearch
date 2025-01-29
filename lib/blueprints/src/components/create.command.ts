@@ -1,5 +1,5 @@
 import { Command, ICommand } from '@nodearch/command';
-import { generate } from '../generator.js';
+import * as generate from '../lib/generator.js';
 
 @Command()
 export class CreateCommand implements ICommand {
@@ -13,11 +13,17 @@ export class CreateCommand implements ICommand {
     console.log('Create Command');
 
 
-    await generate('main.ts.tpl', { 
+    await generate.mainTs({ 
       className: 'NodeArch', 
       logPrefix: 'NodeArch', 
       extensions: [
-        'ExpressApp', 'MochaApp'
+        { 
+          name: 'ExpressApp',
+          options: [
+            { key: 'port', value: { lol: 'one' } }
+          ]
+        },
+        { name: 'MochaApp' }
       ],
       imports: [
         {
@@ -34,5 +40,10 @@ export class CreateCommand implements ICommand {
         }
       ] 
     }, new URL('./lol.ts', import.meta.url));
+
+    // await generate.packageJson({ 
+    //   packageName: 'something' 
+    // }, new URL('./lol.ts', import.meta.url));
+
   }
 }

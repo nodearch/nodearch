@@ -1,2 +1,2 @@
 export * from './main.js';
-export * from './generator.js';
+export * from './lib/generator.js';

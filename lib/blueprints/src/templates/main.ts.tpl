@@ -11,7 +11,16 @@ export class {{className}} extends App {
       {{#if extensions.length}}
       extensions: [
       	{{#each extensions}}
-        new {{this}}(){{#unless @last}},{{/unless}}
+        {{#unless this.options}}
+        new {{this.name}}(){{#unless @last}},{{/unless}}
+        {{/unless}}
+        {{#if this.options}}
+        new {{this.name}}({
+          {{#each this.options}}
+          {{this.key}}: {{dataTypeFormat this.value}}{{#unless @last}},{{/unless}}
+          {{/each}}
+        }){{#unless @last}},{{/unless}}
+        {{/if}}
         {{/each}}
       ],
       {{/if}}
