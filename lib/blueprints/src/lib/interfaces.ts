@@ -17,4 +17,16 @@ export interface IMainTs {
 export interface IPackageJson {
   packageName: string;
   packageDescription?: string;
+  scripts: {
+    name: string;
+    command: string;
+  }[];
+  devDependencies: {
+    name: string;
+    version: string;
+  }[];
+  dependencies: {
+    name: string;
+    version: string;
+  }[];
 }

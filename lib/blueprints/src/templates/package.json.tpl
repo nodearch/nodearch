@@ -7,21 +7,29 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "rimraf ./dist/ && tsc",
-    "build:watch": "tsc",
-    "start": "node dist/start.js"
+    {{#each scripts}}
+    "{{this.name}}": "{{this.command}}"{{#unless @last}},{{/unless}}
+    {{/each}}
   },
   "keywords": [],
   "author": "",
   "license": "",
+  {{#if devDependencies.length}}
   "devDependencies": {
-    "@types/node": "^22.10.10",
-    "typescript": "^5.7.3",
-    "rimraf": "^6.0.1",
-    "reflect-metadata": "^0.2.2"
+    {{#each devDependencies}}
+    "{{this.name}}": "{{this.version}}"{{#unless @last}},{{/unless}}
+    {{/each}}
   },
+  {{else}}
+  "devDependencies": {},
+  {{/if}}
+  {{#if dependencies.length}}
   "dependencies": {
-    "@nodearch/core": "workspace:^2.2.2"
-  },
-  "nodearch": {}
+    {{#each dependencies}}
+    "{{this.name}}": "{{this.version}}"{{#unless @last}},{{/unless}}
+    {{/each}}
+  }
+  {{else}}
+  "dependencies": {}
+  {{/if}}
 }
