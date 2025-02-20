@@ -33,7 +33,7 @@
   "dependencies": {
     "@nodearch/core": "workspace:^2.2.2",
     "@nodearch/command": "workspace:^1.1.2",
-    "@nodearch/cli": "workspace:^2.2.3",
+    "@nodearch/cli": "workspace:^2.2.4",
     "@nodearch/express": "workspace:^2.1.2",
     "@nodearch/openapi": "workspace:^1.1.2",
     "@nodearch/swagger": "workspace:^1.1.2",
