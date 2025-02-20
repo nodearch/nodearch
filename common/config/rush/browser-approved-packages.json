@@ -219,6 +219,10 @@
       "allowedCategories": [ "production", "prototypes" ]
     },
     {
+      "name": "fork-child",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "inquirer",
       "allowedCategories": [ "production" ]
     },
@@ -349,6 +353,10 @@
     {
       "name": "tsconfig-paths",
       "allowedCategories": [ "production", "prototypes" ]
+    },
+    {
+      "name": "tsup",
+      "allowedCategories": [ "production" ]
     },
     {
       "name": "tsx",
