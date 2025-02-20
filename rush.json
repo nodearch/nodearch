@@ -383,6 +383,12 @@
       "reviewCategory": "production",
       "versionPolicyName": "packages"
     },
+    {
+      "packageName": "@nodearch/bridge",
+      "projectFolder": "lib/bridge",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages"
+    },
 
     // ============= Scripts =============
     // {

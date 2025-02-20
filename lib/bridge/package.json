@@ -1,7 +1,7 @@
 {
-  "name": "@nodearch/cli",
-  "version": "2.2.3",
-  "description": "nodearch cli",
+  "name": "@nodearch/bridge",
+  "version": "0.1.0",
+  "description": "NodeArch Bridge",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -12,14 +12,11 @@
   "engines": {
     "node": ">=20.10.0"
   },
-  "bin": {
-    "nodearch": "./start.js"
-  },
   "scripts": {
-    "build": "rimraf ./dist/ && tsc",
+    "start": "node --import ./register.js src/index.ts",
+    "build": "tsup src/index.ts --format esm --dts",
     "build:watch": "tsc",
-    "start": "node ./dist/start.js",
-    "release": "npm run build && npm publish --tag beta --access public"
+    "release": "npm run build && npm publish --access public"
   },
   "repository": {
     "type": "git",
@@ -27,7 +24,7 @@
   },
   "keywords": [
     "nodearch",
-    "nodearch-cli"
+    "nodearch-bridge"
   ],
   "author": "https://github.com/AhmedAli7O1",
   "license": "MIT",
@@ -37,21 +34,15 @@
   },
   "dependencies": {
     "@nodearch/core": "workspace:^2.2.2",
-    "@nodearch/command": "workspace:^1.1.2",
-    "typescript": "^5.7.3",
-    "axios": "^1.7.9",
-    "nodemon": "3.1.2",
-    "npm-check-updates": "^17.1.14",
-    "@swc/core": "^1.10.14",
-    "@swc-node/register": "^1.10.9",
-    "reflect-metadata": "^0.2.2"
+    "fork-child": "~0.2.3"
   },
   "devDependencies": {
     "@types/node": "^22.10.10",
+    "typescript": "^5.7.3",
+    "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.1",
-    "@types/semver-utils": "^1.1.3"
-  },
-  "nodearch": {
-    "disableBootstrapMetrics": true
+    "@swc/core": "^1.10.14",
+    "@swc-node/register": "^1.10.9",
+    "tsup": "^8.3.6"
   }
 }
