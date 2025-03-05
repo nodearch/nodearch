@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/bridge",
+      "comment": "fix swc version",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/bridge"
+}
