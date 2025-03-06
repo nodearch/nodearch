@@ -4,7 +4,7 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
-pnpmfileChecksum: sha256-XTeZQwJtKk4dimqf7175GhJCXrnq3Yh7+kwb86Bwcdo=
+pnpmfileChecksum: avk5jcsa6uxo2n5cahoirjiuw4
 
 importers:
 
@@ -365,6 +365,34 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
 
+  ../../lib/blueprints:
+    dependencies:
+      ejs:
+        specifier: ~3.1.10
+        version: 3.1.10
+      handlebars:
+        specifier: ~4.7.8
+        version: 4.7.8
+    devDependencies:
+      '@nodearch/command':
+        specifier: workspace:^1.1.2
+        version: link:../command
+      '@nodearch/core':
+        specifier: workspace:^2.2.2
+        version: link:../core
+      '@types/ejs':
+        specifier: ^3.1.5
+        version: 3.1.5
+      '@types/node':
+        specifier: ^22.10.10
+        version: 22.10.10
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+
   ../../lib/bridge:
     dependencies:
       '@nodearch/core':
@@ -511,7 +539,7 @@ importers:
   ../../templates/express:
     dependencies:
       '@nodearch/cli':
-        specifier: workspace:^2.2.4
+        specifier: workspace:^2.2.5
         version: link:../../lib/cli
       '@nodearch/command':
         specifier: workspace:^1.1.2
@@ -1369,6 +1397,9 @@ packages:
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
 
+  '@types/ejs@3.1.5':
+    resolution: {integrity: sha512-nv+GSx77ZtXiJzwKdsASqi+YQ5Z7vwHsTP0JY2SiQgjGckkBRKZnk8nIM+7oUZ1VCtuTz0+By4qVR7fqzp/Dfg==}
+
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
@@ -1831,6 +1862,9 @@ packages:
     peerDependenciesMeta:
       picomatch:
         optional: true
+
+  filelist@1.0.4:
+    resolution: {integrity: sha512-w1cEuf3S+DrLCQL7ET6kz+gmlJdbq9J7yXCSjK/OZCPA+qEN1WyF4ZAf0YYJa4/shHJra2t/d/r8SV4Ji+x+8Q==}
 
   fill-range@7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
@@ -3830,6 +3864,8 @@ snapshots:
 
   '@types/deep-eql@4.0.2': {}
 
+  '@types/ejs@3.1.5': {}
+
   '@types/estree@1.0.6': {}
 
   '@types/express-serve-static-core@4.19.0':
@@ -4334,6 +4370,10 @@ snapshots:
   fdir@6.4.3(picomatch@4.0.2):
     optionalDependencies:
       picomatch: 4.0.2
+
+  filelist@1.0.4:
+    dependencies:
+      minimatch: 5.1.6
 
   fill-range@7.0.1:
     dependencies:
