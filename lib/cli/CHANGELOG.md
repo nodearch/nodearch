@@ -1,6 +1,20 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Sun, 26 Jan 2025 23:53:30 GMT and should not be manually modified.
+This log was last generated on Wed, 05 Mar 2025 22:47:16 GMT and should not be manually modified.
+
+## 2.2.5
+Wed, 05 Mar 2025 22:47:16 GMT
+
+### Patches
+
+- fix swc version
+
+## 2.2.4
+Thu, 20 Feb 2025 01:17:50 GMT
+
+### Patches
+
+- update deps
 
 ## 2.2.3
 Sun, 26 Jan 2025 23:53:30 GMT

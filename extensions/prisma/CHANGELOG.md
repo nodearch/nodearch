@@ -1,6 +1,13 @@
 # Change Log - @nodearch/prisma
 
-This log was last generated on Sun, 26 Jan 2025 23:38:48 GMT and should not be manually modified.
+This log was last generated on Wed, 05 Mar 2025 22:47:16 GMT and should not be manually modified.
+
+## 1.1.3
+Wed, 05 Mar 2025 22:47:16 GMT
+
+### Patches
+
+- update prisma deps
 
 ## 1.1.2
 Sun, 26 Jan 2025 23:38:48 GMT

@@ -1,0 +1,33 @@
+{
+  "name": "@nodearch/bridge",
+  "entries": [
+    {
+      "version": "0.1.2",
+      "tag": "@nodearch/bridge_v0.1.2",
+      "date": "Wed, 05 Mar 2025 22:47:16 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix swc version",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "29b9edf14e7c879941b0b8967d48ec364f3933f4"
+          }
+        ]
+      }
+    },
+    {
+      "version": "0.1.1",
+      "tag": "@nodearch/bridge_v0.1.1",
+      "date": "Thu, 20 Feb 2025 01:17:50 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "new pkg",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "d1236d2f18a93347b340552b77e00bd48c215f5b"
+          }
+        ]
+      }
+    }
+  ]
+}
