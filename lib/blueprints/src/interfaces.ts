@@ -1,17 +1,28 @@
+export type TLogger = (msg: string, location: string) => void;
+
+export interface IStandardAppRecipeOptions {
+  appName: string;
+  appDescription: string;
+}
+
 export interface IMainTs {
   className: string;
   logPrefix: string;
-  extensions: {
-    name: string;
-    options?: {
-      key: string;
-      value: any;
-    }[];
+  extensions: IAppExtension[];
+  imports: IAppImport[];
+}
+
+export interface IAppExtension {
+  name: string;
+  options?: {
+    key: string;
+    value: any;
   }[];
-  imports: {
-    moduleName: string;
-    imported: string[];
-  }[];
+}
+
+export interface IAppImport {
+  moduleName: string;
+  imported: string[];
 }
 
 export interface IPackageJson {

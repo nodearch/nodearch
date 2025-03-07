@@ -1,15 +1,16 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
 
-const templateDirUrl = new URL('../templates/', import.meta.url);
+const templateDirUrl = path.join(__dirname, '../templates/');
 
 export async function getTemplate(templateName: string) {
-  return await fs.readFile(new URL(templateName, templateDirUrl), 'utf-8');
+  const filePath = path.join(templateDirUrl, templateName);
+  return await fs.readFile(filePath, 'utf-8');
 }
 
-export async function writeFile(fileUrl: URL, content: string) {
-  const dir = path.dirname(fileURLToPath(fileUrl));
+export async function writeFile(filePath: string, content: string) {
+  const dir = path.dirname(filePath);
   await fs.mkdir(dir, { recursive: true });
-  await fs.writeFile(fileUrl, content);
+
+  await fs.writeFile(filePath, content);
 }

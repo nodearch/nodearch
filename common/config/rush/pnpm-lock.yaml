@@ -380,15 +380,27 @@ importers:
       '@nodearch/core':
         specifier: workspace:^2.2.2
         version: link:../core
+      '@swc-node/register':
+        specifier: 1.10.0
+        version: 1.10.0(@swc/core@1.10.18)(@swc/types@0.1.17)(typescript@5.7.3)
+      '@swc/core':
+        specifier: ^1.10.14
+        version: 1.10.18
       '@types/ejs':
         specifier: ^3.1.5
         version: 3.1.5
       '@types/node':
         specifier: ^22.10.10
         version: 22.10.10
+      mocha:
+        specifier: ^11.1.0
+        version: 11.1.0
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
+      tsup:
+        specifier: ^8.3.6
+        version: 8.3.6(@swc/core@1.10.18)(typescript@5.7.3)(yaml@2.7.0)
       typescript:
         specifier: ^5.7.3
         version: 5.7.3

@@ -1,2 +1,3 @@
-export * from './main.js';
-export * from './lib/generator.js';
+export * from './interfaces';
+export * from './generator';
+export * from './recipes';

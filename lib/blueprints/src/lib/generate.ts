@@ -1,17 +1,16 @@
 import Handlebars from 'handlebars';
-import { getTemplate } from './fs.js';
-import './helpers.js';
+import { getTemplate, writeFile } from './fs';
+import './helpers';
 
 
-export async function generate(templateName: string, data: Record<string, any>, location: URL) {
+export async function generate(templateName: string, data: Record<string, any>, location: string) {
   const templateContent = await getTemplate(templateName);
 
   const template = Handlebars.compile(templateContent);
 
   const renderedCode = template(data);
 
-  console.log(`Generate ${templateName} at ${location}`);
-  console.log(renderedCode);
+  await writeFile(location, renderedCode);
 
-  // await writeFile(location, renderedCode);
+  return location;
 }
