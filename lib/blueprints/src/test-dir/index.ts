@@ -12,7 +12,32 @@ async function main() {
   //   appDescription: 'This is my new application',
   // }, tmpAppDir);
 
-  await recipes.hook('user', tmpAppDir);
+  // await recipes.hook('user', tmpAppDir);
+
+  await recipes.controller('user', tmpAppDir, {
+    classDecorators: [
+      { name: 'HttpPath', options: [{ key: 'path', value: '/one' }] }
+    ],
+    methods: [
+      {
+        name: 'get',
+        decorators: [
+          { name: 'Get' }
+        ],
+        async: true,
+        parameters: [
+          {
+            name: 'req',
+            type: 'Request'
+          },
+          {
+            name: 'res',
+            type: 'Response'
+          }
+        ]
+      }
+    ]
+  });
 
 }
 

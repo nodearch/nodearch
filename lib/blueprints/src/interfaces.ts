@@ -55,6 +55,28 @@ export interface IComponentTs {
       value: any;
     }[];
   }[];
+  interfaces?: string[];  // Add support for implementing interfaces
+  methods?: IComponentMethod[];
+}
+
+export type ExtraComponentInfo = Partial<Omit<IComponentTs, 'className'>>
+
+export interface IComponentMethod {
+  name: string;
+  parameters?: {
+    name: string;
+    type: string;
+  }[];
+  returnType?: string;
+  body?: string;
+  async?: boolean;
+  decorators?: {
+    name: string;
+    options?: {
+      key: string;
+      value: any;
+    }[];
+  }[];
 }
 
 export interface IReadmeMd {

@@ -1,9 +1,10 @@
 import path from 'node:path';
 import { Generator } from '../generator';
-import { IStandardAppRecipeOptions } from '../interfaces';
+import { ExtraComponentInfo, IStandardAppRecipeOptions } from '../interfaces';
 import * as standardConfig from './standard.config';
 import * as hookConfig from './hook.config';
-import { capitalizeFirstLetter, parseName } from '../lib/util';
+import * as controllerConfig from './controller.config';
+import { parseName } from '../lib/util';
 
 
 /**
@@ -46,6 +47,15 @@ export class Recipes {
 
     this.generator.componentTs(
       hookConfig.getHookConfig(name),
+      filePath
+    );
+  }
+
+  async controller(name: string, dirPath: string, extraComponentInfo?: ExtraComponentInfo) {
+    const filePath = path.join(dirPath, name + '.controller.ts');
+
+    this.generator.componentTs(
+      controllerConfig.getControllerConfig(name, extraComponentInfo),
       filePath
     );
   }
