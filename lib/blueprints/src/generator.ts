@@ -17,7 +17,7 @@ export class Generator {
   }
 
   async mainTs(data: IMainTs, dirPath: string) {
-    const generatedPath = await generate('main.ts.tpl', data, path.join(dirPath, 'main.ts'));
+    const generatedPath = await generate('main.ts.tpl', data, path.join(dirPath, 'src', 'main.ts'));
     
     this.log('main.ts generated', generatedPath);
     

@@ -32,7 +32,11 @@ export class {{className}}{{#if interfaces}} implements {{strArrayPrint interfac
   {{/if}}
   {{/each}}
   {{/if}}
-  {{#if this.async}}async {{/if}}{{this.name}}({{#each this.parameters}}{{this.name}}: {{this.type}}{{#unless @last}}, {{/unless}}{{/each}}){{#if this.returnType}}: {{{this.returnType}}}{{/if}} {
+  {{#if this.async}}async {{/if}}{{this.name}}({{#each this.parameters}}{{#if this.decorators}}{{#each this.decorators}}{{#unless this.options}}@{{this.name}}() {{/unless}}{{#if this.options}}@{{this.name}}({
+    {{#each this.options}}
+    {{this.key}}: {{dataTypeFormat this.value}}{{#unless @last}},{{/unless}}
+    {{/each}}
+  }) {{/if}}{{/each}}{{/if}}{{this.name}}: {{this.type}}{{#unless @last}}, {{/unless}}{{/each}}){{#if this.returnType}}: {{{this.returnType}}}{{/if}} {
     {{#if this.body}}
     {{this.body}}
     {{/if}}

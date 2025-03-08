@@ -66,6 +66,13 @@ export interface IComponentMethod {
   parameters?: {
     name: string;
     type: string;
+    decorators?: {
+      name: string;
+      options?: {
+        key: string;
+        value: any;
+      }[];
+    }[];
   }[];
   returnType?: string;
   body?: string;

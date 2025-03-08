@@ -4,30 +4,19 @@ export function getMainConfig(className: string): IMainTs {
   return {
     className,
     logPrefix: className,
-    extensions: [
-      {
-        name: 'ExpressApp',
-        options: [
-          { key: 'port', value: 3000 }
-        ]
-      }
-    ],
+    extensions: [],
     imports: [
       {
         moduleName: '@nodearch/core',
         imported: ['App']
-      },
-      {
-        moduleName: '@nodearch/express',
-        imported: ['ExpressApp']
       }
     ]
   };
 }
 
-export function getPackageJsonConfig(): IPackageJson {
+export function getPackageJsonConfig(packageName: string): IPackageJson {
   return {
-    packageName: 'my-app',
+    packageName,
     scripts: [
       { name: 'start', command: 'node main.js' },
       { name: 'dev', command: 'ts-node main.ts' }

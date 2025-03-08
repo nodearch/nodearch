@@ -9,7 +9,8 @@ export function parseName(name: string) {
   if (!name) {
     return {
       className: '',
-      titleCase: ''
+      titleCase: '',
+      kebabCase: ''
     };
   }
   
@@ -29,7 +30,8 @@ export function parseName(name: string) {
   
   return {
     className: processedWords.join(''),       // PascalCase for class names
-    titleCase: processedWords.join(' ')       // Title Case with spaces
+    titleCase: processedWords.join(' '),      // Title Case with spaces
+    kebabCase: processedWords.join('-').toLowerCase() // kebab-case
   };
 }
 

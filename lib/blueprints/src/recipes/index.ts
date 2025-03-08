@@ -28,13 +28,15 @@ export class Recipes {
 
     const appName = parseName(data.appName);
 
-    await this.generator.packageJson(standardConfig.getPackageJsonConfig(), appDir);
+    await this.generator.packageJson(standardConfig.getPackageJsonConfig(appName.kebabCase), appDir);
     await this.generator.mainTs(standardConfig.getMainConfig(appName.className), appDir);
-    await this.generator.readmeMd(standardConfig.getReadmeConfig(appName.titleCase, data.appDescription), appDir);
     await this.generator.tsconfigJson(appDir);
-    await this.generator.gitignore(appDir);
     await this.generator.nodearch(appDir);
-
+    await this.generator.readmeMd(standardConfig.getReadmeConfig(appName.titleCase, data.appDescription), appDir);
+    await this.generator.gitignore(appDir);
+    await this.generator.eslintIgnore(appDir);
+    await this.generator.eslintRcJson(appDir);
+    await this.generator.prettierRcJson(appDir);
   }
 
   /**
