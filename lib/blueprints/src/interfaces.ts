@@ -1,89 +1,28 @@
 export type TLogger = (msg: string, location: string) => void;
 
-export interface IStandardAppRecipeOptions {
+export interface IAppGeneratorOptions {
   appName: string;
   appDescription: string;
+  extensions?: IExtensionsTemplateData;
+}
+
+export interface IExtensionsTemplateData {
+  express?: boolean;
+  mocha?: boolean;
 }
 
 export interface IMainTs {
   className: string;
   logPrefix: string;
-  extensions: IAppExtension[];
-  imports: IAppImport[];
-}
-
-export interface IAppExtension {
-  name: string;
-  options?: {
-    key: string;
-    value: any;
-  }[];
-}
-
-export interface IAppImport {
-  moduleName: string;
-  imported: string[];
+  title: string;
+  hideExtensions?: boolean;
+  extensions: IExtensionsTemplateData;
 }
 
 export interface IPackageJson {
   packageName: string;
   packageDescription?: string;
-  scripts: {
-    name: string;
-    command: string;
-  }[];
-  devDependencies: {
-    name: string;
-    version: string;
-  }[];
-  dependencies: {
-    name: string;
-    version: string;
-  }[];
-}
-
-export interface IComponentTs {
-  className: string;
-  imports: {
-    moduleName: string;
-    imported: string[];
-  }[];
-  classDecorators: {
-    name: string;
-    options?: {
-      key: string;
-      value: any;
-    }[];
-  }[];
-  interfaces?: string[];  // Add support for implementing interfaces
-  methods?: IComponentMethod[];
-}
-
-export type ExtraComponentInfo = Partial<Omit<IComponentTs, 'className'>>
-
-export interface IComponentMethod {
-  name: string;
-  parameters?: {
-    name: string;
-    type: string;
-    decorators?: {
-      name: string;
-      options?: {
-        key: string;
-        value: any;
-      }[];
-    }[];
-  }[];
-  returnType?: string;
-  body?: string;
-  async?: boolean;
-  decorators?: {
-    name: string;
-    options?: {
-      key: string;
-      value: any;
-    }[];
-  }[];
+  extensions: IExtensionsTemplateData;
 }
 
 export interface IReadmeMd {
@@ -100,4 +39,24 @@ export interface IDotEnv {
 
 export interface IVscodeSettingsJson {
   eslint: boolean;
+}
+
+export interface IHookTs {
+  className: string;
+}
+
+export interface IControllerTs {
+  className: string;
+}
+
+export interface IServiceTs {
+  className: string;
+}
+
+export interface IRepositoryTs {
+  className: string;
+}
+
+export interface IComponentTs {
+  className: string;
 }

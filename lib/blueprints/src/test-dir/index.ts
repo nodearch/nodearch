@@ -1,49 +1,25 @@
-import { Recipes } from '../index';
+import { Generator } from '../index';
 import path from 'path';
 
 const tmpAppDir = path.join(__dirname, '../../tmp-app');
 
 async function main() {
 
-  const recipes = new Recipes();
+  const generator = new Generator();
 
-  await recipes.standardApp({
+  // await recipes.service('user', tmpAppDir);
+  // await recipes.repository('user', tmpAppDir);
+  // await generator.hook('user', { className: 'User' }, tmpAppDir);
+  // await generator.controller('user', { className: 'User' }, tmpAppDir);
+
+  await generator.app({
     appName: 'my app',
     appDescription: 'This is my new application',
+    extensions: {
+      mocha: true,
+      express: true
+    }
   }, tmpAppDir);
-
-  // await recipes.hook('user', tmpAppDir);
-
-  // await recipes.controller('user', tmpAppDir, {
-  //   classDecorators: [
-  //     { name: 'HttpPath', options: [{ key: 'path', value: '/one' }] }
-  //   ],
-  //   methods: [
-  //     {
-  //       name: 'get',
-  //       decorators: [
-  //         { name: 'Get' }
-  //       ],
-  //       async: true,
-  //       parameters: [
-  //         {
-  //           name: 'req',
-  //           type: 'Request',
-  //           decorators: [
-  //             { name: 'HttpReq' }
-  //           ]
-  //         },
-  //         {
-  //           name: 'res',
-  //           type: 'Response',
-  //           decorators: [
-  //             { name: 'HttpRes' }
-  //           ]
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // });
 
 }
 

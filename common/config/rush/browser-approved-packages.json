@@ -307,6 +307,10 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "prettier",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "prisma",
       "allowedCategories": [ "production" ]
     },

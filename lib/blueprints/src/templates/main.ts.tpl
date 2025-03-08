@@ -1,6 +1,16 @@
-{{#each imports}}
-import { {{strArrayPrint this.imported}} } from '{{this.moduleName}}';
-{{/each}}
+import { App } from '@nodearch/core';
+{{#if extensions.express}}
+import { ExpressApp, ExpressOAIProvider } from '@nodearch/express';
+import { JoiApp } from '@nodearch/joi';
+import { JoiExpressApp, JoiOpenApiProvider } from '@nodearch/joi-express';
+import { OpenAPIApp, OpenAPIFormat } from '@nodearch/openapi';
+import { SwaggerApp } from '@nodearch/swagger';
+import { getAbsoluteFSPath } from 'swagger-ui-dist';
+import Joi from 'joi';
+{{/if}}
+{{#if extensions.mocha}}
+import { MochaApp } from '@nodearch/mocha';
+{{/if}}
 
 export class {{className}} extends App {
   constructor() {
@@ -8,24 +18,50 @@ export class {{className}} extends App {
       components: {
         url: new URL('components', import.meta.url)
       },
-      {{#if extensions.length}}
+      {{#unless hideExtensions}}
       extensions: [
-      	{{#each extensions}}
-        {{#unless this.options}}
-        new {{this.name}}(){{#unless @last}},{{/unless}}
-        {{/unless}}
-        {{#if this.options}}
-        new {{this.name}}({
-          {{#each this.options}}
-          {{this.key}}: {{dataTypeFormat this.value}}{{#unless @last}},{{/unless}}
-          {{/each}}
-        }){{#unless @last}},{{/unless}}
+        {{#if extensions.express}}
+        new ExpressApp({
+          httpPath: '/api',
+          static: [
+            { httpPath: '/docs', filePath: './public/docs' },
+            { httpPath: '/docs', filePath: getAbsoluteFSPath() }
+          ],
+          httpErrors: {
+            customErrors: [
+              {
+                error: Joi.ValidationError,
+                handler: (error, res) => {
+                  res.status(400).json({ message: error.message, details: error.details });
+                }
+              }
+            ]
+          },
+        }),
+        new OpenAPIApp({
+          providers: [ExpressOAIProvider, JoiOpenApiProvider],
+          openAPI: {
+            info: {
+              title: '{{title}}',
+              version: '0.1.0'
+            }
+          },
+          format: OpenAPIFormat.Json,
+          path: './public/docs/openapi.json'
+        }),
+        new SwaggerApp({
+          url: '/docs/openapi.json'
+        }),
+        new JoiApp(),
+        new JoiExpressApp(),
         {{/if}}
-        {{/each}}
+        {{#if extensions.mocha}}
+        new MochaApp(),
+        {{/if}}
       ],
-      {{/if}}
+      {{/unless}}
       logs: {
-        prefix: '{{className}}'
+        prefix: '{{logPrefix}}'
       }
     });
   }

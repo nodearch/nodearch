@@ -373,6 +373,9 @@ importers:
       handlebars:
         specifier: ~4.7.8
         version: 4.7.8
+      prettier:
+        specifier: ~3.5.3
+        version: 3.5.3
     devDependencies:
       '@nodearch/command':
         specifier: workspace:^1.1.2
@@ -2422,6 +2425,11 @@ packages:
         optional: true
       yaml:
         optional: true
+
+  prettier@3.5.3:
+    resolution: {integrity: sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   prisma@6.4.1:
     resolution: {integrity: sha512-q2uJkgXnua/jj66mk6P9bX/zgYJFI/jn4Yp0aS6SPRrjH/n6VyOV7RDe1vHD0DX8Aanx4MvgmUPPoYnR6MJnPg==}
@@ -4903,6 +4911,8 @@ snapshots:
       lilconfig: 3.1.3
     optionalDependencies:
       yaml: 2.7.0
+
+  prettier@3.5.3: {}
 
   prisma@6.4.1(typescript@5.7.3):
     dependencies:
