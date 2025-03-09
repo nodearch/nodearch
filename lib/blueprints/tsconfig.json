@@ -5,16 +5,15 @@
     "tsBuildInfoFile": "./dist/buildinfo",
     "incremental": true,
     "target": "ES2020",
-    "module": "Node16",
+    "module": "CommonJS",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": false,
     "removeComments": true,
     "strict": true,
-    "alwaysStrict": true,
-    "moduleResolution": "Node16",
+    "alwaysStrict": true,                  
+    "moduleResolution": "node",            
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
@@ -26,6 +25,7 @@
     "dist"
   ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/scripts/*.js"
   ]
 }

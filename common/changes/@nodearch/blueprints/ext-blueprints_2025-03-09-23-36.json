@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/blueprints",
+      "comment": "publish blueprints",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/blueprints"
+}

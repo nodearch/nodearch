@@ -1,15 +1,14 @@
 import path from 'node:path';
 import { Command, QuestionType, ICommand } from '@nodearch/command';
-import { GitHubService } from './github.service.js';
 import { Logger } from '@nodearch/core';
 import { NpmService } from './npm.service.js';
+import { CodeGenerator } from '@nodearch/blueprints';
 
 
 @Command()
 export class NewCommand implements ICommand {
 
   constructor(
-    private readonly githubService: GitHubService,
     private readonly npmService: NpmService,
     private readonly logger: Logger
   ) {}
@@ -25,21 +24,41 @@ export class NewCommand implements ICommand {
     template: {
       alias: 't',
       describe: 'Template to download'
+    },
+    description: {
+      alias: 'd',
+      describe: 'Project description'
     }
   };
+
   questions = [
     {
       type: QuestionType.INPUT,
       name: 'name',
-      message: 'Your project name?'
+      message: 'Your project name?',
+      validate: (input: any) => {
+        if (!input) {
+          return 'Project name is required';
+        }
+        return true;
+      }
+    },
+    {
+      type: QuestionType.INPUT,
+      name: 'description',
+      message: 'Project description',
+      validate: (input: any) => {
+        if (!input) {
+          return 'Project description is required';
+        }
+        return true;
+      }
     },
     {
       type: QuestionType.LIST,
       name: 'template',
       message: 'Select an app template',
-      choices: async () => {
-        return await this.githubService.listTemplates();
-      }
+      choices: ['Standard', 'Express']
     }
   ];
 
@@ -51,9 +70,32 @@ export class NewCommand implements ICommand {
 
       this.logger.info(`Generating a new app [${appName}] from the template [${options.template}]`);
 
-      this.logger.info('Downloading the selected template');
-  
-      await this.githubService.downloadTemplate(distPath, options.template);
+      const codeGenerator = new CodeGenerator();
+
+      switch (options.template) {
+        case 'Standard':
+          await codeGenerator.app({
+            appName: appName,
+            appDescription: options.description,
+            extensions: {
+              mocha: true
+            }
+          }, distPath);
+          break;
+        case 'Express':
+          await codeGenerator.app({
+            appName: appName,
+            appDescription: options.description,
+            extensions: {
+              express: true,
+              mocha: true
+            }
+          }, distPath);
+          break;
+        default:
+          this.logger.error('Invalid template selected');
+          return;
+      }
   
       this.logger.info('Installing template dependencies [Running npm i]');
   

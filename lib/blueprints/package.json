@@ -1,0 +1,55 @@
+{
+  "name": "@nodearch/blueprints",
+  "version": "0.1.0",
+  "description": "NodeArch Blueprints",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.ts",
+    "build": "tsc",
+    "build:watch": "tsc ",
+    "test": "mocha",
+    "coverage": "nyc mocha src/test/*.test.ts",
+    "release": "npm run build && npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodearch/nodearch.git"
+  },
+  "keywords": [
+    "nodearch",
+    "nodearch-blueprints",
+    "blueprints"
+  ],
+  "author": "https://github.com/AhmedAli7O1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodearch/nodearch/issues",
+    "email": "bluemax7o1@gmail.com"
+  },
+  "devDependencies": {
+    "@nodearch/core": "workspace:^2.2.2",
+    "@nodearch/command": "workspace:^1.1.2",
+    "@swc-node/register": "1.10.9",
+    "@swc/core": "^1.10.14",
+    "@types/node": "^22.10.10",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3",
+    "@types/ejs": "^3.1.5",
+    "mocha": "^11.1.0",
+    "tsup": "^8.3.6"
+  },
+  "dependencies": {
+    "ejs": "~3.1.10",
+    "handlebars": "~4.7.8",
+    "prettier": "~3.5.3"
+  },
+  "peerDependencies": {
+    "@nodearch/core": "^2.2.2",
+    "@nodearch/command": "^1.1.2",
+    "reflect-metadata": "^0.x.x"
+  },
+  "nodearch": {}
+}

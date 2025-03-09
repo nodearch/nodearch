@@ -389,6 +389,12 @@
       "reviewCategory": "production",
       "versionPolicyName": "packages"
     },
+    {
+      "packageName": "@nodearch/blueprints",
+      "projectFolder": "lib/blueprints",
+      "reviewCategory": "production",
+      "versionPolicyName": "packages"
+    },
 
     // ============= Scripts =============
     // {

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/cli",
+      "comment": "integrate blueprints",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/cli"
+}
