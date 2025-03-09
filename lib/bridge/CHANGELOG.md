@@ -1,6 +1,13 @@
 # Change Log - @nodearch/bridge
 
-This log was last generated on Wed, 05 Mar 2025 22:47:16 GMT and should not be manually modified.
+This log was last generated on Sun, 09 Mar 2025 23:39:57 GMT and should not be manually modified.
+
+## 0.1.3
+Sun, 09 Mar 2025 23:39:57 GMT
+
+### Patches
+
+- update deps
 
 ## 0.1.2
 Wed, 05 Mar 2025 22:47:16 GMT

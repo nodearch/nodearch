@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Wed, 05 Mar 2025 22:47:16 GMT and should not be manually modified.
+This log was last generated on Sun, 09 Mar 2025 23:39:57 GMT and should not be manually modified.
+
+## 2.2.6
+Sun, 09 Mar 2025 23:39:57 GMT
+
+### Patches
+
+- integrate blueprints
 
 ## 2.2.5
 Wed, 05 Mar 2025 22:47:16 GMT

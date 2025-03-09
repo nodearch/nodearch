@@ -1,0 +1,19 @@
+{
+  "name": "@nodearch/blueprints",
+  "entries": [
+    {
+      "version": "0.1.1",
+      "tag": "@nodearch/blueprints_v0.1.1",
+      "date": "Sun, 09 Mar 2025 23:39:57 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "publish blueprints",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "b047e554ae1baaa3b998db6e899b8de6c365de6e"
+          }
+        ]
+      }
+    }
+  ]
+}

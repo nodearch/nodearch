@@ -2,6 +2,25 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.2.6",
+      "tag": "@nodearch/cli_v2.2.6",
+      "date": "Sun, 09 Mar 2025 23:39:57 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "integrate blueprints",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "b047e554ae1baaa3b998db6e899b8de6c365de6e"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/blueprints\" from `^0.1.0` to `0.1.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.2.5",
       "tag": "@nodearch/cli_v2.2.5",
       "date": "Wed, 05 Mar 2025 22:47:16 GMT",
