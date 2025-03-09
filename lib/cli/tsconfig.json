@@ -11,13 +11,15 @@
     "sourceMap": false,
     "removeComments": true,
     "strict": true,
-    "alwaysStrict": true,                  
-    "moduleResolution": "Node16",            
+    "alwaysStrict": true,
+    "moduleResolution": "Node16",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "allowJs": true
   },
   "exclude": [
     "node_modules",

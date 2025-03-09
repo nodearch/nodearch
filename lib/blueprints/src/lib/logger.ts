@@ -1,5 +1,5 @@
-import { CustomLogger } from '../interfaces';
+import { TLogger } from '../interfaces';
 
-export const logger: CustomLogger = (msg, location) => {
+export const logger: TLogger = (msg, location) => {
   console.log(`[${msg}] at ${location}`);
 }

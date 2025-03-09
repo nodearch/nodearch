@@ -1,8 +1,31 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "tsBuildInfoFile": "./dist/buildinfo"
-  }
+    "tsBuildInfoFile": "./dist/buildinfo",
+    "incremental": true,
+    "target": "ES2020",
+    "module": "CommonJS",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": false,
+    "removeComments": true,
+    "strict": true,
+    "alwaysStrict": true,                  
+    "moduleResolution": "node",            
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
+    "allowJs": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/scripts/*.js"
+  ]
 }

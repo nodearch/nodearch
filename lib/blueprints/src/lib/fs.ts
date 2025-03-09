@@ -1,7 +1,7 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
 
-const templateDirUrl = path.join(__dirname, '../templates/');
+const templateDirUrl = path.join(__dirname, '../../templates/');
 
 export async function getTemplate(templateName: string) {
   const filePath = path.join(templateDirUrl, templateName);

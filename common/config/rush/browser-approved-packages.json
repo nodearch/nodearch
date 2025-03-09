@@ -15,6 +15,10 @@
       "allowedCategories": [ "prototypes" ]
     },
     {
+      "name": "@nodearch/blueprints",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "@nodearch/cli",
       "allowedCategories": [ "production", "prototypes" ]
     },

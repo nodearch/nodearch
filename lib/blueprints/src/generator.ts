@@ -12,15 +12,17 @@ import { logger } from './lib/logger';
 import { parseName } from './lib/util';
 
 /**
- * Generator class responsible for creating project files from templates.
+ * CodeGenerator class responsible for creating project files from templates.
  * Handles the generation of configuration files, source files, and other project assets.
  */
-export class Generator {
+export class CodeGenerator {
 
   private log: TLogger;
 
-  constructor(log: TLogger = logger) {
-    this.log = log;
+  constructor() {
+    // constructor(log: TLogger = logger) {
+    // this.log = log;
+    this.log = logger;
   }
 
   /**
@@ -212,14 +214,17 @@ export class Generator {
 
   /**
    * Generates a component TypeScript file.
+   * @param name - The name of the component
    * @param data - Component configuration data
-   * @param filePath - Target file path where the component will be generated
+   * @param dirPath - The directory where the component will be generated
    * @returns Promise with the path of the generated file
    */
-  async componentTs(data: IComponentTs, filePath: string) {
-    const generatedPath = await generate('component.ts.tpl', data, filePath);
+  async component(name: string, data: IComponentTs, dirPath: string) {
+    const { className, kebabCase } = parseName(name);
 
-    this.log(`component generated`, generatedPath);
+    const generatedPath = await generate('component.ts.tpl', { className, ...data }, path.join(dirPath, kebabCase + '.component.ts'));
+
+    this.log(`${name} component generated`, generatedPath);
 
     return generatedPath;
   }
@@ -232,7 +237,9 @@ export class Generator {
    * @returns Promise with the path of the generated file
    */
   async hook(name: string, data: IHookTs, dirPath: string) {
-    const generatedPath = await generate('hook.ts.tpl', data, path.join(dirPath, name + '.hook.ts'));
+    const { className, kebabCase } = parseName(name);
+
+    const generatedPath = await generate('hook.ts.tpl', { className, ...data }, path.join(dirPath, kebabCase + '.hook.ts'));
 
     this.log(`${name} hook generated`, generatedPath);
 
@@ -247,7 +254,9 @@ export class Generator {
    * @returns Promise with the path of the generated file
    */
   async controller(name: string, data: IControllerTs, dirPath: string) {
-    const generatedPath = await generate('controller.ts.tpl', data, path.join(dirPath, name + '.controller.ts'));
+    const { className, kebabCase } = parseName(name);
+
+    const generatedPath = await generate('controller.ts.tpl', { className, ...data }, path.join(dirPath, kebabCase + '.controller.ts'));
 
     this.log(`${name} controller generated`, generatedPath);
 
@@ -262,7 +271,9 @@ export class Generator {
    * @returns Promise with the path of the generated file
    */
   async service(name: string, data: IServiceTs, dirPath: string) {
-    const generatedPath = await generate('service.ts.tpl', data, path.join(dirPath, name + '.service.ts'));
+    const { className, kebabCase } = parseName(name);
+
+    const generatedPath = await generate('service.ts.tpl', { className, ...data }, path.join(dirPath, kebabCase + '.service.ts'));
 
     this.log(`${name} service generated`, generatedPath);
 
@@ -277,7 +288,9 @@ export class Generator {
    * @returns Promise with the path of the generated file
    */
   async repository(name: string, data: IRepositoryTs, dirPath: string) {
-    const generatedPath = await generate('repository.ts.tpl', data, path.join(dirPath, name + '.repository.ts'));
+    const { className, kebabCase } = parseName(name);
+
+    const generatedPath = await generate('repository.ts.tpl', { className, ...data }, path.join(dirPath, kebabCase + '.repository.ts'));
 
     this.log(`${name} repository generated`, generatedPath);
 

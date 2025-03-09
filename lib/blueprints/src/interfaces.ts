@@ -42,21 +42,16 @@ export interface IVscodeSettingsJson {
 }
 
 export interface IHookTs {
-  className: string;
 }
 
 export interface IControllerTs {
-  className: string;
 }
 
 export interface IServiceTs {
-  className: string;
 }
 
 export interface IRepositoryTs {
-  className: string;
 }
 
 export interface IComponentTs {
-  className: string;
 }
