@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/bridge",
+      "comment": "update deps",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/bridge"
+}
