@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Sun, 09 Mar 2025 23:39:57 GMT and should not be manually modified.
+This log was last generated on Sun, 09 Mar 2025 23:55:35 GMT and should not be manually modified.
+
+## 2.2.7
+Sun, 09 Mar 2025 23:55:35 GMT
+
+### Patches
+
+- hide create command outside of an app
 
 ## 2.2.6
 Sun, 09 Mar 2025 23:39:57 GMT

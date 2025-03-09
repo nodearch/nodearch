@@ -1,6 +1,6 @@
 {
   "name": "@nodearch/cli",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "nodearch cli",
   "exports": {
     ".": {

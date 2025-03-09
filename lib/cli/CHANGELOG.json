@@ -2,6 +2,20 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.2.7",
+      "tag": "@nodearch/cli_v2.2.7",
+      "date": "Sun, 09 Mar 2025 23:55:35 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "hide create command outside of an app",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "84d0b8176b9b93b42455c505ba8529c7f6fcdc86"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.2.6",
       "tag": "@nodearch/cli_v2.2.6",
       "date": "Sun, 09 Mar 2025 23:39:57 GMT",
