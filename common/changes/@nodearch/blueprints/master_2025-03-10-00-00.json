@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/blueprints",
+      "comment": "add templates to dist",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/blueprints"
+}
