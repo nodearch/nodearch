@@ -2,6 +2,20 @@
   "name": "@nodearch/blueprints",
   "entries": [
     {
+      "version": "0.1.2",
+      "tag": "@nodearch/blueprints_v0.1.2",
+      "date": "Mon, 10 Mar 2025 00:02:00 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add templates to dist",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "54c9f4717e4495e3f8ef95244a70f146caec2155"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.1",
       "tag": "@nodearch/blueprints_v0.1.1",
       "date": "Sun, 09 Mar 2025 23:39:57 GMT",

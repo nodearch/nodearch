@@ -38,7 +38,7 @@
   "dependencies": {
     "@nodearch/core": "workspace:^2.2.2",
     "@nodearch/command": "workspace:^1.1.2",
-    "@nodearch/blueprints": "workspace:^0.1.1",
+    "@nodearch/blueprints": "workspace:^0.1.2",
     "typescript": "^5.7.3",
     "axios": "^1.7.9",
     "nodemon": "3.1.2",
