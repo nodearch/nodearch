@@ -98,6 +98,13 @@ export class SqsService {
       catch (err) { /** Safe to ignore */ }
     }
 
+    if ((message.Body as any)?.Message && typeof (message.Body as any).Message === 'string') {
+      try {
+        (message.Body as any).Message = JSON.parse((message.Body as any).Message);
+      }
+      catch (err) { /** Safe to ignore */ }
+    }
+
     const handler = this.handlerService.getHandler(message);
   
     if (!handler) {
