@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@nodearch/core": "workspace:^2.2.2",
-    "@nodearch/aws-sqs-event": "workspace:^1.1.2",
+    "@nodearch/aws-sqs-event": "workspace:^1.1.3",
     "@aws-sdk/client-sqs": "^3.723.0"
   },
   "nodearch": {}
