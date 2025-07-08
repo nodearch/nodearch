@@ -98,6 +98,13 @@ export class SqsService {
       catch (err) { /** Safe to ignore */ }
     }
 
+    if ((message as any).body && typeof (message as any).body === 'string') {
+      try {
+        (message as any).body = JSON.parse((message as any).body);
+      }
+      catch (err) { /** Safe to ignore */ }
+    }
+
     if ((message.Body as any)?.Message && typeof (message.Body as any).Message === 'string') {
       try {
         (message.Body as any).Message = JSON.parse((message.Body as any).Message);
@@ -108,7 +115,7 @@ export class SqsService {
     const handler = this.handlerService.getHandler(message);
   
     if (!handler) {
-      throw new Error('No handler found that matches the message');
+      throw new Error(`No handler found that matches the message. Message: ${JSON.stringify(message)}`);
     }
 
     const handlerInstance = handler.componentInfo.getInstance();
