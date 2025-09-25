@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/blueprints",
+      "comment": "pin swc version",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/blueprints"
+}
