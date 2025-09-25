@@ -1,6 +1,13 @@
 # Change Log - @nodearch/blueprints
 
-This log was last generated on Mon, 10 Mar 2025 00:02:00 GMT and should not be manually modified.
+This log was last generated on Thu, 25 Sep 2025 13:07:17 GMT and should not be manually modified.
+
+## 0.1.3
+Thu, 25 Sep 2025 13:07:17 GMT
+
+### Patches
+
+- pin swc version
 
 ## 0.1.2
 Mon, 10 Mar 2025 00:02:00 GMT

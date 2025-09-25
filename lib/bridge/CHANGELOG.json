@@ -2,6 +2,20 @@
   "name": "@nodearch/bridge",
   "entries": [
     {
+      "version": "0.1.4",
+      "tag": "@nodearch/bridge_v0.1.4",
+      "date": "Thu, 25 Sep 2025 13:07:17 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "pin swc version",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "3d98ea47da5cbb4e4a4a40ebe38b040d8b33880f"
+          }
+        ]
+      }
+    },
+    {
       "version": "0.1.3",
       "tag": "@nodearch/bridge_v0.1.3",
       "date": "Sun, 09 Mar 2025 23:39:57 GMT",

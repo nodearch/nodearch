@@ -1,6 +1,13 @@
 # Change Log - @nodearch/cli
 
-This log was last generated on Sun, 09 Mar 2025 23:55:35 GMT and should not be manually modified.
+This log was last generated on Thu, 25 Sep 2025 13:07:17 GMT and should not be manually modified.
+
+## 2.2.8
+Thu, 25 Sep 2025 13:07:17 GMT
+
+### Patches
+
+- pin swc version
 
 ## 2.2.7
 Sun, 09 Mar 2025 23:55:35 GMT

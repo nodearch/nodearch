@@ -2,6 +2,25 @@
   "name": "@nodearch/cli",
   "entries": [
     {
+      "version": "2.2.8",
+      "tag": "@nodearch/cli_v2.2.8",
+      "date": "Thu, 25 Sep 2025 13:07:17 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "pin swc version",
+            "author": "Ahmed Ali <bluemax7o1@gmail.com>",
+            "commit": "3d98ea47da5cbb4e4a4a40ebe38b040d8b33880f"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@nodearch/blueprints\" from `^0.1.2` to `0.1.3`"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.2.7",
       "tag": "@nodearch/cli_v2.2.7",
       "date": "Sun, 09 Mar 2025 23:55:35 GMT",

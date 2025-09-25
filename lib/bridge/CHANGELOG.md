@@ -1,6 +1,13 @@
 # Change Log - @nodearch/bridge
 
-This log was last generated on Sun, 09 Mar 2025 23:39:57 GMT and should not be manually modified.
+This log was last generated on Thu, 25 Sep 2025 13:07:17 GMT and should not be manually modified.
+
+## 0.1.4
+Thu, 25 Sep 2025 13:07:17 GMT
+
+### Patches
+
+- pin swc version
 
 ## 0.1.3
 Sun, 09 Mar 2025 23:39:57 GMT
