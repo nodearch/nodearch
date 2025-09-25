@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "yargs": "^17.7.0",
-    "inquirer": "^9.1.4"
+    "inquirer": "^10.0.0"
   },
   "peerDependencies": {
     "@nodearch/core": "^2.2.2",
