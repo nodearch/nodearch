@@ -35,7 +35,7 @@ export class RegistryService {
     return (socket, next) => {
       const nsInstance = namespace.getInstance();
 
-      socket.data.nodearch = {
+      (socket as any).nodearch = {
         namespaceInstance: nsInstance
       };
 
@@ -57,7 +57,7 @@ export class RegistryService {
       this.onDisconnect(socket, namespaceInfo);
     });
 
-    const nsInstance = socket.data.nodearch.namespaceInstance as INamespace;
+    const nsInstance = (socket as any).nodearch.namespaceInstance as INamespace;
 
     const onConnection = nsInstance.onConnection;
 
@@ -87,7 +87,7 @@ export class RegistryService {
   }
 
   private async onAny(socket: IO.Socket, namespaceInfo: INamespaceInfo, eventName: string, ...args: any[]) {
-    const nsInstance = socket.data.nodearch.namespaceInstance as INamespace;
+    const nsInstance = (socket as any).nodearch.namespaceInstance as INamespace;
 
     const onAny = nsInstance.onAny;
 
@@ -103,7 +103,7 @@ export class RegistryService {
   private async onDisconnect(socket: IO.Socket, namespaceInfo: INamespaceInfo) {
     this.logger.info(`Socket disconnected - (Namespace) ${socket.nsp.name} (ID) ${socket.id}`);
     
-    const nsInstance = socket.data.nodearch.namespaceInstance as INamespace;
+    const nsInstance = (socket as any).nodearch.namespaceInstance as INamespace;
 
     const onDisconnect = nsInstance.onDisconnect;
 
