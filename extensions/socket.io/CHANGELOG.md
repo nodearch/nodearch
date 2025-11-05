@@ -1,6 +1,13 @@
 # Change Log - @nodearch/socket.io
 
-This log was last generated on Sun, 26 Jan 2025 23:38:48 GMT and should not be manually modified.
+This log was last generated on Wed, 05 Nov 2025 13:43:35 GMT and should not be manually modified.
+
+## 1.1.3
+Wed, 05 Nov 2025 13:43:35 GMT
+
+### Patches
+
+- fix socket-redis-adapter
 
 ## 1.1.2
 Sun, 26 Jan 2025 23:38:48 GMT
