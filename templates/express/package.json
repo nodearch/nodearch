@@ -34,7 +34,7 @@
     "@nodearch/core": "workspace:^2.2.2",
     "@nodearch/command": "workspace:^1.1.2",
     "@nodearch/cli": "workspace:^2.2.8",
-    "@nodearch/express": "workspace:^2.1.2",
+    "@nodearch/express": "workspace:^2.1.3",
     "@nodearch/openapi": "workspace:^1.1.2",
     "@nodearch/swagger": "workspace:^1.1.2",
     "@nodearch/joi": "workspace:^1.1.2",
