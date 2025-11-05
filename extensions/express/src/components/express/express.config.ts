@@ -19,7 +19,7 @@ export class ExpressConfig {
   jsonParser: IJsonParserOptions;
   textParser: ITextParserOptions;
   urlencodedParser: IUrlencodedParserOptions;
-  httpLogger: IHttpLogger; 
+  httpLogger: IHttpLogger;
 
   constructor(config: ConfigManager) {
     this.hostname = config.env({

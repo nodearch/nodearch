@@ -104,6 +104,10 @@ export interface IHttpLogger {
   showStatus?: boolean;
   showDuration?: boolean;
   custom?(req: express.Request): string;
+  excludeRoutes?: {
+    method: HttpMethod;
+    path: string;
+  }[] | ((req: express.Request) => boolean);
 }
 
 

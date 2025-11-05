@@ -56,6 +56,11 @@ export class ExpressApp {
     if (this.expressConfig.httpLogger.enable) {
       app.use((req, res, next) => {
 
+        if (this.isRouteExcluded(req, this.expressConfig.httpLogger)) {
+          next();
+          return;
+        }
+
         res.on('finish', () => {
           const message = this.getHttpLoggerMessage(req, res, this.expressConfig.httpLogger);
           this.logger.info(message);
@@ -63,6 +68,26 @@ export class ExpressApp {
 
         next();
       });
+    }
+  }
+
+  private isRouteExcluded(req: express.Request, config: IHttpLogger) {
+    if (
+      !config.excludeRoutes || 
+      !config.excludeRoutes.length || 
+      typeof config.excludeRoutes !== 'function'
+    ) {
+      return false;
+    }
+
+    if (Array.isArray(config.excludeRoutes)) {
+      return config.excludeRoutes
+        .some(
+          route => route.method.toLowerCase() === req.method.toLowerCase() && route.path === req.originalUrl
+        );
+    }
+    else {
+      return config.excludeRoutes(req);
     }
   }
 
