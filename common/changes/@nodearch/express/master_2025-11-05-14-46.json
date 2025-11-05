@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@nodearch/express",
+      "comment": "update express http logger",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@nodearch/express"
+}
