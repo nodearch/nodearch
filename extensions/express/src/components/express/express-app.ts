@@ -95,37 +95,37 @@ export class ExpressApp {
     let message = `[${req.method}] ${req.originalUrl}`;
 
     if (config.showHeaders) {
-      message += ' - Headers: ';
+      message += ' - headers=';
       message += typeof config.showHeaders === 'function' ? 
         config.showHeaders(req.headers) : JSON.stringify(req.headers);
     }
 
     if (config.showBody) {
-      message += ' - Body: ';
+      message += ' - body=';
       message += typeof config.showBody === 'function' ? 
         config.showBody(req.body) : JSON.stringify(req.body);
     }
 
     if (config.showQuery) {
-      message += ' - Query: ';
+      message += ' - query=';
       message += typeof config.showQuery === 'function' ? 
         config.showQuery(req.query) : JSON.stringify(req.query);
     }
 
     if (config.showParams) {
-      message += ' - Params: ';
+      message += ' - params=';
       message += typeof config.showParams === 'function' ? 
         config.showParams(req.params) : JSON.stringify(req.params);
     }
 
     if (config.showCookies) {
-      message += ' - Cookies: ';
+      message += ' - cookies=';
       message += typeof config.showCookies === 'function' ? 
         config.showCookies(req.cookies) : JSON.stringify(req.cookies);
     }
 
     if (config.showStatus) {
-      message += ` - Status: ${res.statusCode}`;
+      message += ` - status=${res.statusCode}`;
     }
 
     if (config.custom) {
@@ -133,7 +133,7 @@ export class ExpressApp {
     }
 
     if (config.showDuration) {
-      message += ` - Duration: ${req.nodearch.responseTime}ms`;
+      message += ` - duration=${req.nodearch.responseTime} ms`;
     }
 
     return message;
