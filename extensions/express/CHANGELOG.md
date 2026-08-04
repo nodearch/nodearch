@@ -1,6 +1,13 @@
 # Change Log - @nodearch/express
 
-This log was last generated on Wed, 05 Nov 2025 14:48:12 GMT and should not be manually modified.
+This log was last generated on Tue, 04 Aug 2026 10:48:57 GMT and should not be manually modified.
+
+## 2.2.0
+Tue, 04 Aug 2026 10:48:57 GMT
+
+### Minor changes
+
+- update express logger syntax
 
 ## 2.1.3
 Wed, 05 Nov 2025 14:48:12 GMT
